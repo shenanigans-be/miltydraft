@@ -20,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TI4 - Milty Draft</title>
-    <link rel="stylesheet" href="<?= url('css/style.css') ?>">
+    <link rel="stylesheet" href="<?= url('js/style.css?v=0.8') ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300&family=Staatliches&display=swap" rel="stylesheet">
@@ -215,6 +215,6 @@
             "pick": "<?= url('pick.php') ?>"
         }
     </script>
-    <script src="<?= url('js/vendor.js') ?>"></script>
-    <script src="<?= url('js/draft.js') ?>"></script>
+    <script src="<?= url('js/vendor.js?v=0.8') ?>"></script>
+    <script src="<?= url('js/draft.js?v=0.8') ?>"></script>
 </body>

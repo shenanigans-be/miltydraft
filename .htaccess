@@ -4,5 +4,5 @@ Options +FollowSymLinks
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    RewriteRule draft/([0-9a-z]*)$ ./draft.php?id=$1
+    RewriteRule ^d/([^/]+)/?$ draft.php?id=$1 [L,QSA]
 </IfModule>

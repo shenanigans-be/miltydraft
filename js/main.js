@@ -45,7 +45,7 @@ $(document).ready(function() {
             } else {
                 localStorage.setItem('admin_' + data.id, data.admin);
 
-                window.location.href = "draft/" + data.id;
+                window.location.href = "d/" + data.id;
             }
             // alert("Success: " + r.responseText);
         };

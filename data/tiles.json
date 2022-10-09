@@ -1,0 +1,1371 @@
+{
+    "1": {
+        "type": "green",
+        "faction": "The Federation of Sol",
+        "wormhole": null,
+        "planets": [{
+            "name": "Jord",
+            "resources": 4,
+            "influence": 2,
+            "specialty": null,
+            "trait": null,
+            "legendary": false
+        }]
+    },
+    "2": {
+        "type": "green",
+        "faction": "The Mentak Coalition",
+        "wormhole": null,
+        "planets": [{
+            "name": "Moll Primus",
+            "resources": 4,
+            "influence": 1,
+            "trait": null,
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "3": {
+        "type": "green",
+        "faction": "The Yin Brotherhood",
+        "wormhole": null,
+        "planets": [{
+            "name": "Darien",
+            "resources": 4,
+            "influence": 4,
+            "trait": null,
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "4": {
+        "type": "green",
+        "faction": "The Embers of Muaat",
+        "wormhole": null,
+        "planets": [{
+            "name": "Muaat",
+            "resources": 4,
+            "influence": 1,
+            "trait": null,
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "5": {
+        "type": "green",
+        "faction": "The Arborec",
+        "wormhole": null,
+        "planets": [{
+            "name": "Nestphar",
+            "resources": 3,
+            "influence": 2,
+            "trait": null,
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "6": {
+        "type": "green",
+        "faction": "The Lizix Mindnet",
+        "wormhole": null,
+        "planets": [{
+            "name": "[0.0.0]",
+            "resources": 5,
+            "influence": 0,
+            "trait": null,
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "7": {
+        "type": "green",
+        "faction": "The Winnu",
+        "wormhole": null,
+        "planets": [{
+            "name": "Winnu",
+            "resources": 3,
+            "influence": 4,
+            "trait": null,
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "8": {
+        "type": "green",
+        "faction": "The Nekro Virus",
+        "wormhole": null,
+        "planets": [{
+            "name": "Mordai II",
+            "resources": 4,
+            "influence": 0,
+            "trait": null,
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "9": {
+        "type": "green",
+        "faction": "The Naalu Collective",
+        "wormhole": null,
+        "planets": [{
+                "name": "Maaluuk",
+                "resources": 2,
+                "influence": 0,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Druaa",
+                "resources": 3,
+                "influence": 1,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "10": {
+        "type": "green",
+        "faction": "The Barony of Letnev",
+        "wormhole": null,
+        "planets": [{
+                "name": "Arc Prime",
+                "resources": 4,
+                "influence": 0,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Wren Terra",
+                "resources": 2,
+                "influence": 1,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "11": {
+        "type": "green",
+        "faction": "The Clan of Saar",
+        "wormhole": null,
+        "planets": [{
+                "name": "Lisis II",
+                "resources": 1,
+                "influence": 0,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Ragh",
+                "resources": 2,
+                "influence": 1,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "12": {
+        "type": "green",
+        "faction": "The Universities of Jol-Nar",
+        "wormhole": null,
+        "planets": [{
+                "name": "Nar",
+                "resources": 2,
+                "influence": 3,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Jol",
+                "resources": 1,
+                "influence": 2,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "13": {
+        "type": "green",
+        "faction": "Sardakk N'orr",
+        "wormhole": null,
+        "planets": [{
+                "name": "Tren'lak",
+                "resources": 1,
+                "influence": 0,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Quinarra",
+                "resources": 3,
+                "influence": 1,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "14": {
+        "type": "green",
+        "faction": "The Xxcha Kingdom",
+        "wormhole": null,
+        "planets": [{
+                "name": "Archon Ren",
+                "resources": 2,
+                "influence": 3,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Archon Tau",
+                "resources": 1,
+                "influence": 1,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "15": {
+        "type": "green",
+        "faction": "The Yssaril Tribes",
+        "wormhole": null,
+        "planets": [{
+                "name": "Retillion",
+                "resources": 2,
+                "influence": 3,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Shalloq",
+                "resources": 1,
+                "influence": 2,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "16": {
+        "type": "green",
+        "faction": "The Emirates of Hacan",
+        "wormhole": null,
+        "planets": [{
+                "name": "Arretze",
+                "resources": 2,
+                "influence": 0,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Hercant",
+                "resources": 1,
+                "influence": 1,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Kamdorn",
+                "resources": 0,
+                "influence": 1,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "17": {
+        "type": "green",
+        "faction": "The Ghosts of Creuss",
+        "wormhole": "delta",
+        "planets": []
+    },
+    "18": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+            "name": "Mecatol Rex",
+            "resources": 1,
+            "influence": 6,
+            "trait": null,
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "19": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+            "name": "Wellon",
+            "resources": 1,
+            "influence": 2,
+            "trait": "industrial",
+            "specialty": "cybernetic",
+            "legendary": false
+        }]
+    },
+    "20": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+            "name": "Vefut II",
+            "resources": 2,
+            "influence": 2,
+            "trait": "hazardous",
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "21": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+            "name": "Thibah",
+            "resources": 1,
+            "influence": 1,
+            "trait": "industrial",
+            "specialty": "propulsion",
+            "legendary": false
+        }]
+    },
+    "22": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+            "name": "Tar'mann",
+            "resources": 1,
+            "influence": 1,
+            "trait": "industrial",
+            "specialty": "biotic",
+            "legendary": false
+        }]
+    },
+    "23": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+            "name": "Saudor",
+            "resources": 2,
+            "influence": 2,
+            "trait": "industrial",
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "24": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+            "name": "Mehar Xull",
+            "resources": 1,
+            "influence": 3,
+            "trait": "hazardous",
+            "specialty": "warfare",
+            "legendary": false
+        }]
+    },
+    "25": {
+        "type": "blue",
+        "wormhole": "beta",
+        "planets": [{
+            "name": "Quann",
+            "resources": 2,
+            "influence": 1,
+            "trait": "cultural",
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "26": {
+        "type": "blue",
+        "wormhole": "alpha",
+        "planets": [{
+            "name": "Lodor",
+            "resources": 3,
+            "influence": 1,
+            "trait": "cultural",
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "27": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "New Albion",
+                "resources": 1,
+                "influence": 1,
+                "trait": "industrial",
+                "specialty": "biotic",
+                "legendary": false
+            },
+            {
+                "name": "Starpoint",
+                "resources": 3,
+                "influence": 1,
+                "trait": "hazardous",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "28": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Tequ'ran",
+                "resources": 2,
+                "influence": 0,
+                "trait": "hazardous",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Torkan",
+                "resources": 0,
+                "influence": 3,
+                "trait": "cultural",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "29": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Qucen'n",
+                "resources": 1,
+                "influence": 2,
+                "trait": "industrial",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Rarron",
+                "resources": 0,
+                "influence": 3,
+                "trait": "cultural",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "30": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Mellon",
+                "resources": 0,
+                "influence": 2,
+                "trait": "cultural",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Zohbat",
+                "resources": 3,
+                "influence": 1,
+                "trait": "hazardous",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "31": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Lazar",
+                "resources": 1,
+                "influence": 0,
+                "trait": "industrial",
+                "specialty": "cybernetic",
+                "legendary": false
+            },
+            {
+                "name": "Sakulag",
+                "resources": 2,
+                "influence": 1,
+                "trait": "hazardous",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "32": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Dal Bootha",
+                "resources": 0,
+                "influence": 2,
+                "trait": "cultural",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Xxehan",
+                "resources": 1,
+                "influence": 1,
+                "trait": "cultural",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "33": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Corneeq",
+                "resources": 1,
+                "influence": 2,
+                "trait": "cultural",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Resulon",
+                "resources": 2,
+                "influence": 0,
+                "trait": "cultural",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "34": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Centauri",
+                "resources": 1,
+                "influence": 3,
+                "trait": "cultural",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Gral",
+                "resources": 1,
+                "influence": 1,
+                "trait": "industrial",
+                "specialty": "propulsion",
+                "legendary": false
+            }
+        ]
+    },
+    "35": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Bereg",
+                "resources": 3,
+                "influence": 1,
+                "trait": "hazardous",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Lirta IV",
+                "resources": 2,
+                "influence": 3,
+                "trait": "hazardous",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "36": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Arnor",
+                "resources": 2,
+                "influence": 1,
+                "trait": "industrial",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Lor",
+                "resources": 1,
+                "influence": 2,
+                "trait": "industrial",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "37": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Arinam",
+                "resources": 1,
+                "influence": 2,
+                "trait": "industrial",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Meer",
+                "resources": 0,
+                "influence": 4,
+                "trait": "hazardous",
+                "specialty": "warfare",
+                "legendary": false
+            }
+        ]
+    },
+    "38": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Abyz",
+                "resources": 3,
+                "influence": 0,
+                "trait": "hazardous",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Fria",
+                "resources": 2,
+                "influence": 0,
+                "trait": "hazardous",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "39": {
+        "type": "red",
+        "wormhole": "alpha",
+        "anomaly": null,
+        "planets": []
+    },
+    "40": {
+        "type": "red",
+        "wormhole": "beta",
+        "anomaly": null,
+        "planets": []
+    },
+    "41": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": "gravity-rift",
+        "planets": []
+    },
+    "42": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": "nebula",
+        "planets": []
+    },
+    "43": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": "supernova",
+        "planets": []
+    },
+    "44": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": "asteroid-field",
+        "planets": []
+    },
+    "45": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": "asteroid-field",
+        "planets": []
+    },
+    "46": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": null,
+        "planets": []
+    },
+    "47": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": null,
+        "planets": []
+    },
+    "48": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": null,
+        "planets": []
+    },
+    "49": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": null,
+        "planets": []
+    },
+    "50": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": null,
+        "planets": []
+    },
+    "51": {
+        "type": "green",
+        "wormhole": "delta",
+        "planets": [{
+            "name": "Creuss",
+            "resources": 4,
+            "influence": 2,
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "52": {
+        "type": "green",
+        "faction": "The Mahact Gene-sorcerers",
+        "wormhole": null,
+        "planets": [{
+            "name": "Ixth",
+            "resources": 3,
+            "influence": 5,
+            "trait": null,
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "53": {
+        "type": "green",
+        "faction": "The Nomad",
+        "wormhole": null,
+        "planets": [{
+            "name": "Arcturus",
+            "resources": 4,
+            "influence": 4,
+            "trait": null,
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "54": {
+        "type": "green",
+        "faction": "The Vuil'raith Cabal",
+        "wormhole": null,
+        "planets": [{
+            "name": "Acheron",
+            "resources": 4,
+            "influence": 0,
+            "trait": null,
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "55": {
+        "type": "green",
+        "faction": "The Titans of Ul",
+        "wormhole": null,
+        "planets": [{
+            "name": "Elysium",
+            "resources": 4,
+            "influence": 1,
+            "trait": null,
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "56": {
+        "type": "green",
+        "faction": "The Empyrean",
+        "wormhole": null,
+        "planets": [{
+            "name": "The Dark",
+            "resources": 3,
+            "influence": 4,
+            "trait": null,
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "57": {
+        "type": "green",
+        "faction": "The Naaz-Rokha Alliance",
+        "wormhole": null,
+        "planets": [{
+                "name": "Naazir",
+                "resources": 2,
+                "influence": 1,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Rokha",
+                "resources": 1,
+                "influence": 2,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "58": {
+        "type": "green",
+        "faction": "The Argent Flight",
+        "wormhole": null,
+        "planets": [{
+                "name": "Valk",
+                "resources": 2,
+                "influence": 0,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Avar",
+                "resources": 1,
+                "influence": 1,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Ylir",
+                "resources": 0,
+                "influence": 2,
+                "trait": null,
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "59": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+            "name": "Archon Vail",
+            "resources": 1,
+            "influence": 3,
+            "trait": "hazardous",
+            "specialty": "propulsion",
+            "legendary": false
+        }]
+    },
+    "60": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+            "name": "Perimeter",
+            "resources": 2,
+            "influence": 1,
+            "trait": "industrial",
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "61": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+            "name": "Perimeter",
+            "resources": 2,
+            "influence": 0,
+            "trait": "industrial",
+            "specialty": "warfare",
+            "legendary": false
+        }]
+    },
+    "62": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+            "name": "Sem-Lore",
+            "resources": 3,
+            "influence": 2,
+            "trait": "cultural",
+            "specialty": "cybernetic",
+            "legendary": false
+        }]
+    },
+    "63": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+            "name": "Vorhal",
+            "resources": 0,
+            "influence": 2,
+            "trait": "cultural",
+            "specialty": "biotic",
+            "legendary": false
+        }]
+    },
+    "64": {
+        "type": "blue",
+        "wormhole": "beta",
+        "planets": [{
+            "name": "Atlas",
+            "resources": 3,
+            "influence": 1,
+            "trait": "hazardous",
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "65": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+            "name": "Primor",
+            "resources": 2,
+            "influence": 1,
+            "trait": "cultural",
+            "specialty": null,
+            "legendary": true
+        }]
+    },
+    "66": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+            "name": "Hope's End",
+            "resources": 3,
+            "influence": 0,
+            "trait": "hazardous",
+            "specialty": null,
+            "legendary": true
+        }]
+    },
+    "67": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": "gravity-rift",
+        "planets": [{
+            "name": "Cormund",
+            "resources": 2,
+            "influence": 0,
+            "trait": "hazardous",
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "68": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": "nebula",
+        "planets": [{
+            "name": "Everra",
+            "resources": 3,
+            "influence": 1,
+            "trait": "cultural",
+            "specialty": null,
+            "legendary": false
+        }]
+    },
+    "69": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Accoen",
+                "resources": 2,
+                "influence": 3,
+                "trait": "industrial",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Jeol Ir",
+                "resources": 2,
+                "influence": 3,
+                "trait": "industrial",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "70": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Kraag",
+                "resources": 2,
+                "influence": 1,
+                "trait": "hazardous",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Siig",
+                "resources": 0,
+                "influence": 2,
+                "trait": "hazardous",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "71": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Ba'Kal",
+                "resources": 3,
+                "influence": 2,
+                "trait": "industrial",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Alio Prima",
+                "resources": 1,
+                "influence": 1,
+                "trait": "cultural",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "72": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Lisis",
+                "resources": 2,
+                "influence": 2,
+                "trait": "industrial",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Velnor",
+                "resources": 2,
+                "influence": 1,
+                "trait": "industrial",
+                "specialty": "warfare",
+                "legendary": false
+            }
+        ]
+    },
+    "73": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Lisis",
+                "resources": 0,
+                "influence": 2,
+                "trait": "cultural",
+                "specialty": "cybernetic",
+                "legendary": false
+            },
+            {
+                "name": "Xanhact",
+                "resources": 0,
+                "influence": 1,
+                "trait": "hazardous",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "74": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Vega Major",
+                "resources": 2,
+                "influence": 1,
+                "trait": "cultural",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Vega Minor",
+                "resources": 1,
+                "influence": 2,
+                "trait": "cultural",
+                "specialty": "propulsion",
+                "legendary": false
+            }
+        ]
+    },
+    "75": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Loki",
+                "resources": 1,
+                "influence": 2,
+                "trait": "cultural",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Abaddon",
+                "resources": 1,
+                "influence": 0,
+                "trait": "cultural",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Ashtroth",
+                "resources": 2,
+                "influence": 0,
+                "trait": "hazardous",
+                "specialty": null,
+                "legendary": false
+            }
+        ]
+    },
+    "76": {
+        "type": "blue",
+        "wormhole": null,
+        "planets": [{
+                "name": "Rigel I",
+                "resources": 0,
+                "influence": 1,
+                "trait": "hazardous",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Rigel II",
+                "resources": 1,
+                "influence": 2,
+                "trait": "industrial",
+                "specialty": null,
+                "legendary": false
+            },
+            {
+                "name": "Rigel III",
+                "resources": 1,
+                "influence": 1,
+                "trait": "industrial",
+                "specialty": "biotic",
+                "legendary": false
+            }
+        ]
+    },
+    "77": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": null,
+        "planets": []
+    },
+    "78": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": null,
+        "planets": []
+    },
+    "79": {
+        "type": "red",
+        "wormhole": "alpha",
+        "anomaly": "asteroid-field",
+        "planets": []
+    },
+    "80": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": "supernova",
+        "planets": []
+    },
+    "81": {
+        "type": "red",
+        "wormhole": null,
+        "anomaly": "muaat-supernova",
+        "planets": []
+    },
+    "82": {
+        "type": "blue",
+        "wormhole": "all",
+        "planets": [{
+            "name": "Mallice",
+            "resources": 0,
+            "influence": 3,
+            "trait": "cultural",
+            "specialty": null,
+            "legendary": true
+        }]
+    },
+    "83A": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [1, 4]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "83B": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [0, 3],
+            [0, 2],
+            [3, 5]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "84A": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [2, 5]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "84B": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [0, 3],
+            [0, 4],
+            [1, 3]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "85A": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [1, 5]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "85B": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [0, 3],
+            [0, 2],
+            [3, 5]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "86A": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [1, 5]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "86B": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [0, 3],
+            [0, 4],
+            [1, 3]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "87A": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [0, 2],
+            [2, 4],
+            [2, 5]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "87B": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [0, 2],
+            [0, 3]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "88A": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [0, 4],
+            [1, 4],
+            [2, 4]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "88B": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [0, 3],
+            [0, 2],
+            [3, 5]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "89A": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [0, 2],
+            [0, 4],
+            [2, 4]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "89B": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [0, 3],
+            [0, 4]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "90A": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [1, 5],
+            [2, 4]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "90B": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [0, 3],
+            [0, 4]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "91A": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [0, 3],
+            [0, 4],
+            [1, 3]
+        ],
+        "wormhole": null,
+        "planets": []
+    },
+    "91B": {
+        "type": "hyperlane",
+        "hyperlanes": [
+            [0, 2],
+            [0, 3]
+        ],
+        "wormhole": null,
+        "planets": []
+    }
+}

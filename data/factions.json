@@ -1,0 +1,177 @@
+{
+    "Sardakk N'orr": {
+        "id": "norr",
+        "name": "Sardakk N'orr",
+        "homesystem": "13",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/Sardakk_N%27orr",
+        "set": "base"
+    },
+    "The Arborec": {
+        "id": "arborec",
+        "name": "The Arborec",
+        "homesystem": "5",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Arborec",
+        "set": "base"
+    },
+    "The Barony of Letnev": {
+        "id": "letnev",
+        "name": "The Barony of Letnev",
+        "homesystem": "10",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Barony_of_Letnev",
+        "set": "base"
+    },
+    "The Clan of Saar": {
+        "id": "saar",
+        "name": "The Clan of Saar",
+        "homesystem": "11",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Clan_of_Saar",
+        "set": "base"
+    },
+    "The Embers of Muaat": {
+        "id": "muaat",
+        "name": "The Embers of Muaat",
+        "homesystem": "4",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Embers_of_Muaat",
+        "set": "base"
+    },
+    "The Emirates of Hacan": {
+        "id": "hacan",
+        "name": "The Emirates of Hacan",
+        "homesystem": "16",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Emirates_of_Hacan",
+        "set": "base"
+    },
+    "The Federation of Sol": {
+        "id": "sol",
+        "name": "The Federation of Sol",
+        "homesystem": "1",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Federation_of_Sol",
+        "set": "base"
+    },
+    "The Ghosts of Creuss": {
+        "id": "creuss",
+        "name": "The Ghosts of Creuss",
+        "homesystem": "17",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Ghosts_of_Creuss",
+        "set": "base"
+    },
+    "The L1z1x Mindnet": {
+        "id": "l1z1x",
+        "name": "The L1z1x Mindnet",
+        "homesystem": "6",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_L1Z1X_Mindnet",
+        "set": "base"
+    },
+    "The Mentak Coalition": {
+        "id": "mentak",
+        "name": "The Mentak Coalition",
+        "homesystem": "2",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Mentak_Coalition",
+        "set": "base"
+    },
+    "The Naalu Collective": {
+        "id": "naalu",
+        "name": "The Naalu Collective",
+        "homesystem": "9",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Naalu_Collective",
+        "set": "base"
+    },
+    "The Nekro Virus": {
+        "id": "nekro",
+        "name": "The Nekro Virus",
+        "homesystem": "8",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Nekro_Virus",
+        "set": "base"
+    },
+    "The Universities of Jol-Nar": {
+        "id": "jolnar",
+        "name": "The Universities of Jol-Nar",
+        "homesystem": "12",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Universities_of_Jol-Nar",
+        "set": "base"
+    },
+    "The Winnu": {
+        "id": "winnu",
+        "name": "The Winnu",
+        "homesystem": "7",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Winnu",
+        "set": "base"
+    },
+    "The Xxcha Kingdom": {
+        "id": "xxcha",
+        "name": "The Xxcha Kingdom",
+        "homesystem": "14",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Xxcha_Kingdom",
+        "set": "base"
+    },
+    "The Yin Brotherhood": {
+        "id": "yin",
+        "name": "The Yin Brotherhood",
+        "homesystem": "3",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Yin_Brotherhood",
+        "set": "base"
+    },
+    "The Yssaril Tribes": {
+        "id": "yssaril",
+        "name": "The Yssaril Tribes",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Yssaril_Tribes",
+        "homesystem": "15",
+        "set": "base"
+    },
+    "The Argent Flight": {
+        "id": "argent",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Argent_Flight",
+        "name": "The Argent Flight",
+        "homesystem": "58",
+        "set": "pok"
+    },
+    "The Empyrean": {
+        "id": "empyrean",
+        "name": "The Empyrean",
+        "homesystem": "56",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Empyrean",
+        "set": "pok"
+    },
+    "The Mahact Gene-sorcerers": {
+        "id": "mahact",
+        "name": "The Mahact Gene-sorcerers",
+        "homesystem": "52",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Mahact_Gene-Sorcerers",
+        "set": "pok"
+    },
+    "The Naaz-Rokha Alliance": {
+        "id": "naazrokha",
+        "name": "The Naaz-Rokha Alliance",
+        "homesystem": "57",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Naaz-Rokha_Alliance",
+        "set": "pok"
+    },
+    "The Nomad": {
+        "id": "nomad",
+        "name": "The Nomad",
+        "homesystem": "53",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Nomad",
+        "set": "pok"
+    },
+    "The Titans of Ul": {
+        "id": "ul",
+        "name": "The Titans of Ul",
+        "homesystem": "55",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Titans_of_Ul",
+        "set": "pok"
+    },
+    "The Vuil'raith Cabal": {
+        "id": "vuilraith",
+        "name": "The Vuil'raith Cabal",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Vuil%27Raith_Cabal",
+        "homesystem": "54",
+        "set": "pok"
+    },
+    "The Council Keleres": {
+        "id": "keleres",
+        "name": "The Council Keleres",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Council_Keleres",
+        "options": ["The Mentak Coalition", "The Xxcha Kingdom", "The Argent Flight"],
+        "set": "keleres"
+    }
+}

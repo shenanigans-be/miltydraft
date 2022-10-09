@@ -1,0 +1,4 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+RewriteRule ^draft/([0-9a-z]*)$ ./draft.php?id=$1

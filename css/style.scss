@@ -207,13 +207,11 @@ input[type="text"] {
 .content-wrap {
     max-width: 1300px;
     margin: 0 auto;
+    padding: 0px 10px;
 
 
     @media #{$max-md} {
         padding: 0px 20px;
-    }
-    @media #{$max-sm} {
-        padding: 0px 10px;
     }
 }
 .status {
@@ -306,19 +304,49 @@ input[type="text"] {
     }
 
     .picked {
-        opacity: 0.3;
+        opacity: 0.5;
 
         button {
             display: none !important;
         }
     }
 
+    .drafted-by.drafted-by.drafted-by {
+        font-size: 12px;
+        text-transform: uppercase;
+        padding: 7px 10px;
+        border-radius: 7px;
+        background-color: $color-highlight;
+        color: $color-background !important;
+        display: inline-block;
+        display: none;
+        position: absolute;
+        right: 20px;
+        top: 0;
+        font-weight: 600;
+        transform: translate(0, -50%);
+    }
+
     .draft-options {
         padding-top: 30px;
+
     }
+
+    .positions .options {
+        align-items: flex-start;
+    }
+
+
     .position.option {
         width: 11%;
         text-align: center;
+
+        @media #{$max-md} {
+            width: 19%;
+        }
+        @media #{$max-sm} {
+            width: 32%;
+        }
     }
 
     .position.option span {
@@ -389,7 +417,9 @@ input[type="text"] {
         margin: 0 -5px;
 
         > div {
+            position: relative;
             margin: 5px;
+            margin-bottom: 20px;
         }
     }
     .slices {

@@ -213,15 +213,11 @@ input[type=text] {
 .content-wrap {
   max-width: 1300px;
   margin: 0 auto;
+  padding: 0px 10px;
 }
 @media (max-width: 1200px) {
   .content-wrap {
     padding: 0px 20px;
-  }
-}
-@media (max-width: 768px) {
-  .content-wrap {
-    padding: 0px 10px;
   }
 }
 
@@ -308,17 +304,45 @@ input[type=text] {
   margin-top: 10px;
 }
 #draft .picked {
-  opacity: 0.3;
+  opacity: 0.5;
 }
 #draft .picked button {
   display: none !important;
 }
+#draft .drafted-by.drafted-by.drafted-by {
+  font-size: 12px;
+  text-transform: uppercase;
+  padding: 7px 10px;
+  border-radius: 7px;
+  background-color: #1c3148;
+  color: #FEFCF8 !important;
+  display: inline-block;
+  display: none;
+  position: absolute;
+  right: 20px;
+  top: 0;
+  font-weight: 600;
+  transform: translate(0, -50%);
+}
 #draft .draft-options {
   padding-top: 30px;
+}
+#draft .positions .options {
+  align-items: flex-start;
 }
 #draft .position.option {
   width: 11%;
   text-align: center;
+}
+@media (max-width: 1200px) {
+  #draft .position.option {
+    width: 19%;
+  }
+}
+@media (max-width: 768px) {
+  #draft .position.option {
+    width: 32%;
+  }
 }
 #draft .position.option span {
   background-image: url("../img/position.png");
@@ -382,7 +406,9 @@ input[type=text] {
   margin: 0 -5px;
 }
 #draft .options > div {
+  position: relative;
   margin: 5px;
+  margin-bottom: 20px;
 }
 #draft .slices {
   overflow: hidden;

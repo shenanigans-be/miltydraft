@@ -10,7 +10,7 @@ $(document).ready(function() {
     $('button.draft').on('click', function(e) {
         e.preventDefault();
 
-        if(typeof(me) == 'undefined') return;
+        if(typeof(me) == 'undefined' && !IS_ADMIN) return;
 
         window.draft_pick = {
             'id': draft.id,
@@ -45,6 +45,8 @@ $(document).ready(function() {
     $('#confirm').on('click', function(e) {
         $('button.draft').hide();
         $('#confirm-popup').hide();
+
+        loading();
         $.ajax({
             type: "POST",
             url: window.routes.pick,
@@ -54,6 +56,8 @@ $(document).ready(function() {
                 if(resp.error) {
                     $('#error-message').html(resp.error);
                     $('#error-popup').show();
+
+                    loading(false);
                 }
 
                 if(resp.success) {
@@ -75,6 +79,7 @@ $(document).ready(function() {
 
         $('.claim').on('click', function(e) {
             $(this).hide();
+            loading();
             $.ajax({
                 type: 'POST',
                 url: window.routes.claim,
@@ -87,6 +92,7 @@ $(document).ready(function() {
                     if(resp.error) {
                         $('#error-message').html(resp.error);
                         $('#error-popup').show();
+                        loading(false);
                     } else {
                         window.draft = resp.draft;
                         localStorage.setItem('draft_' + draft.id, resp.player);
@@ -99,6 +105,7 @@ $(document).ready(function() {
 
         $('.unclaim').on('click', function(e) {
             $(this).hide();
+            loading();
             $.ajax({
                 type: 'POST',
                 url: window.routes.claim,
@@ -112,6 +119,7 @@ $(document).ready(function() {
                     if(resp.error) {
                         $('#error-message').html(resp.error);
                         $('#error-popup').show();
+                        loading(false);
                     } else {
                         window.draft = resp.draft;
                         localStorage.removeItem('draft_' + draft.id);
@@ -126,6 +134,7 @@ $(document).ready(function() {
 function refresh() {
     who_am_i();
     draft_status();
+    loading(false);
 }
 
 function who_am_i() {
@@ -139,6 +148,7 @@ function who_am_i() {
     $('.unclaim').hide();
 
     if(player_id == null) {
+        $('.you').hide();
         for(p_id in draft.draft.players) {
             let p = draft.draft.players[p_id];
 
@@ -154,6 +164,7 @@ function who_am_i() {
         if(typeof(p) != 'undefined') {
             window.me = p;
             $('.you[data-id="' + me.id + '"]').show();
+            $('.unclaim[data-id="' + me.id + '"]').show();
         }
     }
 }
@@ -183,8 +194,8 @@ function draft_status() {
         }
 
         $('#player-' + p.id + ' .chosen-' + log_item.category).html(show_value);
-        console.log($('#player-' + p.id + ' .chosen-' + log_item.category));
         let $btn = $('button[data-category="' + log_item.category + '"][data-value="' + log_item.value + '"]');
+        $('.drafted-by[data-category="' + log_item.category + '"][data-value="' + log_item.value + '"]').html(p.name).show();
         $btn.prop('disabled', true);
         $btn.parents('.option').addClass('picked');
 
@@ -205,6 +216,7 @@ function draft_status() {
 
     if(IS_ADMIN) {
         $('button.draft').show();
+
         $('#current-name').html(current_player.name + "'s");
     } else {
         if(typeof(me) != 'undefined' &&  current_player.id == me.id) {
@@ -215,6 +227,17 @@ function draft_status() {
             $('button.draft').hide();
             $('#current-name').html(current_player.name + "'s");
         }
+    }
+
+    // filter the buttons
+    if(current_player.position != null) {
+        $('button.draft[data-category="position"]').hide();
+    }
+    if(current_player.faction != null) {
+        $('button.draft[data-category="faction"]').hide();
+    }
+    if(current_player.slice != null) {
+        $('button.draft[data-category="slice"]').hide();
     }
 }
 

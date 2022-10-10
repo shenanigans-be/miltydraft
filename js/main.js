@@ -24,7 +24,8 @@ $(document).ready(function() {
 
     });
 
-    $('#add-player').on('click', function() {
+    $('#add-player').on('click', function(e) {
+        e.preventDefault();
         $('#num_players').val(parseInt($('#num_players').val()) + 1);
         update_player_count();
     })

@@ -56,6 +56,7 @@ label {
   display: inline-block;
   margin-bottom: 0;
   width: 50%;
+  padding-top: 10px;
   flex-shrink: 1;
 }
 label.disabled {
@@ -71,26 +72,36 @@ label.check {
   margin-top: 40px;
 }
 
-input {
+input, textarea {
   font-size: 1em;
 }
-input[type=text], input[type=number] {
+input[type=checkbox], textarea[type=checkbox] {
+  margin-right: 5px;
+  display: inline-block;
+}
+
+.input-group img {
+  width: 40px;
+  vertical-align: middle;
+}
+.input-group label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+input[type=text], input[type=number], textarea {
   padding: 10px;
   border: 1px solid #16232c;
   width: 50%;
 }
 @media (max-width: 1200px) {
-  input[type=text], input[type=number] {
+  input[type=text], input[type=number], textarea {
     width: 100%;
   }
 }
-input[type=text]:focus, input[type=number]:focus {
+input[type=text]:focus, input[type=number]:focus, textarea:focus {
   box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.5);
   outline: none;
-}
-input[type=checkbox] {
-  margin-right: 5px;
-  display: inline-block;
 }
 
 h1, h2, h3, h4 {
@@ -189,24 +200,26 @@ h3 {
   margin-top: 0.5em;
 }
 
+.slice-help {
+  width: 200px;
+  display: inline-block;
+}
+
 .input {
   margin-bottom: 1.5em;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
 }
 .input:last-child {
   margin-bottom: 0;
 }
 
-input[type=text] {
-  width: 100%;
-}
-
 .container {
   width: 100%;
   padding: 50px 0px;
+  overflow: hidden;
   background-color: #FEFCF8;
 }
 
@@ -219,6 +232,10 @@ input[type=text] {
   .content-wrap {
     padding: 0px 20px;
   }
+}
+
+.player input {
+  width: 100%;
 }
 
 .status {
@@ -294,6 +311,11 @@ input[type=text] {
 
 #more {
   margin-bottom: 20px;
+}
+
+.question h4 {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  padding-top: 30px;
 }
 
 #draft {
@@ -409,9 +431,6 @@ input[type=text] {
   position: relative;
   margin: 5px;
   margin-bottom: 20px;
-}
-#draft .slices {
-  overflow: hidden;
 }
 #draft .slice {
   background-color: rgba(0, 0, 0, 0.05);

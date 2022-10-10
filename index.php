@@ -29,6 +29,7 @@
                     </div>
                 </div>
             </nav>
+
             <div class="tab active" id="generator">
                 <form action="generate.php" method="post">
                     <div class="section">
@@ -72,7 +73,7 @@
                                     <input type="text" placeholder="Player Name" name="player[]" />
                                 </div>
 
-                                <button class="small" id="add-player" title="Add Player">+</button>
+                                <a class="btn small" href="#" id="add-player" title="Add Player">+</a>
                             </div>
                         </div>
 
@@ -93,9 +94,9 @@
 
                                 <input type="number" id="num_slices" name="num_slices" value="7" max="9" />
                                 <span class="help">
-                    Note: The slices are random and not necessarily balanced (more on that below), so increasing this number makes it more relaxed for players to choose.<br />
-                    Number of players + 1 is generally recommended. Can't have more than 9 cause you run out of tiles.
-                </span>
+                                    Note: The slices are random and not necessarily balanced (more on that below), so increasing this number makes it more relaxed for players to choose.<br />
+                                    Number of players + 1 is generally recommended. Can't have more than 9 cause you run out of tiles.
+                                </span>
                             </div>
 
                             <div class="input">
@@ -105,9 +106,9 @@
 
                                 <input type="number" id="num_factions" name="num_factions" value="9" max="17" />
                                 <span class="help">
-                        Note: Less options means more competitive drafting.<br />
-                        Number of players + 3 is kind of recommended, but this is all personal preference.
-                    </span>
+                                    Note: Less options means more competitive drafting.<br />
+                                    Number of players + 3 is kind of recommended, but this is all personal preference.
+                                </span>
                             </div>
 
                             <div class="input">
@@ -122,9 +123,9 @@
                                     <input type="checkbox" name="include_keleres" id="keleres" /> Include The Council Keleres
                                 </label>
                                 <span class="help">
-                        The Council Keleres was introduced in <a href="https://images-cdn.fantasyflightgames.com/filer_public/35/e1/35e10f37-4b6d-4479-a117-4e2c571ddfa7/ti_codex_volume_3_vigil_v2_1-compressed.pdf">Codex III</a>.
-                        (PoK required)
-                    </span>
+                                    The Council Keleres was introduced in <a href="https://images-cdn.fantasyflightgames.com/filer_public/35/e1/35e10f37-4b6d-4479-a117-4e2c571ddfa7/ti_codex_volume_3_vigil_v2_1-compressed.pdf">Codex III</a>.
+                                    (PoK required)
+                                </span>
                             </div>
 
                             <div class="input">
@@ -140,54 +141,80 @@
                     <div class="section">
                         <div class="content-wrap">
 
-                        <div class="header">
-                            <div>
-                                <h3>Advanced Settings</h3>
-                                <a href="#" class="btn" id="more">Show</a>
-                            </div>
-                            <span class="help">This is where the Slice-generation magic happens.</span>
-                        </div>
-
-
-                        <div class="content" id="advanced">
-
-
-                            <p>
-                                The “Optimal Value” of a planet is calculated by using the higher of its resource value and influence value as that value, and the other value as zero.
-                                If both of the planet’s resource value and influence value are equal, half that value is used for both of its optimal values.
-                                For example, Starpoint, a 3/1, is treated as 3/0, Corneeq, a 1/2, is treated as 0/2, and Rigel III, a 1/1, is treated as ½/½.
-                            </p>
-
-                            <div class="input">
-                                <label for="min_inf">
-                                    Minimum Optimal Influence
-                                </label>
-
-                                <input type="number" id="min_inf" step="0.5" min="0" name="min_inf" value="4" />
-                            </div>
-                            <div class="input">
-                                <label for="min_res">
-                                    Minimum Optimal Resources
-                                </label>
-
-                                <input type="number" id="min_res" required min="0" name="min_inf" step="0.5" value="2.5" />
-                            </div>
-                            <div class="input">
-                                <label for="min_total">
-                                    Minimum Optimal Total
-                                </label>
-
-                                <input type="number" id="min_total" required min="0" name="min_total" step="0.5" value="9" />
+                            <div class="header">
+                                <div>
+                                    <h3>Advanced Settings</h3>
+                                    <a href="#" class="btn" id="more">Show</a>
+                                </div>
+                                <span class="help">This is where the Slice-generation magic happens.</span>
                             </div>
 
-                            <div class="input">
-                                <label for="max_total">
-                                    Minimum Optimal Total
-                                </label>
 
-                                <input type="number" id="max_total" required min="0" name="max_total" step="0.5" value="13" />
+                            <div class="content" id="advanced">
+                                <p>
+                                    The “Optimal Value” of a planet is calculated by using the higher of its resource value and influence value as that value, and the other value as zero.
+                                    If both of the planet’s resource value and influence value are equal, half that value is used for both of its optimal values.
+                                    For example, Starpoint, a 3/1, is treated as 3/0, Corneeq, a 1/2, is treated as 0/2, and Rigel III, a 1/1, is treated as ½/½.
+                                </p>
+
+                                <div class="input">
+                                    <label for="min_inf">
+                                        Minimum Optimal Influence
+                                    </label>
+
+                                    <input type="number" id="min_inf" step="0.5" min="0" name="min_inf" value="4" />
+                                </div>
+                                <div class="input">
+                                    <label for="min_res">
+                                        Minimum Optimal Resources
+                                    </label>
+
+                                    <input type="number" id="min_res" required min="0" name="min_inf" step="0.5" value="2.5" />
+                                </div>
+                                <div class="input">
+                                    <label for="min_total">
+                                        Minimum Optimal Total
+                                    </label>
+
+                                    <input type="number" id="min_total" required min="0" name="min_total" step="0.5" value="9" />
+                                </div>
+
+                                <div class="input">
+                                    <label for="max_total">
+                                        Minimum Optimal Total
+                                    </label>
+
+                                    <input type="number" id="max_total" required min="0" name="max_total" step="0.5" value="13" />
+                                </div>
+
+                                <div class="input">
+                                    <label for="custom_slices">
+                                        Custom Slices
+                                    </label>
+
+                                    <textarea rows="10" name="custom_slices" id="custom_slices" placeholder="1, 2, 3, 4, 5<?= "\n" ?>6, 7, 8, 9, 10<?= "\n" ?>..."></textarea>
+
+                                    <span class="help">
+                                        You can skip the slice-generation stuff by inputting your own slices. You can do this by listing the tiles in each slice, one per line, seperated by commas.<br />
+                                        Note: The order within each line matters! Slices are laid out like this:<br /><br />
+                                        <img class="slice-help" src="<?= url('img/slice-layout.png') ?>" /><br /> so the first slice listed will be to positioned top left of the home system, the second one top, third top right,...
+                                    </span>
+                                </div>
+
+                                <div class="input">
+                                    <label for="custom_tiles">
+                                        Custom Factions
+                                    </label>
+
+                                    <div class="input-group">
+                                        <?php require_once 'factions.php'; ?>
+                                    </div>
+
+                                    <span class="help">
+                                        You can pre-select the factions that will be used in the draft. This will override any of the above settings (e.g: how many there will be or which expansions are included)
+                                    </span>
+                                </div>
                             </div>
-                        </div>
                         </div>
                     </div>
 

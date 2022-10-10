@@ -19,17 +19,34 @@
 
         // Gather Tiles
         $all_tiles = gather_tiles($config);
-        $selected_tiles = select_tiles($all_tiles, $config);
-        $slices = generate_slices($selected_tiles, $config);
 
+        if($config->custom_slices != null) {
+            $tile_data = import_tile_data();
 
-        if($slices == false) {
-            // can't make slices with this selection
-            return generate($config, $previous_tries + 1);
+            $slices = [];
+
+            foreach($config->custom_slices as $slice_data) {
+                $tiles = [];
+                foreach($slice_data as $tile_id) {
+                    $tiles[] = $tile_data[$tile_id];
+                }
+                $slices[] = new Slice($tiles);
+            }
+        } else {
+            $selected_tiles = select_tiles($all_tiles, $config);
+            $slices = generate_slices($selected_tiles, $config);
+
+            if($slices == false) {
+                // can't make slices with this selection
+                return generate($config, $previous_tries + 1);
+            }
         }
 
-        // @todo exclude certain factions?
-        $factions = select_factions($config);
+        if($config->custom_factions != null) {
+            $factions = $config->custom_factions;
+        } else {
+            $factions = select_factions($config);
+        }
 
         $player_data = [];
         $first_player = null;
@@ -245,12 +262,16 @@
         ];
     }
 
+    function import_faction_data() {
+        return json_decode(file_get_contents('data/factions.json'), true);
+    }
+
     /**
      * @param GeneratorConfig $config
      */
     function select_factions($config) {
 
-       $faction_data = json_decode(file_get_contents('data/factions.json'), true);
+       $faction_data = import_faction_data();
 
        $factions = [];
 

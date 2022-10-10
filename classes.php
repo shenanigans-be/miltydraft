@@ -216,6 +216,9 @@ class GeneratorConfig {
     public $minimum_optimal_total;
     public $maximum_optimal_total;
 
+    public $custom_factions = null;
+    public $custom_slices = null;
+
     function __construct()
     {
         $names = get('player', []);
@@ -235,16 +238,45 @@ class GeneratorConfig {
         $this->minimum_optimal_total = (float) get('min_total');
         $this->maximum_optimal_total = (float) get('max_total');
 
+        if(!empty(get('custom_factions', []))) {
+            $this->custom_factions = get('custom_factions');
+        }
+
+        if(get('custom_slices') != '') {
+            $slice_data = explode("\n", get('custom_slices'));
+            $this->custom_slices = [];
+            foreach($slice_data as $s) {
+                $slice = [];
+                $t = explode(',', $s);
+                foreach($t as $tile) {
+                    $tile = trim($tile);
+                    $slice[] = $tile;
+                }
+                $this->custom_slices[] = $slice;
+            }
+        }
+
         $this->validate();
     }
 
     function validate() {
 
-        if(count($this->players) != $this->num_players) return_error('Some players names are not filled out');
+        if(count($this->players) < $this->num_players) return_error('Some players names are not filled out');
         if($this->num_players < 3) return_error('Please enter more than 3 players');
         if($this->num_factions < $this->num_players) return_error("Can't have less factions than players");
         if($this->num_slices < $this->num_players) return_error("Can't have less slices than players");
         if($this->maximum_optimal_total < $this->minimum_optimal_total) return_error("Maximum optimal can't be less than minimum");
+        if($this->custom_factions != null && count($this->custom_factions) < $this->num_players) return_error("Not enough custom factions for number of players");
+        if($this->custom_slices != null) {
+            if(count($this->custom_slices) < $this->num_players) return_error("Not enough custom slices for number of players");
+
+            foreach($this->custom_slices as $s) {
+                if(count($s) != 5) return_error('Some of the custom slices have the wrong number of tiles. (each should have five)');
+            }
+
+        }
+
+
     }
 
     function toJson() {
@@ -258,7 +290,9 @@ class GeneratorConfig {
             'minimum_optimal_influence' => $this->minimum_optimal_influence,
             'minimum_optimal_resources' => $this->minimum_optimal_resources,
             'minimum_optimal_total' => $this->minimum_optimal_total,
-            'maximum_optimal_total' => $this->maximum_optimal_total
+            'maximum_optimal_total' => $this->maximum_optimal_total,
+            'custom_factions' => $this->custom_factions,
+            'custom_slices' => $this->custom_slices
         ];
     }
 }

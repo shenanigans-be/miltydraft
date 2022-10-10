@@ -25,7 +25,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300&family=Staatliches&display=swap" rel="stylesheet">
 </head>
-<body >
+<body>
     <div class="container">
 
         <h1>Milty Draft</h1>
@@ -173,6 +173,11 @@
                     </script>
 
                 <?php endif; ?>
+                </div>
+            </div>
+            <div class="tab" id="map">
+                <div class="content-wrap">
+                    <h3>Map</h3>
                 </div>
             </div>
             <div class="tab" id="log">

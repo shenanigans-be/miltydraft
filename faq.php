@@ -6,6 +6,7 @@
         <p>
             You should pick either a faction, a slice or a position relative to speaker.
         </p>
+
         <h4>What is a milty draft?</h4>
 
         <p>
@@ -29,6 +30,14 @@
             then another set of slices is generated. Because of the way slices are assembled, anomalies may be placed next to one another if they were on the borders of
             two slices.
         </p>
+
+        <h4>How does claiming work?</h4>
+        <p>
+            Once you claim a player your browser will remember you for this draft, so you don't have to keep this tab open the whole time. <br />
+            If you lose access to whatever browser/device you claimed your place on the admin can make picks for you.<br />
+            Same thing for admins though so if both the admin and you lose access at the same time then you're pretty much boned.
+        </p>
+
         <h4>This thing is awesome!</h4>
         <p>
             Not really a question, but I appreciate the enthousiasm!
@@ -38,6 +47,7 @@
         <p>Also thanks to <a href="https://github.com/KeeganW/ti4">KeeganW</a> for the nicely structured data and tile images.</p>
         <p>I am not affiliated with Fantasy Flight or Twilight Imperium. Sorry if I'm doing something that's not allowed, copyright-wise.</p>
         </p>
+
         <h4>This is thing is hot garbage!</h4>
         <p>
             First of all: rude. Second: Yes, there are a lot of problems with this, and stuff I haven't implemented, sure. The code is on Github if you want to report an issue or even contribute!

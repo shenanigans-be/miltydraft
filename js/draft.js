@@ -41,6 +41,7 @@ $(document).ready(function() {
     $('#confirm-cancel').on('click', function(e) {
         $('#confirm-popup').hide();
     });
+
     $('#confirm').on('click', function(e) {
         $('button.draft').hide();
         $('#confirm-popup').hide();
@@ -154,6 +155,14 @@ function who_am_i() {
             window.me = p;
             $('.you[data-id="' + me.id + '"]').show();
         }
+    }
+}
+
+function loading(loading = true) {
+    if(loading) {
+        $('body').addClass('loading');
+    } else {
+        $('body').removeClass('loading');
     }
 }
 

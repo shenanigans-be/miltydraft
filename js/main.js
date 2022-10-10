@@ -22,11 +22,19 @@ $(document).ready(function() {
             $(this).html('show');
         }
 
+    });
+
+    $('#add-player').on('click', function() {
+        $('#num_players').val(parseInt($('#num_players').val()) + 1);
+        update_player_count();
     })
 
     $('form').on('submit', function(e) {
         e.preventDefault();
-        $('#error').hide()
+        $('#error').hide();
+
+        loading();
+
         let formData = new FormData();
         let values = $('form').serializeArray();
         for(let i = 0; i < values.length; i++) {
@@ -42,6 +50,7 @@ $(document).ready(function() {
 
             if(data.error) {
                 $('#error').show().html(data.error);
+                loading(false);
             } else {
                 localStorage.setItem('admin_' + data.id, data.admin);
 
@@ -53,6 +62,15 @@ $(document).ready(function() {
 
     });
 });
+
+
+function loading(loading = true) {
+    if(loading) {
+        $('body').addClass('loading');
+    } else {
+        $('body').removeClass('loading');
+    }
+}
 
 function pok_check() {
     let $keleres = $('#keleres');
@@ -89,5 +107,11 @@ function init_player_count() {
 
 function update_player_count() {
     $('.player').show();
-    $('.player:gt(' + ($('#num_players').val() - 1) + ')').hide();
+
+    let num_players = parseInt($('#num_players').val());
+
+    num_players = Math.max(3, Math.min(8, num_players));
+    $('#num_players').val(num_players);
+    $('#add-player').toggle(num_players < 8);
+    $('.player:gt(' + (num_players - 1) + ')').hide().find('input').val('');
 }

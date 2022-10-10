@@ -21,6 +21,8 @@
         $all_tiles = gather_tiles($config);
         $selected_tiles = select_tiles($all_tiles, $config);
         $slices = generate_slices($selected_tiles, $config);
+
+
         if($slices == false) {
             // can't make slices with this selection
             return generate($config, $previous_tries + 1);
@@ -200,7 +202,6 @@
         $tile_tiers = json_decode(file_get_contents('data/tile-selection.json'), true);
         $tile_data = import_tile_data();
 
-
         $all_tiles = [
             'high' => [],
             'mid' => [],
@@ -276,7 +277,7 @@
 
 
         foreach($data as $i => $tile_data) {
-            $tiles[] = new Tile($i, $tile_data);
+            $tiles[$i] = new Tile($i, $tile_data);
         }
 
         return $tiles;

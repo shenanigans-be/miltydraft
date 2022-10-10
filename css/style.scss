@@ -7,6 +7,8 @@
 $color-background: #FEFCF8;
 $color-text: #16232c;
 $color-highlight: #1c3148;
+$max-md: '(max-width: 1200px)';
+$max-sm: '(max-width: 768px)';
 
 body {
     font-size: 15px;
@@ -14,6 +16,31 @@ body {
     padding: 50px;
     background-size: auto 100vh;
     background-attachment: fixed;
+
+    @media #{$max-md} {
+        padding: 20px;
+        font-size: 16px;
+    }
+    @media #{$max-sm} {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .container {
+        transition: opacity 400ms ease-in-out;
+    }
+
+    &.loading {
+        * {
+            pointer-events: none !important;
+        }
+        .container {
+            opacity: 0.1;
+        }
+        #loading {
+            display: block;
+        }
+    }
 }
 p, label, span, a {
     line-height: 1.4em;
@@ -26,7 +53,6 @@ p, label, span, a {
     }
 }
 p, label {
-
     margin-bottom: 1em;
 }
 label {
@@ -55,6 +81,9 @@ input {
         padding: 10px;
         border: 1px solid $color-text;
         width: 50%;
+        @media #{$max-md} {
+            width: 100%;
+        }
 
         &:focus {
             box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.5);
@@ -68,9 +97,10 @@ input {
 }
 
 h1, h2, h3, h4 {
-    font-family: 'Staatliches', cursive;
+    font-family: 'Staatliches', sans-serif;
     font-weight: normal;
     margin-bottom: 1em;
+    text-transform: uppercase;
     color: $color-highlight;
     line-height: 1em;
 }
@@ -87,16 +117,31 @@ h1 {
         padding: 50px 10px;
         display: flex;
         flex-direction: row;
+
+        @media #{$max-sm} {
+            padding: 10px;
+            flex-wrap: wrap;
+        }
+
     }
 
 
     .header, .content {
         width: 50%;
+
+        @media #{$max-sm} {
+            width: 100%;
+        }
     }
     .header {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+
+        @media #{$max-sm} {
+            margin-bottom: 10px;
+            display: block;
+        }
     }
 }
 .center {
@@ -162,10 +207,18 @@ input[type="text"] {
 .content-wrap {
     max-width: 1300px;
     margin: 0 auto;
+
+
+    @media #{$max-md} {
+        padding: 0px 20px;
+    }
+    @media #{$max-sm} {
+        padding: 0px 10px;
+    }
 }
 .status {
     position: fixed;
-    bottom: 0px;
+    top: 0px;
     width: 100%;
     z-index: 9999;
     text-align: center;
@@ -184,7 +237,7 @@ input[type="text"] {
     }
 
 
-    transform: translate(0, 100%);
+    transform: translate(0, -100%);
     transition: transform 300ms ease-in-out;
 
     &.show {
@@ -216,11 +269,11 @@ input[type="text"] {
         display: inline-block;
         position: relative;
         bottom: -1px;
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: rgba(0, 0, 0, 0.01);
         font-weight: 600 !important;
         text-transform: uppercase;
         margin-bottom: 0;
-        box-shadow: 0px -1px 0px 1px inset rgba(0, 0, 0, 0.2);
+        box-shadow: 0px -1px 0px 1px inset rgba(0, 0, 0, 0.1);
 
         &.active {
             border-bottom: 1px solid $color-background;
@@ -296,6 +349,11 @@ input[type="text"] {
             padding: 15px;
             width: 24%;
 
+
+            @media #{$max-sm} {
+                width: calc(50% - 10px);
+            }
+
             h3 {
                 margin-bottom: 0.5em;
             }
@@ -343,6 +401,10 @@ input[type="text"] {
         background-color: rgba(0, 0, 0, 0.05);
         padding: 20px;
 
+        @media #{$max-sm} {
+            width: calc(50% - 10px);
+        }
+
         &:hover {
 
             background-color: rgba(0, 0, 0, 0.1);
@@ -356,6 +418,10 @@ input[type="text"] {
         height: 5em;
 
         position: relative;
+
+        @media #{$max-sm} {
+            font-size: 7vw;
+        }
 
         img {
             width: 2em;
@@ -447,6 +513,10 @@ input[type="text"] {
         display: inline-block;
         text-decoration: none;
         font-weight: 600;
+
+        @media #{$max-sm} {
+            padding: 0 7px;
+        }
     }
     .resource-count {
         white-space: nowrap;
@@ -485,6 +555,10 @@ input[type="text"] {
             background-color: rgba(0, 0, 0, 0.05);
             padding: 20px;
 
+            @media #{$max-sm} {
+                width: calc(50% - 10px);
+            }
+
             &:hover {
                 background-color: rgba(0, 0, 0, 0.1);
             }
@@ -517,5 +591,20 @@ input[type="text"] {
         min-width: 250px;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+}
+#loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    font-size: 20px;
+    color: #FEFCF8;
+    transform: translate(-50%, -50%);
+    font-family: 'Staatliches', sans-serif;
+    text-transform: uppercase;
+    display: none;
+
+    svg {
+        width: 100px;
     }
 }

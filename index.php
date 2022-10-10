@@ -71,6 +71,8 @@
                                 <div class="input player">
                                     <input type="text" placeholder="Player Name" name="player[]" />
                                 </div>
+
+                                <button class="small" id="add-player" title="Add Player">+</button>
                             </div>
                         </div>
 
@@ -121,7 +123,7 @@
                                 </label>
                                 <span class="help">
                         The Council Keleres was introduced in <a href="https://images-cdn.fantasyflightgames.com/filer_public/35/e1/35e10f37-4b6d-4479-a117-4e2c571ddfa7/ti_codex_volume_3_vigil_v2_1-compressed.pdf">Codex III</a>.
-                        After the draft they will choose what flavor of Keleres they would like to play. (PoK required)
+                        (PoK required)
                     </span>
                             </div>
 
@@ -204,14 +206,25 @@
 
             <?php require_once 'faq.php'; ?>
         </div>
+    </div>
 
-
-
+    <div id="loading">
+        Loading. Please wait.<br />
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;display:block;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <circle cx="50" cy="50" r="0" fill="none" stroke="#fefcf8" stroke-width="2">
+                <animate attributeName="r" repeatCount="indefinite" dur="1s" values="0;40" keyTimes="0;1" keySplines="0 0.2 0.8 1" calcMode="spline" begin="0s"></animate>
+                <animate attributeName="opacity" repeatCount="indefinite" dur="1s" values="1;0" keyTimes="0;1" keySplines="0.2 0 0.8 1" calcMode="spline" begin="0s"></animate>
+            </circle>
+            <circle cx="50" cy="50" r="0" fill="none" stroke="#fefcf8" stroke-width="2">
+                <animate attributeName="r" repeatCount="indefinite" dur="1s" values="0;40" keyTimes="0;1" keySplines="0 0.2 0.8 1" calcMode="spline" begin="-0.5s"></animate>
+                <animate attributeName="opacity" repeatCount="indefinite" dur="1s" values="1;0" keyTimes="0;1" keySplines="0.2 0 0.8 1" calcMode="spline" begin="-0.5s"></animate>
+            </circle>
+        </svg>
     </div>
 
     <script>
         window.routes = {
-            "generate": "generate.php"
+            "generate": "<?= url('generate.php') ?>"
         }
     </script>
 

@@ -50,7 +50,7 @@
 
         <h4>This is thing is hot garbage!</h4>
         <p>
-            First of all: rude. Second: Yes, there are a lot of problems with this, and stuff I haven't implemented, sure. The code is on Github if you want to report an issue or even contribute!
+            First of all: rude. Second: Yes, there are a lot of problems with this, and stuff I haven't implemented, sure. The code is on <a href="https://github.com/shenanigans-be/miltydraft" target="_blank">Github</a> if you want to report an issue or even contribute!
         </p>
     </div>
 </div>

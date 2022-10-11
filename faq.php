@@ -37,12 +37,15 @@
             If both of the planet’s resource value and influence value are equal, half that value is used for both of its optimal values.
             For example, Starpoint, a 3/1, is treated as 3/0, Corneeq, a 1/2, is treated as 0/2, and Rigel III, a 1/1, is treated as ½/½.
         </p>
+        <p>
+            The optimal value of a system, then, is just the total of all the planet's optimal values.
+        </p>
 
         <h4>How does claiming work?</h4>
         <p>
             Once you claim a player your browser will remember you for this draft, so you don't have to keep this tab open the whole time. <br />
             If you lose access to whatever browser/device you claimed your place on the admin can make picks for you.<br />
-            Same thing for admins though so if both the admin and you lose access at the same time then you're pretty much boned.
+            Pretty much the same thing happens for admins though, so if both the admin and you lose access at the same time then you're pretty much boned.
         </p>
 
         <h4>This thing is awesome!</h4>

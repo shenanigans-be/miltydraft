@@ -41,6 +41,17 @@
             The optimal value of a system, then, is just the total of all the planet's optimal values.
         </p>
 
+        <h4>How long can my draft stay online?</h4>
+        <p>
+            Well, that kind of depends on how popular this gets. Hosting isn't free, sadly, so I'm planning to weed out drafts older than one year every so often.
+        </p>
+
+        <h4>What's your privacy policy?</h4>
+        <p>
+            As you can see, links are public to anyone who has them, so there's technically no guarantee to privacy. I'd say: be mindful of any information you enter as player names.<br />
+            Other than that we collect no personal data from you.
+        </p>
+
         <h4>How does claiming work?</h4>
         <p>
             Once you claim a player your browser will remember you for this draft, so you don't have to keep this tab open the whole time. <br />

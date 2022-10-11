@@ -400,6 +400,7 @@ h3 {
 }
 #draft .players .player h3 {
   margin-bottom: 0.5em;
+  word-break: break-word;
 }
 #draft .players .player .you {
   background-color: rgba(0, 0, 0, 0.3);

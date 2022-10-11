@@ -2,6 +2,7 @@
     require_once 'boot.php';
 
     $id = get('id');
+    $index = get('index');
     $player = get('player');
     $category = get('category');
     $value = get('value');
@@ -11,6 +12,10 @@
     $is_admin = ($draft['admin_pass'] == get('admin'));
     if($draft == null) return_error('draft not found');
     if($player != $draft['draft']['current'] && !$is_admin) return_error('Not your turn!');
+
+    if($index != $draft['draft']['index']) {
+        return_error('Draft data out of date, meaning: stuff has been picked while this tab was open.');
+    }
 
     foreach($draft['draft']['log'] as $logItem) {
         if($logItem['player'] == $player && $logItem['category'] == $category) {

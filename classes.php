@@ -224,7 +224,7 @@ class GeneratorConfig {
         $names = get('player', []);
         shuffle($names);
         foreach($names as $name) {
-            if($name != '')  $this->players[] = $name;
+            if($name != '')  $this->players[] = htmlentities($name);
         }
 
         $this->num_players = (int) get('num_players');

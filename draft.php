@@ -35,8 +35,8 @@
                 <div class="content-wrap">
                     <div class="left">
                         <a class="active" href="#draft">Draft</a>
+                        <a href="#map">Map</a>
                         <a href="#log">Log</a>
-    <!--                    <a href="#map">Map</a>-->
                     </div>
                     <div class="right">
                         <a href="#faq">FAQ</a>
@@ -52,7 +52,7 @@
                         <p>It's <span id="current-name">x's</span> turn to draft something. <span id="admin-msg">You are the admin so you can do this for them.</span></p>
                     </div>
                     <div class="status" id="done">
-                        <p>This draft is over.
+                        <p>This draft is over. <a class="map" href="#">View map</a></p>
                     </div>
 
                     <div class="players">
@@ -178,6 +178,15 @@
             <div class="tab" id="map">
                 <div class="content-wrap">
                     <h3>Map</h3>
+                    <div class="map-container">
+                        <div class="map-offset">
+                            <div id="map-wrap">
+
+                            </div>
+                        </div>
+                    </div>
+                    <h3>Tiles</h3>
+                    <p id="tile-gather"></p>
                 </div>
             </div>
             <div class="tab" id="log">
@@ -234,9 +243,11 @@
     <script>
         window.routes = {
             "claim": "<?= url('claim.php') ?>",
-            "pick": "<?= url('pick.php') ?>"
+            "pick": "<?= url('pick.php') ?>",
+            "tile_images": "<?= url('img/tiles') ?>"
         }
     </script>
     <script src="<?= url('js/vendor.js?v=' . $_ENV['VERSION']) ?>"></script>
     <script src="<?= url('js/draft.js?v=' . $_ENV['VERSION']) ?>"></script>
+    <script src="<?= url('js/generate-map.js?v=' . $_ENV['VERSION']) ?>"></script>
 </body>

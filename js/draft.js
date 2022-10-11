@@ -1,11 +1,24 @@
 $(document).ready(function() {
 
     $('#tabs nav a').on('click', function(e) {
-        e.preventDefault();
+        // e.preventDefault();
         $('#tabs nav a, .tab').removeClass('active');
         $(this).addClass('active');
         $('.tab' + $(this).attr('href')).addClass('active');
+
+        if($(this).attr('href') == '#map') {
+            generate_map();
+        }
     });
+
+    $('.status .map').on('click', function(e) {
+        console.log(e);
+        $('#tabs nav a[href="#map"]').click();
+    })
+
+    if(window.location.hash != '' && $('.tab' + window.location.hash).length != 0) {
+        $('#tabs nav a[href="' + window.location.hash + '"]').click();
+    }
 
     $('button.draft').on('click', function(e) {
         e.preventDefault();
@@ -14,6 +27,7 @@ $(document).ready(function() {
 
         window.draft_pick = {
             'id': draft.id,
+            'index': draft.draft.index,
             'player': (IS_ADMIN)? draft.draft.current : me.id,
             'category': $(this).data('category'),
             'value': $(this).data('value')
@@ -132,6 +146,7 @@ $(document).ready(function() {
 });
 
 function refresh() {
+    window.map_cached = false;
     who_am_i();
     draft_status();
     loading(false);
@@ -199,7 +214,7 @@ function draft_status() {
         $btn.prop('disabled', true);
         $btn.parents('.option').addClass('picked');
 
-        log += '<p>' + p.name + ' picked ' + show_value + '</p>';
+        log += '<p><strong>' + p.name + '</strong> picked <strong>' + show_value + '</strong></p>';
     }
 
     $('#log-content').html(log);
@@ -249,3 +264,4 @@ function ordinal(number) {
     else
         return number + ends[number % 10];
 }
+

@@ -31,6 +31,13 @@
             two slices.
         </p>
 
+        <h4>What does "optimal value" mean?</h4>
+        <p>
+            The “Optimal Value” of a planet is calculated by using the higher of its resource value and influence value as that value, and the other value as zero.
+            If both of the planet’s resource value and influence value are equal, half that value is used for both of its optimal values.
+            For example, Starpoint, a 3/1, is treated as 3/0, Corneeq, a 1/2, is treated as 0/2, and Rigel III, a 1/1, is treated as ½/½.
+        </p>
+
         <h4>How does claiming work?</h4>
         <p>
             Once you claim a player your browser will remember you for this draft, so you don't have to keep this tab open the whole time. <br />

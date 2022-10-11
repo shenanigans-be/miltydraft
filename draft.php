@@ -126,14 +126,14 @@
 
                                         <p class="resource-count">
                                             Total:
-                                            <abbr title="influence" class="influence"><?= $slice['total_influence'] ?></abbr>
                                             <abbr title="resources" class="resources"><?= $slice['total_resources'] ?></abbr>
+                                            <abbr title="influence" class="influence"><?= $slice['total_influence'] ?></abbr>
                                         </p>
 
                                         <p class="resource-count">
                                             Optimal:
-                                            <abbr title="influence" class="influence"><?= $slice['optimal_influence'] ?></abbr>
                                             <abbr title="resources" class="resources"><?= $slice['optimal_resources'] ?></abbr>
+                                            <abbr title="influence" class="influence"><?= $slice['optimal_influence'] ?></abbr>
                                         </p>
 
                                         <p class="center">

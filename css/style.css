@@ -550,13 +550,13 @@ h3 {
   vertical-align: middle;
 }
 #draft .influence {
-  margin-left: 10px;
   background-color: #55c7ed;
-  border-radius: 15px 0px 0px 15px;
+  border-radius: 0px 15px 15px 0px;
 }
 #draft .resources {
   background-color: #e8e600;
-  border-radius: 0px 15px 15px 0px;
+  margin-left: 10px;
+  border-radius: 15px 0px 0px 15px;
 }
 #draft .factions .options {
   align-items: stretch;

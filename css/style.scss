@@ -580,13 +580,13 @@ h3 {
     }
 
     .influence {
-        margin-left: 10px;
         background-color: #55c7ed;
-        border-radius: 15px 0px 0px 15px;
+        border-radius: 0px 15px 15px 0px;
     }
     .resources {
         background-color: #e8e600;
-        border-radius: 0px 15px 15px 0px;
+        margin-left: 10px;
+        border-radius: 15px 0px 0px 15px;
     }
     .factions {
 

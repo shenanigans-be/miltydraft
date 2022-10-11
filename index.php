@@ -181,7 +181,7 @@
 
                                 <div class="input">
                                     <label for="max_total">
-                                        Minimum Optimal Total
+                                        Maximum Optimal Total
                                     </label>
 
                                     <input type="number" id="max_total" required min="0" name="max_total" step="0.5" value="13" />

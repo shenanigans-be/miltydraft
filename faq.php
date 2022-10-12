@@ -46,6 +46,16 @@
             Well, that kind of depends on how popular this gets. Hosting isn't free, sadly, so I'm planning to weed out drafts older than one year every so often.
         </p>
 
+        <h4>Why only five players without PoK?</h4>
+        <p>
+            Technically it could go up to six (6 is a hard limit because there are only 12 red tiles in the base game), but here's why only five:<br />
+            The way slices are generated now is that each slice gets a top-, middle- and lower-tier tile + 2 red ones. And in the tiers I have (from miltydraft.com, who — I assume — did their homework) only have 5 middle-tier tiles listed for the base game.<br />
+            SO: if I completely leave out the tier-system for non-PoK games, it could do six. and I'm planning to implement that in *some* way,<br />
+            but it involves some deeper-level tinkering and also figuring out how to communicate this whole mess above clearly to anyone using these settings (without cluttering up the whole thing with even more help-text than it already has).<br />
+            I might implement all this and you'll be able to go up to six, I'm working my way through feedback and feature requests, but I also have a day job.
+        </p>
+
+
         <h4>What's your privacy policy?</h4>
         <p>
             As you can see, links are public to anyone who has them, so there's technically no guarantee to privacy. I'd say: be mindful of any information you enter as player names.<br />
@@ -69,9 +79,12 @@
         <p>I am not affiliated with Fantasy Flight or Twilight Imperium. Sorry if I'm doing something that's not allowed, copyright-wise.</p>
         </p>
 
-        <h4>This is thing is hot garbage!</h4>
+        <h4>This is thing is hot garbage! / It's missing feature X which I desperately need!</h4>
         <p>
-            First of all: rude. Second: Yes, there are a lot of problems with this, and stuff I haven't implemented, sure. The code is on <a href="https://github.com/shenanigans-be/miltydraft" target="_blank">Github</a> if you want to report an issue or even contribute!
+            First of all: rude.<br />
+            Second: Yes, there are a lot of problems with this, and stuff I haven't implemented, sure.<br />
+            The code is on <a href="https://github.com/shenanigans-be/miltydraft" target="_blank">Github</a> if you want to report an issue or even contribute!<br />
+            If you'd like to reach out to me directly, you can do so on <a href="https://twitter.com/samtubbax" target="_blank">Twitter</a> or <a href="https://www.reddit.com/user/notcleverenough" target="_blank">Reddit</a>.
         </p>
     </div>
 </div>

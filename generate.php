@@ -1,8 +1,6 @@
 <?php
     require_once 'boot.php';
 
-
-
     $config = new GeneratorConfig();
 
     generate($config);

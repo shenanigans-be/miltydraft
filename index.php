@@ -115,7 +115,11 @@
                                 <label for="pok" class="check">
                                     <input type="checkbox" name="include_pok" id="pok" checked /> Include Prophecy Of Kings
                                 </label>
-                                <span class="help">Include the factions and tiles from the Prophecy of Kings expansion.</span>
+                                <span class="help">
+                                    Include the factions and tiles from the Prophecy of Kings expansion.<br /><br/>
+                                    <strong>IMPORTANT NOTE: If you don't include PoK you can only organise drafts up to 5 players (because you can only generate 5 valid slices with the base-game tiles)!</strong>
+                                </span>
+
                             </div>
 
                             <div class="input">

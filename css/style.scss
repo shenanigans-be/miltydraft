@@ -181,6 +181,11 @@ button, .btn {
     text-decoration: none;
     font-weight: 600;
     text-transform: uppercase;
+
+    &.invert {
+        color: $color-highlight;
+        background-color: $color-background;
+    }
 }
 button[type="submit"] {
     font-size: 18px;
@@ -628,7 +633,7 @@ h3 {
 .popup {
     position: fixed;
     top: 0px;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.8);
     left: 0px;
     display: none;
     z-index: 99999999;
@@ -643,6 +648,20 @@ h3 {
         left: 50%;
         transform: translate(-50%, -50%);
     }
+}
+#reference-popup img {
+    position: absolute;
+    max-width: 80vw;
+    max-height: 90vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.close-reference {
+    position: absolute;
+    top: 100px;
+    right: 40px;
+    z-index: 999;
 }
 #loading {
     position: fixed;

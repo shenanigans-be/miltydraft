@@ -87,7 +87,7 @@
                                         <img src="<?= url('img/factions/ti_' . $faction['id'] . '.png') ?>" /><br />
 
                                         <span><?= $faction['name'] ?></span><br />
-                                        <a href="<?= $faction['wiki'] ?>" class="more">[wiki]</a><br />
+                                        <a href="#" data-id="<?= $faction['id'] ?>" class="open-reference">[reference]</a> <a href="<?= $faction['wiki'] ?>" class="more">[wiki]</a><br />
                                         <button class="draft" data-category="faction" data-value="<?= $faction['name'] ?>">Draft</button>
                                         <span class="drafted-by" data-category="faction" data-value="<?= $faction['name'] ?>"></span>
                                     </div>
@@ -210,6 +210,11 @@
                 <button id="confirm-cancel">Cancel</button>
             </p>
         </div>
+    </div>
+
+    <div class="popup" id="reference-popup">
+        <a class="btn close-reference invert">&times;</a>
+        <img data-base="<?= url('img/factions/r_') ?>" src="" />
     </div>
 
     <div class="popup" id="error-popup">

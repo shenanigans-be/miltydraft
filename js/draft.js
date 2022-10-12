@@ -11,6 +11,18 @@ $(document).ready(function() {
         }
     });
 
+    $('.open-reference').on('click', function(e) {
+        e.preventDefault();
+
+        let base_url = $('#reference-popup img').data('base');
+        $('#reference-popup img').attr('src', base_url + $(this).data('id') + '.png');
+        $('#reference-popup').show();
+    });
+
+    $('.close-reference').on('click', function(e) {
+        $('#reference-popup').hide();
+    });
+
     $('.status .map').on('click', function(e) {
         console.log(e);
         $('#tabs nav a[href="#map"]').click();

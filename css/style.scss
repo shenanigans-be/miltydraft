@@ -7,6 +7,8 @@
 $color-background: #FEFCF8;
 $color-text: #16232c;
 $color-highlight: #1c3148;
+$color-dark-highlight: #38618f;
+$color-border-light: rgba(255, 255, 255, 0.3);
 $max-md: '(max-width: 1200px)';
 $max-sm: '(max-width: 768px)';
 
@@ -796,5 +798,61 @@ strong {
         @media #{$max-sm} {
             width: 100%;
         }
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .container {
+        background-color: $color-text;
+    }
+
+    p, label, span, a {
+        color: $color-background;
+    }
+
+    input[type="text"], input[type="number"], textarea {
+        background-color: $color-text;
+        color: $color-background;
+        border-color: $color-background;
+    }
+
+    h1, h2, h3, h4 {
+        color: $color-dark-highlight;
+    }
+
+    button, .btn {
+        background-color: $color-dark-highlight;
+        color: $color-background;
+    }
+
+    #tabs {
+        nav {
+            border-color: $color-border-light;
+        }
+        nav a {
+            border-color: $color-border-light;
+            background-color: $color-text;
+
+            &.active {
+                border-bottom-color: $color-text;
+                background-color: $color-text;
+            }
+        }
+
+    }
+
+    .section {
+        border-color: $color-border-light;
+    }
+
+    .popup .content {
+        background-color: $color-text;
+    }
+
+    .resources, .influence {
+        color: $color-text;
+    }
+    .position span {
+        color: $color-background !important;
     }
 }

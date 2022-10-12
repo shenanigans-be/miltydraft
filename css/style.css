@@ -1252,4 +1252,57 @@ strong {
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  .container {
+    background-color: #16232c;
+  }
+
+  p, label, span, a {
+    color: #FEFCF8;
+  }
+
+  input[type=text], input[type=number], textarea {
+    background-color: #16232c;
+    color: #FEFCF8;
+    border-color: #FEFCF8;
+  }
+
+  h1, h2, h3, h4 {
+    color: #38618f;
+  }
+
+  button, .btn {
+    background-color: #38618f;
+    color: #FEFCF8;
+  }
+
+  #tabs nav {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  #tabs nav a {
+    border-color: rgba(255, 255, 255, 0.3);
+    background-color: #16232c;
+  }
+  #tabs nav a.active {
+    border-bottom-color: #16232c;
+    background-color: #16232c;
+  }
+
+  .section {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .popup .content {
+    background-color: #16232c;
+  }
+
+  .resources, .influence {
+    color: #16232c;
+  }
+
+  .position span {
+    color: #FEFCF8 !important;
+  }
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -21,7 +21,15 @@ $(document).ready(function() {
         } else {
             $(this).html('show');
         }
+    });
 
+    $('#select-all').on('click', function(e) {
+        e.preventDefault();
+        $('.custom_faction').prop('checked', true);
+    });
+    $('#deselect-all').on('click', function(e) {
+        e.preventDefault();
+        $('.custom_faction').prop('checked', false);
     });
 
     $('#add-player').on('click', function(e) {

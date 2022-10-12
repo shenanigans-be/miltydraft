@@ -222,6 +222,11 @@
                                             This means that if you want to <strong>exclude</strong> certain factions from the draft, you need to check everything except the ones you wish to exclude, and we'll do the rest.<br /><br />
                                             <strong>Note: once you start fiddling with this, the above options to include/exclude PoK or Keleres will be ignored.</strong>
                                         </span>
+
+                                        <br />
+                                        <span>
+                                            <a href="#" id="select-all">Select All</a> / <a href="#" id="deselect-all">Deselect All</a>
+                                        </span>
                                     </label>
 
                                     <div class="input-group">

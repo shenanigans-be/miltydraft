@@ -37,6 +37,7 @@
                         <a class="active" href="#draft">Draft</a>
                         <a href="#map">Map</a>
                         <a href="#log">Log</a>
+                        <a href="#config">Config</a>
                     </div>
                     <div class="right">
                         <a href="#faq">FAQ</a>
@@ -173,6 +174,63 @@
                     </script>
 
                 <?php endif; ?>
+                </div>
+            </div>
+            <div class="tab" id="config">
+                <div class="content-wrap">
+                    <h3>Configuration used</h3>
+
+                    <p>
+                        <label>Number of Players:</label> <strong><?= count($draft['draft']['players']) ?></strong>
+                    </p>
+                    <p>
+                        <label>Number of Slices:</label> <strong><?= $draft['config']['num_slices'] ?></strong>
+                    </p>
+                    <p>
+                        <label>Number of Factions:</label> <strong><?= $draft['config']['num_factions'] ?></strong>
+                    </p>
+                    <p>
+                        <label>Include PoK:</label> <strong><?= e($draft['config']['include_pok'], 'yes', 'no') ?></strong>
+                    </p>
+                    <p>
+                        <label>Include Keleres:</label> <strong><?= e($draft['config']['include_keleres'], 'yes', 'no') ?></strong>
+                    </p>
+                    <p>
+                        <label>Map must include wormholes and Legendary Planets:</label> <strong><?= e($draft['config']['must_include_wormholes_and_legendaries'], 'yes', 'no') ?></strong>
+                    </p>
+                    <p>
+                        <label>Max. 1 wormhole per slice:</label> <strong><?= e(isset($draft['config']['max_1_wormhole']) && $draft['config']['max_1_wormhole'], 'yes', 'no') ?></strong>
+                    </p>
+                    <hr/>
+                    <p>
+                        <label>Minimum Optimal Influence:</label> <strong><?= $draft['config']['minimum_optimal_influence'] ?></strong>
+                    </p>
+                    <p>
+                        <label>Minimum Optimal Resources:</label> <strong><?= $draft['config']['minimum_optimal_resources'] ?></strong>
+                    </p>
+
+                    <p>
+                        <label>Minimum Optimal Total:</label> <strong><?= $draft['config']['minimum_optimal_total'] ?></strong>
+                    </p>
+
+                    <p>
+                        <label>Maximum Optimal Total:</label> <strong><?= $draft['config']['maximum_optimal_total'] ?></strong>
+                    </p>
+
+                    <p>
+                        <label>Custom Factions:</label> <strong><?= implode(',', $draft['config']['custom_factions']) ?></strong>
+                    </p>
+                    <p>
+                        <label>Custom Slices:</label> <strong>
+                            <?php if($draft['config']['custom_slices'] != null): ?>
+                                <?php foreach($draft['config']['custom_slices'] as $slice): ?>
+                                    <?= implode(',', $slice) ?><br />
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                no
+                            <?php endif; ?>
+                        </strong>
+                    </p>
                 </div>
             </div>
             <div class="tab" id="map">

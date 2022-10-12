@@ -175,7 +175,7 @@
                                         Minimum Optimal Resources
                                     </label>
 
-                                    <input type="number" id="min_res" required min="0" name="min_inf" step="0.5" value="2.5" />
+                                    <input type="number" id="min_res" required min="0" name="min_res" step="0.5" value="2.5" />
                                 </div>
                                 <div class="input">
                                     <label for="min_total">

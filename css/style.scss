@@ -762,8 +762,33 @@ h3 {
 #log p {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     padding-bottom: 1em;
+}
 
-    strong {
-        font-weight: 600;
+strong {
+    font-weight: 600;
+}
+#config hr {
+    margin: 10px 0px 1em;
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+#config p {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    @media #{$max-sm} {
+        flex-wrap: wrap;
+    }
+
+    label, strong {
+        padding: 0;
+        width: 50%;
+
+        @media #{$max-sm} {
+            width: 100%;
+        }
     }
 }

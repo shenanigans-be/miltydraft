@@ -19,7 +19,7 @@ function e($condition, $yes, $no = '') {
 
 function get($param, $default = null) {
     if(isset($_POST[$param])) return $_POST[$param];
-    if(isset($_GET[$param])) return $_POST[$param];
+    if(isset($_GET[$param])) return $_GET[$param];
     return $default;
 }
 

@@ -49,22 +49,22 @@
                                 </div>
 
                                 <div class="input player">
-                                    <input type="text" placeholder="Player Name" name="player[]" />
+                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Test") ?>" />
                                 </div>
                                 <div class="input player">
-                                    <input type="text" placeholder="Player Name" name="player[]" />
+                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Test") ?>" />
                                 </div>
                                 <div class="input player">
-                                    <input type="text" placeholder="Player Name" name="player[]" />
+                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Test") ?>" />
                                 </div>
                                 <div class="input player">
-                                    <input type="text" placeholder="Player Name" name="player[]" />
+                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Test") ?>" />
                                 </div>
                                 <div class="input player">
-                                    <input type="text" placeholder="Player Name" name="player[]" />
+                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Test") ?>" />
                                 </div>
                                 <div class="input player">
-                                    <input type="text" placeholder="Player Name" name="player[]" />
+                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Test") ?>" />
                                 </div>
                                 <div class="input player">
                                     <input type="text" placeholder="Player Name" name="player[]" />
@@ -133,6 +133,12 @@
                                     <input type="checkbox" name="specials" id="specials" /> Map must include wormholes and Legendary Planets
                                 </label>
                                 <span class="help">Checking this box means that there will be at least 2 or 3 <span class="alpha">alpha</span> wormholes, 2 or 3 <span class="beta">beta</span> wormholes and 1 or 2 legendary planets, divided among the slices.</span>
+                            </div>
+
+                            <div class="input">
+                                <label for="max_wormhole" class="check">
+                                    <input type="checkbox" name="max_wormhole" id="max_wormhole" /> Max. 1 wormhole per slice
+                                </label>
                             </div>
                         </div>
                         </div>

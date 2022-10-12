@@ -155,6 +155,11 @@ class Slice {
 
         // has the right minimum optimal values?
         if($this->optimal_influence < $config->minimum_optimal_influence || $this->optimal_resources < $config->minimum_optimal_resources) {
+//            echo "not enough minimum<br />";
+            return false;
+        }
+
+        if($special_count['alpha'] > 0 && $special_count['beta'] > 0 && $config->max_1_wormhole) {
             return false;
         }
 
@@ -215,6 +220,7 @@ class GeneratorConfig {
     public $minimum_optimal_resources;
     public $minimum_optimal_total;
     public $maximum_optimal_total;
+    public $max_1_wormhole;
 
     public $custom_factions = null;
     public $custom_slices = null;
@@ -237,6 +243,7 @@ class GeneratorConfig {
         $this->minimum_optimal_resources = (float) get('min_res');
         $this->minimum_optimal_total = (float) get('min_total');
         $this->maximum_optimal_total = (float) get('max_total');
+        $this->max_1_wormhole = get('max_wormhole') == true;
 
         if(!empty(get('custom_factions', []))) {
             $this->custom_factions = get('custom_factions');
@@ -287,6 +294,7 @@ class GeneratorConfig {
             'num_slices' => $this->num_slices,
             'num_factions' => $this->num_factions,
             'must_include_wormholes_and_legendaries' => $this->must_include_wormholes_and_legendaries,
+            'max_1_wormhole' => $this->max_1_wormhole,
             'minimum_optimal_influence' => $this->minimum_optimal_influence,
             'minimum_optimal_resources' => $this->minimum_optimal_resources,
             'minimum_optimal_total' => $this->minimum_optimal_total,

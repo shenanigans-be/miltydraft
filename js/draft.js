@@ -19,7 +19,8 @@ $(document).ready(function() {
         $('#reference-popup').show();
     });
 
-    $('.close-reference').on('click', function(e) {
+
+    $('.close-reference, #reference-popup img').on('click', function(e) {
         $('#reference-popup').hide();
     });
 

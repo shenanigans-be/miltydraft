@@ -218,13 +218,18 @@
                     </p>
 
                     <p>
-                        <label>Custom Factions:</label> <strong><?= implode(',', $draft['config']['custom_factions']) ?></strong>
+                        <label>Custom Factions:</label> <strong>
+                            <?php if($draft['config']['custom_factions'] != null): ?>
+                                <?= implode(',', $draft['config']['custom_factions']) ?>
+                            <?php else: ?>
+                                no
+                            <?php endif; ?>
                     </p>
                     <p>
                         <label>Custom Slices:</label> <strong>
                             <?php if($draft['config']['custom_slices'] != null): ?>
                                 <?php foreach($draft['config']['custom_slices'] as $slice): ?>
-                                    <?= implode(',', $slice) ?><br />
+                                    <?= implode(', ', $slice) ?><br />
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 no

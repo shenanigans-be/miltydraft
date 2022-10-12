@@ -209,16 +209,21 @@
 
                                 <div class="input">
                                     <label for="custom_tiles">
-                                        Custom Factions
+                                        Custom Factions<br />
+
+                                        <span class="help">
+                                            You can pre-select the factions that will be considered in the draft.<br /><br />
+                                            If you don't check enough factions to fill up the draft (based on the number of factions above), the generator will add some random (unchecked) ones. <br />
+                                            If you check more than enough (e.g: checking 10 factions when the draft only needs 8), a random selection will be made from the checked factions. <br /><br />
+                                            This means that if you want to <strong>exclude</strong> certain factions from the draft, you need to check everything except the ones you wish to exclude, and we'll do the rest.<br /><br />
+                                            <strong>Note: once you start fiddling with this, the above options to include/exclude PoK or Keleres will be ignored.</strong>
+                                        </span>
                                     </label>
 
                                     <div class="input-group">
                                         <?php require_once 'factions.php'; ?>
                                     </div>
 
-                                    <span class="help">
-                                        You can pre-select the factions that will be used in the draft. This will override any of the above settings (e.g: how many there will be or which expansions are included)
-                                    </span>
                                 </div>
                             </div>
                         </div>

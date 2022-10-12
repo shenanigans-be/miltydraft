@@ -42,11 +42,7 @@
             }
         }
 
-        if($config->custom_factions != null) {
-            $factions = $config->custom_factions;
-        } else {
-            $factions = select_factions($config);
-        }
+        $factions = select_factions($config);
 
         $player_data = [];
         $first_player = null;
@@ -275,16 +271,37 @@
 
        $factions = [];
 
-       foreach($faction_data as $faction => $data) {
-           if($data["set"] == "base") {
-               $factions[] = $faction;
+       if($config->custom_factions != null) {
+           foreach($config->custom_factions as $f) {
+               $factions[] = $f;
            }
-           if($data["set"] == "pok" && $config->include_pok) {
-               $factions[] = $faction;
+
+           shuffle($faction_data);
+
+           // add some more boys and girls untill we reach the magic number
+           $i = 0;
+           while(count($factions) < $config->num_factions) {
+               $faction = $faction_data[$i]['name'];
+
+               if(!in_array($faction, $factions)) {
+                   $factions[] = $faction;
+               }
+
+               $i++;
            }
-           if($data["set"] == "keleres" && $config->include_keleres) {
-               $factions[] = $faction;
+       } else {
+           foreach($faction_data as $faction => $data) {
+               if($data["set"] == "base") {
+                   $factions[] = $faction;
+               }
+               if($data["set"] == "pok" && $config->include_pok) {
+                   $factions[] = $faction;
+               }
+               if($data["set"] == "keleres" && $config->include_keleres) {
+                   $factions[] = $faction;
+               }
            }
+
        }
 
        shuffle($factions);

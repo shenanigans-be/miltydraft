@@ -273,10 +273,9 @@ class GeneratorConfig {
         if($this->num_factions < $this->num_players) return_error("Can't have less factions than players");
         if($this->num_slices < $this->num_players) return_error("Can't have less slices than players");
         if($this->maximum_optimal_total < $this->minimum_optimal_total) return_error("Maximum optimal can't be less than minimum");
-        if($this->custom_factions != null && count($this->custom_factions) < $this->num_players) return_error("Not enough custom factions for number of players");
+        // if($this->custom_factions != null && count($this->custom_factions) < $this->num_players) return_error("Not enough custom factions for number of players");
         if($this->custom_slices != null) {
             if(count($this->custom_slices) < $this->num_players) return_error("Not enough custom slices for number of players");
-
             foreach($this->custom_slices as $s) {
                 if(count($s) != 5) return_error('Some of the custom slices have the wrong number of tiles. (each should have five)');
             }

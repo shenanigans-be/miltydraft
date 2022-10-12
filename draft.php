@@ -220,7 +220,7 @@
                     <p>
                         <label>Custom Factions:</label> <strong>
                             <?php if($draft['config']['custom_factions'] != null): ?>
-                                <?= implode(',', $draft['config']['custom_factions']) ?>
+                                <?= implode(', ', $draft['config']['custom_factions']) ?>
                             <?php else: ?>
                                 no
                             <?php endif; ?>

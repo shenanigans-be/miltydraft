@@ -65,6 +65,10 @@ label.disabled {
 label.check {
   width: 100%;
 }
+label .help {
+  padding-right: 10px;
+  font-size: 14px;
+}
 
 #error {
   color: #FF0000;

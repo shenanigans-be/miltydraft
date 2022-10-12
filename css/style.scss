@@ -71,6 +71,12 @@ label {
     &.check {
         width: 100%;
     }
+
+    .help {
+        padding-right: 10px;
+
+        font-size: 14px;
+    }
 }
 #error {
     color: #FF0000;

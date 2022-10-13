@@ -25,7 +25,6 @@ $(document).ready(function() {
     });
 
     $('.status .map').on('click', function(e) {
-        console.log(e);
         $('#tabs nav a[href="#map"]').click();
     })
 
@@ -271,10 +270,8 @@ function draft_status() {
 
 function ordinal(number) {
     let ends = ['th','st','nd','rd','th','th','th','th','th','th'];
-    console.log(number);
     if (((number % 100) >= 11) && ((number%100) <= 13))
         return number + 'th';
     else
         return number + ends[number % 10];
 }
-

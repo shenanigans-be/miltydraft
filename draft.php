@@ -250,6 +250,9 @@
                     </div>
                     <h3>Tiles</h3>
                     <p id="tile-gather"></p>
+                    <h3>TTS Map String*</h3>
+                    <p id="tts-string"></p>
+                    <span class="help">*This feature is in development and hasn't been rigorously tested, so some maps might give odd results. If you find something wrong, please <a href="https://twitter.com/samtubbax" target="_blank">reach out</a> and let me know!</span>
                 </div>
             </div>
             <div class="tab" id="log">

@@ -77,7 +77,7 @@ const MAP_3 = [
 
 const MAP_4 = [
     [0, -3, "0-H"],
-    [1, -3, "1-0"],
+    [1, -3, "0-0"],
     [2, -3, "1-2"],
     [3, -3, "1-H"],
 
@@ -353,23 +353,51 @@ let all_tiles = [];
 
 function generate_map() {
     if(map_cached) {
-        console.log('were good');
         return;
     }
 
     let map_template = MAPS[draft.config.players.length];
-    console.log(map_template);
 
     let map = "";
     all_tiles = [];
+
+    let TTS_spiral = []
+    // console.log(TTS_spiral);
+
+    for(let i = 1; i <= 4; i++) {
+        TTS_spiral = TTS_spiral.concat(axial_ring([0, 0], i));
+    }
+
+    console.log(TTS_spiral);
+
+    let TTS_string = [];
     for(const t in map_template) {
-        map += draw_tile(map_template[t]);
+        let result =  draw_tile(map_template[t]);
+        map += result.html;
+
+        // console.log(map_template[t][1], map_template[t][0]);
+
+        for(const i in TTS_spiral) {
+            if(TTS_spiral[i][0] == map_template[t][0] && TTS_spiral[i][1] == map_template[t][1]) {
+                // console.log('Coordinates are good, lock it in!', map_template[t], TTS_spiral[i]);
+                let tts = result.tile;
+                if(result.hyperlane) tts += result.rotate;
+                TTS_string[i] = tts;
+            }
+        }
+    }
+
+    for(let u = 0; u < TTS_string.length; u++) {
+        if(typeof(TTS_string[u]) == 'undefined' || TTS_string[u] == "EMPTY") TTS_string[u] = 0;
     }
 
 
     $('.map-container').attr('data-p', draft.config.players.length)
     $('#map-wrap').html(map);
     $('#tile-gather').html(all_tiles.sort().join(', '));
+    $('#tts-string').html(TTS_string.join(' '));
+
+    map_cached = true;
 }
 
 function lookup(player_index, tile_index) {
@@ -401,10 +429,12 @@ function draw_tile(tile) {
     let rotation = 0;
     let chunks = tile[2].split('-');
     let label = chunks[0] + "-" + chunks[1];
+    let is_hyperlane = false;
 
     if(chunks.length == 3 && chunks[0] == "L") {
         // hyperlane
         tilename = HYPERLANES[chunks[1]];
+        is_hyperlane = true;
         rotation = parseInt(chunks[2]);
         label = tilename;
     } else {
@@ -427,11 +457,63 @@ function draw_tile(tile) {
 
     if(tilename != 'EMPTY' && tilename != 0) all_tiles.push(tilename);
 
-    return '<img src="' + window.routes.tile_images + '/ST_' + tilename + '.png' + '" data-rotate="' + rotation + '" data-q="' + tile[0] +'" data-r="' + tile[1] + '" /><img class="zoom" src="' + window.routes.tile_images + '/ST_' + tilename + '.png' + '" data-rotate="' + rotation + '" data-q="' + tile[0] +'" data-r="' + tile[1] + '" /><span data-q="' + tile[0] +'" data-r="' + tile[1] + '">' + label + '</span>'
+    let html = '<img src="' + window.routes.tile_images + '/ST_' + tilename + '.png' + '" data-rotate="' + rotation + '" data-q="' + tile[0] +'" data-r="' + tile[1] + '" /><img class="zoom" src="' + window.routes.tile_images + '/ST_' + tilename + '.png' + '" data-rotate="' + rotation + '" data-q="' + tile[0] +'" data-r="' + tile[1] + '" /><span data-q="' + tile[0] +'" data-r="' + tile[1] + '">' + label + '</span>';
+
+    return {
+        html: html,
+        tile: tilename,
+        rotate: rotation,
+        hyperlane: is_hyperlane,
+        q: chunks[0],
+        r: chunks[1]
+    };
 }
 
 function hex_to_pixel(q, r) {
     var x = size * (3/2 * q);
     var y = size * (Math.sqrt(3)/2 * q  +  Math.sqrt(3) * r);
     return [x, y];
+}
+
+
+
+var axial_direction_vectors = [
+    [1, 0], [0, 1], [-1, 1], [-1, 0], [0, -1], [1, -1]
+];
+
+function axial_scale(hex, factor) {
+    return [hex[0] * factor, hex[1] * factor];
+}
+
+function axial_ring(center, radius) {
+    var results = [];
+    var hex = axial_add(center, axial_scale(axial_direction(4), radius));
+    console.log(hex);
+    for(let i = 0; i < 6; i++) {
+        for(let j = 0; j < radius; j++) {
+            results.push(hex);
+            hex = axial_neighbor(hex, i);
+        }
+    }
+    return results;
+}
+
+function axial_direction(direction) {
+    return axial_direction_vectors[direction];
+}
+
+function axial_add(hex, vec) {
+    return [hex[0] + vec[0], hex[1] + vec[1]];
+}
+
+function axial_neighbor(hex, direction) {
+    return axial_add(hex, axial_direction(direction))
+}
+
+function axial_spiral(center, radius) {
+    var results = [center];
+    for(let i = 1; i <= radius; i++) {
+        results = results.concat(axial_ring(center, i));
+    }
+    return results;
 }

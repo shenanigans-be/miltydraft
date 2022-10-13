@@ -362,24 +362,19 @@ function generate_map() {
     all_tiles = [];
 
     let TTS_spiral = []
-    // console.log(TTS_spiral);
 
     for(let i = 1; i <= 4; i++) {
         TTS_spiral = TTS_spiral.concat(axial_ring([0, 0], i));
     }
-
-    console.log(TTS_spiral);
 
     let TTS_string = [];
     for(const t in map_template) {
         let result =  draw_tile(map_template[t]);
         map += result.html;
 
-        // console.log(map_template[t][1], map_template[t][0]);
 
         for(const i in TTS_spiral) {
             if(TTS_spiral[i][0] == map_template[t][0] && TTS_spiral[i][1] == map_template[t][1]) {
-                // console.log('Coordinates are good, lock it in!', map_template[t], TTS_spiral[i]);
                 let tts = result.tile;
                 if(result.hyperlane) tts += result.rotate;
                 TTS_string[i] = tts;
@@ -401,17 +396,23 @@ function generate_map() {
 }
 
 function lookup(player_index, tile_index) {
-    // console.log(player_index, tile_index);
-    // console.log( draft.draft.players);
-
     for(const i in draft.draft.players) {
 
         let p = draft.draft.players[i];
-        // console.log(p);
 
         if(p.position == player_index) {
             if(tile_index == "H") {
-                return ["0", p.name];
+
+                let tile = "0";
+
+                if(p.faction != null) {
+                    let h = $('[data-faction="' + p.faction + '"]').data('homesystem');
+                    if(typeof(h) != 'undefined') {
+                        tile = h;
+                    }
+                }
+
+                return [tile, p.name];
             }
             else if(p.slice != null) {
                 // huzzah!
@@ -449,7 +450,7 @@ function draw_tile(tile) {
             if(label == "EMPTY") label = (parseInt(chunks[0]) + 1) + "-" + chunks[1];
 
             if(chunks[1] == "H") {
-                tilename = "0";
+                // tilename = "0";
                 label = result[1];
             }
         }
@@ -488,7 +489,6 @@ function axial_scale(hex, factor) {
 function axial_ring(center, radius) {
     var results = [];
     var hex = axial_add(center, axial_scale(axial_direction(4), radius));
-    console.log(hex);
     for(let i = 0; i < 6; i++) {
         for(let j = 0; j < radius; j++) {
             results.push(hex);

@@ -172,6 +172,7 @@
         "name": "The Council Keleres",
         "wiki": "https://twilight-imperium.fandom.com/wiki/The_Council_Keleres",
         "options": ["The Mentak Coalition", "The Xxcha Kingdom", "The Argent Flight"],
+        "homesystem": "0",
         "set": "keleres"
     }
 }

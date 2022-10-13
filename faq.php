@@ -57,7 +57,7 @@
 
         <h4>I picked Council Keleres and my homesystem doesn't show up on the map!</h4>
         <p>
-            It's difficult to integrate Keleres into the draft gracefully. There are a lot of differing opinions on how/where they should pick their
+            It's difficult to integrate Keleres into the draft gracefully. There are a lot of differing opinions on how/when they should pick their
             flavor and it just seemed like the best option to leave it up to each group to decide amongst themselves. So because of that — in short — no: The Council's homesystem doesn't show up because the draft system doesn't know what the correct system is.
         </p>
 
@@ -77,12 +77,10 @@
 
         <h4>This thing is awesome!</h4>
         <p>
-            Not really a question, but I appreciate the enthousiasm!
-        </p>
-        <p>
-        <p>This website is based on (read: plagiarised entirely from) miltydraft.com, but extended to have a saved shareable links and saving draft over sessions/multiple users.</p>
-        <p>Also thanks to <a href="https://github.com/KeeganW/ti4">KeeganW</a> for the nicely structured data and tile images.</p>
-        <p>I am not affiliated with Fantasy Flight or Twilight Imperium. Sorry if I'm doing something that's not allowed, copyright-wise.</p>
+            Not really a question, but I appreciate the enthousiasm!<br />
+            This website is based on (read: plagiarised entirely from) miltydraft.com, but extended to have a saved shareable links and saving draft over sessions/multiple users.<br />
+            Also thanks to <a href="https://github.com/KeeganW/ti4">KeeganW</a> for the nicely structured data and tile images.<br /><br />
+            I am not affiliated with Fantasy Flight or Twilight Imperium. Sorry if I'm doing something that's not allowed, copyright-wise.
         </p>
 
         <h4>This is thing is hot garbage! / It's missing feature X which I desperately need!</h4>

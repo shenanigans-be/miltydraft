@@ -401,6 +401,7 @@ function lookup(player_index, tile_index) {
         let p = draft.draft.players[i];
 
         if(p.position == player_index) {
+
             if(tile_index == "H") {
 
                 let tile = "0";
@@ -447,10 +448,11 @@ function draw_tile(tile) {
             tilename = result[0];
             rotation = 0;
             label = result[0];
+
             if(label == "EMPTY") label = (parseInt(chunks[0]) + 1) + "-" + chunks[1];
 
             if(chunks[1] == "H") {
-                // tilename = "0";
+                if(tilename == "EMPTY") tilename = "0";
                 label = result[1];
             }
         }

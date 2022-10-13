@@ -55,6 +55,12 @@
             I might implement all this and you'll be able to go up to six, I'm working my way through feedback and feature requests, but I also have a day job.
         </p>
 
+        <h4>I picked Council Keleres and my homesystem doesn't show up on the map!</h4>
+        <p>
+            It's difficult to integrate Keleres into the draft gracefully. There are a lot of differing opinions on how/where they should pick their
+            flavor and it just seemed like the best option to leave it up to each group to decide amongst themselves. So because of that — in short — no: The Council's homesystem doesn't show up because the draft system doesn't know what the correct system is.
+        </p>
+
 
         <h4>What's your privacy policy?</h4>
         <p>

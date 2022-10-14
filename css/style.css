@@ -711,11 +711,6 @@ h3 {
   opacity: 1;
   z-index: 999;
 }
-#map-wrap img:hover + .zoom + span {
-  z-index: 9999;
-  transform: translate(-50%, -50%) scale(0.6, 0.6);
-  font-weight: 600;
-}
 #map-wrap *[data-q="-5"][data-r="-5"] {
   left: -7.5em;
   top: -12.98em;

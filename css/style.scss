@@ -750,9 +750,9 @@ h3 {
             z-index: 999;
         }
         &:hover + .zoom + span {
-            z-index: 9999;
-            transform: translate(-50%, -50%) scale(0.6, 0.6);
-            font-weight: 600;
+            //z-index: 9999;
+            //transform: translate(-50%, -50%) scale(0.6, 0.6);
+            //font-weight: 600;
         }
     }
 

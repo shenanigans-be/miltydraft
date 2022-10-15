@@ -88,7 +88,7 @@
                                         <img src="<?= url('img/factions/ti_' . $faction['id'] . '.png') ?>" /><br />
 
                                         <span><?= $faction['name'] ?></span><br />
-                                        <a href="#" data-id="<?= $faction['id'] ?>" class="open-reference">[reference]</a> <a href="<?= $faction['wiki'] ?>" class="more">[wiki]</a><br />
+                                        <a href="#" data-id="<?= $faction['id'] ?>" class="open-reference">[reference]</a> <a target="_blank" href="<?= $faction['wiki'] ?>" class="more">[wiki]</a><br />
                                         <button class="draft" data-category="faction" data-value="<?= $faction['name'] ?>">Draft</button>
                                         <span class="drafted-by" data-category="faction" data-value="<?= $faction['name'] ?>"></span>
                                     </div>

@@ -41,6 +41,7 @@ function return_error($err) {
 }
 
 function return_data($data) {
+    header('Access-Control-Allow-Origin: *');
     die(json_encode($data));
 }
 

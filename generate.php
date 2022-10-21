@@ -193,7 +193,7 @@
             $counts = count_specials($all);
 
             // validate against minimums
-            if($counts["alpha"] < $min_alpha || $counts["alpha"] < $min_beta || $counts["legendary"] < $min_legend) {
+            if($counts["alpha"] < $min_alpha || $counts["beta"] < $min_beta || $counts["legendary"] < $min_legend) {
                 // try again
                 return select_tiles($tiles, $config,$previous_tries + 1);
             } else {
@@ -243,7 +243,6 @@
         $legendary_count = 0;
 
         foreach($tiles as $tile) {
-
             if($tile->has_wormhole("alpha")) $alpha_count++;
             if($tile->has_wormhole("beta")) $beta_count++;
             if($tile->has_legendary()) $legendary_count++;

@@ -139,6 +139,13 @@
                                 <span class="help">Checking this box means that there will be at least 2 or 3 <span class="alpha">alpha</span> wormholes, 2 or 3 <span class="beta">beta</span> wormholes and 1 or 2 legendary planets, divided among the slices.</span>
                             </div>
 
+							<div class="input">
+                                <label for="legendaries" class="check">
+                                    <input type="checkbox" name="legendaries" id="legendaries" /> Map must include both Legendary Planets
+                                </label>
+                                <span class="help">Checking this box means that both Primor and Hope's End will be divided among the slices. (The above option only ensures the inclusion of either.)</span>
+                            </div>
+
                             <div class="input">
                                 <label for="max_wormhole" class="check">
                                     <input type="checkbox" name="max_wormhole" id="max_wormhole" /> Max. 1 wormhole per slice

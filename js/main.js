@@ -85,6 +85,7 @@ function pok_check() {
     let $keleres = $('#keleres');
     let $specials = $('#specials');
     let $max_factions = $('#num_factions');
+	let $legendaries = $('#legendaries');
 
     if($('#pok').is(':checked')) {
         $max_factions.attr("max", 24);
@@ -94,6 +95,9 @@ function pok_check() {
 
         $specials.prop('disabled', false);
         $specials.parent().removeClass('disabled');
+		
+		$legendaries.prop('disabled', false);
+		$legendaries.parent().removeClass('disabled');
     } else {
         $max_factions.attr("max", 17);
 
@@ -105,6 +109,10 @@ function pok_check() {
         $specials.prop('checked', false)
             .prop('disabled', true);
         $specials.parent().addClass('disabled');
+		
+		$legendaries.prop('checked', false)
+		    .prop('disabled', true);
+		$legendaries.parent().addClass('disabled');
     }
 }
 

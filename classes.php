@@ -216,6 +216,7 @@ class GeneratorConfig {
     public $include_pok;
     public $include_keleres;
     public $must_include_wormholes_and_legendaries;
+	public $must_include_both_legendaries;
     public $minimum_optimal_influence;
     public $minimum_optimal_resources;
     public $minimum_optimal_total;
@@ -239,6 +240,7 @@ class GeneratorConfig {
         $this->include_pok = get('include_pok') == true;
         $this->include_keleres = get('include_keleres') == true;
         $this->must_include_wormholes_and_legendaries = get('specials') == true;
+		$this->must_include_both_legendaries = get('legendaries') == true;		
         $this->minimum_optimal_influence = (float) get('min_inf');
         $this->minimum_optimal_resources = (float) get('min_res');
         $this->minimum_optimal_total = (float) get('min_total');
@@ -294,6 +296,7 @@ class GeneratorConfig {
             'num_slices' => $this->num_slices,
             'num_factions' => $this->num_factions,
             'must_include_wormholes_and_legendaries' => $this->must_include_wormholes_and_legendaries,
+			'must_include_both_legendaries' => $this->must_include_both_legendaries,
             'max_1_wormhole' => $this->max_1_wormhole,
             'minimum_optimal_influence' => $this->minimum_optimal_influence,
             'minimum_optimal_resources' => $this->minimum_optimal_resources,

@@ -171,6 +171,9 @@
             $min_beta = round(rand(2, 3));
             $min_legend = round(rand(1, 2));
         }
+		if($config->must_include_both_legendaries) {
+			$min_legend = 2;
+        }
 
         shuffle($tiles['high']);
         shuffle($tiles['mid']);
@@ -188,7 +191,7 @@
         $all = array_merge($selection["high"], $selection["mid"], $selection["low"], $selection["red"]);
 
         // check if the wormhole/legendary count is high enough
-        if($config->must_include_wormholes_and_legendaries) {
+        if($config->must_include_wormholes_and_legendaries || $config->must_include_both_legendaries) {
             // count stuff
             $counts = count_specials($all);
 

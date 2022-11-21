@@ -229,11 +229,19 @@
                         <label>Custom Slices:</label> <strong>
                             <?php if($draft['config']['custom_slices'] != null): ?>
                                 <?php foreach($draft['config']['custom_slices'] as $slice): ?>
-                                    <?= implode(', ', $slice) ?><br />
+                                    <?= implode(',', $slice) ?><br />
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 no
                             <?php endif; ?>
+                        </strong>
+                    </p>
+                    <p>
+                        <label>Slices Generated:</label>
+                        <strong>
+                        <?php foreach($draft['slices'] as $slice_id => $slice): ?>
+                                <?= implode(',', $slice['tiles']); ?><br />
+                        <?php endforeach; ?>
                         </strong>
                     </p>
                 </div>

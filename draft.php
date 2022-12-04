@@ -195,9 +195,19 @@
                     <p>
                         <label>Include Keleres:</label> <strong><?= e($draft['config']['include_keleres'], 'yes', 'no') ?></strong>
                     </p>
+                    <?php if(isset($draft['config']['must_include_wormholes_and_legendaries'])): ?>
                     <p>
                         <label>Map must include wormholes and Legendary Planets:</label> <strong><?= e($draft['config']['must_include_wormholes_and_legendaries'], 'yes', 'no') ?></strong>
                     </p>
+                    <?php endif; ?>
+                    <?php if(isset($draft['config']['min_legendaries'])): ?>
+                        <p>
+                            <label>Minimum wormholes:</label> <strong><?= $draft['config']['min_wormholes'] ?></strong>
+                        </p>
+                        <p>
+                            <label>Minimum legendaries:</label> <strong><?= $draft['config']['min_legendaries'] ?></strong>
+                        </p>
+                    <?php endif; ?>
                     <p>
                         <label>Max. 1 wormhole per slice:</label> <strong><?= e(isset($draft['config']['max_1_wormhole']) && $draft['config']['max_1_wormhole'], 'yes', 'no') ?></strong>
                     </p>

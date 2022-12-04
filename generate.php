@@ -161,17 +161,6 @@
             return_error("No valid selection");
         }
 
-        $min_alpha = 0;
-        $min_beta = 0;
-        $min_legend = 0;
-
-        // randomly determine a minimum amount of wormholes and legendaries
-        if($config->must_include_wormholes_and_legendaries) {
-            $min_alpha = round(rand(2, 3));
-            $min_beta = round(rand(2, 3));
-            $min_legend = round(rand(1, 2));
-        }
-
         shuffle($tiles['high']);
         shuffle($tiles['mid']);
         shuffle($tiles['low']);
@@ -188,17 +177,12 @@
         $all = array_merge($selection["high"], $selection["mid"], $selection["low"], $selection["red"]);
 
         // check if the wormhole/legendary count is high enough
-        if($config->must_include_wormholes_and_legendaries) {
-            // count stuff
-            $counts = count_specials($all);
+        $counts = count_specials($all);
 
-            // validate against minimums
-            if($counts["alpha"] < $min_alpha || $counts["beta"] < $min_beta || $counts["legendary"] < $min_legend) {
-                // try again
-                return select_tiles($tiles, $config,$previous_tries + 1);
-            } else {
-                return $selection;
-            }
+        // validate against minimums
+        if($counts["alpha"] < $config->min_wormholes || $counts["beta"] < $config->min_wormholes || $counts["legendary"] < $config->min_legendaries) {
+            // try again
+            return select_tiles($tiles, $config,$previous_tries + 1);
         } else {
             return $selection;
         }

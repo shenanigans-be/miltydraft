@@ -83,7 +83,7 @@ function loading(loading = true) {
 
 function pok_check() {
     let $keleres = $('#keleres');
-    let $specials = $('#specials');
+    let $legendary_options = $('.legendary-option');
     let $max_factions = $('#num_factions');
 
     if($('#pok').is(':checked')) {
@@ -92,8 +92,8 @@ function pok_check() {
         $keleres.prop('disabled', false);
         $keleres.parent().removeClass('disabled');
 
-        $specials.prop('disabled', false);
-        $specials.parent().removeClass('disabled');
+        $legendary_options.prop('disabled', false);
+        $legendary_options.parent().removeClass('disabled');
     } else {
         $max_factions.attr("max", 17);
 
@@ -102,9 +102,9 @@ function pok_check() {
         $keleres.parent().addClass('disabled');
 
 
-        $specials.prop('checked', false)
+        $legendary_options.prop('checked', false)
             .prop('disabled', true);
-        $specials.parent().addClass('disabled');
+        $legendary_options.parent().addClass('disabled');
     }
 }
 

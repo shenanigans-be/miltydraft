@@ -129,7 +129,6 @@ h1 {
     font-size: 3em;
     text-align: center;
     margin-bottom: 0;
-
 }
 .section {
     border-bottom: 1px solid $color-text;
@@ -203,6 +202,16 @@ button[type="submit"] {
 }
 h3 {
     font-size: 1.5em;
+}
+
+h4 {
+    font-size: 1em;
+    margin-bottom: 0.5em;
+    margin-top: 45px;
+
+    &:first-child {
+        margin-top: 0;
+    }
 }
 .help {
     display: block;

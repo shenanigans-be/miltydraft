@@ -131,20 +131,41 @@
                                     (PoK required). For simplicity's sake I'll leave it up to each group to decide how they want to handle things (including the very limited possibility of all 3 flavours also being picked. Just something to keep in mind.
                                 </span>
                             </div>
-
-                            <div class="input">
-                                <label for="specials" class="check">
-                                    <input type="checkbox" name="specials" id="specials" /> Map must include wormholes and Legendary Planets
-                                </label>
-                                <span class="help">Checking this box means that there will be at least 2 or 3 <span class="alpha">alpha</span> wormholes, 2 or 3 <span class="beta">beta</span> wormholes and 1 or 2 legendary planets, divided among the slices.</span>
-                            </div>
-
-                            <div class="input">
-                                <label for="max_wormhole" class="check">
-                                    <input type="checkbox" name="max_wormhole" id="max_wormhole" /> Max. 1 wormhole per slice
-                                </label>
-                            </div>
                         </div>
+                    </div>
+                    <div class="section">
+                        <div class="content-wrap">
+                            <div class="header">
+                                <h3>Map Generation</h3>
+                            </div>
+                            <div class="content">
+                                <h4>Wormholes</h4>
+                                <div class="input">
+                                    <label for="wormholes" class="check">
+                                        <input type="checkbox" name="wormholes" id="wormholes" /> Include at least 2 alpha and beta wormholes
+                                    </label>
+                                    <span class="help">So at least 4 in total, divided over the slices. A slice will never have two of the same wormholes.</span>
+                                </div>
+                                <div class="input">
+                                    <label for="max_wormhole" class="check">
+                                        <input type="checkbox" name="max_wormhole" id="max_wormhole" /> Max. 1 wormhole per slice
+                                    </label>
+                                </div>
+                                <h4>Legendaries</h4>
+                                <div class="input">
+                                    <label for="legendary_0" class="check">
+                                        <input type="radio" name="legendary" value="0" id="legendary_0" checked /> Include any amount (including none) of legendary planets
+                                    </label>
+                                    <label for="legendary_1" class="check">
+                                        <input class="legendary-option" type="radio" name="legendary" value="1" id="legendary_1" /> Include at least 1 legendary planets
+                                    </label>
+                                    <label for="legendary_2" class="check">
+                                        <input class="legendary-option" type="radio" name="legendary" value="2" id="legendary_2" /> Include both legendary planets
+                                    </label>
+
+                                    <span class="help">The legendaries, in case you were wondering, are Primor and Hope's end.</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

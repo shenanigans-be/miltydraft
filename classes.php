@@ -215,12 +215,15 @@ class GeneratorConfig {
     public $num_factions;
     public $include_pok;
     public $include_keleres;
-    public $must_include_wormholes_and_legendaries;
+
+    public $min_wormholes;
+    public $min_legendaries;
+    public $max_1_wormhole;
+
     public $minimum_optimal_influence;
     public $minimum_optimal_resources;
     public $minimum_optimal_total;
     public $maximum_optimal_total;
-    public $max_1_wormhole;
 
     public $custom_factions = null;
     public $custom_slices = null;
@@ -238,12 +241,15 @@ class GeneratorConfig {
         $this->num_factions = (int) get('num_factions');
         $this->include_pok = get('include_pok') == true;
         $this->include_keleres = get('include_keleres') == true;
-        $this->must_include_wormholes_and_legendaries = get('specials') == true;
+
+        $this->max_1_wormhole = get('max_wormhole') == true;
+        $this->min_wormholes = (get('wormholes') == true)? 2 : 0;
+        $this->min_legendaries = (int) get('legendary');
+
         $this->minimum_optimal_influence = (float) get('min_inf');
         $this->minimum_optimal_resources = (float) get('min_res');
         $this->minimum_optimal_total = (float) get('min_total');
         $this->maximum_optimal_total = (float) get('max_total');
-        $this->max_1_wormhole = get('max_wormhole') == true;
 
         if(!empty(get('custom_factions', []))) {
             $this->custom_factions = get('custom_factions');
@@ -282,8 +288,6 @@ class GeneratorConfig {
             }
 
         }
-
-
     }
 
     function toJson() {
@@ -293,8 +297,9 @@ class GeneratorConfig {
             'include_keleres' => $this->include_keleres,
             'num_slices' => $this->num_slices,
             'num_factions' => $this->num_factions,
-            'must_include_wormholes_and_legendaries' => $this->must_include_wormholes_and_legendaries,
+            'min_wormholes' => $this->min_wormholes,
             'max_1_wormhole' => $this->max_1_wormhole,
+            'min_legendaries' => $this->min_legendaries,
             'minimum_optimal_influence' => $this->minimum_optimal_influence,
             'minimum_optimal_resources' => $this->minimum_optimal_resources,
             'minimum_optimal_total' => $this->minimum_optimal_total,

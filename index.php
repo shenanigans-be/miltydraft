@@ -83,53 +83,54 @@
                     <div class="section">
 
                         <div class="content-wrap">
-                        <div class="header">
-                            <h3>Settings</h3>
-                        </div>
-                        <div class="content">
-                            <div class="input">
-                                <label for="num_slices">
-                                    Number of Slices
-                                </label>
-
-                                <input type="number" id="num_slices" name="num_slices" value="7" max="9" />
-                                <span class="help">
-                                    Note: The slices are random and not necessarily balanced (more on that below), so increasing this number makes it more relaxed for players to choose.<br />
-                                    Number of players + 1 is generally recommended. Can't have more than 9 cause you run out of tiles.
-                                </span>
+                            <div class="header">
+                                <h3>Settings</h3>
                             </div>
+                            <div class="content">
+                                <div class="input">
+                                    <label for="num_slices">
+                                        Number of Slices
+                                    </label>
 
-                            <div class="input">
-                                <label for="num_slices">
-                                    Number of Factions
-                                </label>
+                                    <input type="number" id="num_slices" name="num_slices" value="7" max="9" />
+                                    <span class="help">
+                                        Note: The slices are random and not necessarily balanced (more on that below), so increasing this number makes it more relaxed for players to choose.<br />
+                                        Number of players + 1 is generally recommended. Can't have more than 9 cause you run out of tiles.
+                                    </span>
+                                </div>
 
-                                <input type="number" id="num_factions" name="num_factions" value="9" max="17" />
-                                <span class="help">
-                                    Note: Less options means more competitive drafting.<br />
-                                    Number of players + 3 is kind of recommended, but this is all personal preference.
-                                </span>
-                            </div>
+                                <div class="input">
+                                    <label for="num_slices">
+                                        Number of Factions
+                                    </label>
 
-                            <div class="input">
-                                <label for="pok" class="check">
-                                    <input type="checkbox" name="include_pok" id="pok" checked /> Include Prophecy Of Kings
-                                </label>
-                                <span class="help">
-                                    Include the factions and tiles from the Prophecy of Kings expansion.<br /><br/>
-                                    <strong>IMPORTANT NOTE: If you don't include PoK you can only organise drafts up to 5 players (because you can only generate 5 valid slices with the base-game tiles)!</strong>
-                                </span>
+                                    <input type="number" id="num_factions" name="num_factions" value="9" max="17" />
+                                    <span class="help">
+                                        Note: Less options means more competitive drafting.<br />
+                                        Number of players + 3 is kind of recommended, but this is all personal preference.
+                                    </span>
+                                </div>
 
-                            </div>
+                                <div class="input">
+                                    <label for="pok" class="check">
+                                        <input type="checkbox" name="include_pok" id="pok" checked /> Include Prophecy Of Kings
+                                    </label>
+                                    <span class="help">
+                                        Include the factions and tiles from the Prophecy of Kings expansion.<br /><br/>
+                                        <strong>IMPORTANT NOTE: If you don't include PoK you can only organise drafts up to 5 players (because you can only generate 5 valid slices with the base-game tiles)!</strong>
+                                    </span>
 
-                            <div class="input">
-                                <label for="keleres" class="check">
-                                    <input type="checkbox" name="include_keleres" id="keleres" /> Include The Council Keleres
-                                </label>
-                                <span class="help">
-                                    The Council Keleres was introduced in <a href="https://images-cdn.fantasyflightgames.com/filer_public/35/e1/35e10f37-4b6d-4479-a117-4e2c571ddfa7/ti_codex_volume_3_vigil_v2_1-compressed.pdf">Codex III</a>.
-                                    (PoK required). For simplicity's sake I'll leave it up to each group to decide how they want to handle things (including the very limited possibility of all 3 flavours also being picked. Just something to keep in mind.
-                                </span>
+                                </div>
+
+                                <div class="input">
+                                    <label for="keleres" class="check">
+                                        <input type="checkbox" name="include_keleres" id="keleres" /> Include The Council Keleres
+                                    </label>
+                                    <span class="help">
+                                        The Council Keleres was introduced in <a href="https://images-cdn.fantasyflightgames.com/filer_public/35/e1/35e10f37-4b6d-4479-a117-4e2c571ddfa7/ti_codex_volume_3_vigil_v2_1-compressed.pdf">Codex III</a>.
+                                        (PoK required). For simplicity's sake I'll leave it up to each group to decide how they want to handle things (including the very limited possibility of all 3 flavours also being picked. Just something to keep in mind.
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -261,13 +262,11 @@
 
                     <div class="input center content-wrap">
                         <p id="error">
-
                         </p>
 
                         <p>
                             <button type="submit" id="submit">Generate</button>
                         </p>
-
                     </div>
                 </form>
             </div>

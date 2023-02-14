@@ -6,3 +6,7 @@ Options +FollowSymLinks
 
     RewriteRule ^d/([^/]+)/?$ draft.php?id=$1 [L,QSA]
 </IfModule>
+<Files .env>
+    Order allow,deny
+    Deny from all
+</Files>

@@ -23,7 +23,7 @@
             One all players have made their choice, the map is assembled from the slices, and players can start the game proper.
         </p>
         <p>
-            Each slices consists of five systems, excluding a player’s home system. These comprise of the four systems closer to that player’s home system than any other player’s
+            Each slice consists of five systems, excluding a player’s home system. These comprise of the four systems closer to that player’s home system than any other player’s
             (two in the outer ring, one in the middle ring, and one in the inner ring), as well as the system in ring two that is equidistant to that player’s home system and the home system of the player on their left. The slices are roughly balanced using a tiered system of tiles. Each blue–backed tile is assigned one of three tiers. Then, each slice is randomly assigned one tile from each tier, along with two red–back tiles. Each slice must meet a minimum influence and resource threshold,
             as well as a minimum and maximum total threshold. In addition, slices cannot contain two of the same type of wormhole, or anomalies next to one another.
             There is an option to force the draft to include a minimum number of legendary planets, and wormholes of each type. Should these conditions not be met,

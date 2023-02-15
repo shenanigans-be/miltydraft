@@ -79,7 +79,7 @@
         <p>
             Not really a question, but I appreciate the enthousiasm!<br />
             This website is based on (read: plagiarised entirely from) miltydraft.com, but extended to have a saved shareable links and saving draft over sessions/multiple users.<br />
-            Also thanks to <a href="https://github.com/KeeganW/ti4">KeeganW</a> for the nicely structured data and tile images.<br /><br />
+            Also thanks to <a href="https://github.com/KeeganW/ti4">KeeganW</a> for the nicely structured data and tile images, and to Farthom for the additional security consultancy.<br /><br />
             I am not affiliated with Fantasy Flight or Twilight Imperium. Sorry if I'm doing something that's not allowed, copyright-wise.
         </p>
 

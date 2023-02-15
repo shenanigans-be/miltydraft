@@ -23,6 +23,11 @@ $(document).ready(function() {
         }
     });
 
+
+    if(window.location.hash != '' && $('.tab' + window.location.hash).length != 0) {
+        $('#tabs nav a[href="' + window.location.hash + '"]').click();
+    }
+
     $('#select-all').on('click', function(e) {
         e.preventDefault();
         $('.custom_faction').prop('checked', true);

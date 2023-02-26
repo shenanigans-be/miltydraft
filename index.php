@@ -119,7 +119,6 @@
                                         Include the factions and tiles from the Prophecy of Kings expansion.<br /><br/>
                                         <strong>IMPORTANT NOTE: If you don't include PoK you can only organise drafts up to 5 players (because you can only generate 5 valid slices with the base-game tiles)!</strong>
                                     </span>
-
                                 </div>
 
                                 <div class="input">
@@ -129,6 +128,18 @@
                                     <span class="help">
                                         The Council Keleres was introduced in <a href="https://images-cdn.fantasyflightgames.com/filer_public/35/e1/35e10f37-4b6d-4479-a117-4e2c571ddfa7/ti_codex_volume_3_vigil_v2_1-compressed.pdf">Codex III</a>.
                                         (PoK required). For simplicity's sake I'll leave it up to each group to decide how they want to handle things (including the very limited possibility of all 3 flavours also being picked). Just something to keep in mind.
+                                    </span>
+                                </div>
+
+
+                                <div class="input">
+                                    <label for="game_name">
+                                        Game Name
+                                    </label>
+                                    <input type="text" placeholder="Game Name" maxlength="100" name="game_name" />
+
+                                    <span class="help">
+                                        Optional. To help you remember which draft is which, because after two or three drafts that gets confusing. If you leave this blank it will generate something random like "Operation Glorious Drama".
                                     </span>
                                 </div>
                             </div>

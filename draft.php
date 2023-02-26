@@ -19,7 +19,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TI4 - Milty Draft</title>
+    <title><?= isset($draft['name'])? $draft['name'] . ' | ' : '' ?>TI4 - Milty Draft</title>
     <link rel="stylesheet" href="<?= url('css/style.css?v=' . $_ENV['VERSION']) ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +28,12 @@
 <body>
     <div class="container">
 
-        <h1>Milty Draft</h1>
+        <?php if(isset($draft['name'])): ?>
+            <h1><?= $draft['name'] ?></h1>
+            <h2>Milty Draft</h2>
+        <?php else: ?>
+            <h1>Milty Draft</h1>
+        <?php endif; ?>
 
         <div id="tabs">
             <nav>

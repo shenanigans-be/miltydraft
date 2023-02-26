@@ -67,6 +67,7 @@
 
         $result = [
             'id' => $id,
+            'name' => $config->name,
             'factions' => $factions,
             'admin_pass' => $admin_password,
             'config' => $config->toJson(),
@@ -289,6 +290,7 @@
 
        return array_slice($factions, 0, $config->num_factions);
     }
+
 
     function import_tile_data() {
         $data = json_decode(file_get_contents('data/tiles.json'), true);

@@ -4,6 +4,7 @@ $(document).ready(function() {
 
     pok_check();
     $('#pok').on('change', pok_check);
+    $('#keleres').on('change', keleres_check);
 
     $('#tabs nav a').on('click', function(e) {
         e.preventDefault();
@@ -89,10 +90,8 @@ function loading(loading = true) {
 function pok_check() {
     let $keleres = $('#keleres');
     let $legendary_options = $('.legendary-option');
-    let $max_factions = $('#num_factions');
 
     if($('#pok').is(':checked')) {
-        $max_factions.attr("max", 24);
 
         $keleres.prop('disabled', false);
         $keleres.parent().removeClass('disabled');
@@ -100,7 +99,6 @@ function pok_check() {
         $legendary_options.prop('disabled', false);
         $legendary_options.parent().removeClass('disabled');
     } else {
-        $max_factions.attr("max", 17);
 
         $keleres.prop('checked', false)
             .prop('disabled', true);
@@ -111,6 +109,28 @@ function pok_check() {
             .prop('disabled', true);
         $legendary_options.parent().addClass('disabled');
     }
+
+    check_max_factions();
+}
+
+function check_max_factions() {
+    let max = 17;
+    if($('#pok').is(':checked')) {
+        max = 24;
+
+        if($('#keleres').is(':checked')) {
+            max = 25;
+        }
+    }
+
+    console.log('max factions', max);
+
+    $('#num_factions').attr('max', max);
+}
+
+
+function keleres_check() {
+    check_max_factions();
 }
 
 function init_player_count() {

@@ -134,6 +134,7 @@ class Slice {
             'tiles' => $this->tile_ids,
             'specialties' => $this->specialties,
             'wormholes' => $this->wormholes,
+            'has_legendaries' => count_specials($this->tiles)['legendary'] > 0,
             'total_influence' => $this->total_influcence,
             'total_resources' => $this->total_resources,
             'optimal_influence' => $this->optimal_influence,

@@ -125,6 +125,11 @@
                                                 <img class="tech-specialty" src="<?= url('img/tech/' . $s . '.webp') ?>" alt="<?= $s ?>" />
                                             <?php endforeach; ?>
 
+
+                                            <?php if(isset($slice['has_legendaries']) && $slice['has_legendaries']): ?>
+                                                <abbr class="legendary" title="Contains legendary planet"><img src="<?= url('img/legendary.webp') ?>"></abbr>
+                                            <?php endif; ?>
+
                                             <?php foreach($slice['wormholes'] as $w): ?>
                                                 <abbr class="wormhole" title="<?= $w ?>"><?= e($w == "alpha", '&alpha;', '&beta;') ?></abbr>
                                             <?php endforeach; ?>

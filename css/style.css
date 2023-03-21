@@ -37,13 +37,13 @@ body.loading #loading {
   display: block;
 }
 
-p, label, span, a {
+p, label, span, a, abbr {
   line-height: 1.4em;
   font-family: "Source Sans Pro", sans-serif;
   color: #16232c;
   font-weight: 300;
 }
-p:last-child, label:last-child, span:last-child, a:last-child {
+p:last-child, label:last-child, span:last-child, a:last-child, abbr:last-child {
   margin-bottom: 0;
 }
 
@@ -473,6 +473,11 @@ h4:first-child {
     font-size: 7vw;
   }
 }
+@media (min-width: 1320px) {
+  #draft .slice-graph {
+    font-size: 53px;
+  }
+}
 #draft .slice-graph img {
   width: 2em;
   position: absolute;
@@ -540,6 +545,12 @@ h4:first-child {
   text-decoration: none;
   border-radius: 15px;
   text-align: center;
+}
+#draft .legendary {
+  display: inline-block;
+  margin: 5px;
+  width: 30px;
+  height: 30px;
 }
 #draft .resources, #draft .influence {
   padding: 0 15px;
@@ -1310,6 +1321,11 @@ strong {
 
   .position span {
     color: #FEFCF8 !important;
+  }
+
+  #draft .wormhole {
+    color: #FEFCF8;
+    border-color: #FEFCF8;
   }
 }
 

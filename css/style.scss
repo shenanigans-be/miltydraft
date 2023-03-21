@@ -11,6 +11,7 @@ $color-dark-highlight: #38618f;
 $color-border-light: rgba(255, 255, 255, 0.3);
 $max-md: '(max-width: 1200px)';
 $max-sm: '(max-width: 768px)';
+$min-xl: '(min-width: 1320px)';
 
 body {
     font-size: 15px;
@@ -27,6 +28,7 @@ body {
         padding: 10px;
         font-size: 14px;
     }
+
 
     .container {
         transition: opacity 400ms ease-in-out;
@@ -45,7 +47,7 @@ body {
     }
 }
 
-p, label, span, a {
+p, label, span, a, abbr {
     line-height: 1.4em;
     font-family: 'Source Sans Pro', sans-serif;
     color: $color-text;
@@ -496,6 +498,12 @@ h4 {
             font-size: 7vw;
         }
 
+
+        @media #{$min-xl} {
+            font-size: 53px;
+        }
+
+
         img {
             width: 2em;
             position: absolute;
@@ -574,6 +582,12 @@ h4 {
         text-decoration: none;
         border-radius: 15px;
         text-align: center;
+    }
+    .legendary {
+        display: inline-block;
+        margin: 5px;
+        width: 30px;
+        height: 30px;
     }
 
     .resources, .influence {
@@ -867,5 +881,9 @@ strong {
     }
     .position span {
         color: $color-background !important;
+    }
+    #draft .wormhole {
+        color: $color-background;
+        border-color: $color-background;
     }
 }

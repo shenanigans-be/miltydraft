@@ -174,5 +174,243 @@
         "options": ["The Mentak Coalition", "The Xxcha Kingdom", "The Argent Flight"],
         "homesystem": "0",
         "set": "keleres"
+    },
+    "Augurs of Ilyxum": {
+        "id": "ilyxum",
+        "name": "Augurs of Ilyxum",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Celdauri Trade Confederation": {
+        "id": "celdauri",
+        "name": "Celdauri Trade Confederation",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Dih-Mohn Flotilla": {
+        "id": "dihmohn",
+        "name": "Dih-Mohn Flotilla",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Florzen Profiteers": {
+        "id": "florzen",
+        "name": "Florzen Profiteers",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Free Systems Compact": {
+        "id": "freesystems",
+        "name": "Free Systems Compact",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Ghemina Raiders": {
+        "id": "ghemina",
+        "name": "Ghemina Raiders",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Glimmer of Mortheus": {
+        "id": "mortheus",
+        "name": "Glimmer of Mortheus",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Kollecc Society": {
+        "id": "kollecc",
+        "name": "Kollecc Society",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Kortali Tribunal": {
+        "id": "kortali",
+        "name": "Kortali Tribunal",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Li-Zho Dynasty": {
+        "id": "lizho",
+        "name": "Li-Zho Dynasty",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "L'Tokk Khrask": {
+        "id": "khrask",
+        "name": "L'Tokk Khrask",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Mirveda Protectorate": {
+        "id": "mirveda",
+        "name": "Mirveda Protectorate",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Myko-Mentori": {
+        "id": "myko",
+        "name": "Myko-Mentori",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Nivyn Star Kings": {
+        "id": "nivyn",
+        "name": "Nivyn Star Kings",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Olradin League": {
+        "id": "olradin",
+        "name": "Olradin League",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Roh'Dhna Mechatronics": {
+        "id": "rohdina",
+        "name": "Roh'Dhna Mechatronics",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Savages of Cymiae": {
+        "id": "cymiae",
+        "name": "Savages of Cymiae",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Shipwrights of Axis": {
+        "id": "axis",
+        "name": "Shipwrights of Axis",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Tnelis Syndicate": {
+        "id": "tnelis",
+        "name": "Tnelis Syndicate",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Vaden Banking Clans": {
+        "id": "vaden",
+        "name": "Vaden Banking Clans",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Vaylerian Scourge": {
+        "id": "vaylerian",
+        "name": "Vaylerian Scourge",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Veldyr Sovereignty": {
+        "id": "veldyr",
+        "name": "Veldyr Sovereignty",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Zealots of Rhodun": {
+        "id": "rhodun",
+        "name": "Zealots of Rhodun",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Zelian Purifier": {
+        "id": "zelian",
+        "name": "Zelian Purifier",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordant"
+    },
+    "Bentor Conglomerate": {
+        "id": "bentor",
+        "name": "Bentor Conglomerate",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordantexp"
+    },
+    "Berserkers of Kjalengard": {
+        "id": "kjalengard",
+        "name": "Berserkers of Kjalengard",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordantexp"
+    },
+    "Cheiran Hordes": {
+        "id": "cherian",
+        "name": "Cheiran Hordes",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordantexp"
+    },
+    "Edyn Mandate": {
+        "id": "edyn",
+        "name": "Edyn Mandate",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordantexp"
+    },
+    "Ghoti Wayfarers": {
+        "id": "ghoti",
+        "name": "Ghoti Wayfarers",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordantexp"
+    },
+    "Gledge Union": {
+        "id": "gledge",
+        "name": "Gledge Union",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordantexp"
+    },
+    "Kyro Sodality": {
+        "id": "kyro",
+        "name": "Kyro Sodality",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordantexp"
+    },
+    "Lanefir Remnants": {
+        "id": "lanefir",
+        "name": "Lanefir Remnants",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordantexp"
+    },
+    "The Monks of Kolume": {
+        "id": "kolume",
+        "name": "The Monks of Kolume",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordantexp"
+    },
+    "Nokar Sellships": {
+        "id": "nokar",
+        "name": "Nokar Sellships",
+        "homesystem": "0",
+        "wiki": "https://docs.google.com/document/d/1214N4Py1NqvkQzFN5YULKiR7rmn1qpf4OdFqb8_vQUg/edit?usp=sharing",
+        "set": "discordantexp"
     }
 }

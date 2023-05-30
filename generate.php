@@ -273,14 +273,20 @@
            }
        } else {
            foreach($faction_data as $faction => $data) {
-               if($data["set"] == "base") {
+               if($data["set"] == "base" && $config->include_base_factions) {
                    $factions[] = $faction;
                }
-               if($data["set"] == "pok" && $config->include_pok) {
+               if($data["set"] == "pok" && $config->include_pok_factions) {
                    $factions[] = $faction;
                }
                if($data["set"] == "keleres" && $config->include_keleres) {
                    $factions[] = $faction;
+               }
+               if($data["set"] == "discordant" && $config->include_discordant) {
+                $factions[] = $faction;
+               }
+               if($data["set"] == "discordantexp" && $config->include_discordantexp) {
+                $factions[] = $faction;
                }
            }
 

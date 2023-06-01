@@ -143,7 +143,7 @@
                                         <a href="https://www.reddit.com/r/twilightimperium/comments/pvbbie/discordant_stars_24_homebrew_factions/">Discordant Stars</a> is a fan made faction pack introduced by members of the Discord community.
                                     </span>
                                     <label for="discordantexp" class="check">
-                                        <input type="checkbox" name="include_discordantexp" id="discordantexp" /> Include Discordant Stars expansion
+                                        <input type="checkbox" name="include_discordantexp" id="discordantexp" /> Include Discordant Stars Plus
                                     </label>
                                     <span class="help">
                                         Ten additional factions were added to Discordant Stars as an expansion: Bentor, Nokar, Gledge, Lanefir, Kyro, Ghoti, Kolume, Cheiran, Kjalengard, and Edyn.

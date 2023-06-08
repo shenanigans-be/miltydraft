@@ -133,14 +133,14 @@
                                         <input type="checkbox" name="include_keleres" id="keleres" /> Include The Council Keleres
                                     </label>
                                     <span class="help">
-                                        The Council Keleres was introduced in <a href="https://images-cdn.fantasyflightgames.com/filer_public/35/e1/35e10f37-4b6d-4479-a117-4e2c571ddfa7/ti_codex_volume_3_vigil_v2_1-compressed.pdf">Codex III</a>.
+                                        The Council Keleres was introduced in <a target="_blank" href="https://images-cdn.fantasyflightgames.com/filer_public/35/e1/35e10f37-4b6d-4479-a117-4e2c571ddfa7/ti_codex_volume_3_vigil_v2_1-compressed.pdf">Codex III</a>.
                                         (PoK required). For simplicity's sake I'll leave it up to each group to decide how they want to handle things (including the very limited possibility of all 3 flavours also being picked). Just something to keep in mind.
                                     </span>
                                     <label for="discordant" class="check">
                                         <input type="checkbox" name="include_discordant" id="discordant" /> Include Discordant Stars
                                     </label>
                                     <span class="help">
-                                        <a href="https://www.reddit.com/r/twilightimperium/comments/pvbbie/discordant_stars_24_homebrew_factions/">Discordant Stars</a> is a fan made faction pack introduced by members of the Discord community.
+                                        <a target="_blank" href="https://www.reddit.com/r/twilightimperium/comments/pvbbie/discordant_stars_24_homebrew_factions/">Discordant Stars</a> is a fan made faction pack introduced by members of the Discord community.
                                     </span>
                                     <label for="discordantexp" class="check">
                                         <input type="checkbox" name="include_discordantexp" id="discordantexp" /> Include Discordant Stars Plus

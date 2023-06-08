@@ -15,7 +15,7 @@ $(document).ready(function() {
         e.preventDefault();
 
         let base_url = $('#reference-popup img').data('base');
-        $('#reference-popup img').attr('src', base_url + $(this).data('id') + '.png');
+        $('#reference-popup img').attr('src', base_url + $(this).data('id') + '.jpg');
         $('#reference-popup').show();
     });
 

@@ -320,7 +320,7 @@
 
     <div class="popup" id="reference-popup">
         <a class="btn close-reference invert">&times;</a>
-        <img data-base="<?= url('img/factions/r_') ?>" src="" />
+        <img data-base="<?= url('img/reference/r_') ?>" src="" />
     </div>
 
     <div class="popup" id="error-popup">

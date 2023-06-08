@@ -87,8 +87,9 @@
                         <div class="options">
                             <?php foreach($draft['factions'] as $f): ?>
                                 <?php $faction = $faction_data[$f]; ?>
+                                <?php $homesystem = ($faction['set'] == 'discordant' || $faction['set'] == 'discordantexp')? 'DS_' . $faction['id'] : $faction['homesystem']; ?>
 
-                                <div class="faction option" data-homesystem="<?= $faction['homesystem'] ?>" data-faction="<?= $faction['name'] ?>">
+                                <div class="faction option" data-homesystem="<?= $homesystem ?>" data-faction="<?= $faction['name'] ?>">
                                     <div>
                                         <img src="<?= url('img/factions/ti_' . $faction['id'] . '.png') ?>" /><br />
 

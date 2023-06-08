@@ -465,7 +465,11 @@ function draw_tile(tile) {
 
     if(tilename != 'EMPTY' && tilename != 0) all_tiles.push(tilename);
 
-    let html = '<img src="' + window.routes.tile_images + '/ST_' + tilename + '.png' + '" data-rotate="' + rotation + '" data-q="' + tile[0] +'" data-r="' + tile[1] + '" /><img class="zoom" src="' + window.routes.tile_images + '/ST_' + tilename + '.png' + '" data-rotate="' + rotation + '" data-q="' + tile[0] +'" data-r="' + tile[1] + '" /><span data-q="' + tile[0] +'" data-r="' + tile[1] + '">' + label + '</span>';
+    let tile_image =  tilename + '.png';
+    if(tile_image.substring(0, 2) != 'DS') tile_image = 'ST_' + tile_image;
+    tile_image = window.routes.tile_images + '/' + tile_image;
+
+    let html = '<img src="' + tile_image + '" data-rotate="' + rotation + '" data-q="' + tile[0] +'" data-r="' + tile[1] + '" /><img class="zoom" src="' + tile_image + '" data-rotate="' + rotation + '" data-q="' + tile[0] +'" data-r="' + tile[1] + '" /><span data-q="' + tile[0] +'" data-r="' + tile[1] + '">' + label + '</span>';
 
     return {
         html: html,

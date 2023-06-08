@@ -4,7 +4,11 @@ $(document).ready(function() {
 
     pok_check();
     $('#pok').on('change', pok_check);
-    $('#keleres').on('change', keleres_check);
+    $('#basef').on('change', faction_check);
+    $('#pokf').on('change', faction_check);
+    $('#keleres').on('change', faction_check);
+    $('#discordant').on('change', faction_check);
+    $('#discordantexp').on('change', faction_check);
 
     $('#tabs nav a').on('click', function(e) {
         e.preventDefault();
@@ -88,39 +92,72 @@ function loading(loading = true) {
 }
 
 function pok_check() {
+    let $pokf = $('#pokf');
     let $keleres = $('#keleres');
     let $legendary_options = $('.legendary-option');
+    let $discordant = $('#discordant');
+    let $discordantexp = $('#discordantexp');
 
     if($('#pok').is(':checked')) {
+
+        // When POK is checked, allow POK dependant items to be selectable
+        $pokf.prop('disabled', false);
+        $pokf.parent().removeClass('disabled'); // I think these all share the same parent now, so additional lines might be moot.
 
         $keleres.prop('disabled', false);
         $keleres.parent().removeClass('disabled');
 
         $legendary_options.prop('disabled', false);
         $legendary_options.parent().removeClass('disabled');
+
+        $discordant.prop('disabled', false);
+        $discordant.parent().removeClass('disabled');
+
+        $discordantexp.prop('disabled', false);
+        $discordantexp.parent().removeClass('disabled');
     } else {
+
+        // When POK is not checked, disable options that depend on POK
+        $pokf.prop('checked', false)
+            .prop('disabled', true);
+        $pokf.parent().addClass('disabled');
 
         $keleres.prop('checked', false)
             .prop('disabled', true);
         $keleres.parent().addClass('disabled');
 
-
         $legendary_options.prop('checked', false)
             .prop('disabled', true);
         $legendary_options.parent().addClass('disabled');
+
+        $discordant.prop('checked', false)
+            .prop('disabled', true);
+        $discordant.parent().addClass('disabled');
+
+        $discordantexp.prop('checked', false)
+            .prop('disabled', true);
+        $discordantexp.parent().addClass('disabled');
     }
 
     check_max_factions();
 }
 
 function check_max_factions() {
-    let max = 17;
-    if($('#pok').is(':checked')) {
-        max = 24;
-
-        if($('#keleres').is(':checked')) {
-            max = 25;
-        }
+    let max = 0;
+    if($('#basef').is(':checked')) {
+        max += 17;
+    }
+    if($('#pokf').is(':checked')) {
+        max += 7;
+    }
+    if($('#keleres').is(':checked')) {
+        max += 1;
+    }
+    if($('#discordant').is(':checked')) {
+        max += 24;
+    }
+    if($('#discordantexp').is(':checked')) {
+        max += 10;
     }
 
     console.log('max factions', max);
@@ -129,7 +166,7 @@ function check_max_factions() {
 }
 
 
-function keleres_check() {
+function faction_check() {
     check_max_factions();
 }
 

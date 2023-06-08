@@ -203,7 +203,19 @@
                         <label>Include PoK:</label> <strong><?= e($draft['config']['include_pok'], 'yes', 'no') ?></strong>
                     </p>
                     <p>
+                        <label>Include Base Game Factions:</label> <strong><?= e($draft['config']['include_base_factions'], 'yes', 'no') ?></strong>
+                    </p>
+                    <p>
+                        <label>Include POK Factions:</label> <strong><?= e($draft['config']['include_pok_factions'], 'yes', 'no') ?></strong>
+                    </p>
+                    <p>
                         <label>Include Keleres:</label> <strong><?= e($draft['config']['include_keleres'], 'yes', 'no') ?></strong>
+                    </p>
+                    <p>
+                        <label>Include Discordant Stars:</label> <strong><?= e($draft['config']['include_discordant'], 'yes', 'no') ?></strong>
+                    </p>
+                    <p>
+                        <label>Include Discordant Stars expansion:</label> <strong><?= e($draft['config']['include_discordantexp'], 'yes', 'no') ?></strong>
                     </p>
                     <?php if(isset($draft['config']['must_include_wormholes_and_legendaries'])): ?>
                     <p>

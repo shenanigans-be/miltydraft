@@ -121,7 +121,14 @@
                                     </span>
                                 </div>
 
+                                <h4>Faction Options</h4>
                                 <div class="input">
+                                    <label for="basef" class="check">
+                                        <input type="checkbox" name="include_base_factions" id="basef" checked /> Include Base Game
+                                    </label>
+                                    <label for="pokf" class="check">
+                                        <input type="checkbox" name="include_pok_factions" id="pokf" checked /> Include Prophecy Of Kings
+                                    </label>
                                     <label for="keleres" class="check">
                                         <input type="checkbox" name="include_keleres" id="keleres" /> Include The Council Keleres
                                     </label>
@@ -129,8 +136,19 @@
                                         The Council Keleres was introduced in <a href="https://images-cdn.fantasyflightgames.com/filer_public/35/e1/35e10f37-4b6d-4479-a117-4e2c571ddfa7/ti_codex_volume_3_vigil_v2_1-compressed.pdf">Codex III</a>.
                                         (PoK required). For simplicity's sake I'll leave it up to each group to decide how they want to handle things (including the very limited possibility of all 3 flavours also being picked). Just something to keep in mind.
                                     </span>
+                                    <label for="discordant" class="check">
+                                        <input type="checkbox" name="include_discordant" id="discordant" /> Include Discordant Stars
+                                    </label>
+                                    <span class="help">
+                                        <a href="https://www.reddit.com/r/twilightimperium/comments/pvbbie/discordant_stars_24_homebrew_factions/">Discordant Stars</a> is a fan made faction pack introduced by members of the Discord community.
+                                    </span>
+                                    <label for="discordantexp" class="check">
+                                        <input type="checkbox" name="include_discordantexp" id="discordantexp" /> Include Discordant Stars Plus
+                                    </label>
+                                    <span class="help">
+                                        Ten additional factions were added to Discordant Stars as an expansion: Bentor, Nokar, Gledge, Lanefir, Kyro, Ghoti, Kolume, Cheiran, Kjalengard, and Edyn.
+                                    </span>
                                 </div>
-
 
                                 <div class="input">
                                     <label for="game_name">
@@ -189,7 +207,7 @@
                                     <h3>Advanced Settings</h3>
                                     <a href="#" class="btn" id="more">Show</a>
                                 </div>
-                                <span class="help">This is where the Slice-generation magic happens.</span>
+                                <span class="help">This is where the Slice-generation and faction selection magic happens.</span>
                             </div>
 
 

@@ -156,7 +156,7 @@ class Slice {
 
         // has the right minimum optimal values?
         if($this->optimal_influence < $config->minimum_optimal_influence || $this->optimal_resources < $config->minimum_optimal_resources) {
-//            echo "not enough minimum<br />";
+            //echo "not enough minimum<br />";
             return false;
         }
 
@@ -215,7 +215,11 @@ class GeneratorConfig {
     public $num_slices;
     public $num_factions;
     public $include_pok;
+    public $include_base_factions;
+    public $include_pok_factions;
     public $include_keleres;
+    public $include_discordant;
+    public $include_discordantexp;
 
     public $min_wormholes;
     public $min_legendaries;
@@ -245,7 +249,11 @@ class GeneratorConfig {
         $this->num_slices = (int) get('num_slices');
         $this->num_factions = (int) get('num_factions');
         $this->include_pok = get('include_pok') == true;
+        $this->include_base_factions = get('include_base_factions') == true;
+        $this->include_pok_factions = get('include_pok_factions') == true;
         $this->include_keleres = get('include_keleres') == true;
+        $this->include_discordant = get('include_discordant') == true;
+        $this->include_discordantexp = get('include_discordantexp') == true;
 
         $this->max_1_wormhole = get('max_wormhole') == true;
         $this->min_wormholes = (get('wormholes') == true)? 2 : 0;
@@ -285,6 +293,8 @@ class GeneratorConfig {
         if($this->num_factions < $this->num_players) return_error("Can't have less factions than players");
         if($this->num_slices < $this->num_players) return_error("Can't have less slices than players");
         if($this->maximum_optimal_total < $this->minimum_optimal_total) return_error("Maximum optimal can't be less than minimum");
+        // Must include at least 1 of base, pok, discordant, or discordant expansion to have enough factions to use
+        if(!($this->include_base_factions || $this->include_pok_factions || $this->include_discordant || $this->include_discordantexp)) return_error("Not enough factions selected.");
         // if($this->custom_factions != null && count($this->custom_factions) < $this->num_players) return_error("Not enough custom factions for number of players");
         if($this->custom_slices != null) {
             if(count($this->custom_slices) < $this->num_players) return_error("Not enough custom slices for number of players");
@@ -321,7 +331,11 @@ class GeneratorConfig {
         return [
             'players' => $this->players,
             'include_pok' => $this->include_pok,
+            'include_base_factions' => $this->include_base_factions,
+            'include_pok_factions' => $this->include_pok_factions,
             'include_keleres' => $this->include_keleres,
+            'include_discordant' => $this->include_discordant,
+            'include_discordantexp' => $this->include_discordantexp,
             'num_slices' => $this->num_slices,
             'num_factions' => $this->num_factions,
             'min_wormholes' => $this->min_wormholes,

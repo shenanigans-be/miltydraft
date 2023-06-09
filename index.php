@@ -31,7 +31,7 @@
             </nav>
 
             <div class="tab active" id="generator">
-                <form action="generate.php" method="post">
+                <form id="generate-form" action="generate.php" method="post">
                     <div class="section">
                         <div class="content-wrap">
                             <div class="header">

@@ -48,7 +48,7 @@ $(document).ready(function() {
         update_player_count();
     })
 
-    $('form').on('submit', function(e) {
+    $('#generate-form').on('submit', function(e) {
         e.preventDefault();
         $('#error').hide();
 

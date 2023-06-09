@@ -112,7 +112,8 @@
 
         <h4><strong style="opacity: 0.6">June 2023</strong>: What's all this new stuff?</h4>
         <p>
-            I've added support for the Discordant Stars (a fan made expansion) and added functionality for admins to regenerate the options if they're not entirely to their liking.
+            The tool now supports the Discordant Stars expansion (big shoutout to <a href="https://github.com/JoelNarr" target="_blank">JoelNarr</a> who did most of the work)<br />
+            and I've added functionality for admins to regenerate the options if they're not entirely to their liking.
         </p>
     </div>
 </div>

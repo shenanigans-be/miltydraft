@@ -734,10 +734,36 @@ h4 {
     font-weight: 600;
 }
 #map-wrap {
+
+    width: 100%;
+    height: 100%;
+}
+#mapslices-wrap {
+    width: 100%;
+
+    .slice {
+        position: relative;
+        width: 50%;
+        padding-bottom: 50%;
+        display: inline-block;
+    }
+}
+#change-mapview {
+    padding: 10px;
+}
+.mapview {
+    display: none;
+
+    &.current {
+        display: block;
+    }
+}
+.map {
+
+
     width: 100%;
     height: 100%;
     transform: translate(-50%, -50%);
-
     font-size: 6.5vw;
     @media (min-width: 1500px) {
         font-size: 100px;

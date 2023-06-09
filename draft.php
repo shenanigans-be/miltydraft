@@ -311,14 +311,35 @@
             </div>
             <div class="tab" id="map">
                 <div class="content-wrap">
-                    <h3>Map</h3>
-                    <div class="map-container">
-                        <div class="map-offset">
-                            <div id="map-wrap">
+                    <p>
+                        Select map layout:
+                        <select id="change-mapview">
+                            <option value="hyperlane">Hyperlanes (default)</option>
+                            <option value="slices">Individual Slices</option>
+                        </select>
+                    </p>
 
+
+                    <div class="mapview current" id="mapview-hyperlane">
+                        <h3>Hyperlane Map</h3>
+                        <div class="map-container">
+                            <div class="map-offset">
+                                <div id="map-wrap" class="map">
+
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="mapview" id="mapview-slices">
+                        <h3>Slices</h3>
+                        <div class="slice-container">
+                            <p>Slices are shown in speaker order</p>
+
+                            <div id="mapslices-wrap"></div>
+                        </div>
+                    </div>
+
                     <h3>Tiles</h3>
                     <p id="tile-gather"></p>
                     <h3>TTS Map String*</h3>

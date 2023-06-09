@@ -382,6 +382,39 @@ function generate_map() {
         }
     }
 
+    let speaker_order_slices = [];
+    for(let pid in draft.draft.players) {
+        let p = draft.draft.players[pid];
+        if(p.position != null && p.slice != null) {
+            speaker_order_slices[p.position] = {
+                'slice': draft.slices[p.slice],
+                'player': p
+            };
+        }
+    }
+
+    let slices_html = '';
+    for(let p in speaker_order_slices) {
+        let s = speaker_order_slices[p];
+
+        let tpl = [
+            [-1, 0, p + '-3'],
+            [0, -1, p + '-4'],
+            [-1, 1, p + '-0'],
+            [0, 0, p + '-1'],
+            [1, 0, p + '-2'],
+            [0, 1, p + '-H'],
+        ];
+
+        let result = '';
+        for(let i = 0; i < tpl.length; i++) {
+            result += draw_tile(tpl[i]).html;
+        }
+        slices_html += '<div class="slice"><h3>' + s.player.name + '</h3><div class="map-offset"><div class="map">' + result + '</div></div></div>';
+    }
+
+
+
     for(let u = 0; u < TTS_string.length; u++) {
         if(typeof(TTS_string[u]) == 'undefined' || TTS_string[u] == "EMPTY") TTS_string[u] = 0;
     }
@@ -389,6 +422,7 @@ function generate_map() {
 
     $('.map-container').attr('data-p', draft.config.players.length)
     $('#map-wrap').html(map);
+    $('#mapslices-wrap').html(slices_html);
     $('#tile-gather').html(all_tiles.sort(function(a, b) {
         if(isNaN(a)) a = a.toString().substr(0, a.length - 1);
         if(isNaN(b)) b = b.toString().substr(0, b.length - 1);

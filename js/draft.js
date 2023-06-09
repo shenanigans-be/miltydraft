@@ -27,7 +27,13 @@ $(document).ready(function() {
 
     $('.status .map').on('click', function(e) {
         $('#tabs nav a[href="#map"]').click();
-    })
+    });
+
+    $('#change-mapview').on('change', function(e) {
+        $('.mapview.current').removeClass('current');
+        console.log($(this).val());
+        $('.mapview#mapview-' + $(this).val()).addClass('current');
+    });
 
     if(window.location.hash != '' && $('.tab' + window.location.hash).length != 0) {
         $('#tabs nav a[href="' + window.location.hash + '"]').click();

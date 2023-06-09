@@ -827,6 +827,21 @@ strong {
         }
     }
 }
+#regen-options {
+    label {
+        display: inline-block;
+        margin-right: 20px;
+        width: auto;
+    }
+}
+.regen-help {
+
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    margin-bottom: 50px;
+    border: 2px solid rgba($color-text, 0.2);
+
+}
 
 @media (prefers-color-scheme: dark) {
     .container {
@@ -850,6 +865,10 @@ strong {
     button, .btn {
         background-color: $color-dark-highlight;
         color: $color-background;
+    }
+
+    #regen {
+        border-color: $color-background;
     }
 
     #tabs {

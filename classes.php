@@ -233,56 +233,91 @@ class GeneratorConfig {
     public $custom_factions = null;
     public $custom_slices = null;
 
-    function __construct()
+    function __construct($get_values_from_request)
     {
-        $names = get('player', []);
-        shuffle($names);
-        foreach($names as $name) {
-            if($name != '')  $this->players[] = htmlentities($name);
-        }
-
-
-        $this->name = get('game_name', '');
-        if(trim($this->name) == '') $this->name = $this->generate_name();
-        else $this->name = htmlentities($this->name);
-        $this->num_players = (int) get('num_players');
-        $this->num_slices = (int) get('num_slices');
-        $this->num_factions = (int) get('num_factions');
-        $this->include_pok = get('include_pok') == true;
-        $this->include_base_factions = get('include_base_factions') == true;
-        $this->include_pok_factions = get('include_pok_factions') == true;
-        $this->include_keleres = get('include_keleres') == true;
-        $this->include_discordant = get('include_discordant') == true;
-        $this->include_discordantexp = get('include_discordantexp') == true;
-
-        $this->max_1_wormhole = get('max_wormhole') == true;
-        $this->min_wormholes = (get('wormholes') == true)? 2 : 0;
-        $this->min_legendaries = (int) get('legendary');
-
-        $this->minimum_optimal_influence = (float) get('min_inf');
-        $this->minimum_optimal_resources = (float) get('min_res');
-        $this->minimum_optimal_total = (float) get('min_total');
-        $this->maximum_optimal_total = (float) get('max_total');
-
-        if(!empty(get('custom_factions', []))) {
-            $this->custom_factions = get('custom_factions');
-        }
-
-        if(get('custom_slices') != '') {
-            $slice_data = explode("\n", get('custom_slices'));
-            $this->custom_slices = [];
-            foreach($slice_data as $s) {
-                $slice = [];
-                $t = explode(',', $s);
-                foreach($t as $tile) {
-                    $tile = trim($tile);
-                    $slice[] = $tile;
-                }
-                $this->custom_slices[] = $slice;
+        if($get_values_from_request) {
+            $names = get('player', []);
+            shuffle($names);
+            foreach($names as $name) {
+                if($name != '')  $this->players[] = htmlentities($name);
             }
+
+            $this->name = get('game_name', '');
+            if(trim($this->name) == '') $this->name = $this->generate_name();
+            else $this->name = htmlentities($this->name);
+            $this->num_players = (int) get('num_players');
+            $this->num_slices = (int) get('num_slices');
+            $this->num_factions = (int) get('num_factions');
+            $this->include_pok = get('include_pok') == true;
+            $this->include_base_factions = get('include_base_factions') == true;
+            $this->include_pok_factions = get('include_pok_factions') == true;
+            $this->include_keleres = get('include_keleres') == true;
+            $this->include_discordant = get('include_discordant') == true;
+            $this->include_discordantexp = get('include_discordantexp') == true;
+
+            $this->max_1_wormhole = get('max_wormhole') == true;
+            $this->min_wormholes = (get('wormholes') == true)? 2 : 0;
+            $this->min_legendaries = (int) get('legendary');
+
+            $this->minimum_optimal_influence = (float) get('min_inf');
+            $this->minimum_optimal_resources = (float) get('min_res');
+            $this->minimum_optimal_total = (float) get('min_total');
+            $this->maximum_optimal_total = (float) get('max_total');
+
+            if(!empty(get('custom_factions', []))) {
+                $this->custom_factions = get('custom_factions');
+            }
+
+            if(get('custom_slices') != '') {
+                $slice_data = explode("\n", get('custom_slices'));
+                $this->custom_slices = [];
+                foreach($slice_data as $s) {
+                    $slice = [];
+                    $t = explode(',', $s);
+                    foreach($t as $tile) {
+                        $tile = trim($tile);
+                        $slice[] = $tile;
+                    }
+                    $this->custom_slices[] = $slice;
+                }
+            }
+
+            $this->validate();
         }
 
-        $this->validate();
+    }
+
+
+    static function fromDraft($draft)
+    {
+        $config = new GeneratorConfig(false);
+        $config->players = $draft['config']['players'];
+
+        $config->name = $draft['name'];
+        $config->num_players = count($config->players);
+        $config->num_slices = $draft['config']['num_slices'];
+        $config->num_factions = $draft['config']['num_factions'];
+        $config->include_pok = $draft['config']['include_pok'];
+        $config->include_base_factions = $draft['config']['include_base_factions'];
+        $config->include_keleres = $draft['config']['include_keleres'];
+        $config->include_discordant = $draft['config']['include_discordant'];
+        $config->include_discordantexp = $draft['config']['include_discordantexp'];
+
+        $config->max_1_wormhole = $draft['config']['max_1_wormhole'];
+        $config->min_wormholes = $draft['config']['min_wormholes'];
+        $config->min_legendaries = $draft['config']['min_legendaries'];
+
+        $config->minimum_optimal_influence = $draft['config']['minimum_optimal_influence'];
+        $config->minimum_optimal_resources = $draft['config']['minimum_optimal_resources'];
+        $config->minimum_optimal_total = $draft['config']['minimum_optimal_total'];
+        $config->maximum_optimal_total = $draft['config']['maximum_optimal_total'];
+
+        $config->custom_factions = $draft['config']['custom_factions'];
+        $config->custom_slices = $draft['config']['custom_slices'];
+
+        $config->validate();
+
+        return $config;
     }
 
     function validate() {

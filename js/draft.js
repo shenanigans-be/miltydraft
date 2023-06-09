@@ -1,10 +1,11 @@
 $(document).ready(function() {
 
-    $('#tabs nav a').on('click', function(e) {
+    $('#tabs nav a, .tabnav').on('click', function(e) {
         // e.preventDefault();
+        let ref = $(this).attr('href');
         $('#tabs nav a, .tab').removeClass('active');
-        $(this).addClass('active');
-        $('.tab' + $(this).attr('href')).addClass('active');
+        $('#tabs nav a[href="' + ref + '"]').addClass('active');
+        $('.tab' + ref).addClass('active');
 
         if($(this).attr('href') == '#map') {
             generate_map();
@@ -102,6 +103,42 @@ $(document).ready(function() {
     if(window.draft) {
         who_am_i();
         draft_status();
+
+
+
+        if(!IS_ADMIN) {
+            hide_regen();
+        } else {
+            $('#regenerate').on('click', function() {
+                if(!$('#shuffle_factions').is(':checked') && !$('#shuffle_slices').is(':checked')) return;
+
+                loading();
+                $.ajax({
+                    type: 'POST',
+                    url: window.routes.regenerate,
+                    dataType: 'json',
+                    data: {
+                        'regen': draft.id,
+                        'admin': localStorage.getItem('admin_' + draft.id),
+                        'shuffle_slices': $('#shuffle_slices').is(':checked'),
+                        'shuffle_factions': $('#shuffle_factions').is(':checked'),
+                    },
+                    success: function(resp) {
+                        console.log(resp);
+                        if(resp.error) {
+                            $('#error-message').html(resp.error);
+                            $('#error-popup').show();
+                            loading(false);
+                        } else {
+                            window.location.hash = '';
+                            window.location.reload();
+                        }
+
+                    }
+                });
+            });
+        }
+
 
         $('.claim').on('click', function(e) {
             $(this).hide();
@@ -204,13 +241,22 @@ function loading(loading = true) {
     }
 }
 
+function find_player(id) {
+    for(let i in draft.draft.players) {
+        if(draft.draft.players[i].id == id) {
+            return draft.draft.players[i];
+        }
+    }
+}
+
 function draft_status() {
-    let current_player = draft.draft.players[draft.draft.current];
+
+    let current_player = find_player(draft.draft.current);
 
     let log = '';
     for(let i = 0; i < draft.draft.log.length; i++) {
         let log_item = draft.draft.log[i];
-        let p = draft.draft.players[log_item.player];
+        let p = find_player(log_item.player);
 
         let show_value = log_item.value;
 
@@ -227,6 +273,11 @@ function draft_status() {
         $btn.parents('.option').addClass('picked');
 
         log += '<p><strong>' + p.name + '</strong> picked <strong>' + show_value + '</strong></p>';
+    }
+
+    if(log != '') {
+
+        hide_regen();
     }
 
     $('#log-content').html(log);
@@ -266,6 +317,12 @@ function draft_status() {
     if(current_player.slice != null) {
         $('button.draft[data-category="slice"]').hide();
     }
+}
+
+function hide_regen() {
+
+    $('#tabs nav a[href="#regen"]').hide();
+    $('.regen-help').hide();
 }
 
 function ordinal(number) {

@@ -46,6 +46,25 @@
             Well, that kind of depends on how popular this gets. Hosting isn't free, sadly, so I'm planning to weed out drafts older than one year every so often.
         </p>
 
+        <h4>Can I help?</h4>
+        <p>
+            Sure you can! This is an open source project, if you're a programmer you can check out if there's any <a href="https://github.com/shenanigans-be/miltydraft/issues" target="_blank">open issues</a> you might want to tacke.<br />
+            If you're not technically inclined: you can make a paypal donation to help pay for hosting-costs:
+        </p>
+
+            <form action="https://www.paypal.com/donate" method="post" target="_top" style="margin-top: 20px">
+                <input type="hidden" name="business" value="5JW6PWQTX8C58" />
+                <input type="hidden" name="no_recurring" value="0" />
+                <input type="hidden" name="item_name" value="Hi there! Thank you so much for considering a donation to the Miltydraft tool." />
+                <input type="hidden" name="currency_code" value="EUR" />
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                <img alt="" border="0" src="https://www.paypal.com/en_BE/i/scr/pixel.gif" width="1" height="1" />
+            </form>
+
+        <p>
+            Please don't feel like you have to. I'm more than happy to keep this site running by myself as my gift to a wonderful community.
+        </p>
+
         <h4>Why only five players without PoK?</h4>
         <p>
             Technically it could go up to six (6 is a hard limit because there are only 12 red tiles in the base game), but here's why only five:<br />
@@ -89,6 +108,11 @@
             Second: Yes, there are a lot of problems with this, and stuff I haven't implemented, sure.<br />
             The code is on <a href="https://github.com/shenanigans-be/miltydraft" target="_blank">Github</a> if you want to report an issue or even contribute!<br />
             If you'd like to reach out to me directly, you can do so on <a href="https://twitter.com/samtubbax" target="_blank">Twitter</a> or <a href="https://www.reddit.com/user/notcleverenough" target="_blank">Reddit</a>.
+        </p>
+
+        <h4><strong style="opacity: 0.6">June 2023</strong>: What's all this new stuff?</h4>
+        <p>
+            I've added support for the Discordant Stars (a fan made expansion) and added functionality for admins to regenerate the options if they're not entirely to their liking.
         </p>
     </div>
 </div>

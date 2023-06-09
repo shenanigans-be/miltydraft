@@ -1,9 +1,52 @@
 <?php
     require_once 'boot.php';
 
-    $config = new GeneratorConfig();
+//    dd($_POST);
+    if(get('regen') != null) {
+        $draft = get_draft(get('regen'));
 
-    generate($config);
+//        dd($draft['draft']['log']);
+
+        if($draft['admin_pass'] != get('admin')) return_error('You are not allowed to do this');
+        if(!empty($draft['draft']['log'])) return_error('Draft already in progress');
+
+        // claimed players?
+
+        $config = GeneratorConfig::fromDraft($draft);
+    } else {
+        $config = new GeneratorConfig(true);
+    }
+
+    if(get('regen') != null) {
+        $regen_slices = (bool) get('shuffle_slices', false);
+        $regen_factions = (bool) get('shuffle_factions', false);
+        $regen_players = (bool) get('shuffle_players', false);
+        regenerate($draft, $config, $regen_slices, $regen_factions, $regen_players);
+    } else {
+        generate($config);
+    }
+
+    function regenerate($draft, $config, $regen_slices, $regen_factions, $regen_players) {
+        $slices = select_slices($config);
+        $factions = select_factions($config);
+
+//        $draft
+        if($regen_factions) {
+            $draft['factions'] = select_factions($config);
+        }
+        if($regen_slices) {
+            $draft['slices'] = select_slices($config);
+        }
+
+
+
+        save_draft($draft);
+
+        return_data([
+            'ok' => true
+        ]);
+    }
+
 
     /**
      * @param GeneratorConfig $config
@@ -11,35 +54,7 @@
      * @return mixed
      */
     function generate($config, $previous_tries = 0) {
-        if($previous_tries > 100) {
-            return_error("Selection contains no valid slices. This happens occasionally to valid configurations but it probably means that the parameters are impossible.");
-        }
-
-        // Gather Tiles
-        $all_tiles = gather_tiles($config);
-
-        if($config->custom_slices != null) {
-            $tile_data = import_tile_data();
-
-            $slices = [];
-
-            foreach($config->custom_slices as $slice_data) {
-                $tiles = [];
-                foreach($slice_data as $tile_id) {
-                    $tiles[] = $tile_data[$tile_id];
-                }
-                $slices[] = new Slice($tiles);
-            }
-        } else {
-            $selected_tiles = select_tiles($all_tiles, $config);
-            $slices = generate_slices($selected_tiles, $config);
-
-            if($slices == false) {
-                // can't make slices with this selection
-                return generate($config, $previous_tries + 1);
-            }
-        }
-
+        $slices = select_slices($config);
         $factions = select_factions($config);
 
         $player_data = [];
@@ -71,7 +86,7 @@
             'factions' => $factions,
             'admin_pass' => $admin_password,
             'config' => $config->toJson(),
-            'slices' => convert_slices_data($slices),
+            'slices' => $slices,
             'url' => 'https://' . $_ENV['BUCKET'] . '.' . $_ENV['REGION'] . '.digitaloceanspaces.com/draft_' . $id . '.json',
             'draft' => [
                 'players' => $player_data,
@@ -88,6 +103,39 @@
             'id' => $id,
             'admin' => $admin_password
         ]);
+    }
+
+    function select_slices($config, $previous_tries = 0) {
+        if($previous_tries > 100) {
+            return_error("Selection contains no valid slices. This happens occasionally to valid configurations but it probably means that the parameters are impossible.");
+        }
+
+        // Gather Tiles
+        $all_tiles = gather_tiles($config);
+
+        if($config->custom_slices != null) {
+            $tile_data = import_tile_data();
+
+            $slices = [];
+
+            foreach($config->custom_slices as $slice_data) {
+                $tiles = [];
+                foreach($slice_data as $tile_id) {
+                    $tiles[] = $tile_data[$tile_id];
+                }
+                $slices[] = new Slice($tiles);
+            }
+        } else {
+            $selected_tiles = select_tiles($all_tiles, $config);
+            $slices = generate_slices($selected_tiles, $config);
+
+            if($slices == false) {
+                // can't make slices with this selection
+                return select_slices($config,$previous_tries + 1);
+            } else {
+                return convert_slices_data($slices);
+            }
+        }
     }
 
     function convert_slices_data($slices) {

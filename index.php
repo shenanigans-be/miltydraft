@@ -49,22 +49,22 @@
                                 </div>
 
                                 <div class="input player">
-                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Test") ?>" />
+                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Amy") ?>" />
                                 </div>
                                 <div class="input player">
-                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Test") ?>" />
+                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Ben") ?>" />
                                 </div>
                                 <div class="input player">
-                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Test") ?>" />
+                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Charlie") ?>" />
                                 </div>
                                 <div class="input player">
-                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Test") ?>" />
+                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Desmond") ?>" />
                                 </div>
                                 <div class="input player">
-                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Test") ?>" />
+                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Esther") ?>" />
                                 </div>
                                 <div class="input player">
-                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Test") ?>" />
+                                    <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Frank") ?>" />
                                 </div>
                                 <div class="input player">
                                     <input type="text" placeholder="Player Name" name="player[]" />

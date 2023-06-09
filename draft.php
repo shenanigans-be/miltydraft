@@ -40,6 +40,7 @@
                 <div class="content-wrap">
                     <div class="left">
                         <a class="active" href="#draft">Draft</a>
+                        <a href="#regen">Regenerate</a>
                         <a href="#map">Map</a>
                         <a href="#log">Log</a>
                         <a href="#config">Config</a>
@@ -60,6 +61,12 @@
                     <div class="status" id="done">
                         <p>This draft is over. <a class="map" href="#">View map</a></p>
                     </div>
+
+                    <?php if(empty($draft['draft']['log'])): ?>
+                        <p class="regen-help">
+                            Something not quite right? Untill the first draft-pick is done you can <a class="tabnav" href="#regen">regenerate the draft options</a>.
+                        </p>
+                    <?php endif; ?>
 
                     <div class="players">
                         <?php $i = 0; ?>
@@ -185,6 +192,18 @@
                     </script>
 
                 <?php endif; ?>
+                </div>
+            </div>
+
+            <div class="tab" id="regen">
+                <div class="content-wrap">
+                    <?php if(empty($draft['draft']['log'])): ?>
+                        <p id="regen-options">
+                            <label for="shuffle_slices"><input type="checkbox" checked id="shuffle_slices" name="shuffle_slices" /> New Slices</label>
+                            <label for="shuffle_factions"><input type="checkbox" checked id="shuffle_factions" name="shuffle_factions" /> New Factions</label>
+                            <button id="regenerate" class="btn">Regenerate</button>
+                        </p>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="tab" id="config">
@@ -356,6 +375,7 @@
         window.routes = {
             "claim": "<?= url('claim.php') ?>",
             "pick": "<?= url('pick.php') ?>",
+            "regenerate": "<?= url('generate.php') ?>",
             "tile_images": "<?= url('img/tiles') ?>"
         }
     </script>

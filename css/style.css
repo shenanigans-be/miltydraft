@@ -1271,6 +1271,19 @@ strong {
   }
 }
 
+#regen-options label {
+  display: inline-block;
+  margin-right: 20px;
+  width: auto;
+}
+
+.regen-help {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  margin-bottom: 50px;
+  border: 2px solid rgba(22, 35, 44, 0.2);
+}
+
 @media (prefers-color-scheme: dark) {
   .container {
     background-color: #16232c;
@@ -1293,6 +1306,10 @@ strong {
   button, .btn {
     background-color: #38618f;
     color: #FEFCF8;
+  }
+
+  #regen {
+    border-color: #FEFCF8;
   }
 
   #tabs nav {

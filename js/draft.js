@@ -31,7 +31,6 @@ $(document).ready(function() {
 
     $('#change-mapview').on('change', function(e) {
         $('.mapview.current').removeClass('current');
-        console.log($(this).val());
         $('.mapview#mapview-' + $(this).val()).addClass('current');
     });
 

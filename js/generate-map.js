@@ -382,35 +382,37 @@ function generate_map() {
         }
     }
 
-    let speaker_order_slices = [];
+    let speaker_order = [];
     for(let pid in draft.draft.players) {
         let p = draft.draft.players[pid];
-        if(p.position != null && p.slice != null) {
-            speaker_order_slices[p.position] = {
-                'slice': draft.slices[p.slice],
-                'player': p
-            };
+        if(p.position != null) {
+            speaker_order[p.position] = p.name;
         }
     }
 
     let slices_html = '';
-    for(let p in speaker_order_slices) {
-        let s = speaker_order_slices[p];
+    for(let i = 0; i < draft.config.players.length; i++) {
+        let s = speaker_order[i];
+
+        if(typeof(s) == 'undefined') {
+            s = 'Unknown';
+        }
 
         let tpl = [
-            [-1, 0, p + '-3'],
-            [0, -1, p + '-4'],
-            [-1, 1, p + '-0'],
-            [0, 0, p + '-1'],
-            [1, 0, p + '-2'],
-            [0, 1, p + '-H'],
+            [-1, 0, i + '-3'],
+            [0, -1, i + '-4'],
+            [-1, 1, i + '-0'],
+            [0, 0, i + '-1'],
+            [1, 0, i + '-2'],
+            [0, 1, i + '-H'],
         ];
 
         let result = '';
-        for(let i = 0; i < tpl.length; i++) {
-            result += draw_tile(tpl[i]).html;
+        for(let u = 0; u < tpl.length; u++) {
+            result += draw_tile(tpl[u]).html;
         }
-        slices_html += '<div class="slice"><h3>' + s.player.name + '</h3><div class="map-offset"><div class="map">' + result + '</div></div></div>';
+
+        slices_html += '<div class="slice"><h3>' + (i + 1) + ': ' + s + '</h3><div class="map-offset"><div class="map">' + result + '</div></div></div>';
     }
 
 

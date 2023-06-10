@@ -25,7 +25,7 @@ $(document).ready(function() {
         $('#reference-popup').hide();
     });
 
-    $('.status .map').on('click', function(e) {
+    $('.status .view-map').on('click', function(e) {
         $('#tabs nav a[href="#map"]').click();
     });
 

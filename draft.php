@@ -70,7 +70,7 @@
                         <p>It's <span id="current-name">x's</span> turn to draft something. <span id="admin-msg">You are the admin so you can do this for them.</span></p>
                     </div>
                     <div class="status" id="done">
-                        <p>This draft is over. <a class="map" href="#">View map</a></p>
+                        <p>This draft is over. <a class="view-map" href="#">View map</a></p>
                     </div>
 
                     <?php if(empty($draft['draft']['log'])): ?>

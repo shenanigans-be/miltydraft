@@ -125,6 +125,9 @@
                 }
                 $slices[] = new Slice($tiles);
             }
+
+            return convert_slices_data($slices);
+
         } else {
             $selected_tiles = select_tiles($all_tiles, $config);
             $slices = generate_slices($selected_tiles, $config);

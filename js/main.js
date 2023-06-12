@@ -4,11 +4,7 @@ $(document).ready(function() {
 
     pok_check();
     $('#pok').on('change', pok_check);
-    $('#basef').on('change', faction_check);
-    $('#pokf').on('change', faction_check);
-    $('#keleres').on('change', faction_check);
-    $('#discordant').on('change', faction_check);
-    $('#discordantexp').on('change', faction_check);
+    $('.draft-faction').on('change', faction_check);
 
     $('#tabs nav a').on('click', function(e) {
         e.preventDefault();
@@ -139,35 +135,28 @@ function pok_check() {
         $discordantexp.parent().addClass('disabled');
     }
 
-    check_max_factions();
-}
-
-function check_max_factions() {
-    let max = 0;
-    if($('#basef').is(':checked')) {
-        max += 17;
-    }
-    if($('#pokf').is(':checked')) {
-        max += 7;
-    }
-    if($('#keleres').is(':checked')) {
-        max += 1;
-    }
-    if($('#discordant').is(':checked')) {
-        max += 24;
-    }
-    if($('#discordantexp').is(':checked')) {
-        max += 10;
-    }
-
-    console.log('max factions', max);
-
-    $('#num_factions').attr('max', max);
+    faction_check();
 }
 
 
 function faction_check() {
-    check_max_factions();
+    let sets = [];
+    let max = 0;
+
+
+    $('.draft-faction').each(function (i, el) {
+        if($(el).is(':checked')) {
+            max += parseInt($(el).data('num'));
+            $('.factions label[data-set="' + $(el).data('set') +'"]').removeClass('disabled');
+            $('.factions label[data-set="' + $(el).data('set') +'"] input').prop('disabled', false);
+        } else {
+            $('.factions label[data-set="' + $(el).data('set') +'"]').addClass('disabled');
+            $('.factions label[data-set="' + $(el).data('set') +'"] input').prop('disabled', true).prop('checked', false);
+        }
+    });
+
+
+    $('#num_factions').attr('max', max);
 }
 
 function init_player_count() {

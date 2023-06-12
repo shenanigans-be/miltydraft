@@ -125,7 +125,7 @@
 
                                 <div class="input">
                                     <label for="pok" class="check">
-                                        <input type="checkbox" name="include_pok" id="pok" checked /> Include Prophecy Of Kings
+                                        <input type="checkbox" name="include_pok" id="pok" checked /> Use Prophecy Of Kings Expansion
                                     </label>
                                     <span class="help">
                                         Include the factions and tiles from the Prophecy of Kings expansion.<br /><br/>
@@ -133,29 +133,29 @@
                                     </span>
                                 </div>
 
-                                <h4>Faction Options</h4>
+                                <h4>Draftable Factions:</h4>
                                 <div class="input">
                                     <label for="basef" class="check">
-                                        <input type="checkbox" name="include_base_factions" id="basef" checked /> Include Base Game
+                                        <input type="checkbox" class="draft-faction" data-num="17" data-set="base" name="include_base_factions" id="basef" checked /> Include Base Game
                                     </label>
                                     <label for="pokf" class="check">
-                                        <input type="checkbox" name="include_pok_factions" id="pokf" checked /> Include Prophecy Of Kings
+                                        <input type="checkbox" class="draft-faction" data-num="7" data-set="pok" name="include_pok_factions" id="pokf" checked /> Include Prophecy Of Kings
                                     </label>
                                     <label for="keleres" class="check">
-                                        <input type="checkbox" name="include_keleres" id="keleres" /> Include The Council Keleres
+                                        <input type="checkbox" name="include_keleres" class="draft-faction" data-num="1" data-set="keleres" id="keleres" /> Include The Council Keleres
                                     </label>
                                     <span class="help">
                                         The Council Keleres was introduced in <a target="_blank" href="https://images-cdn.fantasyflightgames.com/filer_public/35/e1/35e10f37-4b6d-4479-a117-4e2c571ddfa7/ti_codex_volume_3_vigil_v2_1-compressed.pdf">Codex III</a>.
                                         (PoK required). For simplicity's sake I'll leave it up to each group to decide how they want to handle things (including the very limited possibility of all 3 flavours also being picked). Just something to keep in mind.
                                     </span>
                                     <label for="discordant" class="check">
-                                        <input type="checkbox" name="include_discordant" id="discordant" /> Include Discordant Stars
+                                        <input type="checkbox" name="include_discordant" class="draft-faction" data-num="24" data-set="discordant" id="discordant" /> Include Discordant Stars
                                     </label>
                                     <span class="help">
                                         <a target="_blank" href="https://www.reddit.com/r/twilightimperium/comments/pvbbie/discordant_stars_24_homebrew_factions/">Discordant Stars</a> is a fan made faction pack introduced by members of the Discord community.
                                     </span>
                                     <label for="discordantexp" class="check">
-                                        <input type="checkbox" name="include_discordantexp" id="discordantexp" /> Include Discordant Stars Plus
+                                        <input type="checkbox" name="include_discordantexp" class="draft-faction" data-num="10" data-set="discordantexp"  id="discordantexp" /> Include Discordant Stars Plus
                                     </label>
                                     <span class="help">
                                         Ten additional factions were added to Discordant Stars as an expansion: Bentor, Nokar, Gledge, Lanefir, Kyro, Ghoti, Kolume, Cheiran, Kjalengard, and Edyn.
@@ -275,7 +275,7 @@
                                 </div>
 
                                 <div class="input">
-                                    <label for="custom_tiles">
+                                    <label for="custom_factions">
                                         Custom Factions<br />
 
                                         <span class="help">
@@ -292,7 +292,7 @@
                                         </span>
                                     </label>
 
-                                    <div class="input-group">
+                                    <div class="input-group factions">
                                         <?php require_once 'factions.php'; ?>
                                     </div>
 

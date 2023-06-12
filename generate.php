@@ -127,6 +127,7 @@
             }
 
             return convert_slices_data($slices);
+//            return $slices;
 
         } else {
             $selected_tiles = select_tiles($all_tiles, $config);
@@ -300,52 +301,61 @@
      */
     function select_factions($config) {
 
-       $faction_data = import_faction_data();
+       $possible_factions = filtered_factions($config);
 
-       $factions = [];
 
        if($config->custom_factions != null) {
+           $factions = [];
+
            foreach($config->custom_factions as $f) {
                $factions[] = $f;
            }
 
-           shuffle($faction_data);
 
            // add some more boys and girls untill we reach the magic number
            $i = 0;
            while(count($factions) < $config->num_factions) {
-               $faction = $faction_data[$i]['name'];
+               $f = $possible_factions[$i];
 
-               if(!in_array($faction, $factions)) {
-                   $factions[] = $faction;
+               if(!in_array($f, $factions)) {
+                   $factions[] = $f;
                }
 
                $i++;
            }
        } else {
-           foreach($faction_data as $faction => $data) {
-               if($data["set"] == "base" && $config->include_base_factions) {
-                   $factions[] = $faction;
-               }
-               if($data["set"] == "pok" && $config->include_pok_factions) {
-                   $factions[] = $faction;
-               }
-               if($data["set"] == "keleres" && $config->include_keleres) {
-                   $factions[] = $faction;
-               }
-               if($data["set"] == "discordant" && $config->include_discordant) {
-                $factions[] = $faction;
-               }
-               if($data["set"] == "discordantexp" && $config->include_discordantexp) {
-                $factions[] = $faction;
-               }
-           }
-
+           $factions = $possible_factions;
        }
 
-       shuffle($factions);
 
        return array_slice($factions, 0, $config->num_factions);
+    }
+
+    function filtered_factions($config) {
+
+        $faction_data = import_faction_data();
+        $factions = [];
+        foreach($faction_data as $faction => $data) {
+            if($data["set"] == "base" && $config->include_base_factions) {
+                $factions[] = $faction;
+            }
+            if($data["set"] == "pok" && $config->include_pok_factions) {
+                $factions[] = $faction;
+            }
+            if($data["set"] == "keleres" && $config->include_keleres) {
+                $factions[] = $faction;
+            }
+            if($data["set"] == "discordant" && $config->include_discordant) {
+                $factions[] = $faction;
+            }
+            if($data["set"] == "discordantexp" && $config->include_discordantexp) {
+                $factions[] = $faction;
+            }
+        }
+        shuffle($factions);
+        return $factions;
+
+
     }
 
 

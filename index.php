@@ -283,7 +283,7 @@
                                             If you don't check enough factions to fill up the draft (based on the number of factions above), the generator will add some random (unchecked) ones. <br />
                                             If you check more than enough (e.g: checking 10 factions when the draft only needs 8), a random selection will be made from the checked factions. <br /><br />
                                             This means that if you want to <strong>exclude</strong> certain factions from the draft, you need to check everything except the ones you wish to exclude, and we'll do the rest.<br /><br />
-                                            <strong>Note: once you start fiddling with this, the above options to include/exclude PoK or Keleres will be ignored.</strong>
+                                            <strong>Note: You can change the selectable factions by checking or unchecking the boxes up where it says "Draftable Factions".</strong>
                                         </span>
 
                                         <br />

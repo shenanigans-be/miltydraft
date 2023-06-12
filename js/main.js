@@ -31,7 +31,7 @@ $(document).ready(function() {
 
     $('#select-all').on('click', function(e) {
         e.preventDefault();
-        $('.custom_faction').prop('checked', true);
+        $('.custom_faction:not(:disabled)').prop('checked', true);
     });
     $('#deselect-all').on('click', function(e) {
         e.preventDefault();

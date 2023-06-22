@@ -323,9 +323,13 @@
 
                $i++;
            }
+
+
+           shuffle($factions);
+
        } else {
            $factions = $possible_factions;
-       }
+       };
 
 
        return array_slice($factions, 0, $config->num_factions);

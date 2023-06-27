@@ -18,15 +18,23 @@
     }
 
     if(get('regen') != null) {
-        $regen_slices = (bool) get('shuffle_slices', false);
-        $regen_factions = (bool) get('shuffle_factions', false);
-        $regen_players = (bool) get('shuffle_players', false);
-        regenerate($draft, $config, $regen_slices, $regen_factions, $regen_players);
+        $regen_slices = get('shuffle_slices', "false") == "true";
+        $regen_factions = get('shuffle_factions', "false") == "true";
+
+//        echo "slices\n";
+//        var_dump($_POST['shuffle_slices']);
+//        var_dump($regen_slices);
+//
+//        echo "\nfactions\n";
+//        var_dump($regen_factions);
+//        exit;
+
+        regenerate($draft, $config, $regen_slices, $regen_factions);
     } else {
         generate($config);
     }
 
-    function regenerate($draft, $config, $regen_slices, $regen_factions, $regen_players) {
+    function regenerate($draft, $config, $regen_slices, $regen_factions) {
         $slices = select_slices($config);
         $factions = select_factions($config);
 

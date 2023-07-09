@@ -299,9 +299,11 @@ class GeneratorConfig {
         $config->num_factions = $draft['config']['num_factions'];
         $config->include_pok = $draft['config']['include_pok'];
         $config->include_base_factions = $draft['config']['include_base_factions'];
+        $config->include_pok_factions = $draft['config']['include_pok_factions'];
         $config->include_keleres = $draft['config']['include_keleres'];
         $config->include_discordant = $draft['config']['include_discordant'];
         $config->include_discordantexp = $draft['config']['include_discordantexp'];
+//        dd($config);
 
         $config->max_1_wormhole = $draft['config']['max_1_wormhole'];
         $config->min_wormholes = $draft['config']['min_wormholes'];

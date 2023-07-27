@@ -303,7 +303,6 @@ class GeneratorConfig {
         $config->include_keleres = $draft['config']['include_keleres'];
         $config->include_discordant = $draft['config']['include_discordant'];
         $config->include_discordantexp = $draft['config']['include_discordantexp'];
-//        dd($config);
 
         $config->max_1_wormhole = $draft['config']['max_1_wormhole'];
         $config->min_wormholes = $draft['config']['min_wormholes'];

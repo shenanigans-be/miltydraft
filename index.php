@@ -132,10 +132,10 @@
                                 </div>
                                 <div class="input">
                                     <label for="include_ds_tiles" class="check">
-                                        <input type="checkbox" name="include_ds_tiles" id="include_ds_tiles" checked /> Use Discordant Stars Plus tiles
+                                        <input type="checkbox" name="include_ds_tiles" id="include_ds_tiles" /> Use Discordant Stars Plus tiles
                                     </label>
                                     <span class="help">
-                                        Include the new tiles from the Unofficial Discordant Stars+ expansion.
+                                        Include the new tiles from the Unofficial Discordant Stars Plus expansion.
                                     </span>
                                 </div>
 

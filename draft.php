@@ -150,7 +150,14 @@
                                             <?php endif; ?>
 
                                             <?php foreach($slice['wormholes'] as $w): ?>
-                                                <abbr class="wormhole" title="<?= $w ?>"><?= e($w == "alpha", '&alpha;', '&beta;') ?></abbr>
+                                                <?php if($w == 'alpha'): ?>
+                                                    <abbr class="wormhole" title="<?= $w ?>">&alpha;</abbr>
+                                                <?php elseif($w == 'beta'): ?>
+                                                    <abbr class="wormhole" title="<?= $w ?>">&beta;</abbr>
+                                                <?php elseif($w == 'alpha-beta'): ?>
+                                                    <abbr class="wormhole" title="alpha">&alpha;</abbr>
+                                                    <abbr class="wormhole" title="beta">&beta;</abbr>
+                                                <?php endif; ?>
                                             <?php endforeach; ?>
                                         </div>
 
@@ -232,6 +239,9 @@
                     </p>
                     <p>
                         <label>Include PoK:</label> <strong><?= e($draft['config']['include_pok'], 'yes', 'no') ?></strong>
+                    </p>
+                    <p>
+                        <label>Include DS Tiles:</label> <strong><?= e($draft['config']['include_DSTiles'], 'yes', 'no') ?></strong>
                     </p>
                     <p>
                         <label>Include Base Game Factions:</label> <strong><?= e($draft['config']['include_base_factions'], 'yes', 'no') ?></strong>

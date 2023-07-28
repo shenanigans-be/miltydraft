@@ -215,6 +215,7 @@ class GeneratorConfig {
     public $num_slices;
     public $num_factions;
     public $include_pok;
+    public $include_ds_tiles;
     public $include_base_factions;
     public $include_pok_factions;
     public $include_keleres;
@@ -249,6 +250,7 @@ class GeneratorConfig {
             $this->num_slices = (int) get('num_slices');
             $this->num_factions = (int) get('num_factions');
             $this->include_pok = get('include_pok') == true;
+            $this->include_ds_tiles = get('include_ds_tiles') == true;
             $this->include_base_factions = get('include_base_factions') == true;
             $this->include_pok_factions = get('include_pok_factions') == true;
             $this->include_keleres = get('include_keleres') == true;
@@ -298,6 +300,7 @@ class GeneratorConfig {
         $config->num_slices = $draft['config']['num_slices'];
         $config->num_factions = $draft['config']['num_factions'];
         $config->include_pok = $draft['config']['include_pok'];
+        $config->include_ds_tiles = isset($draft['config']['include_ds_tiles'])? $draft['config']['include_ds_tiles'] : false;
         $config->include_base_factions = $draft['config']['include_base_factions'];
         $config->include_pok_factions = $draft['config']['include_pok_factions'];
         $config->include_keleres = $draft['config']['include_keleres'];
@@ -367,6 +370,7 @@ class GeneratorConfig {
         return [
             'players' => $this->players,
             'include_pok' => $this->include_pok,
+            'include_ds_tiles' => $this->include_ds_tiles,
             'include_base_factions' => $this->include_base_factions,
             'include_pok_factions' => $this->include_pok_factions,
             'include_keleres' => $this->include_keleres,

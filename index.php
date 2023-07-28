@@ -130,6 +130,14 @@
                                         <strong>IMPORTANT NOTE: If you don't include PoK you can only organise drafts up to 5 players (because you can only generate 5 valid slices with the base-game tiles)!</strong>
                                     </span>
                                 </div>
+                                <div class="input">
+                                    <label for="include_ds_tiles" class="check">
+                                        <input type="checkbox" name="include_ds_tiles" id="include_ds_tiles" checked /> Use Discordant Stars Plus tiles
+                                    </label>
+                                    <span class="help">
+                                        Include the new tiles from the Unofficial Discordant Stars+ expansion.
+                                    </span>
+                                </div>
 
                                 <h4>Draftable Factions:</h4>
                                 <div class="input">

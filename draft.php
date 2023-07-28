@@ -150,7 +150,14 @@
                                             <?php endif; ?>
 
                                             <?php foreach($slice['wormholes'] as $w): ?>
-                                                <abbr class="wormhole" title="<?= $w ?>"><?= e($w == "alpha", '&alpha;', '&beta;') ?></abbr>
+                                                <?php if($w == 'alpha'): ?>
+                                                    <abbr class="wormhole" title="<?= $w ?>">&alpha;</abbr>
+                                                <?php elseif($w == 'beta'): ?>
+                                                    <abbr class="wormhole" title="<?= $w ?>">&beta;</abbr>
+                                                <?php elseif($w == 'alpha-beta'): ?>
+                                                    <abbr class="wormhole" title="alpha">&alpha;</abbr>
+                                                    <abbr class="wormhole" title="beta">&beta;</abbr>
+                                                <?php endif; ?>
                                             <?php endforeach; ?>
                                         </div>
 

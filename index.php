@@ -131,12 +131,11 @@
                                     </span>
                                 </div>
                                 <div class="input">
-                                    <label for="DSTile" class="check">
-                                        <input type="checkbox" name="include_DSTile" id="DSTile" checked /> Use Prophecy Of Kings Expansion
+                                    <label for="include_ds_tiles" class="check">
+                                        <input type="checkbox" name="include_ds_tiles" id="include_ds_tiles" checked /> Use Discordant Stars Plus tiles
                                     </label>
                                     <span class="help">
-                                        Include the new tiles from the Unofficial Discordant Stars+ expansion. <br /><br/>
-                                        <strong>IMPORTANT NOTE: This functionality is brand new and relatively untested! Use at own risk!</strong>
+                                        Include the new tiles from the Unofficial Discordant Stars+ expansion.
                                     </span>
                                 </div>
 

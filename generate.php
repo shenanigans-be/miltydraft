@@ -281,7 +281,7 @@
             }
         }
 
-        if($config->include_DSTile) {
+        if($config->include_ds_tiles) {
             foreach($tile_tiers['DSTiers'] as $tier => $tiles) {
                 foreach($tiles as $tile_id) {
                     $all_tiles[$tier][] = $tile_data[$tile_id];

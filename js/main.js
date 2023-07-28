@@ -91,6 +91,7 @@ function pok_check() {
     let $pokf = $('#pokf');
     let $keleres = $('#keleres');
     let $legendary_options = $('.legendary-option');
+    let $DSTiles = $('#DSTiles');
     let $discordant = $('#discordant');
     let $discordantexp = $('#discordantexp');
 
@@ -105,6 +106,9 @@ function pok_check() {
 
         $legendary_options.prop('disabled', false);
         $legendary_options.parent().removeClass('disabled');
+
+        $DSTiles.prop('disabled', false);
+        $DSTiles.parent().removeClass('disabled');
 
         $discordant.prop('disabled', false);
         $discordant.parent().removeClass('disabled');

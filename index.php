@@ -130,6 +130,15 @@
                                         <strong>IMPORTANT NOTE: If you don't include PoK you can only organise drafts up to 5 players (because you can only generate 5 valid slices with the base-game tiles)!</strong>
                                     </span>
                                 </div>
+                                <div class="input">
+                                    <label for="DSTile" class="check">
+                                        <input type="checkbox" name="include_DSTile" id="DSTile" checked /> Use Prophecy Of Kings Expansion
+                                    </label>
+                                    <span class="help">
+                                        Include the new tiles from the Unofficial Discordant Stars+ expansion. <br /><br/>
+                                        <strong>IMPORTANT NOTE: This functionality is brand new and relatively untested! Use at own risk!</strong>
+                                    </span>
+                                </div>
 
                                 <h4>Draftable Factions:</h4>
                                 <div class="input">

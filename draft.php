@@ -234,6 +234,9 @@
                         <label>Include PoK:</label> <strong><?= e($draft['config']['include_pok'], 'yes', 'no') ?></strong>
                     </p>
                     <p>
+                        <label>Include DS Tiles:</label> <strong><?= e($draft['config']['include_DSTiles'], 'yes', 'no') ?></strong>
+                    </p>
+                    <p>
                         <label>Include Base Game Factions:</label> <strong><?= e($draft['config']['include_base_factions'], 'yes', 'no') ?></strong>
                     </p>
                     <p>

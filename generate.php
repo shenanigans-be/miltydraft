@@ -281,6 +281,14 @@
             }
         }
 
+        if($config->include_DSTile) {
+            foreach($tile_tiers['DSTiers'] as $tier => $tiles) {
+                foreach($tiles as $tile_id) {
+                    $all_tiles[$tier][] = $tile_data[$tile_id];
+                }
+            }
+        }
+
         return $all_tiles;
     }
 
@@ -292,6 +300,7 @@
         foreach($tiles as $tile) {
             if($tile->has_wormhole("alpha")) $alpha_count++;
             if($tile->has_wormhole("beta")) $beta_count++;
+            if($tile->has_wormhole("alpha-beta")) {$alpha_count++;$beta_count++;}
             if($tile->has_legendary()) $legendary_count++;
         }
 

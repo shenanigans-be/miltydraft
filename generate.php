@@ -88,6 +88,8 @@
         $id = uniqid();
         $admin_password = uniqid();
 
+        $url = ($_ENV['STORAGE'] == "local")? $_ENV['URL'] . '/' . $_ENV['STORAGE_PATH'] . '/' .  $id . '.json' : 'https://' . $_ENV['BUCKET'] . '.' . $_ENV['REGION'] . '.digitaloceanspaces.com/draft_' . $id . '.json';
+
         $result = [
             'id' => $id,
             'name' => $config->name,
@@ -95,7 +97,7 @@
             'admin_pass' => $admin_password,
             'config' => $config->toJson(),
             'slices' => $slices,
-            'url' => 'https://' . $_ENV['BUCKET'] . '.' . $_ENV['REGION'] . '.digitaloceanspaces.com/draft_' . $id . '.json',
+            'url' => $url,
             'draft' => [
                 'players' => $player_data,
                 'current' => $first_player,

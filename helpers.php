@@ -28,7 +28,12 @@ function url($uri) {
 }
 
 function get_draft($id) {
-    $draft = file_get_contents('https://' . $_ENV['BUCKET'] . '.' . $_ENV['REGION'] . '.digitaloceanspaces.com/draft_' . $id . '.json');
+    if($_ENV['STORAGE'] == 'local') {
+        $draft = file_get_contents($_ENV['STORAGE_PATH'] . '/draft_' . $id . '.json');
+    } else {
+        $draft = file_get_contents('https://' . $_ENV['BUCKET'] . '.' . $_ENV['REGION'] . '.digitaloceanspaces.com/draft_' . $id . '.json');
+    }
+
     $draft = json_decode($draft, true);;
 
     if($draft == false) return null;
@@ -55,25 +60,29 @@ function ordinal($number) {
 
 function save_draft($draft) {
 
-    $s3 = new \Aws\S3\S3Client([
-        'version' => 'latest',
-        'region'  => 'us-east-1',
-        'endpoint' => 'https://' . $_ENV['REGION'] . '.digitaloceanspaces.com',
-        'credentials' => [
-            'key'    => $_ENV['ACCESS_KEY'],
-            'secret' => $_ENV['ACCESS_SECRET'],
-        ],
-    ]);
+    if($_ENV['STORAGE'] == 'local') {
+        file_put_contents($_ENV['STORAGE_PATH'] . '/' . 'draft_' . $draft['id'] . '.json', json_encode(($draft)));
+    } else {
+        $s3 = new \Aws\S3\S3Client([
+            'version' => 'latest',
+            'region'  => 'us-east-1',
+            'endpoint' => 'https://' . $_ENV['REGION'] . '.digitaloceanspaces.com',
+            'credentials' => [
+                'key'    => $_ENV['ACCESS_KEY'],
+                'secret' => $_ENV['ACCESS_SECRET'],
+            ],
+        ]);
 
 
-    $result = $s3->putObject([
-        'Bucket' => $_ENV['BUCKET'],
-        'Key'    => 'draft_' . $draft['id'] . '.json',
-        'Body'   => json_encode($draft),
-        'ACL'    => 'public-read'
-    ]);
+        $result = $s3->putObject([
+            'Bucket' => $_ENV['BUCKET'],
+            'Key'    => 'draft_' . $draft['id'] . '.json',
+            'Body'   => json_encode($draft),
+            'ACL'    => 'public-read'
+        ]);
 
-    return $result;
+        return $result;
+    }
 }
 
 ?>

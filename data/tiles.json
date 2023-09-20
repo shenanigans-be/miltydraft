@@ -2207,7 +2207,7 @@
                 "resources": 2,
                 "influence": 3,
                 "trait": "cultural",
-                "specialty": "cybernetic",
+                "specialty": null,
                 "legendary": false
                 }]
         },

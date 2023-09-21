@@ -211,6 +211,7 @@ class Slice {
 
 class GeneratorConfig {
     public $players = [];
+    public $name;
     public $num_players;
     public $num_slices;
     public $num_factions;

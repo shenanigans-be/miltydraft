@@ -325,10 +325,11 @@ class GeneratorConfig {
         return $config;
     }
 
-    function validate() {
+function validate() {
 
         if(count($this->players) < $this->num_players) return_error('Some players names are not filled out');
         if(!$this->include_pok && $this->num_slices > 5) return_error('Can only draft up to 5 slices without PoK. (And by extension you can only do drafts up to 5 players)');
+        if(!$this->include_ds_tiles && $this->num_slices > 9) return_error('Can only draft up to 9 slices without DS+ Tiles.');
         if($this->num_players < 3) return_error('Please enter more than 3 players');
         if($this->num_factions < $this->num_players) return_error("Can't have less factions than players");
         if($this->num_slices < $this->num_players) return_error("Can't have less slices than players");

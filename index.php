@@ -101,11 +101,11 @@
                                     <label for="num_slices">
                                         Number of Slices
                                     </label>
-
-                                    <input type="number" id="num_slices" name="num_slices" value="7" max="9" />
+                                    
+                                    <input type="number" id="num_slices" name="num_slices" value="7" max="13" />
                                     <span class="help">
                                         Note: The slices are random and not necessarily balanced (more on that below), so increasing this number makes it more relaxed for players to choose.<br />
-                                        Number of players + 1 is generally recommended. Can't have more than 9 cause you run out of tiles.
+                                        Number of players + 1 is generally recommended. Can't have more than 9 without DS+ tiles or 13 with DS+, cause you run out of tiles.
                                     </span>
                                 </div>
 

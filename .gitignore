@@ -3,3 +3,4 @@ vendor
 composer.lock
 draft_*.json
 .beam
+clean.php

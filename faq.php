@@ -20,7 +20,7 @@
         <p>
             The draft takes place over three rounds. Every round, all players get to pick their a) faction or b) map slice or c) table position (including the speaker position) until they have one of each.
             The order that players make these choices is random in the first round. The second round picks are done in the reverse order, and the third round reverts to the same order as the first round, making a boustrophedon draft.
-            One all players have made their choice, the map is assembled from the slices, and players can start the game proper.
+            Once all players have made their choice, the map is assembled from the slices, and players can start the game proper.
         </p>
         <p>
             Each slice consists of five systems, excluding a player’s home system. These comprise of the four systems closer to that player’s home system than any other player’s

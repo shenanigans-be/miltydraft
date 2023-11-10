@@ -1,52 +1,42 @@
 <?php
     require_once 'boot.php';
 
-//    dd($_POST);
     if(get('regen') != null) {
         $draft = get_draft(get('regen'));
-
-//        dd($draft['draft']['log']);
 
         if($draft['admin_pass'] != get('admin')) return_error('You are not allowed to do this');
         if(!empty($draft['draft']['log'])) return_error('Draft already in progress');
 
-        // claimed players?
-
         $config = GeneratorConfig::fromDraft($draft);
-    } else {
-        $config = new GeneratorConfig(true);
-    }
 
-    if(get('regen') != null) {
         $regen_slices = get('shuffle_slices', "false") == "true";
         $regen_factions = get('shuffle_factions', "false") == "true";
+        $regen_order = get('shuffle_order', "false") == "true";
 
-//        echo "slices\n";
-//        var_dump($_POST['shuffle_slices']);
-//        var_dump($regen_slices);
-//
-//        echo "\nfactions\n";
-//        var_dump($regen_factions);
-//        exit;
-
-        regenerate($draft, $config, $regen_slices, $regen_factions);
+        regenerate($draft, $config, $regen_slices, $regen_factions, $regen_order);
     } else {
+        $config = new GeneratorConfig(true);
         generate($config);
     }
 
-    function regenerate($draft, $config, $regen_slices, $regen_factions) {
+    function regenerate($draft, $config, $regen_slices, $regen_factions, $regen_order) {
         $slices = select_slices($config);
         $factions = select_factions($config);
 
-//        $draft
         if($regen_factions) {
             $draft['factions'] = select_factions($config);
         }
+
         if($regen_slices) {
             $draft['slices'] = select_slices($config);
         }
 
-
+        if($regen_order) {
+            shuffle($draft['config']['players']);
+            $player_data = generatePlayerData($draft['config']['players'], $draft['admin_pass']);
+            $draft['draft']['players'] = $player_data;
+            $draft['draft']['current'] = array_key_first($player_data);
+        }
 
         save_draft($draft);
 
@@ -55,24 +45,12 @@
         ]);
     }
 
-
-    /**
-     * @param GeneratorConfig $config
-     * @param int $previous_tries
-     * @return mixed
-     */
-    function generate($config, $previous_tries = 0) {
-        $slices = select_slices($config);
-        $factions = select_factions($config);
-
+    function generatePlayerData($player_names, $admin_password) {
         $player_data = [];
-        $first_player = null;
-        foreach($config->players as $i => $p) {
-            $id = 'p_' . uniqid();
 
-            if($i == 0) {
-                $first_player = $id;
-            }
+        foreach($player_names as $i => $p) {
+            // use admin password and player name to hash an id for the player
+            $id = 'p_' . md5($p . $admin_password);
 
             $player_data[$id] = [
                 'id' => $id,
@@ -84,9 +62,21 @@
             ];
         }
 
+        return $player_data;
+    }
 
+
+    /**
+     * @param GeneratorConfig $config
+     * @param int $previous_tries
+     * @return mixed
+     */
+    function generate($config, $previous_tries = 0) {
+        $slices = select_slices($config);
+        $factions = select_factions($config);
         $id = uniqid();
         $admin_password = uniqid();
+        $player_data = generatePlayerData($config->players, $admin_password);
 
         $url = ($_ENV['STORAGE'] == "local")? $_ENV['URL'] . '/' . $_ENV['STORAGE_PATH'] . '/' .  $id . '.json' : 'https://' . $_ENV['BUCKET'] . '.' . $_ENV['REGION'] . '.digitaloceanspaces.com/draft_' . $id . '.json';
 
@@ -100,7 +90,7 @@
             'url' => $url,
             'draft' => [
                 'players' => $player_data,
-                'current' => $first_player,
+                'current' => array_key_first($player_data),
                 'index' => 0,
                 'log' => [],
                 'order_reversed' => false

@@ -219,6 +219,7 @@
                         <p id="regen-options">
                             <label for="shuffle_slices"><input type="checkbox" checked id="shuffle_slices" name="shuffle_slices" /> New Slices</label>
                             <label for="shuffle_factions"><input type="checkbox" checked id="shuffle_factions" name="shuffle_factions" /> New Factions</label>
+                            <label for="shuffle_order"><input type="checkbox" id="shuffle_order" name="shuffle_order" /> New player order</label>
                             <button id="regenerate" class="btn">Regenerate</button>
                         </p>
                     <?php endif; ?>

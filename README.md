@@ -18,16 +18,13 @@ cd miltydraft
 # 2. install dependencies
 composer install
 
-# 3. create a .env file
+# 3. create a .env file, also edit the URL to match your XAMPP server url
 cp .env.example .env
 
 # 4. make directory for draft JSONs
 mkdir drafts
 
-# 5. run server
-php -S localhost:8000
-
-# 6. now open localhost:8000 on your browser
+# 5. run server with XAMPP
 ```
 
 ### Libraries and Dependencies

@@ -31,7 +31,6 @@
         } else {
 
             if(!is_writable($_ENV['STORAGE_PATH'])) {
-
                 die("<h2>STORAGE_PATH does not exist or is not writeable.</h2>");
             }
         }

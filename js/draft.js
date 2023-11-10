@@ -1,5 +1,19 @@
 $(document).ready(function() {
 
+    // refetch draft data every 15sec if its a selected (visible) tab
+    setInterval(() => {
+        if (document.visibilityState === "visible") {
+            refetch();
+        }
+    }, 15000)
+
+    // also refetch draft data when the user makes this tab visible
+    addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") {
+            refetch();
+        }
+    });
+
     $('#tabs nav a, .tabnav').on('click', function(e) {
         // e.preventDefault();
         let ref = $(this).attr('href');
@@ -104,12 +118,9 @@ $(document).ready(function() {
         $('#error-popup').hide();
     })
 
-
     if(window.draft) {
         who_am_i();
         draft_status();
-
-
 
         if(!IS_ADMIN) {
             hide_regen();
@@ -143,7 +154,6 @@ $(document).ready(function() {
                 });
             });
         }
-
 
         $('.claim').on('click', function(e) {
             $(this).hide();
@@ -198,6 +208,30 @@ $(document).ready(function() {
         })
     }
 });
+
+function refetch () {
+    $.ajax({
+        type: "POST",
+        url: window.routes.get,
+        dataType: 'json',
+        data: {
+            'id': draft.id
+        },
+        success: function(resp) {
+            if(resp.error) {
+                $('#error-message').html(resp.error);
+                $('#error-popup').show();
+
+                loading(false);
+            }
+
+            if(resp.success) {
+                window.draft = resp.draft;
+                refresh();
+            }
+        }
+    })
+}
 
 function refresh() {
     window.map_cached = false;

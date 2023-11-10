@@ -415,6 +415,7 @@
 
     <script>
         window.routes = {
+            "get": "<?= url('get.php') ?>",
             "claim": "<?= url('claim.php') ?>",
             "pick": "<?= url('pick.php') ?>",
             "regenerate": "<?= url('generate.php') ?>",

@@ -6,22 +6,35 @@ An expanded version of miltydraft.com, with saving/sharing drafts across session
 
 ## Getting started
 
-To install a local copy of this app you can clone it from the Git Repo: 
+Requirements: 
+* make sure you have [PHP](https://www.php.net/manual/en/install.php) installed
+* make sure you have [composer](https://getcomposer.org/download/) installed
 
-`git@github.com:shenanigans-be/miltydraft.git`
+```
+# 1. clone the repo
+git clone git@github.com:shenanigans-be/miltydraft.git
+cd miltydraft
 
-You will need to install the PHP dependencies with [Composer](https://getcomposer.org/) by running  `composer install` in the root directory
+# 2. install dependencies
+composer install
 
-Lastly you'll need to create a .env file (also in the root directory). 
-See `.env.example` for details. 
+# 3. create a .env file
+cp .env.example .env
 
+# 4. make directory for draft JSONs
+mkdir drafts
+
+# 5. run server
+php -S localhost:8000
+
+# 6. now open localhost:8000 on your browser
+```
 
 ### Libraries and Dependencies
 
-No huge dependencies on either the back-end or the front-end. Frontend runs on vanilla JS and Jquery (cause I'm lazy) and the Back-end is vanilla PHP (because, again, I'm lazy and laravel or whatever seemed like huge overkill).
-As such there's no build-system, or compiling required except for the steps described above. 
-You _will_ need to run it through Apache in order to make the URL rewriting work (for the draft page).
-
+Frontend runs on vanilla JS and Jquery (cause I'm lazy) and the Back-end is vanilla PHP (because, again, I'm lazy and laravel or whatever seemed like huge overkill).
+As such there's no build-system, or compiling required except for the steps described above.
+You _will_ need to run it through Apache in order to make the URL rewriting work (for the draft page). We recommend using [XAMPP](https://www.apachefriends.org/) for this.
 
 ### Understanding the App flow
 

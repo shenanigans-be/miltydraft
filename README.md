@@ -2,7 +2,11 @@
 
 [Visit the app here](https://milty.shenanigans.be/).
 
-An expanded version of miltydraft.com, with saving/sharing drafts across sessions. 
+An expanded version of miltydraft.com, with saving/sharing drafts across sessions.
+
+## Requirements: 
+* make sure you have [PHP](https://www.php.net/manual/en/install.php) installed
+* make sure you have [composer](https://getcomposer.org/download/) installed
 
 ## Getting started
 
@@ -10,7 +14,7 @@ To install a local copy of this app you can clone it from the Git Repo:
 
 `git@github.com:shenanigans-be/miltydraft.git`
 
-You will need to install the PHP dependencies with [Composer](https://getcomposer.org/) by running  `composer install` in the root directory
+Install the PHP dependencies by running  `composer install` in the root directory
 
 Lastly you'll need to create a .env file (also in the root directory). 
 See `.env.example` for details. 
@@ -18,9 +22,10 @@ See `.env.example` for details.
 
 ### Libraries and Dependencies
 
-No huge dependencies on either the back-end or the front-end. Frontend runs on vanilla JS and Jquery (cause I'm lazy) and the Back-end is vanilla PHP (because, again, I'm lazy and laravel or whatever seemed like huge overkill).
+Frontend runs on vanilla JS/jQuery (I'm aware jQuery is a bit of a blast from the past at this point; sue me and/or change it and PR me if you want) and the Back-end is vanilla PHP.
 As such there's no build-system, or compiling required except for the steps described above. 
-You _will_ need to run it through Apache in order to make the URL rewriting work (for the draft page).
+You _will_ need to run it through Apache in order to make the URL rewriting work (for the draft page). 
+If you're unfamiliar with setting this up, we recommend using something like [XAMPP](https://www.apachefriends.org/)
 
 
 ### Understanding the App flow

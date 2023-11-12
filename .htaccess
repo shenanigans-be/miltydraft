@@ -5,6 +5,7 @@ Options +FollowSymLinks
     RewriteEngine On
 
     RewriteRule ^d/([^/]+)/?$ draft.php?id=$1 [L,QSA]
+    RewriteRule ^.*\.git.* - [R=404]
 </IfModule>
 <Files .env>
     Order allow,deny

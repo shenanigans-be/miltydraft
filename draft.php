@@ -419,10 +419,12 @@
             "claim": "<?= url('claim.php') ?>",
             "pick": "<?= url('pick.php') ?>",
             "regenerate": "<?= url('generate.php') ?>",
-            "tile_images": "<?= url('img/tiles') ?>"
+            "tile_images": "<?= url('img/tiles') ?>",
+            "data": "<?= get_draft_url($draft['id'], true) ?>"
         }
     </script>
     <script src="<?= url('js/vendor.js?v=' . $_ENV['VERSION']) ?>"></script>
     <script src="<?= url('js/draft.js?v=' . $_ENV['VERSION']) ?>"></script>
     <script src="<?= url('js/generate-map.js?v=' . $_ENV['VERSION']) ?>"></script>
 </body>
+</html>

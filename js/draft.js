@@ -19,6 +19,12 @@ $(document).ready(function() {
         $('#reference-popup').show();
     });
 
+    document.addEventListener("visibilitychange", function(e) {
+        if (document.visibilityState === "visible") {
+            refreshData();
+        }
+    });
+
 
     $('.close-reference, #reference-popup img').on('click', function(e) {
         $('#reference-popup').hide();
@@ -107,8 +113,6 @@ $(document).ready(function() {
     if(window.draft) {
         who_am_i();
         draft_status();
-
-
 
         if(!IS_ADMIN) {
             hide_regen();
@@ -253,6 +257,24 @@ function find_player(id) {
             return draft.draft.players[i];
         }
     }
+}
+
+function refreshData() {
+    loading(true);
+
+    $.ajax({
+        type: "GET",
+        url: window.routes.data,
+        dataType: 'json',
+        success: function(resp) {
+            window.draft = resp;
+            refresh();
+            // if we're looking at the map, regen it
+            if(window.location.hash == '#map') {
+                generate_map();
+            }
+        }
+    })
 }
 
 function draft_status() {

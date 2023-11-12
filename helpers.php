@@ -28,17 +28,17 @@ function url($uri) {
 }
 
 function get_draft($id) {
-    if($_ENV['STORAGE'] == 'local') {
-        $draft = file_get_contents($_ENV['STORAGE_PATH'] . '/draft_' . $id . '.json');
-    } else {
-        $draft = file_get_contents('https://' . $_ENV['BUCKET'] . '.' . $_ENV['REGION'] . '.digitaloceanspaces.com/draft_' . $id . '.json');
-    }
-
-    $draft = json_decode($draft, true);;
-
+    $draft = json_decode(file_get_contents(get_draft_url($id)), true);
     if($draft == false) return null;
-
     return $draft;
+}
+
+function get_draft_url($id, $absolute = false) {
+    if($_ENV['STORAGE'] == 'local') {
+        return (($absolute)? $_ENV['URL'] : '') . $_ENV['STORAGE_PATH'] . '/draft_' . $id . '.json';
+    } else {
+        return 'https://' . $_ENV['BUCKET'] . '.' . $_ENV['REGION'] . '.digitaloceanspaces.com/draft_' . $id . '.json';
+    }
 }
 
 function return_error($err) {

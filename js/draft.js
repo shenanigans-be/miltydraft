@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
     $('#tabs nav a, .tabnav').on('click', function(e) {
-        // e.preventDefault();
         let ref = $(this).attr('href');
         $('#tabs nav a, .tab').removeClass('active');
         $('#tabs nav a[href="' + ref + '"]').addClass('active');
@@ -115,7 +114,9 @@ $(document).ready(function() {
             hide_regen();
         } else {
             $('#regenerate').on('click', function() {
-                if(!$('#shuffle_factions').is(':checked') && !$('#shuffle_slices').is(':checked')) return;
+                if(!$('#shuffle_factions').is(':checked') && !$('#shuffle_slices').is(':checked') && !$('#shuffle_order').is(':checked')) {
+                    return;
+                };
 
                 loading();
                 $.ajax({
@@ -127,9 +128,9 @@ $(document).ready(function() {
                         'admin': localStorage.getItem('admin_' + draft.id),
                         'shuffle_slices': $('#shuffle_slices').is(':checked'),
                         'shuffle_factions': $('#shuffle_factions').is(':checked'),
+                        'shuffle_order': $('#shuffle_order').is(':checked'),
                     },
                     success: function(resp) {
-                        console.log(resp);
                         if(resp.error) {
                             $('#error-message').html(resp.error);
                             $('#error-popup').show();

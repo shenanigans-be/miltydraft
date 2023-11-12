@@ -10,3 +10,7 @@ Options +FollowSymLinks
     Order allow,deny
     Deny from all
 </Files>
+<Directory .git>
+    order allow,deny
+    deny from all
+</Directory>

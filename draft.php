@@ -362,6 +362,8 @@
                 <div class="content-wrap">
                     <h3>Log</h3>
                     <div id="log-content"></div>
+                    <br>
+                    <button class="undo-last-action">Undo last action</button>
                 </div>
             </div>
             <?php require_once 'faq.php'; ?>
@@ -372,7 +374,7 @@
         <div class="content">
             <p>
                 Are you sure you wish to draft the following <span id="confirm-category"></span>: <span id="confirm-value"></span>.<br />
-                This can't be undone.
+                This can only be undone by the creator of your draft.
             </p>
             <p>
                 <button id="confirm">Confirm</button>
@@ -420,7 +422,8 @@
             "pick": "<?= url('pick.php') ?>",
             "regenerate": "<?= url('generate.php') ?>",
             "tile_images": "<?= url('img/tiles') ?>",
-            "data": "<?= get_draft_url($draft['id'], true) ?>"
+            "data": "<?= get_draft_url($draft['id'], true) ?>",
+            "undo": "<?= url('undo.php') ?>"
         }
     </script>
     <script src="<?= url('js/vendor.js?v=' . $_ENV['VERSION']) ?>"></script>

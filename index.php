@@ -1,6 +1,7 @@
 <?php require_once 'boot.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300&family=Staatliches&display=swap" rel="stylesheet">
 
-    <meta property="og:image" content="<?= url('og.png') ?>"/>
+    <meta property="og:image" content="<?= url('og.png') ?>" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -21,6 +22,7 @@
     <meta name="msapplication-TileColor" content="#fdfcf8">
     <meta name="theme-color" content="#ffffff">
 </head>
+
 <body>
     <div class="container">
         <div class="content-wrap">
@@ -101,7 +103,7 @@
                                     <label for="num_slices">
                                         Number of Slices
                                     </label>
-                                    
+
                                     <input type="number" id="num_slices" name="num_slices" value="7" max="13" />
                                     <span class="help">
                                         Note: The slices are random and not necessarily balanced (more on that below), so increasing this number makes it more relaxed for players to choose.<br />
@@ -126,7 +128,7 @@
                                         <input type="checkbox" name="include_pok" id="pok" checked /> Use Prophecy Of Kings Expansion
                                     </label>
                                     <span class="help">
-                                        Include the factions and tiles from the Prophecy of Kings expansion.<br /><br/>
+                                        Include the factions and tiles from the Prophecy of Kings expansion.<br /><br />
                                         <strong>IMPORTANT NOTE: If you don't include PoK you can only organise drafts up to 5 players (because you can only generate 5 valid slices with the base-game tiles)!</strong>
                                     </span>
                                 </div>
@@ -161,7 +163,7 @@
                                         <a target="_blank" href="https://www.reddit.com/r/twilightimperium/comments/pvbbie/discordant_stars_24_homebrew_factions/">Discordant Stars</a> is a fan made faction pack introduced by members of the Discord community.
                                     </span>
                                     <label for="discordantexp" class="check">
-                                        <input type="checkbox" name="include_discordantexp" class="draft-faction" data-num="10" data-set="discordantexp"  id="discordantexp" /> Include Discordant Stars Plus
+                                        <input type="checkbox" name="include_discordantexp" class="draft-faction" data-num="10" data-set="discordantexp" id="discordantexp" /> Include Discordant Stars Plus
                                     </label>
                                     <span class="help">
                                         Ten additional factions were added to Discordant Stars as an expansion: Bentor, Nokar, Gledge, Lanefir, Kyro, Ghoti, Kolume, Cheiran, Kjalengard, and Edyn.
@@ -345,4 +347,5 @@
     <script src="<?= url('js/vendor.js?v=' . $_ENV['VERSION']) ?>"></script>
     <script src="<?= url('js/main.js?v=' . $_ENV['VERSION']) ?>"></script>
 </body>
+
 </html>

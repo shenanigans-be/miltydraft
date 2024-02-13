@@ -50,7 +50,7 @@ $(document).ready(function() {
 
         window.draft_pick = {
             'id': draft.id,
-            'index': draft.draft.index,
+            'index': draft.draft.log.length,
             'player': (IS_ADMIN)? draft.draft.current : me.id,
             'category': $(this).data('category'),
             'value': $(this).data('value')

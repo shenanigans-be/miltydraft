@@ -14,7 +14,7 @@
     if($player != $draft['draft']['current'] && !$is_admin) return_error('Not your turn!');
 
     if($index != $draft['draft']['index']) {
-        return_error('Draft data out of date, meaning: stuff has been picked while this tab was open.');
+        return_error('Draft data out of date, meaning: stuff has been picked or undone while this tab was open.');
     }
 
     foreach($draft['draft']['log'] as $logItem) {

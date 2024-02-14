@@ -1314,6 +1314,36 @@ strong {
   border: 2px solid rgba(22, 35, 44, 0.2);
 }
 
+.alliance_team {
+  margin-bottom: 1.5em;
+}
+.alliance_team .team_label {
+  display: none;
+}
+
+.players_inputs.alliance_on.alliance_preset_teams .alliance_team {
+  margin-bottom: 3em;
+  padding: 10px;
+}
+.players_inputs.alliance_on.alliance_preset_teams .alliance_team .team_label {
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  display: block;
+}
+.players_inputs.alliance_on.alliance_preset_teams .team_A {
+  background-color: #38618f;
+}
+.players_inputs.alliance_on.alliance_preset_teams .team_B {
+  background-color: #960f0f;
+}
+.players_inputs.alliance_on.alliance_preset_teams .team_C {
+  background-color: #007009;
+}
+.players_inputs.alliance_on.alliance_preset_teams .team_D {
+  background-color: #a57d10;
+}
+
 @media (prefers-color-scheme: dark) {
   .container {
     background-color: #16232c;

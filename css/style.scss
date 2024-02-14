@@ -871,6 +871,36 @@ strong {
     border: 2px solid rgba($color-text, 0.2);
 
 }
+.alliance_team{
+    margin-bottom: 1.5em;
+    .team_label{
+        display: none;
+    }
+}
+.players_inputs.alliance_on.alliance_preset_teams{
+    .alliance_team{
+        margin-bottom: 3em;
+        padding:10px;
+        .team_label{
+            color:white;
+            font-size: 1.2em;
+            font-weight:600;
+            display: block;
+        }
+    }
+    .team_A{
+        background-color: #38618f;
+    }
+    .team_B{
+        background-color: #960f0f;
+    }
+    .team_C{
+        background-color: #007009;
+    }
+    .team_D{
+        background-color: #a57d10;
+    }
+}
 
 @media (prefers-color-scheme: dark) {
     .container {

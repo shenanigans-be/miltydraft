@@ -288,7 +288,7 @@ function refreshData() {
 
     $.ajax({
         type: "GET",
-        url: window.routes.data,
+        url: window.routes.data + '?cachebuster=' + new Date().getTime(),
         dataType: 'json',
         success: function(resp) {
             window.draft = resp;

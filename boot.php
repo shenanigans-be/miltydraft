@@ -7,7 +7,7 @@ if (!file_exists('vendor/autoload.php')) {
 require_once 'vendor/autoload.php';
 require_once 'helpers.php';
 
-foreach (glob(__DIR__ . '/classes/*.php') as $file) {
+foreach (glob(__DIR__ . '/app/*.php') as $file) {
     require_once $file;
 }
 

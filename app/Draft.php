@@ -1,6 +1,8 @@
 <?php
 
-class Draft implements JsonSerializable
+namespace App;
+
+class Draft implements \JsonSerializable
 {
     private static self $instance;
     private string $id;
@@ -22,16 +24,16 @@ class Draft implements JsonSerializable
         $this->config = $config;
         $this->name = $name;
         $this->done = $this->isDone();
-        $this->draft["current"] = $this->getCurrentPlayer();
+        $this->draft["current"] = $this->currentPlayer();
     }
 
     public static function createFromConfig(GeneratorConfig $config)
     {
         $id = uniqid();
         $admin_password = uniqid();
-        $slices = select_slices($config);
-        $factions = select_factions($config);
-        $player_data = generatePlayerData($config->players, $admin_password);
+        $slices = Generator::slices($config);
+        $factions = Generator::factions($config);
+        $player_data = Generator::playerData($config->players, $admin_password);
         $name = $config->name;
 
         $draft = [
@@ -50,8 +52,9 @@ class Draft implements JsonSerializable
     public static function load($id): self
     {
         if (!$id) {
-            return null;
+            throw new Exception('Tried to load draft with no id');
         }
+
         $draft = json_decode(file_get_contents(get_draft_url($id)), true);
         return new self($id, $draft["admin_pass"], $draft["draft"], $draft["slices"], $draft["factions"], $draft["config"], $draft["name"]);
     }
@@ -71,46 +74,46 @@ class Draft implements JsonSerializable
         return ($pass ?: "") === $this->admin_pass;
     }
 
-    public function getName(): string
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function getSlices(): array
+    public function slices(): array
     {
         return $this->slices;
     }
 
-    public function getFactions(): array
+    public function factions(): array
     {
         return $this->factions;
     }
 
-    public function getConfig(): array
+    public function config(): array
     {
         return $this->config;
     }
 
-    public function getCurrentPlayer(): string
+    public function currentPlayer(): string
     {
         $doneSteps = count($this->draft['log']);
         $snakeDraft = array_merge(array_keys($this->draft['players']), array_keys(array_reverse($this->draft['players'])));
         return $snakeDraft[$doneSteps % count($snakeDraft)];
     }
 
-    public function getLog(): array
+    public function log(): array
     {
         return $this->draft['log'];
     }
 
-    public function getPlayers(): array
+    public function players(): array
     {
         return $this->draft['players'];
     }
 
     public function isDone(): bool
     {
-        return count($this->getLog()) >= (count($this->getPlayers()) * 3);
+        return count($this->log()) >= (count($this->players()) * 3);
     }
 
     public function undoLastAction()
@@ -133,7 +136,7 @@ class Draft implements JsonSerializable
 
         $this->draft['players'][$player][$category] = $value;
 
-        $this->draft['current'] = $this->getCurrentPlayer();
+        $this->draft['current'] = $this->currentPlayer();
 
         $this->done = $this->isDone();
 

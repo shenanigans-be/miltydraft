@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class GeneratorConfig
 {
     public $players = [];
@@ -37,7 +39,7 @@ class GeneratorConfig
             }
 
             $this->name = get('game_name', '');
-            if (trim($this->name) == '') $this->name = $this->generate_name();
+            if (trim($this->name) == '') $this->name = $this->generateName();
             else $this->name = htmlentities($this->name);
             $this->num_players = (int) get('num_players');
             $this->num_slices = (int) get('num_slices');
@@ -119,7 +121,7 @@ class GeneratorConfig
         }
     }
 
-    private function generate_name(): string
+    private function generateName(): string
     {
         $adjectives = [
             'adventurous', 'aggressive', 'angry', 'arrogant', 'beautiful', 'bloody', 'blushing', 'brave',

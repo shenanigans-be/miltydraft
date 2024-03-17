@@ -6,7 +6,7 @@
     if(!isset($_GET['id'])) {
         $draft = null;
     } else {
-        $draft = Draft::load($_GET['id']);
+        $draft = \App\Draft::load($_GET['id']);
     }
 
     $faction_data = json_decode(file_get_contents('data/factions.json'), true);
@@ -19,7 +19,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?= $draft ? $draft->getName() . ' | ' : '' ?>TI4 - Milty Draft</title>
+    <title><?= $draft ? $draft->name() . ' | ' : '' ?>TI4 - Milty Draft</title>
     <link rel="stylesheet" href="<?= url('css/style.css?v=' . $_ENV['VERSION']) ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +40,7 @@
     <div class="container">
 
         <?php if($draft): ?>
-            <h1><?= $draft->getName() ?></h1>
+            <h1><?= $draft->name() ?></h1>
             <h2>Milty Draft</h2>
         <?php else: ?>
             <h1>Milty Draft</h1>
@@ -73,7 +73,7 @@
                         <p>This draft is over. <a class="view-map" href="#">View map</a></p>
                     </div>
 
-                    <?php if(empty($draft->getLog())): ?>
+                    <?php if(empty($draft->log())): ?>
                         <p class="regen-help">
                             Something not quite right? Untill the first draft-pick is done you can <a class="tabnav" href="#regen">regenerate the draft options</a>.
                         </p>
@@ -81,9 +81,9 @@
 
                     <div class="players">
                         <?php $i = 0; ?>
-                        <?php foreach($draft->getPlayers() as $player): ?>
+                        <?php foreach($draft->players() as $player): ?>
                             <?php $i++; ?>
-                            <div id="player-<?= $player['id'] ?>" class="player <?= e($draft->getCurrentPlayer() == $i, 'current') ?>">
+                            <div id="player-<?= $player['id'] ?>" class="player <?= e($draft->currentPlayer() == $i, 'current') ?>">
                                 <h3><span><?= $i ?></span> <?= $player['name'] ?></h3>
 
                                 <span class="you" data-id="<?= $player['id'] ?>">you</span>
@@ -103,7 +103,7 @@
                     <div class="factions draft-options">
                         <h3>Factions</h3>
                         <div class="options">
-                            <?php foreach($draft->getFactions() as $f): ?>
+                            <?php foreach($draft->factions() as $f): ?>
                                 <?php $faction = $faction_data[$f]; ?>
                                 <?php $homesystem = ($faction['set'] == 'discordant' || $faction['set'] == 'discordantexp')? 'DS_' . $faction['id'] : $faction['homesystem']; ?>
 
@@ -124,7 +124,7 @@
                     <div class="slices draft-options">
                         <h3>Slices</h3>
                         <div class="options">
-                            <?php foreach($draft->getSlices() as $slice_id => $slice): ?>
+                            <?php foreach($draft->slices() as $slice_id => $slice): ?>
                                 <div class="slice option" data-slice="<?= $slice_id ?>">
                                     <div class="slice-graph">
                                         <div class="wrap">
@@ -188,7 +188,7 @@
                     <div class="positions draft-options">
                         <h3>Positions</h3>
                         <div class="options">
-                            <?php for($i = 0; $i < count($draft->getPlayers()); $i++): ?>
+                            <?php for($i = 0; $i < count($draft->players()); $i++): ?>
                                 <div class="position option" data-position="<?= $i ?>">
                         <span>
                         <?php if($i == 0): ?>
@@ -215,7 +215,7 @@
 
             <div class="tab" id="regen">
                 <div class="content-wrap">
-                    <?php if(empty($draft->getLog())): ?>
+                    <?php if(empty($draft->log())): ?>
                         <p id="regen-options">
                             <label for="shuffle_slices"><input type="checkbox" checked id="shuffle_slices" name="shuffle_slices" /> New Slices</label>
                             <label for="shuffle_factions"><input type="checkbox" checked id="shuffle_factions" name="shuffle_factions" /> New Factions</label>
@@ -230,79 +230,79 @@
                     <h3>Configuration used</h3>
 
                     <p>
-                        <label>Number of Players:</label> <strong><?= count($draft->getPlayers()) ?></strong>
+                        <label>Number of Players:</label> <strong><?= count($draft->players()) ?></strong>
                     </p>
                     <p>
-                        <label>Number of Slices:</label> <strong><?= $draft->getConfig()['num_slices'] ?></strong>
+                        <label>Number of Slices:</label> <strong><?= $draft->config()['num_slices'] ?></strong>
                     </p>
                     <p>
-                        <label>Number of Factions:</label> <strong><?= $draft->getConfig()['num_factions'] ?></strong>
+                        <label>Number of Factions:</label> <strong><?= $draft->config()['num_factions'] ?></strong>
                     </p>
                     <p>
-                        <label>Include PoK:</label> <strong><?= e($draft->getConfig()['include_pok'], 'yes', 'no') ?></strong>
+                        <label>Include PoK:</label> <strong><?= e($draft->config()['include_pok'], 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include DS Tiles:</label> <strong><?= e($draft->getConfig()['include_ds_tiles'], 'yes', 'no') ?></strong>
+                        <label>Include DS Tiles:</label> <strong><?= e($draft->config()['include_ds_tiles'], 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include Base Game Factions:</label> <strong><?= e($draft->getConfig()['include_base_factions'], 'yes', 'no') ?></strong>
+                        <label>Include Base Game Factions:</label> <strong><?= e($draft->config()['include_base_factions'], 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include POK Factions:</label> <strong><?= e($draft->getConfig()['include_pok_factions'], 'yes', 'no') ?></strong>
+                        <label>Include POK Factions:</label> <strong><?= e($draft->config()['include_pok_factions'], 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include Keleres:</label> <strong><?= e($draft->getConfig()['include_keleres'], 'yes', 'no') ?></strong>
+                        <label>Include Keleres:</label> <strong><?= e($draft->config()['include_keleres'], 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include Discordant Stars:</label> <strong><?= e($draft->getConfig()['include_discordant'], 'yes', 'no') ?></strong>
+                        <label>Include Discordant Stars:</label> <strong><?= e($draft->config()['include_discordant'], 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include Discordant Stars expansion:</label> <strong><?= e($draft->getConfig()['include_discordantexp'], 'yes', 'no') ?></strong>
+                        <label>Include Discordant Stars expansion:</label> <strong><?= e($draft->config()['include_discordantexp'], 'yes', 'no') ?></strong>
                     </p>
-                    <?php if(isset($draft->getConfig()['must_include_wormholes_and_legendaries'])): ?>
+                    <?php if(isset($draft->config()['must_include_wormholes_and_legendaries'])): ?>
                     <p>
-                        <label>Map must include wormholes and Legendary Planets:</label> <strong><?= e($draft->getConfig()['must_include_wormholes_and_legendaries'], 'yes', 'no') ?></strong>
+                        <label>Map must include wormholes and Legendary Planets:</label> <strong><?= e($draft->config()['must_include_wormholes_and_legendaries'], 'yes', 'no') ?></strong>
                     </p>
                     <?php endif; ?>
-                    <?php if(isset($draft->getConfig()['min_legendaries'])): ?>
+                    <?php if(isset($draft->config()['min_legendaries'])): ?>
                         <p>
-                            <label>Minimum wormholes:</label> <strong><?= $draft->getConfig()['min_wormholes'] ?></strong>
+                            <label>Minimum wormholes:</label> <strong><?= $draft->config()['min_wormholes'] ?></strong>
                         </p>
                         <p>
-                            <label>Minimum legendaries:</label> <strong><?= $draft->getConfig()['min_legendaries'] ?></strong>
+                            <label>Minimum legendaries:</label> <strong><?= $draft->config()['min_legendaries'] ?></strong>
                         </p>
                     <?php endif; ?>
                     <p>
-                        <label>Max. 1 wormhole per slice:</label> <strong><?= e(isset($draft->getConfig()['max_1_wormhole']) && $draft->getConfig()['max_1_wormhole'], 'yes', 'no') ?></strong>
+                        <label>Max. 1 wormhole per slice:</label> <strong><?= e(isset($draft->config()['max_1_wormhole']) && $draft->config()['max_1_wormhole'], 'yes', 'no') ?></strong>
                     </p>
                     <hr/>
                     <p>
-                        <label>Minimum Optimal Influence:</label> <strong><?= $draft->getConfig()['minimum_optimal_influence'] ?></strong>
+                        <label>Minimum Optimal Influence:</label> <strong><?= $draft->config()['minimum_optimal_influence'] ?></strong>
                     </p>
                     <p>
-                        <label>Minimum Optimal Resources:</label> <strong><?= $draft->getConfig()['minimum_optimal_resources'] ?></strong>
-                    </p>
-
-                    <p>
-                        <label>Minimum Optimal Total:</label> <strong><?= $draft->getConfig()['minimum_optimal_total'] ?></strong>
+                        <label>Minimum Optimal Resources:</label> <strong><?= $draft->config()['minimum_optimal_resources'] ?></strong>
                     </p>
 
                     <p>
-                        <label>Maximum Optimal Total:</label> <strong><?= $draft->getConfig()['maximum_optimal_total'] ?></strong>
+                        <label>Minimum Optimal Total:</label> <strong><?= $draft->config()['minimum_optimal_total'] ?></strong>
+                    </p>
+
+                    <p>
+                        <label>Maximum Optimal Total:</label> <strong><?= $draft->config()['maximum_optimal_total'] ?></strong>
                     </p>
 
                     <p>
                         <label>Custom Factions:</label> <strong>
-                            <?php if($draft->getConfig()['custom_factions'] != null): ?>
-                                <?= implode(', ', $draft->getConfig()['custom_factions']) ?>
+                            <?php if($draft->config()['custom_factions'] != null): ?>
+                                <?= implode(', ', $draft->config()['custom_factions']) ?>
                             <?php else: ?>
                                 no
                             <?php endif; ?>
                     </p>
                     <p>
                         <label>Custom Slices:</label> <strong>
-                            <?php if($draft->getConfig()['custom_slices'] != null): ?>
-                                <?php foreach($draft->getConfig()['custom_slices'] as $slice): ?>
+                            <?php if($draft->config()['custom_slices'] != null): ?>
+                                <?php foreach($draft->config()['custom_slices'] as $slice): ?>
                                     <?= implode(',', $slice) ?><br />
                                 <?php endforeach; ?>
                             <?php else: ?>
@@ -313,7 +313,7 @@
                     <p>
                         <label>Slices Generated:</label>
                         <strong>
-                        <?php foreach($draft->getSlices() as $slice_id => $slice): ?>
+                        <?php foreach($draft->slices() as $slice_id => $slice): ?>
                                 <?= implode(',', $slice['tiles']); ?><br />
                         <?php endforeach; ?>
                         </strong>

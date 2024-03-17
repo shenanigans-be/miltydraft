@@ -2,10 +2,10 @@
 
 require_once 'boot.php';
 
-$draft = Draft::load(get('draft'));
+$draft = \App\Draft::load(get('draft'));
 $unclaim = get('unclaim') == 1;
 
-$p = $draft->getPlayers()[get('player')];
+$p = $draft->players()[get('player')];
 
 if ($unclaim) {
     if (!$p['claimed']) {

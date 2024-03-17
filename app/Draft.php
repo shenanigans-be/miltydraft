@@ -175,16 +175,16 @@ class Draft implements \JsonSerializable
         $config = GeneratorConfig::fromDraft($this);
 
         if ($regen_factions) {
-            $this->factions = select_factions($config);
+            $this->factions = Generator::factions($config);
         }
 
         if ($regen_slices) {
-            $this->slices = select_slices($config);
+            $this->slices = Generator::slices($config);
         }
 
         if ($regen_order) {
             shuffle($this->config['players']);
-            $player_data = generatePlayerData($this->config['players'], $this->admin_pass);
+            $player_data = Generator::playerData($this->config['players'], $this->admin_pass);
             $this->draft['players'] = $player_data;
         }
 

@@ -84,13 +84,17 @@ class GeneratorConfig
     }
 
 
+    /**
+     * @param Draft $draft
+     * @return GeneratorConfig
+     */
     public static function fromDraft($draft): GeneratorConfig
     {
         $config = new GeneratorConfig(false);
 
         foreach (array_keys(get_object_vars($config)) as $key) {
-            if (isset($draft->getConfig()[$key])) {
-                $config->$key = $draft->getConfig()[$key];
+            if (isset($draft->config()[$key])) {
+                $config->$key = $draft->config()[$key];
             }
         }
         $config->num_players = count($config->players);

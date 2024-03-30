@@ -1,5 +1,8 @@
 <?php
 
+
+namespace App;
+
 class Tile
 {
     public $id;
@@ -38,22 +41,50 @@ class Tile
         $this->optimal_total = $this->optimal_resources + $this->optimal_influence;
     }
 
-    function has_anomaly()
+    function hasAnomaly()
     {
         return $this->anomaly != null;
     }
 
-    function has_wormhole($wormhole)
+    function hasWormhole($wormhole)
     {
         return $wormhole == $this->wormhole;
     }
 
-    function has_legendary()
+    function hasLegendary()
     {
         foreach ($this->planets as $p) {
             if ($p->legendary) return true;
         }
 
         return false;
+    }
+
+
+    /**
+     * @param Tile[] $tiles
+     * @return int[]
+     */
+    public static function countSpecials(array $tiles)
+    {
+        $alpha_count = 0;
+        $beta_count = 0;
+        $legendary_count = 0;
+
+        foreach ($tiles as $tile) {
+            if ($tile->hasWormhole("alpha")) $alpha_count++;
+            if ($tile->hasWormhole("beta")) $beta_count++;
+            if ($tile->hasWormhole("alpha-beta")) {
+                $alpha_count++;
+                $beta_count++;
+            }
+            if ($tile->hasLegendary()) $legendary_count++;
+        }
+
+        return [
+            'alpha' => $alpha_count,
+            'beta' => $beta_count,
+            'legendary' => $legendary_count
+        ];
     }
 }

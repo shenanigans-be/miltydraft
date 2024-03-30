@@ -1,6 +1,9 @@
 <?php
 // Could be cool to add a faction ban phase before the draft starts
-class Draft implements JsonSerializable
+
+namespace App;
+
+class Draft implements \JsonSerializable
 {
     private static self $instance;
     private bool $done;
@@ -20,15 +23,16 @@ class Draft implements JsonSerializable
         ] : $draft);
 
         $this->done = $this->isDone();
-        $this->draft["current"] = $this->getCurrentPlayer();
+        $this->draft["current"] = $this->currentPlayer();
     }
 
     public static function createFromConfig(GeneratorConfig $config)
     {
         $id = uniqid();
         $admin_password = uniqid();
-        $slices = select_slices($config);
-        $factions = select_factions($config);
+        $slices = Generator::slices($config);
+        $factions = Generator::factions($config);
+        $player_data = Generator::playerData($config->players, $admin_password);
         $name = $config->name;
 
         return new self($id, $admin_password, [], $slices, $factions, $config, $name);
@@ -42,8 +46,9 @@ class Draft implements JsonSerializable
     public static function load($id): self
     {
         if (!$id) {
-            return null;
+            throw new Exception('Tried to load draft with no id');
         }
+
         $draft = json_decode(file_get_contents(get_draft_url($id)), true);
         return new self($id, $draft["admin_pass"], $draft["draft"], $draft["slices"], $draft["factions"], GeneratorConfig::fromArray($draft["config"]), $draft["name"]);
     }
@@ -63,46 +68,46 @@ class Draft implements JsonSerializable
         return ($pass ?: "") === $this->admin_pass;
     }
 
-    public function getName(): string
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function getSlices(): array
+    public function slices(): array
     {
         return $this->slices;
     }
 
-    public function getFactions(): array
+    public function factions(): array
     {
         return $this->factions;
     }
 
-    public function getConfig(): GeneratorConfig
+    public function config(): array
     {
         return $this->config;
     }
 
-    public function getCurrentPlayer(): string
+    public function currentPlayer(): string
     {
         $doneSteps = count($this->draft['log']);
         $snakeDraft = array_merge(array_keys($this->draft['players']), array_keys(array_reverse($this->draft['players'])));
         return $snakeDraft[$doneSteps % count($snakeDraft)];
     }
 
-    public function getLog(): array
+    public function log(): array
     {
         return $this->draft['log'];
     }
 
-    public function getPlayers(): array
+    public function players(): array
     {
         return $this->draft['players'];
     }
 
     public function isDone(): bool
     {
-        return count($this->getLog()) >= (count($this->getPlayers()) * 3);
+        return count($this->log()) >= (count($this->players()) * 3);
     }
 
     public function undoLastAction()
@@ -124,7 +129,9 @@ class Draft implements JsonSerializable
         ];
 
         $this->draft['players'][$player][$category] = $value;
-        $this->draft['current'] = $this->getCurrentPlayer();
+
+        $this->draft['current'] = $this->currentPlayer();
+
         $this->done = $this->isDone();
 
         $this->save();
@@ -184,48 +191,19 @@ class Draft implements JsonSerializable
     public function regenerate(bool $regen_slices, bool $regen_factions, bool $regen_order, bool $regen_teams): void
     {
         if ($regen_factions) {
-            $this->factions = select_factions($this->config);
+            $this->factions = Generator::factions($config);
         }
 
         if ($regen_slices) {
-            $this->slices = select_slices($this->config);
+            $this->slices = Generator::slices($config);
         }
 
         if ($regen_order || $regen_teams) {
-            $this->draft['players'] = $this->generatePlayerData($regen_order, $regen_teams);
+            shuffle($this->config['players']);
+            $this->draft['players'] = Generator::playerData($this->config['players'], $this->admin_pass); //$this->generatePlayerData($regen_order, $regen_teams);
         }
 
         $this->save();
-    }
-
-    private function generatePlayerData(bool $shufflePlayers = true, bool $shuffleTeams = true)
-    {
-        $player_data = [];
-        $player_names = $this->config->players;
-
-        if($this->config->alliance){
-            ["playerTeams" => $playerTeams, "player_names" => $player_names] = $this->generateTeams($shuffleTeams);
-        }
-        else if ($shufflePlayers){
-            shuffle($player_names);
-        }
-
-        foreach ($player_names as $p) {
-            // use admin password and player name to hash an id for the player
-            $id = 'p_' . md5($p . $this->admin_pass);
-
-            $player_data[$id] = [
-                'id' => $id,
-                'name' => $p,
-                'claimed' => false,
-                'position' => null,
-                'slice' => null,
-                'faction' => null,
-                'team' => $playerTeams[$p] ?? null
-            ];
-        }
-
-        return $player_data;
     }
 
     private function generateTeams(bool $shuffleTeams): array

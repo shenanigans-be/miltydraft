@@ -2,7 +2,7 @@
 
 require_once 'boot.php';
 
-$draft = Draft::load(get('draft'));
+$draft = \App\Draft::load(get('draft'));
 $unclaim = get('unclaim') == 1;
 $playerId = get('player');
 

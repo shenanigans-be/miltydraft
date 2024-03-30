@@ -6,7 +6,7 @@
     if(!isset($_GET['id'])) {
         $draft = null;
     } else {
-        $draft = Draft::load($_GET['id']);
+        $draft = \App\Draft::load($_GET['id']);
     }
 
     $faction_data = json_decode(file_get_contents('data/factions.json'), true);
@@ -19,7 +19,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?= $draft ? $draft->getName() . ' | ' : '' ?>TI4 - Milty Draft</title>
+    <title><?= $draft ? $draft->name() . ' | ' : '' ?>TI4 - Milty Draft</title>
     <link rel="stylesheet" href="<?= url('css/style.css?v=' . $_ENV['VERSION']) ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +40,7 @@
     <div class="container">
 
         <?php if($draft): ?>
-            <h1><?= $draft->getName() ?></h1>
+            <h1><?= $draft->name() ?></h1>
             <h2>Milty Draft</h2>
         <?php else: ?>
             <h1>Milty Draft</h1>
@@ -73,7 +73,7 @@
                         <p>This draft is over. <a class="view-map" href="#">View map</a></p>
                     </div>
 
-                    <?php if(empty($draft->getLog())): ?>
+                    <?php if(empty($draft->log())): ?>
                         <p class="regen-help">
                             Something not quite right? Untill the first draft-pick is done you can <a class="tabnav" href="#regen">regenerate the draft options</a>.
                         </p>
@@ -101,7 +101,7 @@
                     <div class="factions draft-options">
                         <h3>Factions</h3>
                         <div class="options">
-                            <?php foreach($draft->getFactions() as $f): ?>
+                            <?php foreach($draft->factions() as $f): ?>
                                 <?php $faction = $faction_data[$f]; ?>
                                 <?php $homesystem = ($faction['set'] == 'discordant' || $faction['set'] == 'discordantexp')? 'DS_' . $faction['id'] : $faction['homesystem']; ?>
 
@@ -122,7 +122,7 @@
                     <div class="slices draft-options">
                         <h3>Slices</h3>
                         <div class="options">
-                            <?php foreach($draft->getSlices() as $slice_id => $slice): ?>
+                            <?php foreach($draft->slices() as $slice_id => $slice): ?>
                                 <div class="slice option" data-slice="<?= $slice_id ?>">
                                     <div class="slice-graph">
                                         <div class="wrap">
@@ -186,7 +186,7 @@
                     <div class="positions draft-options">
                         <h3>Positions</h3>
                         <div class="options">
-                            <?php for($i = 0; $i < count($draft->getPlayers()); $i++): ?>
+                            <?php for($i = 0; $i < count($draft->players()); $i++): ?>
                                 <div class="position option" data-position="<?= $i ?>">
                         <span>
                         <?php if($i == 0): ?>
@@ -213,7 +213,7 @@
 
             <div class="tab" id="regen">
                 <div class="content-wrap">
-                    <?php if(empty($draft->getLog())): ?>
+                    <?php if(empty($draft->log())): ?>
                         <p id="regen-options">
                             <label for="shuffle_slices"><input type="checkbox" checked id="shuffle_slices" name="shuffle_slices" /> New Slices</label>
                             <label for="shuffle_factions"><input type="checkbox" checked id="shuffle_factions" name="shuffle_factions" /> New Factions</label>
@@ -230,7 +230,7 @@
                     <?php $config = $draft->getConfig(); ?>
 
                     <p>
-                        <label>Number of Players:</label> <strong><?= count($draft->getPlayers()) ?></strong>
+                        <label>Number of Players:</label> <strong><?= count($draft->players()) ?></strong>
                     </p>
                     <p>
                         <label>Number of Slices:</label> <strong><?= $config->num_slices ?></strong>
@@ -313,7 +313,7 @@
                     <p>
                         <label>Slices Generated:</label>
                         <strong>
-                        <?php foreach($draft->getSlices() as $slice_id => $slice): ?>
+                        <?php foreach($draft->slices() as $slice_id => $slice): ?>
                                 <?= implode(',', $slice['tiles']); ?><br />
                         <?php endforeach; ?>
                         </strong>

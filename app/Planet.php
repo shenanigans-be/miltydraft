@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class Planet
 {
     public $name;

@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class Slice
 {
     public $tiles;
@@ -45,7 +47,7 @@ class Slice
             'tiles' => $this->tile_ids,
             'specialties' => $this->specialties,
             'wormholes' => $this->wormholes,
-            'has_legendaries' => count_specials($this->tiles)['legendary'] > 0,
+            'has_legendaries' => Tile::countSpecials($this->tiles)['legendary'] > 0,
             'total_influence' => $this->total_influcence,
             'total_resources' => $this->total_resources,
             'optimal_influence' => $this->optimal_influence,
@@ -59,7 +61,7 @@ class Slice
      */
     function validate(GeneratorConfig $config): bool
     {
-        $special_count = count_specials($this->tiles);
+        $special_count = Tile::countSpecials($this->tiles);
 
         // can't have 2 alpha, beta or legendaries
         if ($special_count['alpha'] > 1 || $special_count['beta'] > 1 || $special_count['legendary'] > 1) {
@@ -104,7 +106,7 @@ class Slice
 
         foreach ($neighbours as $edge) {
             // can't have two neighbouring anomalies
-            if ($this->tiles[$edge[0]]->has_anomaly() && $this->tiles[$edge[1]]->has_anomaly()) {
+            if ($this->tiles[$edge[0]]->hasAnomaly() && $this->tiles[$edge[1]]->hasAnomaly()) {
                 return $this->arrange($previous_tries + 1);
             }
         }
@@ -117,4 +119,5 @@ class Slice
 
         return true;
     }
+
 }

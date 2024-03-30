@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class GeneratorConfig
 {
     public $players = [];
@@ -38,7 +40,7 @@ class GeneratorConfig
             }
 
             $this->name = get('game_name', '');
-            if (trim($this->name) == '') $this->name = $this->generate_name();
+            if (trim($this->name) == '') $this->name = $this->generateName();
             else $this->name = htmlentities($this->name);
             $this->num_slices = (int) get('num_slices');
             $this->num_factions = (int) get('num_factions');
@@ -88,12 +90,19 @@ class GeneratorConfig
         }
     }
 
-    public static function fromArray(array $array): GeneratorConfig
+
+    /**
+     * @param Draft $draft
+     * @return GeneratorConfig
+     */
+    public static function fromDraft($draft): GeneratorConfig
     {
         $config = new GeneratorConfig(false);
 
-        foreach ($array as $key => $value) {
-            $config->$key = $value;
+        foreach (array_keys(get_object_vars($config)) as $key) {
+            if (isset($draft->config()[$key])) {
+                $config->$key = $draft->config()[$key];
+            }
         }
 
         $config->validate();
@@ -122,7 +131,7 @@ class GeneratorConfig
         }
     }
 
-    private function generate_name(): string
+    private function generateName(): string
     {
         $adjectives = [
             'adventurous', 'aggressive', 'angry', 'arrogant', 'beautiful', 'bloody', 'blushing', 'brave',

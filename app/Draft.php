@@ -188,7 +188,7 @@ class Draft implements \JsonSerializable
         }
     }
 
-    public function regenerate(bool $regen_slices, bool $regen_factions, bool $regen_order, bool $regen_teams): void
+    public function regenerate(bool $regen_slices, bool $regen_factions, bool $regen_order): void
     {
         if ($regen_factions) {
             $this->factions = Generator::factions($this->config);
@@ -198,21 +198,21 @@ class Draft implements \JsonSerializable
             $this->slices = Generator::slices($this->config);
         }
 
-        if ($regen_order || $regen_teams) {
-            shuffle($this->config['players']);
-            $this->draft['players'] = $this->generatePlayerData($regen_order, $regen_teams);
+        if ($regen_order) {
+            shuffle($this->config->players);
+            $this->draft['players'] = $this->generatePlayerData($regen_order);
         }
 
         $this->save();
     }
 
-    private function generatePlayerData(bool $shufflePlayers = true, bool $shuffleTeams = true)
+    private function generatePlayerData(bool $shufflePlayers = true)
     {
         $player_data = [];
         $player_names = $this->config->players;
 
         if($this->config->alliance){
-            ["playerTeams" => $playerTeams, "player_names" => $player_names] = $this->generateTeams($shuffleTeams);
+            ["playerTeams" => $playerTeams, "player_names" => $player_names] = $this->generateTeams();
         }
         else if ($shufflePlayers){
             shuffle($player_names);
@@ -236,7 +236,7 @@ class Draft implements \JsonSerializable
         return $player_data;
     }
 
-    private function generateTeams(bool $shuffleTeams): array
+    private function generateTeams(): array
     {
         $teamsLetters = array_slice(["A", "A", "B", "B", "C", "C", "D", "D"], 0, count($this->config->players));
         $return = [];
@@ -245,7 +245,7 @@ class Draft implements \JsonSerializable
 
         $alliance = $this->config->alliance;
 
-        if($shuffleTeams && $alliance["alliance_teams"] == 'random'){
+        if($alliance["alliance_teams"] == 'random'){
             shuffle($teamsLetters);
         }
 

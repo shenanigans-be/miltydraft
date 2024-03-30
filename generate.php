@@ -2,8 +2,6 @@
 
 use App\Draft;
 use App\GeneratorConfig;
-use App\Tile;
-use App\Slice;
 require_once 'boot.php';
 
 if (get('regen') != null) {
@@ -15,9 +13,8 @@ if (get('regen') != null) {
     $regen_slices = get('shuffle_slices', "false") == "true";
     $regen_factions = get('shuffle_factions', "false") == "true";
     $regen_order = get('shuffle_order', "false") == "true";
-    $regen_teams = get('shuffle_teams', "false") == "true";
 
-    $draft->regenerate($regen_slices, $regen_factions, $regen_order, $regen_teams);
+    $draft->regenerate($regen_slices, $regen_factions, $regen_order);
 
     return_data([
         'ok' => true

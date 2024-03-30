@@ -218,8 +218,7 @@
                         <p id="regen-options">
                             <label for="shuffle_slices"><input type="checkbox" checked id="shuffle_slices" name="shuffle_slices" /> New Slices</label>
                             <label for="shuffle_factions"><input type="checkbox" checked id="shuffle_factions" name="shuffle_factions" /> New Factions</label>
-                            <label for="shuffle_order"><input type="checkbox" id="shuffle_order" name="shuffle_order" /> New player order</label>
-                            <?php if (($config->alliance["alliance_teams"] ?? "") == 'random') { ?><label for="shuffle_teams"><input type="checkbox" id="shuffle_teams" name="shuffle_teams" /> New teams</label><?php } ?>
+                            <label for="shuffle_order"><input type="checkbox" id="shuffle_order" name="shuffle_order" /> New <?= (($config->alliance["alliance_teams"] ?? "") == 'random') ? 'teams and ' : '' ?>player order</label>
                             <button id="regenerate" class="btn">Regenerate</button>
                         </p>
                     <?php endif; ?>
@@ -313,6 +312,19 @@
                         <?php endforeach; ?>
                         </strong>
                     </p>
+                    <?php if($config->alliance): ?>
+                        <hr/>
+                        <h3>Alliance Configuration</h3>
+                        <p>
+                            <label>Team Creation:</label> <strong><?= ucfirst($config->alliance["alliance_teams"] ?? "") ?></strong>
+                        </p>
+                        <p>
+                            <label>Force Teammates Position:</label> <strong><?= ucfirst($config->alliance["alliance_teams_position"] ?? "") ?></strong>
+                        </p>
+                        <p>
+                            <label>Force Team Double Picks:</label> <strong><?= e($config->alliance["force_double_picks"], 'Yes', 'No') ?></strong>
+                        </p>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="tab" id="map">

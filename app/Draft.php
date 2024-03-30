@@ -139,7 +139,7 @@ class Draft implements \JsonSerializable
 
     public function claim($player): self
     {
-        if($this->draft['players'][$player]["claimed"] == true){
+        if ($this->draft['players'][$player]["claimed"] == true) {
             return_error('Already claimed');
         }
         $this->draft['players'][$player]["claimed"] = true;
@@ -151,7 +151,7 @@ class Draft implements \JsonSerializable
 
     public function unclaim($player): self
     {
-        if($this->draft['players'][$player]["claimed"] == false){
+        if ($this->draft['players'][$player]["claimed"] == false) {
             return_error('Already unclaimed');
         }
         $this->draft['players'][$player]["claimed"] = false;
@@ -199,23 +199,20 @@ class Draft implements \JsonSerializable
         }
 
         if ($regen_order) {
-            shuffle($this->config->players);
-            $this->draft['players'] = $this->generatePlayerData($regen_order);
+            $this->draft['players'] = $this->generatePlayerData();
         }
 
         $this->save();
     }
 
-    private function generatePlayerData(bool $shufflePlayers = true)
+    private function generatePlayerData()
     {
         $player_data = [];
+        shuffle($this->config->players);
         $player_names = $this->config->players;
 
-        if($this->config->alliance){
+        if ($this->config->alliance) {
             ["playerTeams" => $playerTeams, "player_names" => $player_names] = $this->generateTeams();
-        }
-        else if ($shufflePlayers){
-            shuffle($player_names);
         }
 
         foreach ($player_names as $p) {
@@ -239,17 +236,16 @@ class Draft implements \JsonSerializable
     private function generateTeams(): array
     {
         $teamsLetters = array_slice(["A", "A", "B", "B", "C", "C", "D", "D"], 0, count($this->config->players));
-        $return = [];
         $teams = [];
         $playerTeams = [];
 
         $alliance = $this->config->alliance;
 
-        if($alliance["alliance_teams"] == 'random'){
+        if ($alliance["alliance_teams"] == 'random') {
             shuffle($teamsLetters);
         }
 
-        foreach($this->config->players as $player){
+        foreach ($this->config->players as $player) {
             $letter = array_shift($teamsLetters);
             $playerTeams[$player] = $letter;
             $teams[$letter][] = $player;
@@ -257,14 +253,13 @@ class Draft implements \JsonSerializable
 
         shuffle($teams);
         $player_names = [];
-        foreach($teams as $team){
+        foreach ($teams as $team) {
             shuffle($team);
             $player_names[] = array_shift($team);
             $player_names[] = array_shift($team);
         }
 
-        $return = ["playerTeams" => $playerTeams, "player_names" => $player_names];
-        return $return;
+        return ["playerTeams" => $playerTeams, "player_names" => $player_names];
     }
 
     public function __toString(): string

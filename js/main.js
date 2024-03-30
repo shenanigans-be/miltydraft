@@ -83,7 +83,7 @@ $(document).ready(function () {
         if (alliance) {
             var numPlayers = $("#num_players").val();
             if (numPlayers % 2 == 1) {
-                $("#num_players").val(parseInt(numPlayers) + 1).trigger('change');                
+                $("#num_players").val(parseInt(numPlayers) + 1).trigger('change');
             }
             $("#num_players").attr("step", 2).attr("min", 4);
             $(".alliance_only input").prop("disabled", false);
@@ -97,13 +97,12 @@ $(document).ready(function () {
             $(".players_inputs").removeClass("alliance_on");
         }
     });
-   // $("#alliance_toggle").trigger('change');
 
-    $("input[name='alliance_teams']").on('change', function(){
-        if($(this).val() == "preset"){
+    $("input[name='alliance_teams']").on('change', function () {
+        if ($(this).val() == "preset") {
             $(".players_inputs").addClass("alliance_preset_teams");
         }
-        else{
+        else {
             $(".players_inputs").removeClass("alliance_preset_teams");
         }
     });

@@ -35,7 +35,7 @@ class GeneratorConfig
         if ($get_values_from_request) {
 
             $this->players = array_filter(array_map('htmlentities', get('player', [])));
-            if((int) get('num_players') != count($this->players)){
+            if ((int) get('num_players') != count($this->players)) {
                 return_error('Number of players does not match number of names');
             }
 
@@ -79,12 +79,12 @@ class GeneratorConfig
                 }
             }
 
-            if((bool) get('alliance_on', false)){
+            if ((bool) get('alliance_on', false)) {
                 $this->alliance = [];
                 $this->alliance["alliance_teams"] = get('alliance_teams');
                 $this->alliance["alliance_teams_position"] = get('alliance_teams_position');
                 $this->alliance["force_double_picks"] = get('force_double_picks') == 'true';
-            }   
+            }
 
             $this->validate();
         }
@@ -109,7 +109,7 @@ class GeneratorConfig
         if (count($this->players) > count(array_filter($this->players))) return_error('Some players names are not filled out');
         if (!$this->include_pok && $this->num_slices > 5) return_error('Can only draft up to 5 slices without PoK. (And by extension you can only do drafts up to 5 players)');
         if (!$this->include_ds_tiles && $this->num_slices > 9) return_error('Can only draft up to 9 slices without DS+ Tiles.');
-        if (count($this->players) < 3) return_error('Please enter more than 3 players');
+        if (count($this->players) < 3) return_error('Please enter at least 3 players');
         if ($this->num_factions < count($this->players)) return_error("Can't have less factions than players");
         if ($this->num_slices < count($this->players)) return_error("Can't have less slices than players");
         if ($this->maximum_optimal_total < $this->minimum_optimal_total) return_error("Maximum optimal can't be less than minimum");

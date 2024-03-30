@@ -11,8 +11,9 @@ if (get('regen') != null) {
     $regen_slices = get('shuffle_slices', "false") == "true";
     $regen_factions = get('shuffle_factions', "false") == "true";
     $regen_order = get('shuffle_order', "false") == "true";
+    $regen_teams = get('shuffle_teams', "false") == "true";
 
-    $draft->regenerate($regen_slices, $regen_factions, $regen_order);
+    $draft->regenerate($regen_slices, $regen_factions, $regen_order, $regen_teams);
 
     return_data([
         'ok' => true
@@ -25,27 +26,6 @@ if (get('regen') != null) {
         'id' => $draft->getId(),
         'admin' => $draft->getAdminPass()
     ]);
-}
-
-function generatePlayerData($player_names, $admin_password)
-{
-    $player_data = [];
-
-    foreach ($player_names as $i => $p) {
-        // use admin password and player name to hash an id for the player
-        $id = 'p_' . md5($p . $admin_password);
-
-        $player_data[$id] = [
-            'id' => $id,
-            'name' => $p,
-            'claimed' => false,
-            'position' => null,
-            'slice' => null,
-            'faction' => null
-        ];
-    }
-
-    return $player_data;
 }
 
 function select_slices($config, $previous_tries = 0)

@@ -4,31 +4,16 @@ require_once 'boot.php';
 
 $draft = Draft::load(get('draft'));
 $unclaim = get('unclaim') == 1;
-
-$p = $draft->getPlayers()[get('player')];
+$playerId = get('player');
 
 if ($unclaim) {
-    if (!$p['claimed']) {
-        return_error('Already unclaimed');
-    } else {
-        $p['claimed'] = false;
-        $result = $draft->save();
-        return_data([
-            'draft' => $draft,
-            'player' => $p['id'],
-            'success' => $result
-        ]);
-    }
+    $result = $draft->unclaim($playerId)->save();
 } else {
-    if ($p['claimed']) {
-        return_error('Already claimed');
-    } else {
-        $p['claimed'] = true;
-        $result = $draft->save();
-        return_data([
-            'draft' => $draft,
-            'player' => $p['id'],
-            'success' => $result
-        ]);
-    }
+    $result = $draft->claim($playerId)->save();
 }
+
+return_data([
+    'draft' => $draft,
+    'player' => $playerId,
+    'success' => $result
+]);

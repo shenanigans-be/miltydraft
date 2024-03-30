@@ -80,11 +80,9 @@
                     <?php endif; ?>
 
                     <div class="players">
-                        <?php $i = 0; ?>
-                        <?php foreach($draft->getPlayers() as $player): ?>
-                            <?php $i++; ?>
-                            <div id="player-<?= $player['id'] ?>" class="player <?= e($draft->getCurrentPlayer() == $i, 'current') ?>">
-                                <h3><span><?= $i ?></span> <?= $player['name'] ?></h3>
+                        <?php foreach(array_values($draft->getPlayers()) as $i => $player): ?>
+                            <div id="player-<?= $player['id'] ?>" class="player">
+                                <h3><span><?= $i + 1 ?></span> <?= $player['name'] ?> <?= ($player['team']?? false) ? '<span class="team team_'.$player['team'].'">(Team '.$player['team'].')</span>' : '' ?></h3>
 
                                 <span class="you" data-id="<?= $player['id'] ?>">you</span>
                                 <p>
@@ -220,6 +218,7 @@
                             <label for="shuffle_slices"><input type="checkbox" checked id="shuffle_slices" name="shuffle_slices" /> New Slices</label>
                             <label for="shuffle_factions"><input type="checkbox" checked id="shuffle_factions" name="shuffle_factions" /> New Factions</label>
                             <label for="shuffle_order"><input type="checkbox" id="shuffle_order" name="shuffle_order" /> New player order</label>
+                            <?php if (($draft->getConfig()->alliance["alliance_teams"] ?? "") == 'random') { ?><label for="shuffle_teams"><input type="checkbox" id="shuffle_teams" name="shuffle_teams" /> New teams</label><?php } ?>
                             <button id="regenerate" class="btn">Regenerate</button>
                         </p>
                     <?php endif; ?>
@@ -228,81 +227,82 @@
             <div class="tab" id="config">
                 <div class="content-wrap">
                     <h3>Configuration used</h3>
+                    <?php $config = $draft->getConfig(); ?>
 
                     <p>
                         <label>Number of Players:</label> <strong><?= count($draft->getPlayers()) ?></strong>
                     </p>
                     <p>
-                        <label>Number of Slices:</label> <strong><?= $draft->getConfig()['num_slices'] ?></strong>
+                        <label>Number of Slices:</label> <strong><?= $config->num_slices ?></strong>
                     </p>
                     <p>
-                        <label>Number of Factions:</label> <strong><?= $draft->getConfig()['num_factions'] ?></strong>
+                        <label>Number of Factions:</label> <strong><?= $config->num_factions ?></strong>
                     </p>
                     <p>
-                        <label>Include PoK:</label> <strong><?= e($draft->getConfig()['include_pok'], 'yes', 'no') ?></strong>
+                        <label>Include PoK:</label> <strong><?= e($config->include_pok, 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include DS Tiles:</label> <strong><?= e($draft->getConfig()['include_ds_tiles'], 'yes', 'no') ?></strong>
+                        <label>Include DS Tiles:</label> <strong><?= e($config->include_ds_tiles, 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include Base Game Factions:</label> <strong><?= e($draft->getConfig()['include_base_factions'], 'yes', 'no') ?></strong>
+                        <label>Include Base Game Factions:</label> <strong><?= e($config->include_base_factions, 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include POK Factions:</label> <strong><?= e($draft->getConfig()['include_pok_factions'], 'yes', 'no') ?></strong>
+                        <label>Include POK Factions:</label> <strong><?= e($config->include_pok_factions, 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include Keleres:</label> <strong><?= e($draft->getConfig()['include_keleres'], 'yes', 'no') ?></strong>
+                        <label>Include Keleres:</label> <strong><?= e($config->include_keleres, 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include Discordant Stars:</label> <strong><?= e($draft->getConfig()['include_discordant'], 'yes', 'no') ?></strong>
+                        <label>Include Discordant Stars:</label> <strong><?= e($config->include_discordant, 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include Discordant Stars expansion:</label> <strong><?= e($draft->getConfig()['include_discordantexp'], 'yes', 'no') ?></strong>
+                        <label>Include Discordant Stars expansion:</label> <strong><?= e($config->include_discordantexp, 'yes', 'no') ?></strong>
                     </p>
-                    <?php if(isset($draft->getConfig()['must_include_wormholes_and_legendaries'])): ?>
+                    <?php if(isset($config->must_include_wormholes_and_legendaries)): ?>
                     <p>
-                        <label>Map must include wormholes and Legendary Planets:</label> <strong><?= e($draft->getConfig()['must_include_wormholes_and_legendaries'], 'yes', 'no') ?></strong>
+                        <label>Map must include wormholes and Legendary Planets:</label> <strong><?= e($config->must_include_wormholes_and_legendaries, 'yes', 'no') ?></strong>
                     </p>
                     <?php endif; ?>
-                    <?php if(isset($draft->getConfig()['min_legendaries'])): ?>
+                    <?php if(isset($config->min_legendaries)): ?>
                         <p>
-                            <label>Minimum wormholes:</label> <strong><?= $draft->getConfig()['min_wormholes'] ?></strong>
+                            <label>Minimum wormholes:</label> <strong><?= $config->min_wormholes ?></strong>
                         </p>
                         <p>
-                            <label>Minimum legendaries:</label> <strong><?= $draft->getConfig()['min_legendaries'] ?></strong>
+                            <label>Minimum legendaries:</label> <strong><?= $config->min_legendaries ?></strong>
                         </p>
                     <?php endif; ?>
                     <p>
-                        <label>Max. 1 wormhole per slice:</label> <strong><?= e(isset($draft->getConfig()['max_1_wormhole']) && $draft->getConfig()['max_1_wormhole'], 'yes', 'no') ?></strong>
+                        <label>Max. 1 wormhole per slice:</label> <strong><?= e(isset($config->max_1_wormhole) && $config->max_1_wormhole, 'yes', 'no') ?></strong>
                     </p>
                     <hr/>
                     <p>
-                        <label>Minimum Optimal Influence:</label> <strong><?= $draft->getConfig()['minimum_optimal_influence'] ?></strong>
+                        <label>Minimum Optimal Influence:</label> <strong><?= $config->minimum_optimal_influence ?></strong>
                     </p>
                     <p>
-                        <label>Minimum Optimal Resources:</label> <strong><?= $draft->getConfig()['minimum_optimal_resources'] ?></strong>
-                    </p>
-
-                    <p>
-                        <label>Minimum Optimal Total:</label> <strong><?= $draft->getConfig()['minimum_optimal_total'] ?></strong>
+                        <label>Minimum Optimal Resources:</label> <strong><?= $config->minimum_optimal_resources ?></strong>
                     </p>
 
                     <p>
-                        <label>Maximum Optimal Total:</label> <strong><?= $draft->getConfig()['maximum_optimal_total'] ?></strong>
+                        <label>Minimum Optimal Total:</label> <strong><?= $config->minimum_optimal_total ?></strong>
+                    </p>
+
+                    <p>
+                        <label>Maximum Optimal Total:</label> <strong><?= $config->maximum_optimal_total ?></strong>
                     </p>
 
                     <p>
                         <label>Custom Factions:</label> <strong>
-                            <?php if($draft->getConfig()['custom_factions'] != null): ?>
-                                <?= implode(', ', $draft->getConfig()['custom_factions']) ?>
+                            <?php if($config->custom_factions != null): ?>
+                                <?= implode(', ', $config->custom_factions) ?>
                             <?php else: ?>
                                 no
                             <?php endif; ?>
                     </p>
                     <p>
                         <label>Custom Slices:</label> <strong>
-                            <?php if($draft->getConfig()['custom_slices'] != null): ?>
-                                <?php foreach($draft->getConfig()['custom_slices'] as $slice): ?>
+                            <?php if($config->custom_slices != null): ?>
+                                <?php foreach($config->custom_slices as $slice): ?>
                                     <?= implode(',', $slice) ?><br />
                                 <?php endforeach; ?>
                             <?php else: ?>

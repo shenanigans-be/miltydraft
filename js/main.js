@@ -81,9 +81,9 @@ $(document).ready(function () {
     $("#alliance_toggle").on('change', function () {
         var alliance = $(this).is(':checked');
         if (alliance) {
-            var num_players = $("#num_players").val();
-            if (num_players % 2 == 1) {
-                $("#num_players").val(parseInt(num_players) + 1).trigger('change');                
+            var numPlayers = $("#num_players").val();
+            if (numPlayers % 2 == 1) {
+                $("#num_players").val(parseInt(numPlayers) + 1).trigger('change');                
             }
             $("#num_players").attr("step", 2).attr("min", 4);
             $(".alliance_only input").prop("disabled", false);
@@ -203,12 +203,12 @@ function init_player_count() {
 function update_player_count() {
     $('.player').show();
 
-    let num_players = parseInt($('#num_players').val());
+    let numPlayers = parseInt($('#num_players').val());
 
-    num_players = Math.max(3, Math.min(8, num_players));
-    $('#num_players').val(num_players);
-    $('#add-player').toggle(num_players < 8);
-    $('.player:gt(' + (num_players - 1) + ')').hide().find('input').val('');
+    numPlayers = Math.max(3, Math.min(8, numPlayers));
+    $('#num_players').val(numPlayers);
+    $('#add-player').toggle(numPlayers < 8);
+    $('.player:gt(' + (numPlayers - 1) + ')').hide().find('input').val('');
     $('.alliance_team').show();
-    $('.alliance_team:gt(' + (((num_players) / 2) - 1) + ')').hide();
+    $('.alliance_team:gt(' + (((numPlayers) / 2) - 1) + ')').hide();
 }

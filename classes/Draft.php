@@ -1,26 +1,24 @@
 <?php
-
+// Could be cool to add a faction ban phase before the draft starts
 class Draft implements JsonSerializable
 {
     private static self $instance;
-    private string $id;
-    private string $admin_pass;
-    private string $name;
-    private array $draft;
-    private array $slices;
-    private array $factions;
-    private array $config;
     private bool $done;
 
-    private function __construct($id, $admin_pass, $draft, $slices, $factions, $config, $name)
-    {
-        $this->id = $id;
-        $this->admin_pass = $admin_pass;
-        $this->draft = $draft;
-        $this->slices = $slices;
-        $this->factions = $factions;
-        $this->config = $config;
-        $this->name = $name;
+    private function __construct(
+        private string $id,
+        private string $admin_pass,
+        private array $draft,
+        private array $slices,
+        private array $factions,
+        private GeneratorConfig $config,
+        private string $name
+    ) {
+        $this->draft = ($draft === [] ? [
+            'players' => $this->generatePlayerData(),
+            'log' => [],
+        ] : $draft);
+
         $this->done = $this->isDone();
         $this->draft["current"] = $this->getCurrentPlayer();
     }
@@ -31,15 +29,9 @@ class Draft implements JsonSerializable
         $admin_password = uniqid();
         $slices = select_slices($config);
         $factions = select_factions($config);
-        $player_data = generatePlayerData($config->players, $admin_password);
         $name = $config->name;
 
-        $draft = [
-            'players' => $player_data,
-            'log' => [],
-        ];
-
-        return new self($id, $admin_password, $draft, $slices, $factions, $config->toJson(), $name);
+        return new self($id, $admin_password, [], $slices, $factions, $config, $name);
     }
 
     public static function getCurrentInstance(): self
@@ -53,7 +45,7 @@ class Draft implements JsonSerializable
             return null;
         }
         $draft = json_decode(file_get_contents(get_draft_url($id)), true);
-        return new self($id, $draft["admin_pass"], $draft["draft"], $draft["slices"], $draft["factions"], $draft["config"], $draft["name"]);
+        return new self($id, $draft["admin_pass"], $draft["draft"], $draft["slices"], $draft["factions"], GeneratorConfig::fromArray($draft["config"]), $draft["name"]);
     }
 
     public function getId(): string
@@ -86,7 +78,7 @@ class Draft implements JsonSerializable
         return $this->factions;
     }
 
-    public function getConfig(): array
+    public function getConfig(): GeneratorConfig
     {
         return $this->config;
     }
@@ -132,12 +124,34 @@ class Draft implements JsonSerializable
         ];
 
         $this->draft['players'][$player][$category] = $value;
-
         $this->draft['current'] = $this->getCurrentPlayer();
-
         $this->done = $this->isDone();
 
         $this->save();
+    }
+
+    public function claim($player): self
+    {
+        if($this->draft['players'][$player]["claimed"] == true){
+            return_error('Already claimed');
+        }
+        $this->draft['players'][$player]["claimed"] = true;
+
+        $this->save();
+
+        return $this;
+    }
+
+    public function unclaim($player): self
+    {
+        if($this->draft['players'][$player]["claimed"] == false){
+            return_error('Already unclaimed');
+        }
+        $this->draft['players'][$player]["claimed"] = false;
+
+        $this->save();
+
+        return $this;
     }
 
     public function save()
@@ -167,25 +181,82 @@ class Draft implements JsonSerializable
         }
     }
 
-    public function regenerate(bool $regen_slices, bool $regen_factions, bool $regen_order): void
+    public function regenerate(bool $regen_slices, bool $regen_factions, bool $regen_order, bool $regen_teams): void
     {
-        $config = GeneratorConfig::fromDraft($this);
-
         if ($regen_factions) {
-            $this->factions = select_factions($config);
+            $this->factions = select_factions($this->config);
         }
 
         if ($regen_slices) {
-            $this->slices = select_slices($config);
+            $this->slices = select_slices($this->config);
         }
 
-        if ($regen_order) {
-            shuffle($this->config['players']);
-            $player_data = generatePlayerData($this->config['players'], $this->admin_pass);
-            $this->draft['players'] = $player_data;
+        if ($regen_order || $regen_teams) {
+            $this->draft['players'] = $this->generatePlayerData($regen_order, $regen_teams);
         }
 
         $this->save();
+    }
+
+    private function generatePlayerData(bool $shufflePlayers = true, bool $shuffleTeams = true)
+    {
+        $player_data = [];
+        $player_names = $this->config->players;
+
+        if($this->config->alliance){
+            ["playerTeams" => $playerTeams, "player_names" => $player_names] = $this->generateTeams($shuffleTeams);
+        }
+        else if ($shufflePlayers){
+            shuffle($player_names);
+        }
+
+        foreach ($player_names as $p) {
+            // use admin password and player name to hash an id for the player
+            $id = 'p_' . md5($p . $this->admin_pass);
+
+            $player_data[$id] = [
+                'id' => $id,
+                'name' => $p,
+                'claimed' => false,
+                'position' => null,
+                'slice' => null,
+                'faction' => null,
+                'team' => $playerTeams[$p] ?? null
+            ];
+        }
+
+        return $player_data;
+    }
+
+    private function generateTeams(bool $shuffleTeams): array
+    {
+        $teamsLetters = array_slice(["A", "A", "B", "B", "C", "C", "D", "D"], 0, count($this->config->players));
+        $return = [];
+        $teams = [];
+        $playerTeams = [];
+
+        $alliance = $this->config->alliance;
+
+        if($shuffleTeams && $alliance["alliance_teams"] == 'random'){
+            shuffle($teamsLetters);
+        }
+
+        foreach($this->config->players as $player){
+            $letter = array_shift($teamsLetters);
+            $playerTeams[$player] = $letter;
+            $teams[$letter][] = $player;
+        }
+
+        shuffle($teams);
+        $player_names = [];
+        foreach($teams as $team){
+            shuffle($team);
+            $player_names[] = array_shift($team);
+            $player_names[] = array_shift($team);
+        }
+
+        $return = ["playerTeams" => $playerTeams, "player_names" => $player_names];
+        return $return;
     }
 
     public function __toString(): string

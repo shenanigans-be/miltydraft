@@ -82,20 +82,16 @@
                                         Opposites
                                     </label>
                                     <br>
-                                    <h4>Draft order</h4>
+                                    <h4>Force team double picks</h4>
                                     <label class="check">
-                                        <input type="radio" name="alliance_draft_order" value="double" checked />
-                                        A-A-B-B-C-C
+                                        <input type="radio" name="force_double_picks" value="false" checked />
+                                        No
                                     </label>
                                     <label class="check">
-                                        <input type="radio" name="alliance_draft_order" value="repeat" />
-                                        A-B-C-A-B-C
+                                        <input type="radio" name="force_double_picks" value="true" />
+                                        Yes
                                     </label>
-                                    <label class="check">
-                                        <input type="radio" name="alliance_draft_order" value="inverse" />
-                                        A-B-C-C-B-A
-                                    </label>
-                                    <p class="help">The draft will still be a snake draft no matter what</p>
+                                    <p class="help">Choose yes if you want both teammates to choose within the same category at once.</p>
                                 </div>
                             </div>
                         </div>

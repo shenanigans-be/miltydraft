@@ -245,6 +245,12 @@ function who_am_i() {
 
     $('.unclaim').hide();
 
+    // Check for faulty local storage
+    if(player_id && draft.draft.players[player_id].claimed == false){
+        localStorage.removeItem('draft_' + draft.id);
+        player_id = null;
+    }
+
     if(player_id == null) {
         $('.you').hide();
         for(p_id in draft.draft.players) {
@@ -276,11 +282,7 @@ function loading(loading = true) {
 }
 
 function find_player(id) {
-    for(let i in draft.draft.players) {
-        if(draft.draft.players[i].id == id) {
-            return draft.draft.players[i];
-        }
-    }
+    return draft.draft.players[id];
 }
 
 function refreshData() {
@@ -369,6 +371,58 @@ function draft_status() {
     if(current_player.slice != null) {
         $('button.draft[data-category="slice"]').hide();
     }
+
+    // Forcing team positions logic
+    if(current_player.position == null && draft.config.alliance && draft.config.alliance["alliance_teams_position"] != 'none') {
+        var allowedValues = [...Array(draft.config.players.length).keys()];
+        for(let i in draft.draft.players) {
+            let p = draft.draft.players[i];
+            let numberOfPlayers = +draft.config.players.length;
+            let oppositePosition = +((+p.position + (numberOfPlayers / 2)) % numberOfPlayers);
+            let neighborsPositions = [+((+p.position + 1) % numberOfPlayers), +((+p.position - 1 + numberOfPlayers) % numberOfPlayers)];
+            if(p.id != current_player.id && p.position && p.team == current_player.team) {
+                if(draft.config.alliance["alliance_teams_position"] == 'opposites'){
+                    allowedValues = [oppositePosition];
+                }
+                if(draft.config.alliance["alliance_teams_position"] == 'neighbors'){
+                    allowedValues = allowedValues.filter(e => neighborsPositions.includes(e));
+                }
+            }
+            else if (p.id != current_player.id && p.position && p.team != current_player.team){
+                if(draft.config.alliance["alliance_teams_position"] == 'opposites'){
+                    allowedValues = allowedValues.filter(e => e != oppositePosition);
+                }
+                if(draft.config.alliance["alliance_teams_position"] == 'neighbors'){
+                    let partner = getPartner(p.id);
+                    if(partner.position == null && getPlayerInPosition(neighborsPositions[0])){
+                        allowedValues = allowedValues.filter(e => e != neighborsPositions[1]);
+                    }
+                    if(partner.position == null && getPlayerInPosition(neighborsPositions[1])){
+                        allowedValues = allowedValues.filter(e => e != neighborsPositions[0]);
+                    }
+                }
+            }
+        }
+        $('button.draft[data-category="position"]').hide();
+        var selector = 'button.draft[data-category="position"][data-value="' + allowedValues.join('"],button.draft[data-category="position"][data-value="') + '"]';
+        $(selector).show();
+    }
+
+    if(draft.config.alliance && draft.config.alliance["force_double_picks"]){
+        let partner = getPartner(current_player.id);
+        if(current_player.faction == null && partner.faction != null){
+            $('button.draft[data-category="position"]').hide();
+            $('button.draft[data-category="slice"]').hide();
+        }
+        if(current_player.slice == null && partner.slice != null){
+            $('button.draft[data-category="faction"]').hide();
+            $('button.draft[data-category="position"]').hide();
+        }
+        if(current_player.position == null && partner.position != null){
+            $('button.draft[data-category="faction"]').hide();
+            $('button.draft[data-category="slice"]').hide();
+        }
+    }
 }
 
 function hide_regen() {
@@ -393,4 +447,25 @@ function reset_draft(){
     $('.option').removeClass('picked');
     $(".undo-last-action").hide();
     $('#done').removeClass('show');
+}
+
+function getPartner(playerId){
+    let player = draft.draft.players[playerId];
+    for(let i in draft.draft.players) {
+        let p = draft.draft.players[i];
+        if(p.id != playerId && player.team == p.team){
+            return p;
+        }
+    }
+    // Throw an error here? Shouldn't happen if the draft is set up correctly
+}
+
+function getPlayerInPosition(position){
+    for(let i in draft.draft.players) {
+        let p = draft.draft.players[i];
+        if(p.position == position){
+            return p;
+        }
+    }
+    return null;
 }

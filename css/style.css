@@ -211,7 +211,7 @@ h4:first-child {
 
 .help {
   display: block;
-  opacity: 0.5;
+  opacity: 0.7;
   width: 100%;
   font-style: italic;
   margin-top: 0.5em;
@@ -1342,6 +1342,22 @@ strong {
 }
 .players_inputs.alliance_on.alliance_preset_teams .team_D {
   background-color: #a57d10;
+}
+
+.players .player .team {
+  font-weight: 600;
+}
+.players .player .team_A {
+  color: #38618f;
+}
+.players .player .team_B {
+  color: #960f0f;
+}
+.players .player .team_C {
+  color: #007009;
+}
+.players .player .team_D {
+  color: #a57d10;
 }
 
 @media (prefers-color-scheme: dark) {

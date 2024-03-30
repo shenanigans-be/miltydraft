@@ -90,19 +90,12 @@ class GeneratorConfig
         }
     }
 
-
-    /**
-     * @param Draft $draft
-     * @return GeneratorConfig
-     */
-    public static function fromDraft($draft): GeneratorConfig
+    public static function fromArray(array $array): GeneratorConfig
     {
         $config = new GeneratorConfig(false);
 
-        foreach (array_keys(get_object_vars($config)) as $key) {
-            if (isset($draft->config()[$key])) {
-                $config->$key = $draft->config()[$key];
-            }
+        foreach ($array as $key => $value) {
+            $config->$key = $value;
         }
 
         $config->validate();

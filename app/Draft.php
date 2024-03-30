@@ -32,7 +32,7 @@ class Draft implements \JsonSerializable
         $admin_password = uniqid();
         $slices = Generator::slices($config);
         $factions = Generator::factions($config);
-        $player_data = Generator::playerData($config->players, $admin_password);
+
         $name = $config->name;
 
         return new self($id, $admin_password, [], $slices, $factions, $config, $name);
@@ -46,7 +46,7 @@ class Draft implements \JsonSerializable
     public static function load($id): self
     {
         if (!$id) {
-            throw new Exception('Tried to load draft with no id');
+            throw new \Exception('Tried to load draft with no id');
         }
 
         $draft = json_decode(file_get_contents(get_draft_url($id)), true);
@@ -83,7 +83,7 @@ class Draft implements \JsonSerializable
         return $this->factions;
     }
 
-    public function config(): array
+    public function config(): GeneratorConfig
     {
         return $this->config;
     }
@@ -191,19 +191,49 @@ class Draft implements \JsonSerializable
     public function regenerate(bool $regen_slices, bool $regen_factions, bool $regen_order, bool $regen_teams): void
     {
         if ($regen_factions) {
-            $this->factions = Generator::factions($config);
+            $this->factions = Generator::factions($this->config);
         }
 
         if ($regen_slices) {
-            $this->slices = Generator::slices($config);
+            $this->slices = Generator::slices($this->config);
         }
 
         if ($regen_order || $regen_teams) {
             shuffle($this->config['players']);
-            $this->draft['players'] = Generator::playerData($this->config['players'], $this->admin_pass); //$this->generatePlayerData($regen_order, $regen_teams);
+            $this->draft['players'] = $this->generatePlayerData($regen_order, $regen_teams);
         }
 
         $this->save();
+    }
+
+    private function generatePlayerData(bool $shufflePlayers = true, bool $shuffleTeams = true)
+    {
+        $player_data = [];
+        $player_names = $this->config->players;
+
+        if($this->config->alliance){
+            ["playerTeams" => $playerTeams, "player_names" => $player_names] = $this->generateTeams($shuffleTeams);
+        }
+        else if ($shufflePlayers){
+            shuffle($player_names);
+        }
+
+        foreach ($player_names as $p) {
+            // use admin password and player name to hash an id for the player
+            $id = 'p_' . md5($p . $this->admin_pass);
+
+            $player_data[$id] = [
+                'id' => $id,
+                'name' => $p,
+                'claimed' => false,
+                'position' => null,
+                'slice' => null,
+                'faction' => null,
+                'team' => $playerTeams[$p] ?? null
+            ];
+        }
+
+        return $player_data;
     }
 
     private function generateTeams(bool $shuffleTeams): array

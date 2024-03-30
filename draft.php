@@ -80,7 +80,7 @@
                     <?php endif; ?>
 
                     <div class="players">
-                        <?php foreach(array_values($draft->getPlayers()) as $i => $player): ?>
+                        <?php foreach(array_values($draft->players()) as $i => $player): ?>
                             <div id="player-<?= $player['id'] ?>" class="player">
                                 <h3><span><?= $i + 1 ?></span> <?= $player['name'] ?> <?= ($player['team']?? false) ? '<span class="team team_'.$player['team'].'">(Team '.$player['team'].')</span>' : '' ?></h3>
 
@@ -211,6 +211,7 @@
                 </div>
             </div>
 
+            <?php $config = $draft->config(); ?>
             <div class="tab" id="regen">
                 <div class="content-wrap">
                     <?php if(empty($draft->log())): ?>
@@ -218,7 +219,7 @@
                             <label for="shuffle_slices"><input type="checkbox" checked id="shuffle_slices" name="shuffle_slices" /> New Slices</label>
                             <label for="shuffle_factions"><input type="checkbox" checked id="shuffle_factions" name="shuffle_factions" /> New Factions</label>
                             <label for="shuffle_order"><input type="checkbox" id="shuffle_order" name="shuffle_order" /> New player order</label>
-                            <?php if (($draft->getConfig()->alliance["alliance_teams"] ?? "") == 'random') { ?><label for="shuffle_teams"><input type="checkbox" id="shuffle_teams" name="shuffle_teams" /> New teams</label><?php } ?>
+                            <?php if (($config->alliance["alliance_teams"] ?? "") == 'random') { ?><label for="shuffle_teams"><input type="checkbox" id="shuffle_teams" name="shuffle_teams" /> New teams</label><?php } ?>
                             <button id="regenerate" class="btn">Regenerate</button>
                         </p>
                     <?php endif; ?>
@@ -227,7 +228,6 @@
             <div class="tab" id="config">
                 <div class="content-wrap">
                     <h3>Configuration used</h3>
-                    <?php $config = $draft->getConfig(); ?>
 
                     <p>
                         <label>Number of Players:</label> <strong><?= count($draft->players()) ?></strong>
@@ -259,11 +259,6 @@
                     <p>
                         <label>Include Discordant Stars expansion:</label> <strong><?= e($config->include_discordantexp, 'yes', 'no') ?></strong>
                     </p>
-                    <?php if(isset($config->must_include_wormholes_and_legendaries)): ?>
-                    <p>
-                        <label>Map must include wormholes and Legendary Planets:</label> <strong><?= e($config->must_include_wormholes_and_legendaries, 'yes', 'no') ?></strong>
-                    </p>
-                    <?php endif; ?>
                     <?php if(isset($config->min_legendaries)): ?>
                         <p>
                             <label>Minimum wormholes:</label> <strong><?= $config->min_wormholes ?></strong>

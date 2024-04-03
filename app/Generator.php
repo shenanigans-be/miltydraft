@@ -4,27 +4,6 @@ namespace App;
 
 class Generator
 {
-    public static function playerData($player_names, $admin_password)
-    {
-        $player_data = [];
-
-        foreach ($player_names as $i => $p) {
-            // use admin password and player name to hash an id for the player
-            $id = 'p_' . md5($p . $admin_password);
-
-            $player_data[$id] = [
-                'id' => $id,
-                'name' => $p,
-                'claimed' => false,
-                'position' => null,
-                'slice' => null,
-                'faction' => null
-            ];
-        }
-
-        return $player_data;
-    }
-
     public static function slices($config, $previous_tries = 0)
     {
         if ($previous_tries > 100) {

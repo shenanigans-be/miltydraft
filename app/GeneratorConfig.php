@@ -6,7 +6,6 @@ class GeneratorConfig
 {
     public $players = [];
     public $name;
-    public $num_players;
     public $num_slices;
     public $num_factions;
     public $include_pok;
@@ -29,19 +28,20 @@ class GeneratorConfig
     public $custom_factions = null;
     public $custom_slices = null;
 
+    public ?array $alliance = null;
+
     function __construct($get_values_from_request)
     {
         if ($get_values_from_request) {
-            $names = get('player', []);
-            shuffle($names);
-            foreach ($names as $name) {
-                if ($name != '')  $this->players[] = htmlentities($name);
+
+            $this->players = array_filter(array_map('htmlentities', get('player', [])));
+            if ((int) get('num_players') != count($this->players)) {
+                return_error('Number of players does not match number of names');
             }
 
             $this->name = get('game_name', '');
             if (trim($this->name) == '') $this->name = $this->generateName();
             else $this->name = htmlentities($this->name);
-            $this->num_players = (int) get('num_players');
             $this->num_slices = (int) get('num_slices');
             $this->num_factions = (int) get('num_factions');
             $this->include_pok = get('include_pok') == true;
@@ -79,25 +79,24 @@ class GeneratorConfig
                 }
             }
 
+            if ((bool) get('alliance_on', false)) {
+                $this->alliance = [];
+                $this->alliance["alliance_teams"] = get('alliance_teams');
+                $this->alliance["alliance_teams_position"] = get('alliance_teams_position');
+                $this->alliance["force_double_picks"] = get('force_double_picks') == 'true';
+            }
+
             $this->validate();
         }
     }
 
-
-    /**
-     * @param Draft $draft
-     * @return GeneratorConfig
-     */
-    public static function fromDraft($draft): GeneratorConfig
+    public static function fromArray(array $array): GeneratorConfig
     {
         $config = new GeneratorConfig(false);
 
-        foreach (array_keys(get_object_vars($config)) as $key) {
-            if (isset($draft->config()[$key])) {
-                $config->$key = $draft->config()[$key];
-            }
+        foreach ($array as $key => $value) {
+            $config->$key = $value;
         }
-        $config->num_players = count($config->players);
 
         $config->validate();
 
@@ -107,18 +106,18 @@ class GeneratorConfig
     private function validate(): void
     {
 
-        if (count($this->players) < $this->num_players) return_error('Some players names are not filled out');
+        if (count($this->players) > count(array_filter($this->players))) return_error('Some players names are not filled out');
         if (!$this->include_pok && $this->num_slices > 5) return_error('Can only draft up to 5 slices without PoK. (And by extension you can only do drafts up to 5 players)');
         if (!$this->include_ds_tiles && $this->num_slices > 9) return_error('Can only draft up to 9 slices without DS+ Tiles.');
-        if ($this->num_players < 3) return_error('Please enter more than 3 players');
-        if ($this->num_factions < $this->num_players) return_error("Can't have less factions than players");
-        if ($this->num_slices < $this->num_players) return_error("Can't have less slices than players");
+        if (count($this->players) < 3) return_error('Please enter at least 3 players');
+        if ($this->num_factions < count($this->players)) return_error("Can't have less factions than players");
+        if ($this->num_slices < count($this->players)) return_error("Can't have less slices than players");
         if ($this->maximum_optimal_total < $this->minimum_optimal_total) return_error("Maximum optimal can't be less than minimum");
         // Must include at least 1 of base, pok, discordant, or discordant expansion to have enough factions to use
         if (!($this->include_base_factions || $this->include_pok_factions || $this->include_discordant || $this->include_discordantexp)) return_error("Not enough factions selected.");
-        // if($this->custom_factions != null && count($this->custom_factions) < $this->num_players) return_error("Not enough custom factions for number of players");
+        // if($this->custom_factions != null && count($this->custom_factions) < count($this->players)) return_error("Not enough custom factions for number of players");
         if ($this->custom_slices != null) {
-            if (count($this->custom_slices) < $this->num_players) return_error("Not enough custom slices for number of players");
+            if (count($this->custom_slices) < count($this->players)) return_error("Not enough custom slices for number of players");
             foreach ($this->custom_slices as $s) {
                 if (count($s) != 5) return_error('Some of the custom slices have the wrong number of tiles. (each should have five)');
             }
@@ -154,26 +153,6 @@ class GeneratorConfig
 
     public function toJson(): array
     {
-        return [
-            'players' => $this->players,
-            'include_pok' => $this->include_pok,
-            'include_ds_tiles' => $this->include_ds_tiles,
-            'include_base_factions' => $this->include_base_factions,
-            'include_pok_factions' => $this->include_pok_factions,
-            'include_keleres' => $this->include_keleres,
-            'include_discordant' => $this->include_discordant,
-            'include_discordantexp' => $this->include_discordantexp,
-            'num_slices' => $this->num_slices,
-            'num_factions' => $this->num_factions,
-            'min_wormholes' => $this->min_wormholes,
-            'max_1_wormhole' => $this->max_1_wormhole,
-            'min_legendaries' => $this->min_legendaries,
-            'minimum_optimal_influence' => $this->minimum_optimal_influence,
-            'minimum_optimal_resources' => $this->minimum_optimal_resources,
-            'minimum_optimal_total' => $this->minimum_optimal_total,
-            'maximum_optimal_total' => $this->maximum_optimal_total,
-            'custom_factions' => $this->custom_factions,
-            'custom_slices' => $this->custom_slices
-        ];
+        return get_object_vars($this);
     }
 }

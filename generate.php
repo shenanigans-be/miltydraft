@@ -2,8 +2,6 @@
 
 use App\Draft;
 use App\GeneratorConfig;
-use App\Tile;
-use App\Slice;
 require_once 'boot.php';
 
 if (get('regen') != null) {

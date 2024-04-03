@@ -1,23 +1,23 @@
 let advanced_open = false;
-$(document).ready(function() {
+$(document).ready(function () {
     init_player_count();
 
     pok_check();
     $('#pok').on('change', pok_check);
     $('.draft-faction').on('change', faction_check);
 
-    $('#tabs nav a').on('click', function(e) {
+    $('#tabs nav a').on('click', function (e) {
         e.preventDefault();
         $('#tabs nav a, .tab').removeClass('active');
         $(this).addClass('active');
         $('.tab' + $(this).attr('href')).addClass('active');
     });
 
-    $('#more').on('click', function(e) {
+    $('#more').on('click', function (e) {
         e.preventDefault();
         advanced_open = !advanced_open
         $('#advanced').slideToggle();
-        if(advanced_open) {
+        if (advanced_open) {
             $(this).html('hide');
         } else {
             $(this).html('show');
@@ -25,26 +25,27 @@ $(document).ready(function() {
     });
 
 
-    if(window.location.hash != '' && $('.tab' + window.location.hash).length != 0) {
+    if (window.location.hash != '' && $('.tab' + window.location.hash).length != 0) {
         $('#tabs nav a[href="' + window.location.hash + '"]').click();
     }
 
-    $('#select-all').on('click', function(e) {
+    $('#select-all').on('click', function (e) {
         e.preventDefault();
         $('.custom_faction:not(:disabled)').prop('checked', true);
     });
-    $('#deselect-all').on('click', function(e) {
+    $('#deselect-all').on('click', function (e) {
         e.preventDefault();
         $('.custom_faction').prop('checked', false);
     });
 
-    $('#add-player').on('click', function(e) {
+    $('#add-player').on('click', function (e) {
         e.preventDefault();
-        $('#num_players').val(parseInt($('#num_players').val()) + 1);
+        var step = $("#alliance_toggle").is(':checked') ? 2 : 1;
+        $('#num_players').val(parseInt($('#num_players').val()) + step);
         update_player_count();
     })
 
-    $('#generate-form').on('submit', function(e) {
+    $('#generate-form').on('submit', function (e) {
         e.preventDefault();
         $('#error').hide();
 
@@ -52,7 +53,7 @@ $(document).ready(function() {
 
         let formData = new FormData();
         let values = $('form').serializeArray();
-        for(let i = 0; i < values.length; i++) {
+        for (let i = 0; i < values.length; i++) {
             formData.append(values[i].name, values[i].value);
         }
 
@@ -63,7 +64,7 @@ $(document).ready(function() {
 
             let data = JSON.parse(request.responseText);
 
-            if(data.error) {
+            if (data.error) {
                 $('#error').show().html(data.error);
                 loading(false);
             } else {
@@ -76,11 +77,40 @@ $(document).ready(function() {
         request.send(formData);
 
     });
+
+    $("#alliance_toggle").on('change', function () {
+        var alliance = $(this).is(':checked');
+        if (alliance) {
+            var numPlayers = $("#num_players").val();
+            if (numPlayers % 2 == 1) {
+                $("#num_players").val(parseInt(numPlayers) + 1).trigger('change');
+            }
+            $("#num_players").attr("step", 2).attr("min", 4);
+            $(".alliance_only input").prop("disabled", false);
+            $(".alliance_only").show();
+            $(".players_inputs").addClass("alliance_on");
+        }
+        else {
+            $("#num_players").attr("min", 3).attr("step", 1);
+            $(".alliance_only input").prop("disabled", true);
+            $(".alliance_only").hide();
+            $(".players_inputs").removeClass("alliance_on");
+        }
+    });
+
+    $("input[name='alliance_teams']").on('change', function () {
+        if ($(this).val() == "preset") {
+            $(".players_inputs").addClass("alliance_preset_teams");
+        }
+        else {
+            $(".players_inputs").removeClass("alliance_preset_teams");
+        }
+    });
 });
 
 
 function loading(loading = true) {
-    if(loading) {
+    if (loading) {
         $('body').addClass('loading');
     } else {
         $('body').removeClass('loading');
@@ -95,7 +125,7 @@ function pok_check() {
     let $discordant = $('#discordant');
     let $discordantexp = $('#discordantexp');
 
-    if($('#pok').is(':checked')) {
+    if ($('#pok').is(':checked')) {
 
         // When POK is checked, allow POK dependant items to be selectable
         $pokf.prop('disabled', false);
@@ -149,13 +179,13 @@ function faction_check() {
 
 
     $('.draft-faction').each(function (i, el) {
-        if($(el).is(':checked')) {
+        if ($(el).is(':checked')) {
             max += parseInt($(el).data('num'));
-            $('.factions label[data-set="' + $(el).data('set') +'"]').removeClass('disabled');
-            $('.factions label[data-set="' + $(el).data('set') +'"] input').prop('disabled', false);
+            $('.factions label[data-set="' + $(el).data('set') + '"]').removeClass('disabled');
+            $('.factions label[data-set="' + $(el).data('set') + '"] input').prop('disabled', false);
         } else {
-            $('.factions label[data-set="' + $(el).data('set') +'"]').addClass('disabled');
-            $('.factions label[data-set="' + $(el).data('set') +'"] input').prop('disabled', true).prop('checked', false);
+            $('.factions label[data-set="' + $(el).data('set') + '"]').addClass('disabled');
+            $('.factions label[data-set="' + $(el).data('set') + '"] input').prop('disabled', true).prop('checked', false);
         }
     });
 
@@ -172,10 +202,12 @@ function init_player_count() {
 function update_player_count() {
     $('.player').show();
 
-    let num_players = parseInt($('#num_players').val());
+    let numPlayers = parseInt($('#num_players').val());
 
-    num_players = Math.max(3, Math.min(8, num_players));
-    $('#num_players').val(num_players);
-    $('#add-player').toggle(num_players < 8);
-    $('.player:gt(' + (num_players - 1) + ')').hide().find('input').val('');
+    numPlayers = Math.max(3, Math.min(8, numPlayers));
+    $('#num_players').val(numPlayers);
+    $('#add-player').toggle(numPlayers < 8);
+    $('.player:gt(' + (numPlayers - 1) + ')').hide().find('input').val('');
+    $('.alliance_team').show();
+    $('.alliance_team:gt(' + (((numPlayers) / 2) - 1) + ')').hide();
 }

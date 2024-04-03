@@ -1,20 +1,20 @@
-
 <?php
 
-    require_once 'boot.php';
+require_once 'boot.php';
 
-    if(!isset($_GET['id'])) {
-        $draft = null;
-    } else {
-        $draft = \App\Draft::load($_GET['id']);
-    }
+if (!isset($_GET['id'])) {
+    $draft = null;
+} else {
+    $draft = \App\Draft::load($_GET['id']);
+}
 
-    $faction_data = json_decode(file_get_contents('data/factions.json'), true);
+$faction_data = json_decode(file_get_contents('data/factions.json'), true);
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +26,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300&family=Staatliches&display=swap" rel="stylesheet">
 
 
-    <meta property="og:image" content="<?= url('og.png') ?>"/>
+    <meta property="og:image" content="<?= url('og.png') ?>" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -36,13 +36,14 @@
     <meta name="msapplication-TileColor" content="#fdfcf8">
     <meta name="theme-color" content="#ffffff">
 </head>
+
 <body>
     <div class="container">
 
-        <?php if($draft): ?>
+        <?php if ($draft) : ?>
             <h1><?= $draft->name() ?></h1>
             <h2>Milty Draft</h2>
-        <?php else: ?>
+        <?php else : ?>
             <h1>Milty Draft</h1>
         <?php endif; ?>
 
@@ -63,163 +64,162 @@
             </nav>
             <div class="tab active" id="draft">
                 <div class="content-wrap">
-                <?php if($draft == null || $draft == false): ?>
-                    <h2 class="error">Draft not found. (or something else went wrong)</h2>
-                <?php else: ?>
-                    <div class="status" id="turn">
-                        <p>It's <span id="current-name">x's</span> turn to draft something. <span id="admin-msg">You are the admin so you can do this for them.</span></p>
-                    </div>
-                    <div class="status" id="done">
-                        <p>This draft is over. <a class="view-map" href="#">View map</a></p>
-                    </div>
-
-                    <?php if(empty($draft->log())): ?>
-                        <p class="regen-help">
-                            Something not quite right? Untill the first draft-pick is done you can <a class="tabnav" href="#regen">regenerate the draft options</a>.
-                        </p>
-                    <?php endif; ?>
-
-                    <div class="players">
-                        <?php $i = 0; ?>
-                        <?php foreach($draft->players() as $player): ?>
-                            <?php $i++; ?>
-                            <div id="player-<?= $player['id'] ?>" class="player <?= e($draft->currentPlayer() == $i, 'current') ?>">
-                                <h3><span><?= $i ?></span> <?= $player['name'] ?></h3>
-
-                                <span class="you" data-id="<?= $player['id'] ?>">you</span>
-                                <p>
-                                    Slice: <span class="chosen-slice">?</span><br />
-                                    Faction: <span class="chosen-faction">?</span><br />
-                                    Position: <span class="chosen-position">?</span>
-                                </p>
-                                <p class="center">
-                                    <button class="claim" data-id="<?= $player['id'] ?>">Claim</button>
-                                    <button class="unclaim" data-id="<?= $player['id'] ?>">Unclaim</button>
-                                </p>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-
-                    <div class="factions draft-options">
-                        <h3>Factions</h3>
-                        <div class="options">
-                            <?php foreach($draft->factions() as $f): ?>
-                                <?php $faction = $faction_data[$f]; ?>
-                                <?php $homesystem = ($faction['set'] == 'discordant' || $faction['set'] == 'discordantexp')? 'DS_' . $faction['id'] : $faction['homesystem']; ?>
-
-                                <div class="faction option" data-homesystem="<?= $homesystem ?>" data-faction="<?= $faction['name'] ?>">
-                                    <div>
-                                        <img src="<?= url('img/factions/ti_' . $faction['id'] . '.png') ?>" /><br />
-
-                                        <span><?= $faction['name'] ?></span><br />
-                                        <a href="#" data-id="<?= $faction['id'] ?>" class="open-reference">[reference]</a> <a target="_blank" href="<?= $faction['wiki'] ?>" class="more">[wiki]</a><br />
-                                        <button class="draft" data-category="faction" data-value="<?= $faction['name'] ?>">Draft</button>
-                                        <span class="drafted-by" data-category="faction" data-value="<?= $faction['name'] ?>"></span>
-                                    </div>
-
-                                </div>
-                            <?php endforeach; ?>
+                    <?php if ($draft == null || $draft == false) : ?>
+                        <h2 class="error">Draft not found. (or something else went wrong)</h2>
+                    <?php else : ?>
+                        <div class="status" id="turn">
+                            <p>It's <span id="current-name">x's</span> turn to draft something. <span id="admin-msg">You are the admin so you can do this for them.</span></p>
                         </div>
-                    </div>
-                    <div class="slices draft-options">
-                        <h3>Slices</h3>
-                        <div class="options">
-                            <?php foreach($draft->slices() as $slice_id => $slice): ?>
-                                <div class="slice option" data-slice="<?= $slice_id ?>">
-                                    <div class="slice-graph">
-                                        <div class="wrap">
-                                            <?php foreach($slice['tiles'] as $i => $tile): ?>
-                                                <img class="tile-<?= $i ?>" src="<?= url('img/tiles/ST_' . $tile . '.png') ?>" />
-                                                <img class="zoom tile-<?= $i ?>" src="<?= url('img/tiles/ST_' . $tile . '.png') ?>" />
-                                            <?php endforeach; ?>
-                                            <img class="tile-h" src="<?= url('img/tiles/ST_0.png') ?>" />
-                                        </div>
-                                    </div>
-
-                                    <div class="slice-info">
-                                        <h4>Slice <?= $slice_id + 1 ?></h4>
-
-                                        <div class="info">
-                                            <?php foreach($slice['specialties'] as $s): ?>
-                                                <img class="tech-specialty" src="<?= url('img/tech/' . $s . '.webp') ?>" alt="<?= $s ?>" />
-                                            <?php endforeach; ?>
-
-
-                                            <?php if(isset($slice['has_legendaries']) && $slice['has_legendaries']): ?>
-                                                <abbr class="legendary" title="Contains legendary planet"><img src="<?= url('img/legendary.webp') ?>"></abbr>
-                                            <?php endif; ?>
-
-                                            <?php foreach($slice['wormholes'] as $w): ?>
-                                                <?php if($w == 'alpha'): ?>
-                                                    <abbr class="wormhole" title="<?= $w ?>">&alpha;</abbr>
-                                                <?php elseif($w == 'beta'): ?>
-                                                    <abbr class="wormhole" title="<?= $w ?>">&beta;</abbr>
-                                                <?php elseif($w == 'alpha-beta'): ?>
-                                                    <abbr class="wormhole" title="alpha">&alpha;</abbr>
-                                                    <abbr class="wormhole" title="beta">&beta;</abbr>
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                        </div>
-
-                                        <p class="resource-count">
-                                            Total:
-                                            <abbr title="resources" class="resources"><?= $slice['total_resources'] ?></abbr>
-                                            <abbr title="influence" class="influence"><?= $slice['total_influence'] ?></abbr>
-                                        </p>
-
-                                        <p class="resource-count">
-                                            Optimal:
-                                            <abbr title="resources" class="resources"><?= $slice['optimal_resources'] ?></abbr>
-                                            <abbr title="influence" class="influence"><?= $slice['optimal_influence'] ?></abbr>
-                                        </p>
-
-                                        <p class="center">
-                                            <button class="draft" data-category="slice" data-value="<?= $slice_id ?>">Draft</button>
-                                            <span class="drafted-by" data-category="slice" data-value="<?= $slice_id ?>"></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
+                        <div class="status" id="done">
+                            <p>This draft is over. <a class="view-map" href="#">View map</a></p>
                         </div>
-                    </div>
 
-
-
-                    <div class="positions draft-options">
-                        <h3>Positions</h3>
-                        <div class="options">
-                            <?php for($i = 0; $i < count($draft->players()); $i++): ?>
-                                <div class="position option" data-position="<?= $i ?>">
-                        <span>
-                        <?php if($i == 0): ?>
-                            SPEAKER
-                        <?php else: ?>
-                            <?= ordinal($i + 1); ?>
+                        <?php if (empty($draft->log())) : ?>
+                            <p class="regen-help">
+                                Something not quite right? Untill the first draft-pick is done you can <a class="tabnav" href="#regen">regenerate the draft options</a>.
+                            </p>
                         <?php endif; ?>
-                            </span>
 
-                                    <button class="draft" data-category="position" data-value="<?= $i ?>">Draft</button>
-                                    <span class="drafted-by" data-category="position" data-value="<?= $i ?>"></span>
+                        <div class="players">
+                            <?php foreach (array_values($draft->players()) as $i => $player) : ?>
+                                <div id="player-<?= $player['id'] ?>" class="player">
+                                    <h3><span><?= $i + 1 ?></span> <?= $player['name'] ?> <?= ($player['team'] ?? false) ? '<span class="team team_' . $player['team'] . '">(Team ' . $player['team'] . ')</span>' : '' ?></h3>
+
+                                    <span class="you" data-id="<?= $player['id'] ?>">you</span>
+                                    <p>
+                                        Slice: <span class="chosen-slice">?</span><br />
+                                        Faction: <span class="chosen-faction">?</span><br />
+                                        Position: <span class="chosen-position">?</span>
+                                    </p>
+                                    <p class="center">
+                                        <button class="claim" data-id="<?= $player['id'] ?>">Claim</button>
+                                        <button class="unclaim" data-id="<?= $player['id'] ?>">Unclaim</button>
+                                    </p>
                                 </div>
-                            <?php endfor; ?>
+                            <?php endforeach; ?>
                         </div>
-                    </div>
 
-                    <script>
-                        window.draft = <?= $draft; ?>;
-                    </script>
+                        <div class="factions draft-options">
+                            <h3>Factions</h3>
+                            <div class="options">
+                                <?php foreach ($draft->factions() as $f) : ?>
+                                    <?php $faction = $faction_data[$f]; ?>
+                                    <?php $homesystem = ($faction['set'] == 'discordant' || $faction['set'] == 'discordantexp') ? 'DS_' . $faction['id'] : $faction['homesystem']; ?>
 
-                <?php endif; ?>
+                                    <div class="faction option" data-homesystem="<?= $homesystem ?>" data-faction="<?= $faction['name'] ?>">
+                                        <div>
+                                            <img src="<?= url('img/factions/ti_' . $faction['id'] . '.png') ?>" /><br />
+
+                                            <span><?= $faction['name'] ?></span><br />
+                                            <a href="#" data-id="<?= $faction['id'] ?>" class="open-reference">[reference]</a> <a target="_blank" href="<?= $faction['wiki'] ?>" class="more">[wiki]</a><br />
+                                            <button class="draft" data-category="faction" data-value="<?= $faction['name'] ?>">Draft</button>
+                                            <span class="drafted-by" data-category="faction" data-value="<?= $faction['name'] ?>"></span>
+                                        </div>
+
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                        <div class="slices draft-options">
+                            <h3>Slices</h3>
+                            <div class="options">
+                                <?php foreach ($draft->slices() as $slice_id => $slice) : ?>
+                                    <div class="slice option" data-slice="<?= $slice_id ?>">
+                                        <div class="slice-graph">
+                                            <div class="wrap">
+                                                <?php foreach ($slice['tiles'] as $i => $tile) : ?>
+                                                    <img class="tile-<?= $i ?>" src="<?= url('img/tiles/ST_' . $tile . '.png') ?>" />
+                                                    <img class="zoom tile-<?= $i ?>" src="<?= url('img/tiles/ST_' . $tile . '.png') ?>" />
+                                                <?php endforeach; ?>
+                                                <img class="tile-h" src="<?= url('img/tiles/ST_0.png') ?>" />
+                                            </div>
+                                        </div>
+
+                                        <div class="slice-info">
+                                            <h4>Slice <?= $slice_id + 1 ?></h4>
+
+                                            <div class="info">
+                                                <?php foreach ($slice['specialties'] as $s) : ?>
+                                                    <img class="tech-specialty" src="<?= url('img/tech/' . $s . '.webp') ?>" alt="<?= $s ?>" />
+                                                <?php endforeach; ?>
+
+
+                                                <?php if (isset($slice['has_legendaries']) && $slice['has_legendaries']) : ?>
+                                                    <abbr class="legendary" title="Contains legendary planet"><img src="<?= url('img/legendary.webp') ?>"></abbr>
+                                                <?php endif; ?>
+
+                                                <?php foreach ($slice['wormholes'] as $w) : ?>
+                                                    <?php if ($w == 'alpha') : ?>
+                                                        <abbr class="wormhole" title="<?= $w ?>">&alpha;</abbr>
+                                                    <?php elseif ($w == 'beta') : ?>
+                                                        <abbr class="wormhole" title="<?= $w ?>">&beta;</abbr>
+                                                    <?php elseif ($w == 'alpha-beta') : ?>
+                                                        <abbr class="wormhole" title="alpha">&alpha;</abbr>
+                                                        <abbr class="wormhole" title="beta">&beta;</abbr>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </div>
+
+                                            <p class="resource-count">
+                                                Total:
+                                                <abbr title="resources" class="resources"><?= $slice['total_resources'] ?></abbr>
+                                                <abbr title="influence" class="influence"><?= $slice['total_influence'] ?></abbr>
+                                            </p>
+
+                                            <p class="resource-count">
+                                                Optimal:
+                                                <abbr title="resources" class="resources"><?= $slice['optimal_resources'] ?></abbr>
+                                                <abbr title="influence" class="influence"><?= $slice['optimal_influence'] ?></abbr>
+                                            </p>
+
+                                            <p class="center">
+                                                <button class="draft" data-category="slice" data-value="<?= $slice_id ?>">Draft</button>
+                                                <span class="drafted-by" data-category="slice" data-value="<?= $slice_id ?>"></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+
+
+
+                        <div class="positions draft-options">
+                            <h3>Positions</h3>
+                            <div class="options">
+                                <?php for ($i = 0; $i < count($draft->players()); $i++) : ?>
+                                    <div class="position option" data-position="<?= $i ?>">
+                                        <span>
+                                            <?php if ($i == 0) : ?>
+                                                SPEAKER
+                                            <?php else : ?>
+                                                <?= ordinal($i + 1); ?>
+                                            <?php endif; ?>
+                                        </span>
+
+                                        <button class="draft" data-category="position" data-value="<?= $i ?>">Draft</button>
+                                        <span class="drafted-by" data-category="position" data-value="<?= $i ?>"></span>
+                                    </div>
+                                <?php endfor; ?>
+                            </div>
+                        </div>
+
+                        <script>
+                            window.draft = <?= $draft; ?>;
+                        </script>
+
+                    <?php endif; ?>
                 </div>
             </div>
 
+            <?php $config = $draft->config(); ?>
             <div class="tab" id="regen">
                 <div class="content-wrap">
-                    <?php if(empty($draft->log())): ?>
+                    <?php if (empty($draft->log())) : ?>
                         <p id="regen-options">
                             <label for="shuffle_slices"><input type="checkbox" checked id="shuffle_slices" name="shuffle_slices" /> New Slices</label>
                             <label for="shuffle_factions"><input type="checkbox" checked id="shuffle_factions" name="shuffle_factions" /> New Factions</label>
-                            <label for="shuffle_order"><input type="checkbox" id="shuffle_order" name="shuffle_order" /> New player order</label>
+                            <label for="shuffle_order"><input type="checkbox" id="shuffle_order" name="shuffle_order" /> New <?= (($config->alliance["alliance_teams"] ?? "") == 'random') ? 'teams and ' : '' ?>player order</label>
                             <button id="regenerate" class="btn">Regenerate</button>
                         </p>
                     <?php endif; ?>
@@ -233,79 +233,74 @@
                         <label>Number of Players:</label> <strong><?= count($draft->players()) ?></strong>
                     </p>
                     <p>
-                        <label>Number of Slices:</label> <strong><?= $draft->config()['num_slices'] ?></strong>
+                        <label>Number of Slices:</label> <strong><?= $config->num_slices ?></strong>
                     </p>
                     <p>
-                        <label>Number of Factions:</label> <strong><?= $draft->config()['num_factions'] ?></strong>
+                        <label>Number of Factions:</label> <strong><?= $config->num_factions ?></strong>
                     </p>
                     <p>
-                        <label>Include PoK:</label> <strong><?= e($draft->config()['include_pok'], 'yes', 'no') ?></strong>
+                        <label>Include PoK:</label> <strong><?= e($config->include_pok, 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include DS Tiles:</label> <strong><?= e($draft->config()['include_ds_tiles'], 'yes', 'no') ?></strong>
+                        <label>Include DS Tiles:</label> <strong><?= e($config->include_ds_tiles, 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include Base Game Factions:</label> <strong><?= e($draft->config()['include_base_factions'], 'yes', 'no') ?></strong>
+                        <label>Include Base Game Factions:</label> <strong><?= e($config->include_base_factions, 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include POK Factions:</label> <strong><?= e($draft->config()['include_pok_factions'], 'yes', 'no') ?></strong>
+                        <label>Include POK Factions:</label> <strong><?= e($config->include_pok_factions, 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include Keleres:</label> <strong><?= e($draft->config()['include_keleres'], 'yes', 'no') ?></strong>
+                        <label>Include Keleres:</label> <strong><?= e($config->include_keleres, 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include Discordant Stars:</label> <strong><?= e($draft->config()['include_discordant'], 'yes', 'no') ?></strong>
+                        <label>Include Discordant Stars:</label> <strong><?= e($config->include_discordant, 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include Discordant Stars expansion:</label> <strong><?= e($draft->config()['include_discordantexp'], 'yes', 'no') ?></strong>
+                        <label>Include Discordant Stars expansion:</label> <strong><?= e($config->include_discordantexp, 'yes', 'no') ?></strong>
                     </p>
-                    <?php if(isset($draft->config()['must_include_wormholes_and_legendaries'])): ?>
-                    <p>
-                        <label>Map must include wormholes and Legendary Planets:</label> <strong><?= e($draft->config()['must_include_wormholes_and_legendaries'], 'yes', 'no') ?></strong>
-                    </p>
-                    <?php endif; ?>
-                    <?php if(isset($draft->config()['min_legendaries'])): ?>
+                    <?php if (isset($config->min_legendaries)) : ?>
                         <p>
-                            <label>Minimum wormholes:</label> <strong><?= $draft->config()['min_wormholes'] ?></strong>
+                            <label>Minimum wormholes:</label> <strong><?= $config->min_wormholes ?></strong>
                         </p>
                         <p>
-                            <label>Minimum legendaries:</label> <strong><?= $draft->config()['min_legendaries'] ?></strong>
+                            <label>Minimum legendaries:</label> <strong><?= $config->min_legendaries ?></strong>
                         </p>
                     <?php endif; ?>
                     <p>
-                        <label>Max. 1 wormhole per slice:</label> <strong><?= e(isset($draft->config()['max_1_wormhole']) && $draft->config()['max_1_wormhole'], 'yes', 'no') ?></strong>
+                        <label>Max. 1 wormhole per slice:</label> <strong><?= e(isset($config->max_1_wormhole) && $config->max_1_wormhole, 'yes', 'no') ?></strong>
                     </p>
-                    <hr/>
+                    <hr />
                     <p>
-                        <label>Minimum Optimal Influence:</label> <strong><?= $draft->config()['minimum_optimal_influence'] ?></strong>
+                        <label>Minimum Optimal Influence:</label> <strong><?= $config->minimum_optimal_influence ?></strong>
                     </p>
                     <p>
-                        <label>Minimum Optimal Resources:</label> <strong><?= $draft->config()['minimum_optimal_resources'] ?></strong>
-                    </p>
-
-                    <p>
-                        <label>Minimum Optimal Total:</label> <strong><?= $draft->config()['minimum_optimal_total'] ?></strong>
+                        <label>Minimum Optimal Resources:</label> <strong><?= $config->minimum_optimal_resources ?></strong>
                     </p>
 
                     <p>
-                        <label>Maximum Optimal Total:</label> <strong><?= $draft->config()['maximum_optimal_total'] ?></strong>
+                        <label>Minimum Optimal Total:</label> <strong><?= $config->minimum_optimal_total ?></strong>
+                    </p>
+
+                    <p>
+                        <label>Maximum Optimal Total:</label> <strong><?= $config->maximum_optimal_total ?></strong>
                     </p>
 
                     <p>
                         <label>Custom Factions:</label> <strong>
-                            <?php if($draft->config()['custom_factions'] != null): ?>
-                                <?= implode(', ', $draft->config()['custom_factions']) ?>
-                            <?php else: ?>
+                            <?php if ($config->custom_factions != null) : ?>
+                                <?= implode(', ', $config->custom_factions) ?>
+                            <?php else : ?>
                                 no
                             <?php endif; ?>
                     </p>
                     <p>
                         <label>Custom Slices:</label> <strong>
-                            <?php if($draft->config()['custom_slices'] != null): ?>
-                                <?php foreach($draft->config()['custom_slices'] as $slice): ?>
+                            <?php if ($config->custom_slices != null) : ?>
+                                <?php foreach ($config->custom_slices as $slice) : ?>
                                     <?= implode(',', $slice) ?><br />
                                 <?php endforeach; ?>
-                            <?php else: ?>
+                            <?php else : ?>
                                 no
                             <?php endif; ?>
                         </strong>
@@ -313,11 +308,24 @@
                     <p>
                         <label>Slices Generated:</label>
                         <strong>
-                        <?php foreach($draft->slices() as $slice_id => $slice): ?>
+                            <?php foreach ($draft->slices() as $slice_id => $slice) : ?>
                                 <?= implode(',', $slice['tiles']); ?><br />
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
                         </strong>
                     </p>
+                    <?php if ($config->alliance) : ?>
+                        <hr />
+                        <h3>Alliance Configuration</h3>
+                        <p>
+                            <label>Team Creation:</label> <strong><?= ucfirst($config->alliance["alliance_teams"] ?? "") ?></strong>
+                        </p>
+                        <p>
+                            <label>Force Teammates Position:</label> <strong><?= ucfirst($config->alliance["alliance_teams_position"] ?? "") ?></strong>
+                        </p>
+                        <p>
+                            <label>Force Team Double Picks:</label> <strong><?= e($config->alliance["force_double_picks"], 'Yes', 'No') ?></strong>
+                        </p>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="tab" id="map">
@@ -430,4 +438,5 @@
     <script src="<?= url('js/draft.js?v=' . $_ENV['VERSION']) ?>"></script>
     <script src="<?= url('js/generate-map.js?v=' . $_ENV['VERSION']) ?>"></script>
 </body>
+
 </html>

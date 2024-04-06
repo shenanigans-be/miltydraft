@@ -47,6 +47,85 @@
                     <div class="section">
                         <div class="content-wrap">
                             <div class="header">
+                                <div>
+                                    <h3>Players</h3>
+                                    <button id="enable_alliance_mode" type="button">
+                                        Switch to Alliance Mode
+                                    </button>
+
+                                    <button class="alliance_only" id="disable_alliance_mode" type="button">
+                                        Switch to Regular Mode
+                                    </button>
+                                </div>
+                                <p class="help">
+                                    Choose the number of players and fill in their names. Draft order will be randomised.
+                                </p>
+
+
+                            </div>
+                            <div class="content">
+
+                                <div class="input">
+                                    <label for="num_players">
+                                        Number of players
+                                    </label>
+                                    <input type="number" name="num_players" id="num_players" value="6" min="3" max="8" required />
+
+                                    <p class="error" id="even_player_number_error">
+                                        You must use an equal number of players in alliance mode
+                                    </p>
+
+                                </div>
+
+                                <div class="players_inputs">
+                                    <div class="alliance_team team_a">
+                                        <p class="team_label">Team 1</p>
+                                        <div class="input player">
+                                            <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Amy") ?>" />
+                                        </div>
+                                        <div class="input player">
+                                            <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Ben") ?>" />
+                                        </div>
+                                    </div>
+                                    <div class="alliance_team team_b">
+                                        <p class="team_label">Team 2</p>
+                                        <div class="input player">
+                                            <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Charlie") ?>" />
+                                        </div>
+                                        <div class="input player">
+                                            <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Desmond") ?>" />
+                                        </div>
+                                    </div>
+                                    <div class="alliance_team team_c">
+                                        <p class="team_label">Team 3</p>
+                                        <div class="input player">
+                                            <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Esther") ?>" />
+                                        </div>
+                                        <div class="input player">
+                                            <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Frank") ?>" />
+                                        </div>
+                                    </div>
+                                    <div class="alliance_team team_d">
+                                        <p class="team_label">Team 4</p>
+                                        <div class="input player">
+                                            <input type="text" placeholder="Player Name" name="player[]" />
+                                        </div>
+                                        <div class="input player">
+                                            <input type="text" placeholder="Player Name" name="player[]" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a class="btn small" href="#" id="add-player" title="Add Player">+</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="section">
+                        <div class="content-wrap">
+                            <div class="header">
                                 <h3>Alliance Game Variant</h3>
                                 <p class="help">
                                     <a target="_blank" href="https://twilight-imperium.fandom.com/wiki/Alliance_Game_Variant">What is this?</a>
@@ -56,8 +135,7 @@
                                 <label for="alliance_toggle" class="check">
                                     <input type="checkbox" name="alliance_on" id="alliance_toggle" value="1" /> Enabled
                                 </label>
-                                <div class="alliance_only" style="display:none">
-                                    <br>
+                                <div class="alliance_only alliance_settings">
                                     <h4>Team creation</h4>
                                     <label class="check">
                                         <input type="radio" name="alliance_teams" value="preset" checked />
@@ -96,68 +174,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="section">
-                        <div class="content-wrap">
-                            <div class="header">
-                                <h3>Players</h3>
-                                <p class="help">
-                                    Choose the number of players and fill in their names. Draft order will be randomised.
-                                </p>
-                            </div>
-                            <div class="content">
-                                <div class="input">
-                                    <label for="num_players">
-                                        Number of players
-                                    </label>
-                                    <input type="number" name="num_players" id="num_players" value="6" min="3" max="8" required />
-                                </div>
-
-                                <div class="players_inputs alliance_preset_teams">
-                                    <div class="alliance_team team_A">
-                                        <p class="team_label">Team 1</p>
-                                        <div class="input player">
-                                            <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Amy") ?>" />
-                                        </div>
-                                        <div class="input player">
-                                            <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Ben") ?>" />
-                                        </div>
-                                    </div>
-                                    <div class="alliance_team team_B">
-                                        <p class="team_label">Team 2</p>
-                                        <div class="input player">
-                                            <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Charlie") ?>" />
-                                        </div>
-                                        <div class="input player">
-                                            <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Desmond") ?>" />
-                                        </div>
-                                    </div>
-                                    <div class="alliance_team team_C">
-                                        <p class="team_label">Team 3</p>
-                                        <div class="input player">
-                                            <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Esther") ?>" />
-                                        </div>
-                                        <div class="input player">
-                                            <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Frank") ?>" />
-                                        </div>
-                                    </div>
-                                    <div class="alliance_team team_D">
-                                        <p class="team_label">Team 4</p>
-                                        <div class="input player">
-                                            <input type="text" placeholder="Player Name" name="player[]" />
-                                        </div>
-                                        <div class="input player">
-                                            <input type="text" placeholder="Player Name" name="player[]" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <a class="btn small" href="#" id="add-player" title="Add Player">+</a>
-                            </div>
-                        </div>
-
-
-                    </div>
-
                     <div class="section">
 
                         <div class="content-wrap">

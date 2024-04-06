@@ -107,6 +107,7 @@ class GeneratorConfig
     {
 
         if (count($this->players) > count(array_filter($this->players))) return_error('Some players names are not filled out');
+        if (count(array_unique($this->players)) != count($this->players)) return_error('Players should all have unique names');
         if (!$this->include_pok && $this->num_slices > 5) return_error('Can only draft up to 5 slices without PoK. (And by extension you can only do drafts up to 5 players)');
         if (!$this->include_ds_tiles && $this->num_slices > 9) return_error('Can only draft up to 9 slices without DS+ Tiles.');
         if (count($this->players) < 3) return_error('Please enter at least 3 players');

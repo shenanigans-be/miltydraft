@@ -12,6 +12,10 @@ $color-border-light: rgba(255, 255, 255, 0.3);
 $max-md: '(max-width: 1200px)';
 $max-sm: '(max-width: 768px)';
 $min-xl: '(min-width: 1320px)';
+$color-team-a: #3bd2d7;
+$color-team-b: #ff6537;
+$color-team-c: #4a19a2;
+$color-team-d: #ead23e;
 
 body {
     font-size: 15px;
@@ -82,7 +86,7 @@ label {
         font-size: 14px;
     }
 }
-#error {
+#error, .error {
     color: #FF0000;
     display: none;
     margin-top: 40px;
@@ -879,26 +883,43 @@ strong {
 }
 .players_inputs.alliance_on.alliance_preset_teams{
     .alliance_team{
-        margin-bottom: 3em;
-        padding:10px;
+        margin-bottom: 1em;
+        padding:1em;
+        background-color: rgba(0, 0, 0, 0.05);
+
         .team_label{
-            color:white;
             font-size: 1.2em;
             font-weight:600;
             display: block;
         }
     }
-    .team_A{
-        background-color: #38618f;
+
+    .team_a {
+        border: 2px solid $color-team-a;
+        .team_label {
+            color: $color-team-a;
+        }
     }
-    .team_B{
-        background-color: #960f0f;
+
+    .team_b {
+        border: 2px solid $color-team-b;
+        .team_label {
+            color: $color-team-b;
+        }
     }
-    .team_C{
-        background-color: #007009;
+
+    .team_c {
+        border: 2px solid $color-team-c;
+        .team_label {
+            color: $color-team-c;
+        }
     }
-    .team_D{
-        background-color: #a57d10;
+
+    .team_d {
+        border: 2px solid $color-team-d;
+        .team_label {
+            color: $color-team-d;
+        }
     }
 }
 .players .player{
@@ -906,16 +927,16 @@ strong {
         font-weight:600;
     }
     .team_A{
-        color: #38618f;
+        color: $color-team-a;
     }
     .team_B{
-        color: #960f0f;
+        color: $color-team-b;
     }
     .team_C{
-        color: #007009;
+        color: $color-team-c;
     }
     .team_D{
-        color: #a57d10;
+        color: $color-team-d;
     }
 }
 
@@ -981,4 +1002,11 @@ strong {
         color: $color-background;
         border-color: $color-background;
     }
+}
+
+.alliance_only {
+    display: none;
+}
+.alliance_settings {
+    margin-top: 24px;
 }

@@ -70,7 +70,7 @@ label .help {
   font-size: 14px;
 }
 
-#error {
+#error, .error {
   color: #FF0000;
   display: none;
   margin-top: 40px;
@@ -1322,66 +1322,84 @@ strong {
 }
 
 .players_inputs.alliance_on.alliance_preset_teams .alliance_team {
-  margin-bottom: 3em;
-  padding: 10px;
+  margin-bottom: 1em;
+  padding: 1em;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 .players_inputs.alliance_on.alliance_preset_teams .alliance_team .team_label {
-  color: white;
   font-size: 1.2em;
   font-weight: 600;
   display: block;
 }
-.players_inputs.alliance_on.alliance_preset_teams .team_A {
-  background-color: #38618f;
+.players_inputs.alliance_on.alliance_preset_teams .team_a {
+  border: 2px solid #3bd2d7;
 }
-.players_inputs.alliance_on.alliance_preset_teams .team_B {
-  background-color: #960f0f;
+.players_inputs.alliance_on.alliance_preset_teams .team_a .team_label {
+  color: #3bd2d7;
 }
-.players_inputs.alliance_on.alliance_preset_teams .team_C {
-  background-color: #007009;
+.players_inputs.alliance_on.alliance_preset_teams .team_b {
+  border: 2px solid #ff6537;
 }
-.players_inputs.alliance_on.alliance_preset_teams .team_D {
-  background-color: #a57d10;
+.players_inputs.alliance_on.alliance_preset_teams .team_b .team_label {
+  color: #ff6537;
+}
+.players_inputs.alliance_on.alliance_preset_teams .team_c {
+  border: 2px solid #4a19a2;
+}
+.players_inputs.alliance_on.alliance_preset_teams .team_c .team_label {
+  color: #4a19a2;
+}
+.players_inputs.alliance_on.alliance_preset_teams .team_d {
+  border: 2px solid #ead23e;
+}
+.players_inputs.alliance_on.alliance_preset_teams .team_d .team_label {
+  color: #ead23e;
 }
 
 .players .player .team {
   font-weight: 600;
 }
 .players .player .team_A {
-  color: #38618f;
+  color: #3bd2d7;
 }
 .players .player .team_B {
-  color: #960f0f;
+  color: #ff6537;
 }
 .players .player .team_C {
-  color: #007009;
+  color: #4a19a2;
 }
 .players .player .team_D {
-  color: #a57d10;
+  color: #ead23e;
 }
 
 @media (prefers-color-scheme: dark) {
   .container {
     background-color: #16232c;
   }
+
   p, label, span, a {
     color: #FEFCF8;
   }
+
   input[type=text], input[type=number], textarea {
     background-color: #16232c;
     color: #FEFCF8;
     border-color: #FEFCF8;
   }
+
   h1, h2, h3, h4 {
     color: #38618f;
   }
+
   button, .btn {
     background-color: #38618f;
     color: #FEFCF8;
   }
+
   #regen {
     border-color: #FEFCF8;
   }
+
   #tabs nav {
     border-color: rgba(255, 255, 255, 0.3);
   }
@@ -1393,22 +1411,34 @@ strong {
     border-bottom-color: #16232c;
     background-color: #16232c;
   }
+
   .section {
     border-color: rgba(255, 255, 255, 0.3);
   }
+
   .popup .content {
     background-color: #16232c;
   }
+
   .resources, .influence {
     color: #16232c;
   }
+
   .position span {
     color: #FEFCF8 !important;
   }
+
   #draft .wormhole {
     color: #FEFCF8;
     border-color: #FEFCF8;
   }
+}
+.alliance_only {
+  display: none;
+}
+
+.alliance_settings {
+  margin-top: 24px;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,6 +1,7 @@
 let advanced_open = false;
+let alliance_mode = false;
+
 $(document).ready(function () {
-    init_player_count();
 
     pok_check();
     $('#pok').on('change', pok_check);
@@ -78,35 +79,52 @@ $(document).ready(function () {
 
     });
 
-    $("#alliance_toggle").on('change', function () {
-        var alliance = $(this).is(':checked');
-        if (alliance) {
-            var numPlayers = $("#num_players").val();
-            if (numPlayers % 2 == 1) {
-                $("#num_players").val(parseInt(numPlayers) + 1).trigger('change');
-            }
-            $("#num_players").attr("step", 2).attr("min", 4);
-            $(".alliance_only input").prop("disabled", false);
-            $(".alliance_only").show();
-            $(".players_inputs").addClass("alliance_on");
-        }
-        else {
-            $("#num_players").attr("min", 3).attr("step", 1);
-            $(".alliance_only input").prop("disabled", true);
-            $(".alliance_only").hide();
-            $(".players_inputs").removeClass("alliance_on");
-        }
+    $('#enable_alliance_mode').on('click', function() {
+        $('#alliance_toggle').prop('checked', true);
+        update_alliance_mode();
+    });
+    $('#disable_alliance_mode').on('click', function() {
+        $('#alliance_toggle').prop('checked', false);
+        update_alliance_mode();
     });
 
-    $("input[name='alliance_teams']").on('change', function () {
-        if ($(this).val() == "preset") {
-            $(".players_inputs").addClass("alliance_preset_teams");
-        }
-        else {
-            $(".players_inputs").removeClass("alliance_preset_teams");
-        }
-    });
+    $("#alliance_toggle").on('change', update_alliance_mode);
+
+    $("input[name='alliance_teams']").on('change', update_alliance_teams);
+
+    update_alliance_mode();
+    init_player_count();
 });
+
+function update_alliance_mode() {
+    alliance_mode = $('#alliance_toggle').is(':checked');
+
+    if (alliance_mode) {
+        var numPlayers = $("#num_players").val();
+        if (numPlayers % 2 == 1) {
+            $("#num_players").val(parseInt(numPlayers) + 1).trigger('change');
+        }
+        $("#num_players").attr("step", 2).attr("min", 4);
+        $(".alliance_only input").prop("disabled", false);
+        $(".alliance_only").show();
+        $(".players_inputs").addClass("alliance_on");
+        $('#enable_alliance_mode').hide();
+        update_alliance_teams();
+        init_player_count();
+    }
+    else {
+        $("#num_players").attr("min", 3).attr("step", 1);
+        $(".alliance_only input").prop("disabled", true);
+        $(".alliance_only").hide();
+        $(".players_inputs").removeClass("alliance_on");
+        $('#enable_alliance_mode').show();
+    }
+
+}
+
+function update_alliance_teams() {
+    $(".players_inputs").toggleClass("alliance_preset_teams", $('input[name="alliance_teams"]:checked').val() == "preset");
+}
 
 
 function loading(loading = true) {
@@ -202,12 +220,25 @@ function init_player_count() {
 function update_player_count() {
     $('.player').show();
 
+
     let numPlayers = parseInt($('#num_players').val());
+    $('#even_player_number_error').hide();
+
+    console.log(alliance_mode);
+    if(alliance_mode) {
+        // validate
+        if(numPlayers % 2 != 0) {
+            $('#even_player_number_error').show();
+            $('.alliance_team').hide();
+        } else {
+            $('.alliance_team').show();
+            console.log((Math.ceil(numPlayers / 2) - 1));
+            $('.alliance_team:gt(' + (Math.ceil(numPlayers / 2) - 1) + ')').hide();
+        }
+    }
 
     numPlayers = Math.max(3, Math.min(8, numPlayers));
     $('#num_players').val(numPlayers);
     $('#add-player').toggle(numPlayers < 8);
     $('.player:gt(' + (numPlayers - 1) + ')').hide().find('input').val('');
-    $('.alliance_team').show();
-    $('.alliance_team:gt(' + (((numPlayers) / 2) - 1) + ')').hide();
 }

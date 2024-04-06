@@ -208,12 +208,17 @@ class Draft implements \JsonSerializable
     private function generatePlayerData()
     {
         $player_data = [];
-        shuffle($this->config->players);
-        $player_names = $this->config->players;
 
-        if ($this->config->alliance) {
-            ["playerTeams" => $playerTeams, "player_names" => $player_names] = $this->generateTeams();
+        $alliance_mode =  $this->config->alliance != null;
+
+        if ($alliance_mode) {
+            $playerTeams = $this->generateTeams();
+        } else {
+            shuffle($this->config->players);
         }
+
+
+        $player_names = $this->config->players;
 
         foreach ($player_names as $p) {
             // use admin password and player name to hash an id for the player
@@ -226,7 +231,7 @@ class Draft implements \JsonSerializable
                 'position' => null,
                 'slice' => null,
                 'faction' => null,
-                'team' => $playerTeams[$p] ?? null
+                'team' => $alliance_mode ? $playerTeams[$p] : null
             ];
         }
 
@@ -235,31 +240,48 @@ class Draft implements \JsonSerializable
 
     private function generateTeams(): array
     {
-        $teamsLetters = array_slice(["A", "A", "B", "B", "C", "C", "D", "D"], 0, count($this->config->players));
+        $teamNames = array_slice(['A', 'B', 'C', 'D'], 0, count($this->config->players) / 2);
+
+        if ($this->config->alliance["alliance_teams"] == 'random') {
+            shuffle($this->config->players);
+        }
+
         $teams = [];
+        $currentTeam = [];
+        $i = 0;
+        // put players in teams
+        while(count($teamNames) > 0) {
+            $currentTeam[] = $this->config->players[$i];
+            $i++;
+
+            // if we filled up a team add it to the teams array with an unused name
+            if(count($currentTeam) == 2) {
+                $name = array_shift($teamNames);
+                // randomise order of team
+                shuffle($currentTeam);
+                $teams[$name] = $currentTeam;
+                $currentTeam = [];
+            }
+        }
+
+        // determine team order
+        // + put em in dictionary to map player names to team
         $playerTeams = [];
+        $teamNames = array_keys($teams);
+        shuffle($teamNames);
+        $newPlayerOrder = [];
 
-        $alliance = $this->config->alliance;
-
-        if ($alliance["alliance_teams"] == 'random') {
-            shuffle($teamsLetters);
+        foreach($teamNames as $n) {
+            foreach($teams[$n] as $player) {
+                $newPlayerOrder[] = $player;
+                $playerTeams[$player] = $n;
+            }
         }
 
-        foreach ($this->config->players as $player) {
-            $letter = array_shift($teamsLetters);
-            $playerTeams[$player] = $letter;
-            $teams[$letter][] = $player;
-        }
+        // violates immutability a bit, whoopsie...
+        $this->config->players = $newPlayerOrder;
 
-        shuffle($teams);
-        $player_names = [];
-        foreach ($teams as $team) {
-            shuffle($team);
-            $player_names[] = array_shift($team);
-            $player_names[] = array_shift($team);
-        }
-
-        return ["playerTeams" => $playerTeams, "player_names" => $player_names];
+        return $playerTeams;
     }
 
     public function __toString(): string

@@ -128,7 +128,8 @@
                             <div class="header">
                                 <h3>Alliance Game Variant</h3>
                                 <p class="help">
-                                    <a target="_blank" href="https://twilight-imperium.fandom.com/wiki/Alliance_Game_Variant">What is this?</a>
+                                    The "Alliance" Variant is an Optional play mode that was introduced in Codex II (Affinity)<br />
+                                    <a target="_blank" href="https://twilight-imperium.fandom.com/wiki/Alliance_Game_Variant">Learn more</a>
                                 </p>
                             </div>
                             <div class="content">

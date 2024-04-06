@@ -925,6 +925,8 @@ strong {
 .players .player{
     .team{
         font-weight:600;
+        font-size: 13px;
+        vertical-align: top;
     }
     .team_A{
         color: $color-team-a;

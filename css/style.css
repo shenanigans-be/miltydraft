@@ -1358,6 +1358,8 @@ strong {
 
 .players .player .team {
   font-weight: 600;
+  font-size: 13px;
+  vertical-align: top;
 }
 .players .player .team_A {
   color: #3bd2d7;

@@ -1012,3 +1012,44 @@ strong {
 .alliance_settings {
     margin-top: 24px;
 }
+.print-button{
+    float: right;
+}
+
+@media print {
+    h1, h2, .map-layout-title, .tts-map-string-title, nav, .map-layout-selector, #tts-string, .help, .zoom, .print-button{
+        display: none !important;
+    }
+    .map-container, #tabs{
+        margin: 0px;
+        width:100%;
+        max-width:100%;
+    }
+    .map-container{
+        padding-bottom:100%;
+    }
+    .map{
+        font-size: 8vw;
+    }
+    .map-container[data-p="7"]{
+        margin-top:-100px;
+        margin-bottom: -100px;
+        .map{
+            font-size: 7vw;
+        }
+    }
+    .map-container[data-p="8"]{
+        margin-top:-60px;
+        margin-bottom: -60px;
+        .map{
+            font-size: 6.5vw;
+        }
+    }
+    #tile-gather{
+        margin-bottom: 0;
+    }
+    .container{
+        padding:0;
+        margin:0;
+    }
+}

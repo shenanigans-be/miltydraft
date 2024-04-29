@@ -499,7 +499,7 @@ function draw_tile(tile) {
         }
     }
 
-    if(tilename != 'EMPTY' && tilename != 0) all_tiles.push(tilename);
+    if(tilename != 'EMPTY' && tilename != 0 && !all_tiles.includes(tilename)) all_tiles.push(tilename);
 
     let tile_image =  tilename + '.png';
     if(tile_image.substring(0, 2) != 'DS') tile_image = 'ST_' + tile_image;

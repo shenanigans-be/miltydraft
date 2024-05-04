@@ -1378,30 +1378,24 @@ strong {
   .container {
     background-color: #16232c;
   }
-
   p, label, span, a {
     color: #FEFCF8;
   }
-
   input[type=text], input[type=number], textarea {
     background-color: #16232c;
     color: #FEFCF8;
     border-color: #FEFCF8;
   }
-
   h1, h2, h3, h4 {
     color: #38618f;
   }
-
   button, .btn {
     background-color: #38618f;
     color: #FEFCF8;
   }
-
   #regen {
     border-color: #FEFCF8;
   }
-
   #tabs nav {
     border-color: rgba(255, 255, 255, 0.3);
   }
@@ -1413,23 +1407,18 @@ strong {
     border-bottom-color: #16232c;
     background-color: #16232c;
   }
-
   .section {
     border-color: rgba(255, 255, 255, 0.3);
   }
-
   .popup .content {
     background-color: #16232c;
   }
-
   .resources, .influence {
     color: #16232c;
   }
-
   .position span {
     color: #FEFCF8 !important;
   }
-
   #draft .wormhole {
     color: #FEFCF8;
     border-color: #FEFCF8;
@@ -1441,6 +1430,48 @@ strong {
 
 .alliance_settings {
   margin-top: 24px;
+}
+
+.print-button {
+  float: right;
+}
+
+@media print {
+  h1, h2, .map-layout-title, .tts-map-string-title, nav, .map-layout-selector, #tts-string, .help, .zoom, .print-button {
+    display: none !important;
+  }
+  .map-container, #tabs {
+    margin: 0px;
+    width: 100%;
+    max-width: 100%;
+  }
+  .map-container {
+    padding-bottom: 100%;
+  }
+  .map {
+    font-size: 8vw;
+  }
+  .map-container[data-p="7"] {
+    margin-top: -100px;
+    margin-bottom: -100px;
+  }
+  .map-container[data-p="7"] .map {
+    font-size: 7vw;
+  }
+  .map-container[data-p="8"] {
+    margin-top: -60px;
+    margin-bottom: -60px;
+  }
+  .map-container[data-p="8"] .map {
+    font-size: 6.5vw;
+  }
+  #tile-gather {
+    margin-bottom: 0;
+  }
+  .container {
+    padding: 0;
+    margin: 0;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

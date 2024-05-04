@@ -71,7 +71,7 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                             <p>It's <span id="current-name">x's</span> turn to draft something. <span id="admin-msg">You are the admin so you can do this for them.</span></p>
                         </div>
                         <div class="status" id="done">
-                            <p>This draft is over. <a class="view-map" href="#">View map</a></p>
+                            <p>This draft is over. <a class="view-map" href="#map">View map</a></p>
                         </div>
 
                         <?php if (empty($draft->log())) : ?>
@@ -330,7 +330,8 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
             </div>
             <div class="tab" id="map">
                 <div class="content-wrap">
-                    <p>
+                    <button class="print-button" onClick="window.print()">Print</button>
+                    <p class="map-layout-selector">
                         Select map layout:
                         <select id="change-mapview">
                             <option value="hyperlane">Hyperlanes (default)</option>
@@ -340,7 +341,7 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
 
 
                     <div class="mapview current" id="mapview-hyperlane">
-                        <h3>Hyperlane Map</h3>
+                        <h3 class="map-layout-title">Hyperlane Map</h3>
                         <div class="map-container">
                             <div class="map-offset">
                                 <div id="map-wrap" class="map">
@@ -351,7 +352,7 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                     </div>
 
                     <div class="mapview" id="mapview-slices">
-                        <h3>Slices</h3>
+                        <h3 class="map-layout-title">Slices</h3>
                         <div class="slice-container">
                             <p>Slices are shown in speaker order</p>
 
@@ -361,7 +362,7 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
 
                     <h3>Tiles</h3>
                     <p id="tile-gather"></p>
-                    <h3>TTS Map String*</h3>
+                    <h3 class="tts-map-string-title">TTS Map String*</h3>
                     <p id="tts-string"></p>
                     <span class="help">*This feature is in development and hasn't been rigorously tested, so some maps might give odd results. If you find something wrong, please <a href="https://twitter.com/samtubbax" target="_blank">reach out</a> and let me know!</span>
                 </div>

@@ -58,7 +58,7 @@
                                     </button>
                                 </div>
                                 <p class="help">
-                                    Choose the number of players and fill in their names. Draft order will be randomised.
+                                    Choose the number of players and fill in their names. Draft order will be randomised unless otherwise specified.
                                 </p>
 
 
@@ -74,6 +74,10 @@
                                     <p class="error" id="even_player_number_error">
                                         You must use an equal number of players in alliance mode
                                     </p>
+
+                                    <label for="random_draft_order" class="check">
+                                        <input type="checkbox" name="random_draft_order" id="random_draft_order" checked /> Randomize Draft Order
+                                    </label>
 
                                 </div>
 

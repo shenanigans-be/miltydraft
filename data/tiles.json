@@ -2412,7 +2412,7 @@
     
     "4260": {
         "type": "red",
-        "wormhole": "alpha-beta",    
+        "wormhole": null,    
         "anomaly": "supernova",
         "planets": []
         }    

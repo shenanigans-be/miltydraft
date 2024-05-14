@@ -15,6 +15,7 @@ class GeneratorConfig
     public $include_keleres;
     public $include_discordant;
     public $include_discordantexp;
+    public $preset_draft_order;
 
     public $min_wormholes;
     public $min_legendaries;
@@ -51,6 +52,7 @@ class GeneratorConfig
             $this->include_keleres = get('include_keleres') == true;
             $this->include_discordant = get('include_discordant') == true;
             $this->include_discordantexp = get('include_discordantexp') == true;
+            $this->preset_draft_order = get('preset_draft_order', false) == true;
 
             $this->max_1_wormhole = get('max_wormhole') == true;
             $this->min_wormholes = (get('wormholes') == true) ? 2 : 0;

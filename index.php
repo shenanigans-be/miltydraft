@@ -58,7 +58,7 @@
                                     </button>
                                 </div>
                                 <p class="help">
-                                    Choose the number of players and fill in their names. Draft order will be randomised unless otherwise specified.
+                                    Choose the number of players and fill in their names. Draft order will be randomised unless otherwise specified (in the advanced settings below).
                                 </p>
 
 
@@ -74,11 +74,6 @@
                                     <p class="error" id="even_player_number_error">
                                         You must use an equal number of players in alliance mode
                                     </p>
-
-                                    <label for="random_draft_order" class="check">
-                                        <input type="checkbox" name="random_draft_order" id="random_draft_order" checked /> Randomize Draft Order
-                                    </label>
-
                                 </div>
 
                                 <div class="players_inputs">
@@ -314,11 +309,20 @@
                                     <h3>Advanced Settings</h3>
                                     <a href="#" class="btn" id="more">Show</a>
                                 </div>
-                                <span class="help">This is where the Slice-generation and faction selection magic happens.</span>
+                                <span class="help">Take a peek under the hood.</span>
                             </div>
 
 
                             <div class="content" id="advanced">
+
+                                <h4>Draft Order</h4>
+                                <div class="input">
+
+                                    <label for="random_draft_order" class="check">
+                                        <input type="checkbox" name="preset_draft_order" id="preset_draft_order" /> Use specified player order (don't randomise)
+                                    </label>
+                                </div>
+                                <h4>Slice generation</h4>
                                 <p>
                                     The “Optimal Value” of a planet is calculated by using the higher of its resource value and influence value as that value, and the other value as zero.
                                     If both of the planet’s resource value and influence value are equal, half that value is used for both of its optimal values.
@@ -369,9 +373,9 @@
                                     </span>
                                 </div>
 
+                                <h4>Custom Factions</h4>
                                 <div class="input">
                                     <label>
-                                        Custom Factions<br />
 
                                         <span class="help">
                                             You can pre-select the factions that will be considered in the draft.<br /><br />

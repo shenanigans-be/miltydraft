@@ -233,7 +233,7 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                         <label>Number of Players:</label> <strong><?= count($draft->players()) ?></strong>
                     </p>
                     <p>
-                        <label>Randomize Draft Order:</label> <strong><<?= e($config->random_draft_order, 'yes', 'no') ?></strong>
+                        <label>Use preset Draft Order:</label> <strong><?= e($config->preset_draft_order == true, 'yes', 'no') ?></strong>
                     </p>
                     <p>
                         <label>Number of Slices:</label> <strong><?= $config->num_slices ?></strong>

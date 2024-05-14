@@ -213,7 +213,7 @@ class Draft implements \JsonSerializable
 
         if ($alliance_mode) {
             $playerTeams = $this->generateTeams();
-        } else {
+        } elseif ($this->config->random_draft_order) {
             shuffle($this->config->players);
         }
 

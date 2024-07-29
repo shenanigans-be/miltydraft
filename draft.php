@@ -56,6 +56,7 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                         <a href="#map">Map</a>
                         <a href="#log">Log</a>
                         <a href="#config">Config</a>
+                        <a href="#session">Session</a>
                     </div>
                     <div class="right">
                         <a href="#faq">FAQ</a>
@@ -378,6 +379,35 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                     <button class="undo-last-action">Undo last action</button>
                 </div>
             </div>
+            <div class="tab" id="session">
+                <div class="content-wrap">
+                  <div id="current-session">
+                      <h3>Session</h3>
+                      <p>Make sure to save your passkey so you can restore your session if it is lost (e.g., cleared cache). The passkey is also useful if you want to draft on another device.</p>
+                      <p id="current-session-admin">
+                          <label>Admin Passkey:</label><strong />
+                      </p>
+                      <p id="current-session-player">
+                          <label>Passkey:</label><strong />
+                      </p>
+                      <br>
+                  </div>
+                  <div>
+                      <h3>Restore Session</h3>
+                      <form id="secret-form" action="restore.php" method="post">
+                          <div class="secret_input_section">
+                              <p class="secret_label">Restore a session to be able to draft in this device.</p>
+                              <div class="input secret">
+                                  <input type="text" placeholder="Passkey" name="secret" />
+                              </div>
+                          </div>
+                          <p>
+                              <button type="submit" id="submit">Restore</button>
+                          </p>
+                      </form>
+                  </div>
+                </div>
+            </div>
             <?php require_once 'faq.php'; ?>
         </div>
     </div>
@@ -434,8 +464,9 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
             "pick": "<?= url('pick.php') ?>",
             "regenerate": "<?= url('generate.php') ?>",
             "tile_images": "<?= url('img/tiles') ?>",
-            "data": "<?= get_draft_url($draft->getId(), true) ?>",
-            "undo": "<?= url('undo.php') ?>"
+            "data": "<?= url('data.php') ?>",
+            "undo": "<?= url('undo.php') ?>",
+            "restore": "<?= url('restore.php') ?>"
         }
     </script>
     <script src="<?= url('js/vendor.js?v=' . $_ENV['VERSION']) ?>"></script>

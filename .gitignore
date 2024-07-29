@@ -4,3 +4,5 @@ composer.lock
 draft_*.json
 .beam
 clean.php
+.idea
+.DS_Store

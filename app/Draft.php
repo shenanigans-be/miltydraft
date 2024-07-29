@@ -10,7 +10,7 @@ class Draft implements \JsonSerializable
 
     private function __construct(
         private string $id,
-        private string $admin_pass,
+        private array $secrets,
         private array $draft,
         private array $slices,
         private array $factions,
@@ -29,18 +29,33 @@ class Draft implements \JsonSerializable
     public static function createFromConfig(GeneratorConfig $config)
     {
         $id = uniqid();
-        $admin_password = uniqid();
+        $secrets = array("admin_pass" => md5(uniqid("", true)));
         $slices = Generator::slices($config);
         $factions = Generator::factions($config);
 
         $name = $config->name;
 
-        return new self($id, $admin_password, [], $slices, $factions, $config, $name);
+        return new self($id, $secrets, [], $slices, $factions, $config, $name);
     }
 
     public static function getCurrentInstance(): self
     {
         return self::$instance;
+    }
+
+    private static function getS3Client()
+    {
+        $s3 = new \Aws\S3\S3Client([
+            'version' => 'latest',
+            'region'  => 'us-east-1',
+            'endpoint' => 'https://' . $_ENV['REGION'] . '.digitaloceanspaces.com',
+            'credentials' => [
+                'key'    => $_ENV['ACCESS_KEY'],
+                'secret' => $_ENV['ACCESS_SECRET'],
+            ],
+        ]);
+
+        return $s3;
     }
 
     public static function load($id): self
@@ -49,8 +64,23 @@ class Draft implements \JsonSerializable
             throw new \Exception('Tried to load draft with no id');
         }
 
-        $draft = json_decode(file_get_contents(get_draft_url($id)), true);
-        return new self($id, $draft["admin_pass"], $draft["draft"], $draft["slices"], $draft["factions"], GeneratorConfig::fromArray($draft["config"]), $draft["name"]);
+        if ($_ENV['STORAGE'] == 'local') {
+            $rawDraft = file_get_contents($_ENV['STORAGE_PATH'] . '/' . 'draft_' . $id . '.json');
+        } else {
+            $s3 = self::getS3Client();
+            $file = $s3->getObject([
+                'Bucket' => $_ENV['BUCKET'],
+                'Key'    => 'draft_' . $id . '.json',
+            ]);
+
+            $rawDraft = (string) $file['Body'];
+        }
+
+        $draft = json_decode($rawDraft, true);
+
+        $secrets = $draft["secrets"] ?: array("admin_pass" => $draft["admin_pass"]);
+
+        return new self($id, $secrets, $draft["draft"], $draft["slices"], $draft["factions"], GeneratorConfig::fromArray($draft["config"]), $draft["name"]);
     }
 
     public function getId(): string
@@ -60,12 +90,27 @@ class Draft implements \JsonSerializable
 
     public function getAdminPass(): string
     {
-        return $this->admin_pass;
+        return $this->secrets["admin_pass"];
     }
 
     public function isAdminPass(?string $pass): bool
     {
-        return ($pass ?: "") === $this->admin_pass;
+        return ($pass ?: "") === $this->getAdminPass();
+    }
+
+    public function getPlayerSecret($playerId = ""): string
+    {
+        return $this->secrets[$playerId] ?: "";
+    }
+
+    public function isPlayerSecret($playerId, $secret): bool
+    {
+        return ($secret ?: "") === $this->getPlayerSecret($playerId);
+    }
+
+    public function getPlayerIdBySecret($secret): string
+    {
+        return array_search($secret ?: "", $this->secrets);
     }
 
     public function name(): string
@@ -137,28 +182,26 @@ class Draft implements \JsonSerializable
         $this->save();
     }
 
-    public function claim($player): self
+    public function claim($player)
     {
         if ($this->draft['players'][$player]["claimed"] == true) {
             return_error('Already claimed');
         }
         $this->draft['players'][$player]["claimed"] = true;
+        $this->secrets[$player] = md5(uniqid("", true));
 
-        $this->save();
-
-        return $this;
+        return $this->save();
     }
 
-    public function unclaim($player): self
+    public function unclaim($player)
     {
         if ($this->draft['players'][$player]["claimed"] == false) {
             return_error('Already unclaimed');
         }
         $this->draft['players'][$player]["claimed"] = false;
+        unset($this->secrets[$player]);
 
-        $this->save();
-
-        return $this;
+        return $this->save();
     }
 
     public function save()
@@ -166,22 +209,13 @@ class Draft implements \JsonSerializable
         if ($_ENV['STORAGE'] == 'local') {
             file_put_contents($_ENV['STORAGE_PATH'] . '/' . 'draft_' . $this->getId() . '.json', (string) $this);
         } else {
-            $s3 = new \Aws\S3\S3Client([
-                'version' => 'latest',
-                'region'  => 'us-east-1',
-                'endpoint' => 'https://' . $_ENV['REGION'] . '.digitaloceanspaces.com',
-                'credentials' => [
-                    'key'    => $_ENV['ACCESS_KEY'],
-                    'secret' => $_ENV['ACCESS_SECRET'],
-                ],
-            ]);
-
+            $s3 = $this->getS3Client();
 
             $result = $s3->putObject([
                 'Bucket' => $_ENV['BUCKET'],
                 'Key'    => 'draft_' . $this->getId() . '.json',
                 'Body'   => (string) $this,
-                'ACL'    => 'public-read'
+                'ACL'    => 'private'
             ]);
 
             return $result;
@@ -224,7 +258,7 @@ class Draft implements \JsonSerializable
 
         foreach ($player_names as $p) {
             // use admin password and player name to hash an id for the player
-            $id = 'p_' . md5($p . $this->admin_pass);
+            $id = 'p_' . md5($p . $this->getAdminPass());
 
             $player_data[$id] = [
                 'id' => $id,
@@ -298,6 +332,9 @@ class Draft implements \JsonSerializable
 
     public function jsonSerialize(): array
     {
-        return $this->toArray();
+        $draft = $this->toArray();
+        unset($draft["secrets"]);
+        unset($draft["admin_pass"]);
+        return $draft;
     }
 }

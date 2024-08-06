@@ -241,9 +241,12 @@ function who_am_i() {
 
     window.IS_ADMIN = (admin_id == draft.admin_pass);
 
-    if (IS_ADMIN) $('#admin-msg').show();
-
-    $('.unclaim').hide();
+    if (IS_ADMIN) {
+        $('#admin-msg').show();
+        $('.unclaim').show();
+    } else {
+        $('.unclaim').hide();
+    }
 
     // Check for faulty local storage
     if (player_id && draft.draft.players[player_id].claimed == false) {

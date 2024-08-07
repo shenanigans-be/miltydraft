@@ -37,7 +37,7 @@ class Slice
                     $this->specialties[] = $planet->specialty;
                 }
                 if ($planet->legendary) {
-                    $this->legendaries[] = $planet->legendary_ability;
+                    $this->legendaries[] = $planet->legendary;
                 }
             }
         }

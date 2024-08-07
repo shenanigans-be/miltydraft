@@ -24,9 +24,6 @@ class Planet
         $this->trait = isset($json_data["trait"]) ? $json_data['trait'] : null;
         $this->specialty = $json_data["specialty"];
 
-        if ($this->legendary) {
-            $this->legendary_ability = $json_data["legendary_ability"];
-        }
 
         // pre-calculate the optimals
         if ($this->influence > $this->resources) {

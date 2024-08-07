@@ -140,13 +140,13 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
 
                                             <div class="info">
                                                 <?php foreach ($slice['specialties'] as $s) : ?>
-                                                    <img class="tech-specialty" src="<?= url('img/tech/' . $s . '.webp') ?>" alt="<?= $s ?>" />
+                                                    <img class="tech-specialty" title="<?= $s ?>" src="<?= url('img/tech/' . $s . '.webp') ?>" alt="<?= $s ?>" />
                                                 <?php endforeach; ?>
 
 
-                                                <?php if (isset($slice['has_legendaries']) && $slice['has_legendaries']) : ?>
-                                                    <abbr class="legendary" title="Contains legendary planet"><img src="<?= url('img/legendary.webp') ?>"></abbr>
-                                                <?php endif; ?>
+                                                <?php foreach ($slice['legendaries'] as $l) : ?>
+                                                    <abbr class="legendary" title="<?= $l ?>"><img src="<?= url('img/legendary.webp') ?>"></abbr>
+                                                <?php endforeach; ?>
 
                                                 <?php foreach ($slice['wormholes'] as $w) : ?>
                                                     <?php if ($w == 'alpha') : ?>

@@ -13,6 +13,7 @@ class Slice
     public $total_optimal = 0;
     public $wormholes = [];
     public $specialties = [];
+    public $legendaries = [];
 
     /**
      * Slice constructor.
@@ -35,6 +36,9 @@ class Slice
                 if ($planet->specialty != null) {
                     $this->specialties[] = $planet->specialty;
                 }
+                if ($planet->legendary) {
+                    $this->legendaries[] = $planet->legendary_ability;
+                }
             }
         }
 
@@ -48,6 +52,7 @@ class Slice
             'specialties' => $this->specialties,
             'wormholes' => $this->wormholes,
             'has_legendaries' => Tile::countSpecials($this->tiles)['legendary'] > 0,
+            'legendaries' => $this->legendaries,
             'total_influence' => $this->total_influcence,
             'total_resources' => $this->total_resources,
             'optimal_influence' => $this->optimal_influence,

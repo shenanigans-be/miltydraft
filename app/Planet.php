@@ -8,6 +8,7 @@ class Planet
     public $influence;
     public $resources;
     public $legendary;
+    public $legendary_ability;
     public $trait;
     public $specialty;
     public $optimal_total;
@@ -22,6 +23,10 @@ class Planet
         $this->legendary = $json_data['legendary'];
         $this->trait = isset($json_data["trait"]) ? $json_data['trait'] : null;
         $this->specialty = $json_data["specialty"];
+
+        if ($this->legendary) {
+            $this->legendary_ability = $json_data["legendary_ability"];
+        }
 
         // pre-calculate the optimals
         if ($this->influence > $this->resources) {

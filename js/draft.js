@@ -521,6 +521,7 @@ function session_status() {
     }
 
     if (secret) {
+        $('#popup-passkey').html(resp.secret);
         $('#current-session-player').show();
         $('#current-session-player').find('strong').text(secret);
     } else {

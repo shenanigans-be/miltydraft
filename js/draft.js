@@ -9,6 +9,13 @@ $(document).ready(function () {
         if ($(this).attr('href') == '#map') {
             generate_map();
         }
+
+        if ($(this).attr('href') == '#session') {
+            session_status();
+            $('#secret-form').on('submit', restoreSession);
+        } else {
+            $('#secret-form').off('click');
+        }
     });
 
     $('.open-reference').on('click', function (e) {
@@ -52,6 +59,7 @@ $(document).ready(function () {
             'id': draft.id,
             'index': draft.draft.log.length,
             'player': (IS_ADMIN) ? draft.draft.current : me.id,
+            'secret': localStorage.getItem('secret_' + draft.id),
             'category': $(this).data('category'),
             'value': $(this).data('value')
         };
@@ -193,6 +201,7 @@ $(document).ready(function () {
                     } else {
                         window.draft = resp.draft;
                         localStorage.setItem('draft_' + draft.id, resp.player);
+                        localStorage.setItem('secret_' + draft.id, resp.secret);
                         refresh();
                     }
 
@@ -209,7 +218,8 @@ $(document).ready(function () {
                 dataType: 'json',
                 data: {
                     'draft': draft.id,
-                    'player': $(this).data('id'),
+                    'player': localStorage.getItem('draft_' + draft.id),
+                    'secret': localStorage.getItem('secret_' + draft.id),
                     'unclaim': 1
                 },
                 success: function (resp) {
@@ -220,6 +230,7 @@ $(document).ready(function () {
                     } else {
                         window.draft = resp.draft;
                         localStorage.removeItem('draft_' + draft.id);
+                        localStorage.removeItem('secret_' + draft.id);
                         refresh();
                     }
                 }
@@ -232,6 +243,7 @@ function refresh() {
     window.map_cached = false;
     who_am_i();
     draft_status();
+    session_status();
     loading(false);
 }
 
@@ -239,7 +251,7 @@ function who_am_i() {
     var player_id = localStorage.getItem('draft_' + draft.id);
     var admin_id = localStorage.getItem('admin_' + draft.id);
 
-    window.IS_ADMIN = (admin_id == draft.admin_pass);
+    window.IS_ADMIN = !!admin_id;
 
     if (IS_ADMIN) $('#admin-msg').show();
 
@@ -248,6 +260,7 @@ function who_am_i() {
     // Check for faulty local storage
     if (player_id && draft.draft.players[player_id].claimed == false) {
         localStorage.removeItem('draft_' + draft.id);
+        localStorage.removeItem('secret_' + draft.id);
         player_id = null;
     }
 
@@ -290,14 +303,59 @@ function refreshData() {
 
     $.ajax({
         type: "GET",
-        url: window.routes.data + '?cachebuster=' + new Date().getTime(),
+        url: window.routes.data,
         dataType: 'json',
+        data: {
+            'draft': draft.id,
+        },
         success: function (resp) {
-            window.draft = resp;
-            refresh();
-            // if we're looking at the map, regen it
-            if (window.location.hash == '#map') {
-                generate_map();
+            if (resp.error) {
+                $('#error-message').html(resp.error);
+                $('#error-popup').show();
+                loading(false);
+            } else {
+                window.draft = resp.draft;
+                refresh();
+
+                // if we're looking at the map, regen it
+                if (window.location.hash == '#map') {
+                    generate_map();
+                }
+            }
+        }
+    })
+}
+
+function restoreSession(e) {
+    e.preventDefault();
+    loading(true);
+    let $inputEl = $(this).find('input');
+    let secret = $inputEl.val();
+
+    if (!secret) return;
+
+    $.ajax({
+        type: "POST",
+        url: window.routes.restore,
+        dataType: 'json',
+        data: {
+            'draft': draft.id,
+            'secret': secret,
+        },
+        success: function (resp) {
+            if (resp.error) {
+                $('#error-message').html(resp.error);
+                $('#error-popup').show();
+                loading(false);
+            } else {
+                if (resp.admin) {
+                    localStorage.setItem('admin_' + draft.id, resp.admin);
+                } else {
+                    localStorage.setItem('draft_' + draft.id, resp.player);
+                    localStorage.setItem('secret_' + draft.id, resp.secret);
+                }
+                $inputEl.val('');
+                refresh();
             }
         }
     })
@@ -424,6 +482,32 @@ function draft_status() {
             $('button.draft[data-category="slice"]').hide();
         }
     }
+}
+
+function session_status() {
+    const admin = localStorage.getItem('admin_' + draft.id);
+    const secret = localStorage.getItem('secret_' + draft.id);
+
+    if (!admin && !secret) {
+        $('#current-session').hide();
+        return;
+    }
+
+    $('#current-session').show();
+    if (admin) {
+        $('#current-session-admin').show();
+        $('#current-session-admin').find('strong').text(admin);
+    } else {
+        $('#current-session-admin').hide();
+    }
+
+    if (secret) {
+        $('#current-session-player').show();
+        $('#current-session-player').find('strong').text(secret);
+    } else {
+        $('#current-session-player').hide();
+    }
+
 }
 
 function hide_regen() {

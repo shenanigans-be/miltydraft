@@ -32,15 +32,6 @@ function url($uri)
     return $_ENV['URL'] . $uri;
 }
 
-function get_draft_url($id, $absolute = false)
-{
-    if ($_ENV['STORAGE'] == 'local') {
-        return (($absolute) ? $_ENV['URL'] : '') . $_ENV['STORAGE_PATH'] . '/draft_' . $id . '.json';
-    } else {
-        return 'https://' . $_ENV['BUCKET'] . '.' . $_ENV['REGION'] . '.digitaloceanspaces.com/draft_' . $id . '.json';
-    }
-}
-
 function return_error($err)
 {
     die(json_encode(['error' => $err]));

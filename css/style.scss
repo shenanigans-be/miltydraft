@@ -683,6 +683,9 @@ h4 {
         left: 50%;
         transform: translate(-50%, -50%);
     }
+    &.open {
+        display: block;
+    }
 }
 #reference-popup img {
     position: absolute;
@@ -698,7 +701,7 @@ h4 {
     right: 40px;
     z-index: 999;
 }
-#loading {
+.overlay {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -708,9 +711,18 @@ h4 {
     font-family: 'Staatliches', sans-serif;
     text-transform: uppercase;
     display: none;
-
+}
+#loading {
     svg {
         width: 100px;
+    }
+}
+.popup .content  {
+    .close-popup {
+        position: absolute;
+        top: -10px;
+        right: 0;
+        transform: translate(0%, -100%);
     }
 }
 .map-container {
@@ -761,6 +773,9 @@ h4 {
     &.current {
         display: block;
     }
+}
+#passkey-is-admin {
+    display: none;
 }
 .map {
 

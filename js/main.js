@@ -71,7 +71,7 @@ $(document).ready(function () {
             } else {
                 localStorage.setItem('admin_' + data.id, data.admin);
 
-                window.location.href = "d/" + data.id;
+                window.location.href = "d/" + data.id + '?fresh=1';
             }
             // alert("Success: " + r.responseText);
         };

@@ -18,6 +18,11 @@ $(document).ready(function () {
         }
     });
 
+
+    $('.close-popup').on('click', function(e) {
+        $(this).parents('.popup').removeClass('open');
+    })
+
     $('.open-reference').on('click', function (e) {
         e.preventDefault();
 
@@ -117,7 +122,6 @@ $(document).ready(function () {
         $('#error-popup').hide();
     })
 
-
     if (window.draft) {
         who_am_i();
         draft_status();
@@ -125,6 +129,15 @@ $(document).ready(function () {
         if (!IS_ADMIN) {
             hide_regen();
         } else {
+
+            // if it's the first time we're opening this draft as the admin, show the passkey popup
+            if(localStorage.getItem('admin_popup_' + draft.id) == null) {
+
+                session_status();
+                $('#session-popup').addClass('open');
+                localStorage.setItem('admin_popup_' + draft.id, true);
+            }
+
             $('#regenerate').on('click', function () {
                 if (!$('#shuffle_factions').is(':checked') && !$('#shuffle_slices').is(':checked') && !$('#shuffle_order').is(':checked')) {
                     return;
@@ -199,8 +212,11 @@ $(document).ready(function () {
                         $('#error-popup').show();
                         loading(false);
                     } else {
+                        $('#session-popup #user').show();
                         window.draft = resp.draft;
                         localStorage.setItem('draft_' + draft.id, resp.player);
+                        $('#session-popup').addClass('open');
+                        $('#popup-passkey').html(resp.secret);
                         localStorage.setItem('secret_' + draft.id, resp.secret);
                         refresh();
                     }
@@ -485,6 +501,7 @@ function draft_status() {
 }
 
 function session_status() {
+    console.log('sess')
     const admin = localStorage.getItem('admin_' + draft.id);
     const secret = localStorage.getItem('secret_' + draft.id);
 
@@ -495,6 +512,8 @@ function session_status() {
 
     $('#current-session').show();
     if (admin) {
+        $('#session-popup #admin').show();
+        $('#session-popup #admin #popup-admin-passkey').text(admin);
         $('#current-session-admin').show();
         $('#current-session-admin').find('strong').text(admin);
     } else {
@@ -505,6 +524,7 @@ function session_status() {
         $('#current-session-player').show();
         $('#current-session-player').find('strong').text(secret);
     } else {
+        $('#session-popup #user').hide();
         $('#current-session-player').hide();
     }
 

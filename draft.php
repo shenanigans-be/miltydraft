@@ -297,6 +297,7 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                             <?php else : ?>
                                 no
                             <?php endif; ?>
+                        </strong>
                     </p>
                     <p>
                         <label>Custom Slices:</label> <strong>
@@ -385,10 +386,10 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                       <h3>Session</h3>
                       <p>Make sure to save your passkey so you can restore your session if it is lost (e.g., cleared cache). The passkey is also useful if you want to draft on another device.</p>
                       <p id="current-session-admin">
-                          <label>Admin Passkey:</label><strong />
+                          <label>Admin Passkey:</label><strong></strong>
                       </p>
                       <p id="current-session-player">
-                          <label>Passkey:</label><strong />
+                          <label>Passkey:</label><strong></strong>
                       </p>
                       <br>
                   </div>
@@ -444,7 +445,7 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
     </div>
 
 
-    <div id="loading">
+    <div class="overlay" id="loading">
         Loading. Please wait.<br />
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;display:block;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
             <circle cx="50" cy="50" r="0" fill="none" stroke="#fefcf8" stroke-width="2">
@@ -456,6 +457,15 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                 <animate attributeName="opacity" repeatCount="indefinite" dur="1s" values="1;0" keyTimes="0;1" keySplines="0.2 0 0.8 1" calcMode="spline" begin="-0.5s"></animate>
             </circle>
         </svg>
+    </div>
+
+    <div class="popup" id="session-popup">
+        <div class="content">
+            <a class="btn invert close-popup">&times;</a>
+            <p id="admin">Your admin passkey is <strong id="popup-admin-passkey">SOME PASSKEY</strong></p>
+            <p id="user">Your passkey is <strong id="popup-passkey">SOME PASSKEY</strong></p>
+            <p>Write this down somewhere. You can read more about passkeys in the SESSION tab</p>
+        </div>
     </div>
 
     <script>

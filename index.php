@@ -415,7 +415,7 @@
         </div>
     </div>
 
-    <div id="loading">
+    <div class="overlay" id="loading">
         Loading. Please wait.<br />
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;display:block;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
             <circle cx="50" cy="50" r="0" fill="none" stroke="#fefcf8" stroke-width="2">

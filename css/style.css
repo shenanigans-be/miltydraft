@@ -1451,6 +1451,10 @@ strong {
   float: right;
 }
 
+#session-popup #admin {
+  display: none;
+}
+
 @media print {
   h1, h2, .map-layout-title, .tts-map-string-title, nav, .map-layout-selector, #tts-string, .help, .zoom, .print-button {
     display: none !important;

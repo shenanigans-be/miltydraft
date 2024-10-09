@@ -7,8 +7,7 @@ $unclaim = get('unclaim') == 1;
 $playerId = get('player');
 
 if ($unclaim) {
-    // Not enforcing this here yet because it would break for older drafts
-    // if (!$draft->isPlayerSecret(playerId, get('secret'))) return_error('You are not allowed to do this!');
+    if (!$draft->isPlayerSecret($playerId, get('secret')) && !$draft->isAdminPass(get('admin'))) return_error('You are not allowed to do this!');
     $result = $draft->unclaim($playerId);
 } else {
     $result = $draft->claim($playerId);

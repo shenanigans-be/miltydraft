@@ -234,8 +234,9 @@ $(document).ready(function () {
                 dataType: 'json',
                 data: {
                     'draft': draft.id,
-                    'player': localStorage.getItem('draft_' + draft.id),
+                    'player': $(this).data('id'),
                     'secret': localStorage.getItem('secret_' + draft.id),
+                    'admin': localStorage.getItem('admin_' + draft.id),
                     'unclaim': 1
                 },
                 success: function (resp) {
@@ -298,6 +299,15 @@ function who_am_i() {
             window.me = p;
             $('.you[data-id="' + me.id + '"]').show();
             $('.unclaim[data-id="' + me.id + '"]').show();
+        }
+    }
+
+    if (IS_ADMIN) {
+        for (p_id in draft.draft.players) {
+            let p = draft.draft.players[p_id];
+            if (p.claimed) {
+                $('.unclaim[data-id="' + p_id + '"]').show();
+            }
         }
     }
 }

@@ -425,7 +425,7 @@ function generate_map() {
     $('.map-container').attr('data-p', draft.config.players.length)
     $('#map-wrap').html(map);
     $('#mapslices-wrap').html(slices_html);
-    $('#tile-gather').html(all_tiles.sort(function(a, b) {
+    $('#tile-gather').html(all_tiles.sort().sort(function(a, b) {
         if(isNaN(a)) a = a.toString().substr(0, a.length - 1);
         if(isNaN(b)) b = b.toString().substr(0, b.length - 1);
 

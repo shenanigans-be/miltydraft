@@ -2,7 +2,6 @@
 
 use App\Draft;
 use App\GeneratorConfig;
-require_once 'boot.php';
 
 if (get('regen') != null) {
     $draft = Draft::load(get('regen'));

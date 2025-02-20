@@ -1,7 +1,5 @@
 <?php
 
-require_once 'boot.php';
-
 $factions = json_decode(file_get_contents('data/factions.json'), true);
 
 foreach ($factions as $f) {

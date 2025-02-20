@@ -1,7 +1,5 @@
 <?php
 
-require_once 'boot.php';
-
 $draft = \App\Draft::load(get('draft'));
 $unclaim = get('unclaim') == 1;
 $playerId = get('player');

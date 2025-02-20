@@ -511,7 +511,6 @@ function draft_status() {
 }
 
 function session_status() {
-    console.log('sess')
     const admin = localStorage.getItem('admin_' + draft.id);
     const secret = localStorage.getItem('secret_' + draft.id);
 

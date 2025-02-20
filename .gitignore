@@ -6,3 +6,4 @@ draft_*.json
 clean.php
 .idea
 .DS_Store
+supervisord.*

@@ -1,12 +1,6 @@
 <?php
 
-require_once 'boot.php';
-
-if (!isset($_GET['id'])) {
-    $draft = null;
-} else {
-    $draft = \App\Draft::load($_GET['id']);
-}
+$draft = \App\Draft::load(DRAFT_ID);
 
 $faction_data = json_decode(file_get_contents('data/factions.json'), true);
 ?>
@@ -411,7 +405,7 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                   </div>
                 </div>
             </div>
-            <?php require_once 'faq.php'; ?>
+            <?php require_once 'templates/faq.php'; ?>
         </div>
     </div>
 
@@ -472,13 +466,13 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
 
     <script>
         window.routes = {
-            "claim": "<?= url('claim.php') ?>",
-            "pick": "<?= url('pick.php') ?>",
-            "regenerate": "<?= url('generate.php') ?>",
+            "claim": "<?= url('api/claim') ?>",
+            "pick": "<?= url('api/pick') ?>",
+            "regenerate": "<?= url('api/generate') ?>",
             "tile_images": "<?= url('img/tiles') ?>",
-            "data": "<?= url('data.php') ?>",
-            "undo": "<?= url('undo.php') ?>",
-            "restore": "<?= url('restore.php') ?>"
+            "data": "<?= url('api/data') ?>",
+            "undo": "<?= url('api/undo') ?>",
+            "restore": "<?= url('api/restore') ?>"
         }
     </script>
     <script src="<?= url('js/vendor.js?v=' . $_ENV['VERSION']) ?>"></script>

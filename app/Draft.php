@@ -3,6 +3,8 @@
 
 namespace App;
 
+use Aws\S3\Exception\S3Exception;
+
 class Draft implements \JsonSerializable
 {
     private static self $instance;
@@ -64,23 +66,35 @@ class Draft implements \JsonSerializable
             throw new \Exception('Tried to load draft with no id');
         }
 
-        if ($_ENV['STORAGE'] == 'local') {
-            $rawDraft = file_get_contents($_ENV['STORAGE_PATH'] . '/' . 'draft_' . $id . '.json');
-        } else {
-            $s3 = self::getS3Client();
-            $file = $s3->getObject([
-                'Bucket' => $_ENV['BUCKET'],
-                'Key'    => 'draft_' . $id . '.json',
-            ]);
+        try {
+            if ($_ENV['STORAGE'] == 'local') {
 
-            $rawDraft = (string) $file['Body'];
+                $path = $_ENV['STORAGE_PATH'] . '/' . 'draft_' . $id . '.json';
+
+                if(!file_exists($path)) {
+                  throw new \Exception('Draft not found');
+                }
+
+                $rawDraft = file_get_contents($_ENV['STORAGE_PATH'] . '/' . 'draft_' . $id . '.json');
+            } else {
+                $s3 = self::getS3Client();
+                $file = $s3->getObject([
+                    'Bucket' => $_ENV['BUCKET'],
+                    'Key'    => 'draft_' . $id . '.json',
+                ]);
+
+                $rawDraft = (string) $file['Body'];
+            }
+
+            $draft = json_decode($rawDraft, true);
+
+            $secrets = $draft["secrets"] ?: array("admin_pass" => $draft["admin_pass"]);
+
+            return new self($id, $secrets, $draft["draft"], $draft["slices"], $draft["factions"], GeneratorConfig::fromArray($draft["config"]), $draft["name"]);
+        } catch (S3Exception $e) {
+            abort(404, 'Draft not found');
         }
 
-        $draft = json_decode($rawDraft, true);
-
-        $secrets = $draft["secrets"] ?: array("admin_pass" => $draft["admin_pass"]);
-
-        return new self($id, $secrets, $draft["draft"], $draft["slices"], $draft["factions"], GeneratorConfig::fromArray($draft["config"]), $draft["name"]);
     }
 
     public function getId(): string

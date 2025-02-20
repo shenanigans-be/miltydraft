@@ -1,7 +1,5 @@
 <?php
 
-require_once 'boot.php';
-
 $id = get('id');
 $index = get('index');
 $player = get('player');

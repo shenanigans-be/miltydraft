@@ -7,10 +7,12 @@ function d($var)
     echo '</pre>';
 }
 
-function dd($var)
+function dd(...$variables)
 {
     echo '<pre>';
-    var_dump($var);
+    foreach($variables as $var) {
+        var_dump($var);
+    }
     die('</pre>');
 }
 
@@ -50,4 +52,18 @@ function ordinal($number)
         return $number . 'th';
     else
         return $number . $ends[$number % 10];
+}
+
+function abort($code, $message = null) {
+    http_response_code($code);
+    switch($code) {
+        case 404:
+            die($message ?? 'Not found');
+        default:
+            if(!$_ENV['DEBUG']) {
+                die('Something went wrong');
+            } else {
+                die($message ?? 'Something went wrong');
+            }
+    }
 }

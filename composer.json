@@ -1,9 +1,9 @@
 {
     "require": {
         "vlucas/phpdotenv": "^5.4",
-        "aws/aws-sdk-php": "^3.238"
+        "aws/aws-sdk-php": "^3.339",
+        "ext-json": "*"
     },
-
     "autoload": {
         "psr-4": {
             "App\\": "app/"

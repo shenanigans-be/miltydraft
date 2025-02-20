@@ -1,0 +1,28 @@
+:80 {
+    log {
+    output stdout
+    }
+
+    header {
+    X-Frame-Options DENY
+    Referrer-Policy no-referrer-when-downgrade
+    Access-Control-Allow-Origin *
+    }
+
+    @options method OPTIONS
+    respond @options 204
+
+    @svg {
+    file
+    path *.svg
+    }
+
+    header @svg Content-Security-Policy "script-src 'none'"
+
+    php_fastcgi localhost:9000 # Adjust to your setup
+    file_server
+    encode zstd gzip
+    root * /code
+
+    tls internal
+}

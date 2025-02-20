@@ -1,7 +1,5 @@
 <?php
 
-require_once 'boot.php';
-
 $draft = \App\Draft::load(get('draft'));
 
 $is_admin = $draft->isAdminPass(get('admin'));

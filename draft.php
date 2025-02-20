@@ -157,6 +157,8 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                                                     <?php elseif ($w == 'alpha-beta') : ?>
                                                         <abbr class="wormhole" title="alpha">&alpha;</abbr>
                                                         <abbr class="wormhole" title="beta">&beta;</abbr>
+                                                    <?php elseif ($w == "gamma") : ?>
+                                                        <abbr class="wormhole" title="<?= $w ?>">&gamma;</abbr>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
                                             </div>

@@ -2066,7 +2066,7 @@
             ]
         },
 
-    "4237": {
+    "4253": {
         "type": "blue",
         "wormhole": null,
         "planets": [{
@@ -2079,7 +2079,7 @@
                 }]
         },
 
-    "4238": {
+    "4254": {
         "type": "blue",
         "wormhole": null,
         "planets": [{
@@ -2092,7 +2092,7 @@
                 }]
         },
 
-    "4239": {
+    "4255": {
         "type": "blue",
         "wormhole": null,
         "planets": [{
@@ -2105,7 +2105,7 @@
                 }]
         },
 
-    "4240": {
+    "4256": {
         "type": "blue",
         "wormhole": null,
         "planets": [{
@@ -2118,7 +2118,7 @@
                 }]
         },
 
-    "4241": {
+    "4257": {
         "type": "blue",
         "wormhole": null,
         "planets": [{
@@ -2131,7 +2131,7 @@
                 }]
         },
 
-    "4242": {
+    "4258": {
         "type": "blue",
         "wormhole": null,
         "planets": [{
@@ -2144,7 +2144,7 @@
                 }]
         },
 
-    "4243": {
+    "4259": {
         "type": "blue",
         "wormhole": null,
         "planets": [{
@@ -2157,7 +2157,7 @@
                 }]
         },
 
-    "4244": {
+    "4260": {
         "type": "blue",
         "wormhole": "alpha",
         "planets": [{
@@ -2170,7 +2170,7 @@
                 }]
         },
 
-    "4245": {
+    "4261": {
         "type": "blue",
         "wormhole": null,
         "planets": [{
@@ -2191,7 +2191,7 @@
                 }]
         },
 
-    "4246": {
+    "4262": {
         "type": "blue",
         "wormhole": null,
         "planets": [{
@@ -2212,7 +2212,7 @@
                 }]
         },
 
-    "4247": {
+    "4263": {
         "type": "blue",
         "wormhole": null,
         "planets": [{
@@ -2233,7 +2233,7 @@
                 }]
         },
 
-    "4248": {
+    "4264": {
         "type": "blue",
         "wormhole": null,
         "planets": [{
@@ -2254,7 +2254,7 @@
                 }]
         },
 
-    "4249": {
+    "4265": {
         "type": "blue",
         "wormhole": null,
         "planets": [
@@ -2276,7 +2276,7 @@
                 }]
         },
 
-    "4250": {
+    "4266": {
         "type": "blue",
         "wormhole": null,
         "planets": [{
@@ -2297,7 +2297,7 @@
                 }]
         },
 
-    "4251": {
+    "4267": {
         "type": "blue",
         "wormhole": null,
         "planets": [{
@@ -2326,7 +2326,7 @@
                 }]
         },
 
-    "4252": {
+    "4268": {
         "type": "blue",
         "wormhole": null,
         "planets": [{
@@ -2355,7 +2355,7 @@
                 }]
         },
 
-    "4253": {
+    "4269": {
         "type": "red",
         "wormhole": null,
         "planets": [{
@@ -2370,47 +2370,47 @@
 
         },
 
-    "4254": {
+    "4270": {
         "type": "red",
         "wormhole": null,
         "planets": []
         },
 
-    "4255": {
+    "4271": {
         "type": "red",
         "wormhole": null,
         "planets": []
         },
 
-    "4256": {
+    "4272": {
         "type": "red",
         "wormhole": "beta",
         "anomaly": "nebula",
         "planets": []
         },
 
-    "4257": {
+    "4273": {
         "type": "red",
         "wormhole": null,
         "anomaly": "asteroid-nebula",
         "planets": []
         },
 
-    "4258": {
+    "4274": {
         "type": "red",
         "wormhole": null,
         "anomaly": "asteroid-rift",
         "planets": []
         },
 
-    "4259": {
+    "4275": {
         "type": "red",
         "wormhole": "gamma",
         "anomaly": "gravity rift",
         "planets": []
         },
 
-    "4260": {
+    "4276": {
         "type": "red",
         "wormhole": null,  
         "anomaly": "supernova",

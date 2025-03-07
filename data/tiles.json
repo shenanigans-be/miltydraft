@@ -2114,7 +2114,7 @@
                 "influence": 3,
                 "trait": "industrial",
                 "specialty": null,
-                "legendary": "ACTION: Exhaust this card to replace 1 of your non-faction non-unit upgrade technologies with another technology from your technology deck with the same number of prerequisites."
+                "legendary": "You may exhaust this card at the end of your turn and purge a non-faction, non-unit upgrade technology you own to gain 1 technology with the same number of prerequisites."
                 }]
         },
 
@@ -2412,7 +2412,7 @@
 
     "4276": {
         "type": "red",
-        "wormhole": null,  
+        "wormhole": null,
         "anomaly": "supernova",
         "planets": []
         }

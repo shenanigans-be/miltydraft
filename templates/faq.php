@@ -103,8 +103,7 @@
         <p>
             First of all: rude.<br />
             Second: Yes, there are a lot of problems with this, and stuff I haven't implemented, sure.<br />
-            The code is on <a href="https://github.com/shenanigans-be/miltydraft" target="_blank">Github</a> if you want to report an issue or even contribute!<br />
-            If you'd like to reach out to me directly, you can do so on <a href="https://twitter.com/samtubbax" target="_blank">Twitter</a> or <a href="https://www.reddit.com/user/notcleverenough" target="_blank">Reddit</a>.
+            The code is on <a href="https://github.com/shenanigans-be/miltydraft" target="_blank">Github</a> if you want to report an issue or even contribute!.
         </p>
 
         <h4>Oh no, I did something wrong! How do I fix it?</h4>

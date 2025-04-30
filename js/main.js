@@ -138,7 +138,7 @@ function loading(loading = true) {
 function pok_check() {
     let $pokf = $('#pokf');
     let $keleres = $('#keleres');
-    let $legendary_options = $('.legendary-option');
+    let $legendaries = $('#min_legendaries');
     let $DSTiles = $('#DSTiles');
     let $discordant = $('#discordant');
     let $discordantexp = $('#discordantexp');
@@ -152,8 +152,9 @@ function pok_check() {
         $keleres.prop('disabled', false);
         $keleres.parent().removeClass('disabled');
 
-        $legendary_options.prop('disabled', false);
-        $legendary_options.parent().removeClass('disabled');
+
+        $legendaries.prop('disabled', false);
+        $legendaries.parent().removeClass('disabled');
 
         $DSTiles.prop('disabled', false);
         $DSTiles.parent().removeClass('disabled');
@@ -174,9 +175,9 @@ function pok_check() {
             .prop('disabled', true);
         $keleres.parent().addClass('disabled');
 
-        $legendary_options.prop('checked', false)
+        $legendaries.val(0)
             .prop('disabled', true);
-        $legendary_options.parent().addClass('disabled');
+        $legendaries.parent().addClass('disabled');
 
         $discordant.prop('checked', false)
             .prop('disabled', true);

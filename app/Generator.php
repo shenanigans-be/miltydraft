@@ -113,8 +113,8 @@ class Generator
     {
         $selection_valid = false;
 
-        if ($previous_tries > 1000) {
-            return_error("No valid selection");
+        if ($previous_tries > 2000) {
+            return_error("Max. number of tries exceeded: no valid tile selection found");
         }
 
         shuffle($tiles['high']);

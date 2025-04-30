@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TI4 - Milty Draft</title>
-    <link rel="stylesheet" href="<?= url('css/style.css?v=' . $_ENV['VERSION']) ?>">
+    <link rel="stylesheet" href="<?= url('css/style.css?v=' . ($_ENV['DEBUG'] ? time() : $_ENV['VERSION'])) ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300&family=Staatliches&display=swap" rel="stylesheet">
@@ -258,8 +258,8 @@
                                 <input type="text" placeholder="Game Name" maxlength="100" name="game_name" id="game_name" />
 
                                 <span class="help">
-                                        Optional. To help you remember which draft is which, because after two or three drafts that gets confusing. If you leave this blank it will generate something random like "Operation Glorious Drama".
-                                    </span>
+                                    Optional. To help you remember which draft is which, because after two or three drafts that gets confusing. If you leave this blank it will generate something random like "Operation Glorious Drama".
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -267,7 +267,7 @@
                 <div class="section">
                     <div class="content-wrap">
                         <div class="header">
-                            <h3>Map Generation</h3>
+                            <h3>Slice Generation</h3>
                         </div>
                         <div class="content">
                             <h4>Wormholes</h4>
@@ -284,17 +284,12 @@
                             </div>
                             <h4>Legendaries</h4>
                             <div class="input">
-                                <label for="legendary_0" class="check">
-                                    <input type="radio" name="legendary" value="0" id="legendary_0" checked /> Include any amount (including none) of legendary planets
+                                <label for="min_legendaries">
+                                    Minimum amount of legendary planets
                                 </label>
-                                <label for="legendary_1" class="check">
-                                    <input class="legendary-option" type="radio" name="legendary" value="1" id="legendary_1" /> Include at least 1 legendary planets
-                                </label>
-                                <label for="legendary_2" class="check">
-                                    <input class="legendary-option" type="radio" name="legendary" value="2" id="legendary_2" /> Include both legendary planets
-                                </label>
+                                <input type="text" value="0" placeholder="Minimum amount of legendary planets" max="7" name="min_legendaries" id="min_legendaries" />
 
-                                <span class="help">The legendaries, in case you were wondering, are Primor and Hope's end.</span>
+                                <span class="help">PoK includes <a target="_blank" href="https://twilight-imperium.fandom.com/wiki/Planets_and_Systems#Legendary_Planets">2 draftable legendary planets</a> (and 2 more that are spawned by player action). <br /> Discordant Stars has <a href="https://twilight-imperium.fandom.com/wiki/Uncharted_Space_Expansion_(UNOFFICIAL)#Legendary_Planets" target="_blank">5 more</a></span>
                             </div>
                         </div>
                     </div>

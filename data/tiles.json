@@ -2412,8 +2412,8 @@
 
     "4276": {
         "type": "red",
-        "wormhole": null,
+        "wormhole": "alpha-beta",
         "anomaly": "supernova",
         "planets": []
-        }
+    }
 }

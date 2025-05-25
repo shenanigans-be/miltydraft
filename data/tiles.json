@@ -2354,21 +2354,19 @@
                 "legendary": false
                 }]
         },
-
     "4269": {
         "type": "red",
         "wormhole": null,
+        "anomaly": "nebula",
         "planets": [{
-                "name": "Domna",
-                "resources": 2,
-                "influence": 1,
-                "trait": "hazardous",
-                "specialty": null,
-                "legendary": "You may exhaust this card at the end of your turn to remove 1 of your ships from the game board and place that unit in an adjacent system that does not contain another player’s ships.",
-                "anomaly": "nebula"
-                }]
-
-        },
+            "name": "Domna",
+            "resources": 2,
+            "influence": 1,
+            "trait": "hazardous",
+            "specialty": null,
+            "legendary": "You may exhaust this card at the end of your turn to remove 1 of your ships from the game board and place that unit in an adjacent system that does not contain another player’s ships."
+        }]
+    },
 
     "4270": {
         "type": "red",

@@ -2,14 +2,11 @@
 
 namespace App;
 
-class Planet
+class Station
 {
     public $name;
     public $influence;
     public $resources;
-    public $legendary;
-    public $trait;
-    public $specialties;
     public $optimal_total;
     public $optimal_resources;
     public $optimal_influence;
@@ -19,11 +16,8 @@ class Planet
         $this->name = $json_data['name'];
         $this->influence = $json_data['influence'];
         $this->resources = $json_data['resources'];
-        $this->legendary = $json_data['legendary'];
-        $this->trait = isset($json_data["trait"]) ? $json_data['trait'] : null;
-        $this->specialties = $json_data["specialties"];
 
-        // pre-calculate the optimals
+        // pre-calculate the optimals (same logic as planets)
         if ($this->influence > $this->resources) {
             $this->optimal_influence = $this->influence;
             $this->optimal_resources = 0;

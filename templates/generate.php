@@ -221,6 +221,14 @@
                                         Include the new tiles from the Unofficial Discordant Stars Plus expansion.
                                     </span>
                             </div>
+                            <div class="input">
+                                <label for="include_te_tiles" class="check">
+                                    <input type="checkbox" name="include_te_tiles" id="include_te_tiles" /> Use Thunders Edge tiles
+                                </label>
+                                <span class="help">
+                                        Include the new tiles from the Thunders Edge expansion.
+                                    </span>
+                            </div>
 
                             <h4>Draftable Factions:</h4>
                             <div class="input">
@@ -248,6 +256,12 @@
                                 </label>
                                 <span class="help">
                                         Ten additional factions were added to Discordant Stars as an expansion: Bentor, Nokar, Gledge, Lanefir, Kyro, Ghoti, Kolume, Cheiran, Kjalengard, and Edyn.
+                                    </span>
+                                <label for="te_factions" class="check">
+                                    <input type="checkbox" name="include_te_factions" class="draft-faction" data-num="5" data-set="te" id="te_factions" /> Include Thunders Edge
+                                </label>
+                                <span class="help">
+                                        Include the 5 new factions from the Thunders Edge expansion.
                                     </span>
                             </div>
 

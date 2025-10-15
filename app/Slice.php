@@ -33,8 +33,8 @@ class Slice
             if ($tile->wormhole != null) $this->wormholes[] = $tile->wormhole;
 
             foreach ($tile->planets as $planet) {
-                if ($planet->specialty != null) {
-                    $this->specialties[] = $planet->specialty;
+                foreach ($planet->specialties as $spec) {
+                    $this->specialties[] = $spec;
                 }
                 if ($planet->legendary) {
                     $this->legendaries[] = $planet->legendary;

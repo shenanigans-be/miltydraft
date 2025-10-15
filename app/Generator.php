@@ -183,6 +183,14 @@ class Generator
             }
         }
 
+        if ($config->include_te_tiles) {
+            foreach ($tile_tiers['TETiers'] as $tier => $tiles) {
+                foreach ($tiles as $tile_id) {
+                    $all_tiles[$tier][] = $tile_data[$tile_id];
+                }
+            }
+        }
+
         return $all_tiles;
     }
 
@@ -250,6 +258,9 @@ class Generator
                 $factions[] = $faction;
             }
             if ($data["set"] == "discordantexp" && $config->include_discordantexp) {
+                $factions[] = $faction;
+            }
+            if ($data["set"] == "te" && $config->include_te_factions) {
                 $factions[] = $faction;
             }
         }

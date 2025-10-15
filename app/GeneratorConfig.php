@@ -10,11 +10,13 @@ class GeneratorConfig
     public $num_factions;
     public $include_pok;
     public $include_ds_tiles;
+    public $include_te_tiles;
     public $include_base_factions;
     public $include_pok_factions;
     public $include_keleres;
     public $include_discordant;
     public $include_discordantexp;
+    public $include_te_factions;
     public $preset_draft_order;
 
     public $min_wormholes;
@@ -47,11 +49,13 @@ class GeneratorConfig
             $this->num_factions = (int) get('num_factions');
             $this->include_pok = get('include_pok') == true;
             $this->include_ds_tiles = get('include_ds_tiles') == true;
+            $this->include_te_tiles = get('include_te_tiles') == true;
             $this->include_base_factions = get('include_base_factions') == true;
             $this->include_pok_factions = get('include_pok_factions') == true;
             $this->include_keleres = get('include_keleres') == true;
             $this->include_discordant = get('include_discordant') == true;
             $this->include_discordantexp = get('include_discordantexp') == true;
+            $this->include_te_factions = get('include_te_factions') == true;
             $this->preset_draft_order = get('preset_draft_order', false) == true;
 
             $this->max_1_wormhole = get('max_wormhole') == true;
@@ -121,7 +125,7 @@ class GeneratorConfig
         if ($this->min_legendaries > 7) return_error('Cannot include more than 7 legendaries');
         if ($this->min_legendaries > $this->num_slices) return_error('Cannot include more legendaries than slices');
         // Must include at least 1 of base, pok, discordant, or discordant expansion to have enough factions to use
-        if (!($this->include_base_factions || $this->include_pok_factions || $this->include_discordant || $this->include_discordantexp)) return_error("Not enough factions selected.");
+        if (!($this->include_base_factions || $this->include_pok_factions || $this->include_discordant || $this->include_discordantexp || $this->include_te_factions)) return_error("Not enough factions selected.");
         // if($this->custom_factions != null && count($this->custom_factions) < count($this->players)) return_error("Not enough custom factions for number of players");
         if ($this->custom_slices != null) {
             if (count($this->custom_slices) < count($this->players)) return_error("Not enough custom slices for number of players");

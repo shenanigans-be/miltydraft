@@ -11,6 +11,10 @@ class Tile
      * @var Planet[]
      */
     public $planets;
+    /**
+     * @var Station[]
+     */
+    public $stations;
     public $wormhole;
     public $anomaly;
     public $hyperlanes;
@@ -36,6 +40,19 @@ class Tile
             $this->optimal_influence += $planet->optimal_influence;
             $this->optimal_resources += $planet->optimal_resources;
             $this->planets[] = $planet;
+        }
+
+        // Process stations if they exist
+        $this->stations = [];
+        if (isset($json_data['stations'])) {
+            foreach ($json_data['stations'] as $s) {
+                $station = new Station($s);
+                $this->total_influence += $station->influence;
+                $this->total_resources += $station->resources;
+                $this->optimal_influence += $station->optimal_influence;
+                $this->optimal_resources += $station->optimal_resources;
+                $this->stations[] = $station;
+            }
         }
 
         $this->optimal_total = $this->optimal_resources + $this->optimal_influence;

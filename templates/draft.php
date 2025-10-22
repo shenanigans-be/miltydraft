@@ -310,6 +310,9 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                         </strong>
                     </p>
                     <p>
+                        <label>Seed:</label> <strong><?= $config->seed ?></strong>
+                    </p>
+                    <p>
                         <label>Slices Generated:</label>
                         <strong>
                             <?php foreach ($draft->slices() as $slice_id => $slice) : ?>

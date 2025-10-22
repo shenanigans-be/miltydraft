@@ -4,10 +4,17 @@ namespace App;
 
 class Generator
 {
+    private const SEED_OFFSET_SLICES = 0;
+    private const SEED_OFFSET_FACTIONS = 1;
+
     public static function slices($config, $previous_tries = 0)
     {
         if ($previous_tries > 100) {
             return_error("Selection contains no valid slices. This happens occasionally to valid configurations but it probably means that the parameters are impossible.");
+        }
+
+        if ($config->seed !== null) {
+            mt_srand($config->seed + self::SEED_OFFSET_SLICES + $previous_tries);
         }
 
         // Gather Tiles
@@ -67,6 +74,10 @@ class Generator
             return false;
         }
 
+        if ($config->seed !== null && $previous_tries > 0) {
+            mt_srand($config->seed + self::SEED_OFFSET_SLICES + $previous_tries);
+        }
+
         // reshuffle
         shuffle($tiles["high"]);
         shuffle($tiles["mid"]);
@@ -115,6 +126,10 @@ class Generator
 
         if ($previous_tries > 2000) {
             return_error("Max. number of tries exceeded: no valid tile selection found");
+        }
+
+        if ($config->seed !== null && $previous_tries > 0) {
+            mt_srand($config->seed + self::SEED_OFFSET_SLICES + $previous_tries);
         }
 
         shuffle($tiles['high']);
@@ -205,6 +220,10 @@ class Generator
      */
     public static function factions($config)
     {
+
+        if ($config->seed !== null) {
+            mt_srand($config->seed + self::SEED_OFFSET_FACTIONS);
+        }
 
         $possible_factions = self::filtered_factions($config);
 

@@ -381,6 +381,18 @@
                                     </span>
                             </div>
 
+                            <h4>Seed</h4>
+                            <div class="input">
+                                <label for="seed">
+                                    Random Seed (optional)
+                                </label>
+
+                                <input type="number" id="seed" name="seed" placeholder="Leave empty for random" />
+                                <span class="help">
+                                    Set an explicit seed for reproducible draft generation. If left empty, a random seed will be automatically generated. The seed will be displayed after generation, allowing any draft to be reproduced exactly.
+                                </span>
+                            </div>
+
                             <h4>Custom Factions</h4>
                             <div class="input">
                                 <label>

@@ -7,6 +7,8 @@ use Aws\S3\Exception\S3Exception;
 
 class Draft implements \JsonSerializable
 {
+    private const SEED_OFFSET_PLAYER_ORDER = 2;
+
     private static self $instance;
     private bool $done;
 
@@ -238,6 +240,11 @@ class Draft implements \JsonSerializable
 
     public function regenerate(bool $regen_slices, bool $regen_factions, bool $regen_order): void
     {
+        if ($this->config->seed !== null) {
+            mt_srand($this->config->seed);
+            $this->config->seed = mt_rand(1, GeneratorConfig::MAX_SEED_VALUE);
+        }
+
         if ($regen_factions) {
             $this->factions = Generator::factions($this->config);
         }
@@ -258,6 +265,10 @@ class Draft implements \JsonSerializable
         $player_data = [];
 
         $alliance_mode =  $this->config->alliance != null;
+
+        if ($this->config->seed !== null) {
+            mt_srand($this->config->seed + self::SEED_OFFSET_PLAYER_ORDER);
+        }
 
         if ($alliance_mode) {
             $playerTeams = $this->generateTeams();

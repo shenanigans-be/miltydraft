@@ -4,6 +4,10 @@ namespace App;
 
 class GeneratorConfig
 {
+    // Maximum value for random seed generation (2^50)
+    // Limited by JavaScript's Number.MAX_SAFE_INTEGER (2^53 - 1) for JSON compatibility
+    public const MAX_SEED_VALUE = 1125899906842624;
+
     public $players = [];
     public $name;
     public $num_slices;
@@ -32,6 +36,7 @@ class GeneratorConfig
     public $custom_slices = null;
 
     public ?array $alliance = null;
+    public ?int $seed = null;
 
     function __construct($get_values_from_request)
     {
@@ -92,6 +97,13 @@ class GeneratorConfig
                 $this->alliance["force_double_picks"] = get('force_double_picks') == 'true';
             }
 
+            $seed_input = get('seed', '');
+            if ($seed_input !== '' && $seed_input !== null) {
+                $this->seed = (int) $seed_input;
+            } else {
+                $this->seed = mt_rand(1, self::MAX_SEED_VALUE);
+            }
+
             $this->validate();
         }
     }
@@ -124,6 +136,7 @@ class GeneratorConfig
         if (!$this->include_ds_tiles && $this->min_legendaries > 2) return_error('Cannot include more than 2 legendaries without DS tiles');
         if ($this->min_legendaries > 7) return_error('Cannot include more than 7 legendaries');
         if ($this->min_legendaries > $this->num_slices) return_error('Cannot include more legendaries than slices');
+        if ($this->seed !== null && ($this->seed < 1 || $this->seed > self::MAX_SEED_VALUE)) return_error('Seed must be between 1 and ' . self::MAX_SEED_VALUE);
         // Must include at least 1 of base, pok, discordant, or discordant expansion to have enough factions to use
         if (!($this->include_base_factions || $this->include_pok_factions || $this->include_discordant || $this->include_discordantexp || $this->include_te_factions)) return_error("Not enough factions selected.");
         // if($this->custom_factions != null && count($this->custom_factions) < count($this->players)) return_error("Not enough custom factions for number of players");

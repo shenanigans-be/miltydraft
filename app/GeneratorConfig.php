@@ -10,11 +10,13 @@ class GeneratorConfig
     public $num_factions;
     public $include_pok;
     public $include_ds_tiles;
+    public $include_te_tiles;
     public $include_base_factions;
     public $include_pok_factions;
     public $include_keleres;
     public $include_discordant;
     public $include_discordantexp;
+    public $include_te_factions;
     public $preset_draft_order;
 
     public $min_wormholes;
@@ -47,16 +49,18 @@ class GeneratorConfig
             $this->num_factions = (int) get('num_factions');
             $this->include_pok = get('include_pok') == true;
             $this->include_ds_tiles = get('include_ds_tiles') == true;
+            $this->include_te_tiles = get('include_te_tiles') == true;
             $this->include_base_factions = get('include_base_factions') == true;
             $this->include_pok_factions = get('include_pok_factions') == true;
             $this->include_keleres = get('include_keleres') == true;
             $this->include_discordant = get('include_discordant') == true;
             $this->include_discordantexp = get('include_discordantexp') == true;
+            $this->include_te_factions = get('include_te_factions') == true;
             $this->preset_draft_order = get('preset_draft_order', false) == true;
 
             $this->max_1_wormhole = get('max_wormhole') == true;
             $this->min_wormholes = (get('wormholes') == true) ? 2 : 0;
-            $this->min_legendaries = (int) get('legendary');
+            $this->min_legendaries = (int) get('min_legendaries');
 
             $this->minimum_optimal_influence = (float) get('min_inf');
             $this->minimum_optimal_resources = (float) get('min_res');
@@ -116,8 +120,12 @@ class GeneratorConfig
         if ($this->num_factions < count($this->players)) return_error("Can't have less factions than players");
         if ($this->num_slices < count($this->players)) return_error("Can't have less slices than players");
         if ($this->maximum_optimal_total < $this->minimum_optimal_total) return_error("Maximum optimal can't be less than minimum");
+        if (!$this->include_pok && $this->min_legendaries > 0) return_error('Cannot include legendaries without POK');
+        if (!$this->include_ds_tiles && $this->min_legendaries > 2) return_error('Cannot include more than 2 legendaries without DS tiles');
+        if ($this->min_legendaries > 7) return_error('Cannot include more than 7 legendaries');
+        if ($this->min_legendaries > $this->num_slices) return_error('Cannot include more legendaries than slices');
         // Must include at least 1 of base, pok, discordant, or discordant expansion to have enough factions to use
-        if (!($this->include_base_factions || $this->include_pok_factions || $this->include_discordant || $this->include_discordantexp)) return_error("Not enough factions selected.");
+        if (!($this->include_base_factions || $this->include_pok_factions || $this->include_discordant || $this->include_discordantexp || $this->include_te_factions)) return_error("Not enough factions selected.");
         // if($this->custom_factions != null && count($this->custom_factions) < count($this->players)) return_error("Not enough custom factions for number of players");
         if ($this->custom_slices != null) {
             if (count($this->custom_slices) < count($this->players)) return_error("Not enough custom slices for number of players");

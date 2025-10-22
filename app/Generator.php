@@ -113,8 +113,8 @@ class Generator
     {
         $selection_valid = false;
 
-        if ($previous_tries > 1000) {
-            return_error("No valid selection");
+        if ($previous_tries > 2000) {
+            return_error("Max. number of tries exceeded: no valid tile selection found");
         }
 
         shuffle($tiles['high']);
@@ -177,6 +177,14 @@ class Generator
 
         if ($config->include_ds_tiles) {
             foreach ($tile_tiers['DSTiers'] as $tier => $tiles) {
+                foreach ($tiles as $tile_id) {
+                    $all_tiles[$tier][] = $tile_data[$tile_id];
+                }
+            }
+        }
+
+        if ($config->include_te_tiles) {
+            foreach ($tile_tiers['TETiers'] as $tier => $tiles) {
                 foreach ($tiles as $tile_id) {
                     $all_tiles[$tier][] = $tile_data[$tile_id];
                 }
@@ -250,6 +258,9 @@ class Generator
                 $factions[] = $faction;
             }
             if ($data["set"] == "discordantexp" && $config->include_discordantexp) {
+                $factions[] = $faction;
+            }
+            if ($data["set"] == "te" && $config->include_te_factions) {
                 $factions[] = $faction;
             }
         }

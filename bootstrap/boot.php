@@ -35,7 +35,7 @@ function app() {
                     abort(404, 'No API endpoint specified');
                 }
 
-                $apiFile = __DIR__ . '/../api/' . $pathChunks[1] . '.php';
+                $apiFile = __DIR__ . '/../app/api/' . $pathChunks[1] . '.php';
 
                 if (file_exists($apiFile)) {
                     require_once $apiFile;

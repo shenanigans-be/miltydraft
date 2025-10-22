@@ -412,5 +412,41 @@
         "homesystem": "0",
         "wiki": "https://twilight-imperium.fandom.com/wiki/Nokar_Sellships_(UNOFFICIAL)",
         "set": "discordantexp"
+    },
+    "Last Bastion": {
+        "id": "last_bastion",
+        "name": "Last Bastion",
+        "homesystem": "0",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/Last_Bastion",
+        "set": "te"
+    },
+    "The Ral Nel Consortium": {
+        "id": "ral_nel",
+        "name": "The Ral Nel Consortium",
+        "homesystem": "0",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Ral_Nel_Consortium",
+        "set": "te"
+    },
+    "The Deepwrought Scholarate": {
+        "id": "deepwrought_scholarate",
+        "name": "The Deepwrought Scholarate",
+        "homesystem": "0",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Deepwrought_Scholarate",
+        "set": "te"
+    },
+    "The Crimson Rebellion": {
+        "id": "crimson_rebellion",
+        "name": "The Crimson Rebellion",
+        "homesystem": "0",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Crimson_Rebellion",
+        "set": "te"
+    },
+    "The Firmament / The Obsidian": {
+        "id": "firmament_obsidian",
+        "name": "The Firmament / The Obsidian",
+        "homesystem": "0",
+        "wiki": "https://twilight-imperium.fandom.com/wiki/The_Firmament_/_The_Obsidian",
+        "set": "te"
     }
+
 }

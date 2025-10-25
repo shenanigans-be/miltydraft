@@ -1621,6 +1621,119 @@
         "wormhole": null,
         "planets": []
     },
+    "92": {
+      "type": "green",
+      "faction": "Last Bastion",
+      "wormhole": null,
+      "anomaly": "nebula",
+      "planets": [
+        {
+          "name": "Ordinian",
+          "resources": 0,
+          "influence": 0,
+          "trait": null,
+          "legendary": "You may exhaust this card when you pass to draw 1 action card and gain 1 command token",
+          "specialties": []
+        }
+      ],
+      "stations": [
+        {
+          "name": "Revelation",
+          "resources": 1,
+          "influence": 2
+        }
+      ]
+    },
+    "93": {
+      "type": "green",
+      "faction": "The Ral Nel Consortium",
+      "wormhole": null,
+      "planets": [
+        {
+          "name": "Mez Lo Orz Fei Zsha",
+          "resources": 2,
+          "influence": 1,
+          "trait": null,
+          "legendary": false,
+          "specialties": []
+        },
+        {
+          "name": "Rep Lo Orz Qet",
+          "resources": 1,
+          "influence": 3,
+          "trait": null,
+          "legendary": false,
+          "specialties": []
+        }
+      ]
+    },
+    "94": {
+      "type": "green",
+      "faction": "The Crimson Rebellion",
+      "wormhole": "epsilon",
+      "planets": []
+    },
+    "95": {
+      "type": "green",
+      "faction": "The Deepwrought Scholarate",
+      "wormhole": null,
+      "planets": [
+        {
+          "name": "Ikatena",
+          "resources": 4,
+          "influence": 4,
+          "trait": null,
+          "legendary": false,
+          "specialties": []
+        }
+      ]
+    },
+    "96a": {
+      "type": "green",
+      "faction": "The Firmament",
+      "wormhole": null,
+      "planets": [
+        {
+          "name": "Cronos",
+          "resources": 2,
+          "influence": 1,
+          "trait": null,
+          "legendary": false,
+          "specialties": []
+        },
+        {
+          "name": "Tallin",
+          "resources": 1,
+          "influence": 2,
+          "trait": null,
+          "legendary": false,
+          "specialties": []
+        }
+      ]
+    },
+    "96b": {
+      "type": "green",
+      "faction": "The Obsidian",
+      "wormhole": null,
+      "planets": [
+        {
+          "name": "Cronos Hollow",
+          "resources": 3,
+          "influence": 0,
+          "trait": null,
+          "legendary": false,
+          "specialties": []
+        },
+        {
+          "name": "Tallin Hollow",
+          "resources": 3,
+          "influence": 0,
+          "trait": null,
+          "legendary": false,
+          "specialties": []
+        }
+      ]
+    },
     "97": {
         "type": "blue",
         "wormhole": null,
@@ -1994,6 +2107,20 @@
                 "influence": 1
             }
         ]
+    },
+    "118": {
+      "type": "green",
+      "wormhole": "epsilon",
+      "planets": [
+        {
+          "name": "Ahk Creuxx",
+          "resources": 4,
+          "influence": 2,
+          "trait": null,
+          "legendary": false,
+          "specialties": []
+        }
+      ]
     },
     "4200": {
         "type": "green",

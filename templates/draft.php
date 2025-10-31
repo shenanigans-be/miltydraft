@@ -248,6 +248,9 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                         <label>Include DS Tiles:</label> <strong><?= e($config->include_ds_tiles, 'yes', 'no') ?></strong>
                     </p>
                     <p>
+                        <label id="include-te" data-te="<?=$config->include_te_tiles?>">Include TE Tiles:</label> <strong><?= e($config->include_te_tiles, 'yes', 'no') ?></strong>
+                    </p>
+                    <p>
                         <label>Include Base Game Factions:</label> <strong><?= e($config->include_base_factions, 'yes', 'no') ?></strong>
                     </p>
                     <p>
@@ -257,10 +260,13 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                         <label>Include Keleres:</label> <strong><?= e($config->include_keleres, 'yes', 'no') ?></strong>
                     </p>
                     <p>
+                        <label>Include TE Factions:</label> <strong><?= e($config->include_te_factions, 'yes', 'no') ?></strong>
+                    </p>
+                    <p>
                         <label>Include Discordant Stars:</label> <strong><?= e($config->include_discordant, 'yes', 'no') ?></strong>
                     </p>
                     <p>
-                        <label>Include Discordant Stars expansion:</label> <strong><?= e($config->include_discordantexp, 'yes', 'no') ?></strong>
+                        <label>Include Discordant Stars Plus:</label> <strong><?= e($config->include_discordantexp, 'yes', 'no') ?></strong>
                     </p>
                     <?php if (isset($config->min_legendaries)) : ?>
                         <p>

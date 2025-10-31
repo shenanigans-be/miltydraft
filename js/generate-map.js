@@ -482,7 +482,8 @@ function draw_tile(tile) {
         label = tilename;
     } else {
         if(chunks[0] == "M") {
-            tilename = 18;
+            // adding new mecatol tile, whenever te tiles are included
+            tilename = $('#include-te').data('te') ? 112 : 18;
             label = tilename;
         } else {
             let result = lookup(chunks[0], chunks[1]);

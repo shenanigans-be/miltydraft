@@ -185,10 +185,10 @@
                                     Number of Slices
                                 </label>
 
-                                <input type="number" id="num_slices" name="num_slices" value="7" max="13" />
+                                <input type="number" id="num_slices" name="num_slices" value="7" max="15" />
                                 <span class="help">
                                         Note: The slices are random and not necessarily balanced (more on that below), so increasing this number makes it more relaxed for players to choose.<br />
-                                        Number of players + 1 is generally recommended. Can't have more than 9 without DS+ tiles or 13 with DS+, cause you run out of tiles.
+                                        Number of players + 1 is generally recommended. Maximum number of slices possible is 15 with PoK, TE, DS, DS+ selected.
                                     </span>
                             </div>
 
@@ -245,24 +245,25 @@
                                         The Council Keleres was introduced in <a target="_blank" href="https://images-cdn.fantasyflightgames.com/filer_public/35/e1/35e10f37-4b6d-4479-a117-4e2c571ddfa7/ti_codex_volume_3_vigil_v2_1-compressed.pdf">Codex III</a>.
                                         (PoK required). For simplicity's sake I'll leave it up to each group to decide how they want to handle things (including the very limited possibility of all 3 flavours also being picked). Just something to keep in mind.
                                     </span>
-                                <label for="discordant" class="check">
-                                    <input type="checkbox" name="include_discordant" class="draft-faction" data-num="24" data-set="discordant" id="discordant" /> Include Discordant Stars
-                                </label>
-                                <span class="help">
-                                        <a target="_blank" href="https://www.reddit.com/r/twilightimperium/comments/pvbbie/discordant_stars_24_homebrew_factions/">Discordant Stars</a> is a fan made faction pack introduced by members of the Discord community.
-                                    </span>
-                                <label for="discordantexp" class="check">
-                                    <input type="checkbox" name="include_discordantexp" class="draft-faction" data-num="10" data-set="discordantexp" id="discordantexp" /> Include Discordant Stars Plus
-                                </label>
-                                <span class="help">
-                                        Ten additional factions were added to Discordant Stars as an expansion: Bentor, Nokar, Gledge, Lanefir, Kyro, Ghoti, Kolume, Cheiran, Kjalengard, and Edyn.
-                                    </span>
+
                                 <label for="te_factions" class="check">
                                     <input type="checkbox" name="include_te_factions" class="draft-faction" data-num="5" data-set="te" id="te_factions" /> Include Thunders Edge
                                 </label>
                                 <span class="help">
                                         Include the 5 new factions from the Thunders Edge expansion.
-                                    </span>
+                                </span>
+                                <label for="discordant" class="check">
+                                    <input type="checkbox" name="include_discordant" class="draft-faction" data-num="24" data-set="discordant" id="discordant" /> Include Discordant Stars
+                                </label>
+                                <span class="help">
+                                        <a target="_blank" href="https://www.reddit.com/r/twilightimperium/comments/pvbbie/discordant_stars_24_homebrew_factions/">Discordant Stars</a> is a fan made faction pack introduced by members of the Discord community.
+                                </span>
+                                <label for="discordantexp" class="check">
+                                    <input type="checkbox" name="include_discordantexp" class="draft-faction" data-num="10" data-set="discordantexp" id="discordantexp" /> Include Discordant Stars Plus
+                                </label>
+                                <span class="help">
+                                        Ten additional factions were added to Discordant Stars as an expansion: Bentor, Nokar, Gledge, Lanefir, Kyro, Ghoti, Kolume, Cheiran, Kjalengard, and Edyn.
+                                </span>
                             </div>
 
                             <div class="input">

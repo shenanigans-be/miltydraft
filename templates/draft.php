@@ -106,9 +106,7 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                                             <img src="<?= url('img/factions/ti_' . $faction['id'] . '.png') ?>" /><br />
 
                                             <span><?= $faction['name'] ?></span><br />
-                                            <?php if($faction['set'] != 'te'): ?>
                                             <a href="#" data-id="<?= $faction['id'] ?>" class="open-reference">[reference]</a>
-                                            <?php endif; ?>
                                             <a target="_blank" href="<?= $faction['wiki'] ?>" class="more">[wiki]</a><br />
                                             <button class="draft" data-category="faction" data-value="<?= $faction['name'] ?>">Draft</button>
                                             <span class="drafted-by" data-category="faction" data-value="<?= $faction['name'] ?>"></span>

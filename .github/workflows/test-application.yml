@@ -23,5 +23,5 @@ jobs:
           - core
     steps:
       - uses: actions/checkout@v5
-      - run: composer up:testing
+      - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress
       - run: composer paratest -- --processes=4 --testsuite ${{ matrix.testsuite }}

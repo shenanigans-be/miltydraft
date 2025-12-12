@@ -15,7 +15,7 @@ env:
   APP_VERSION: ${{ format('0.0.0-build{0}', github.run_number) }}
 
 jobs:
-  bff:
+  app:
     runs-on: ubuntu-latest
     strategy:
       matrix:

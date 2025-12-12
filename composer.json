@@ -13,7 +13,7 @@
       "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G --ansi",
       "paratest": [
         "Composer\\Config::disableProcessTimeout",
-        "@php artisan test --parallel --display-deprecations --processes=12 --passthru-php=\"'-d' 'memory_limit=2G'\" --ansi"
+        "vendor/bin/paratest -p12 --passthru-php=\"'-d' 'memory_limit=2G'\""
       ]
     },
     "require-dev": {

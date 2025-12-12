@@ -803,6 +803,7 @@
                 "name": "Creuss",
                 "resources": 4,
                 "influence": 2,
+                "trait": [],
                 "legendary": false,
                 "specialties": []
             }

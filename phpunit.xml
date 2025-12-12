@@ -7,12 +7,16 @@
         colors="true"
         processIsolation="false"
         stopOnFailure="false"
+        displayDetailsOnTestsThatTriggerWarnings="true"
         cacheDirectory=".phpunit.cache"
         backupStaticProperties="false"
 >
     <testsuites>
         <testsuite name="core">
             <directory>./app</directory>
+        </testsuite>
+        <testsuite name="data">
+            <directory>./data</directory>
         </testsuite>
     </testsuites>
     <coverage/>

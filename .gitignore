@@ -9,3 +9,4 @@ clean.php
 supervisord.log
 supervisord.pid
 tmp
+.phpunit.cache

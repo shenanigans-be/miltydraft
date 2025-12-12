@@ -1,20 +1,20 @@
 :80 {
     log {
-    output stdout
+        output stdout
     }
 
     header {
-    X-Frame-Options DENY
-    Referrer-Policy no-referrer-when-downgrade
-    Access-Control-Allow-Origin *
+        X-Frame-Options DENY
+        Referrer-Policy no-referrer-when-downgrade
+        Access-Control-Allow-Origin *
     }
 
     @options method OPTIONS
     respond @options 204
 
     @svg {
-    file
-    path *.svg
+        file
+        path *.svg
     }
 
     header @svg Content-Security-Policy "script-src 'none'"

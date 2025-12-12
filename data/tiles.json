@@ -2958,7 +2958,7 @@
                 "name": "Dorvok",
                 "resources": 1,
                 "influence": 2,
-                "trait": "industrial'",
+                "trait": "industrial",
                 "legendary": false,
                 "specialties": [
                     "warfare"
@@ -2982,7 +2982,7 @@
                 "name": "Rysaa",
                 "resources": 1,
                 "influence": 2,
-                "trait": "industrial'",
+                "trait": "industrial",
                 "legendary": false,
                 "specialties": [
                     "propulsion"
@@ -2992,7 +2992,7 @@
                 "name": "Moln",
                 "resources": 2,
                 "influence": 0,
-                "trait": "hazardous'",
+                "trait": "hazardous",
                 "legendary": false,
                 "specialties": [
                     "biotic"

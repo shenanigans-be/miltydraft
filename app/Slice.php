@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Map\Tile;
+
 class Slice
 {
     public $tiles;

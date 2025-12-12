@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Map\Tile;
+
 class Generator
 {
     private const SEED_OFFSET_SLICES = 0;

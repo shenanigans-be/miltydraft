@@ -1,7 +1,9 @@
 <?php
 
 
-namespace App;
+namespace App\Map;
+
+use App\Game\Planet;
 
 class Tile
 {
@@ -34,11 +36,11 @@ class Tile
         $this->anomaly = isset($json_data['anomaly']) ? $json_data['anomaly'] : null;
         $this->planets = [];
         foreach ($json_data['planets'] as $p) {
-            $planet = new Planet($p);
+            $planet = Planet::fromJsonData($p);
             $this->total_influence += $planet->influence;
             $this->total_resources += $planet->resources;
-            $this->optimal_influence += $planet->optimal_influence;
-            $this->optimal_resources += $planet->optimal_resources;
+            $this->optimal_influence += $planet->optimalInfluence;
+            $this->optimal_resources += $planet->optimalResources;
             $this->planets[] = $planet;
         }
 

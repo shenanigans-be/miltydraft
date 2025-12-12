@@ -1,5 +1,4 @@
 <?php
-// Could be cool to add a faction ban phase before the draft starts
 
 namespace App;
 

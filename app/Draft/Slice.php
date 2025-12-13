@@ -130,21 +130,36 @@ class Slice
         }
     }
 
+    /**
+     * Determine if the tiles (in the current order) are a valid arrangement
+     *
+     * tiles are laid out like this:
+     *       4
+     *   3
+     *       1
+     *   0       2
+     *       H
+     * so for example, tile #1 neighbours #0, #3 and #4. #2 only neighbours #1
+     * And we want to avoid two neighbouring anomalies (That's in the rules).
+     *
+     * The nature of milty draft makes it so that you can't predict the placement of slices,
+     * so neighbouring anomalies might happen just by virtue of player order and slice choice.
+     * But since we can't really do anything about that, we just stop enforce the rule here.
+     *
+     * @return bool
+     */
     public function tileArrangementIsValid(): bool
     {
-        // tiles are laid out like this:
-        //      4
-        //  3
-        //      1
-        //  0       2
-        //      H
-        // so for example, tile #1 neighbours #0, #3 and #4. #2 only neighbours #1
+
 
         $neighbours = [[0, 1], [0, 3], [1, 2], [1, 3], [1, 4], [3, 4]];
 
-        foreach ($neighbours as $edge) {
+        foreach ($neighbours as $neighbouringPair) {
             // can't have two neighbouring anomalies
-            if ($this->tiles[$edge[0]]->hasAnomaly() && $this->tiles[$edge[1]]->hasAnomaly()) {
+            if (
+                $this->tiles[$neighbouringPair[0]]->hasAnomaly() &&
+                $this->tiles[$neighbouringPair[1]]->hasAnomaly()
+            ) {
                 return false;
             }
         }

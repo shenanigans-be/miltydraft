@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Game;
+namespace App\TwilightImperium;
 
-class Planet
+class Planet extends EntityWithResourcesAndInfluence
 {
-    public float $optimalTotal;
-    public float $optimalResources;
-    public float $optimalInfluence;
-
     public function __construct(
         public string $name,
-        public int $resources,
-        public int $influence,
+        int $resources,
+        int $influence,
         public ?string $legendary = null,
         /**
          * @var array<PlanetTrait>
@@ -22,19 +18,7 @@ class Planet
          */
         public array $specialties = []
     ) {
-        $this->optimalResources = 0;
-        $this->optimalInfluence = 0;
-
-        if ($this->influence > $this->resources) {
-            $this->optimalInfluence = $this->influence;
-        } elseif ($this->resources > $this->influence) {
-            $this->optimalResources = $this->resources;
-        } elseif ($this->resources == $this->influence) {
-            $this->optimalInfluence = $this->influence / 2;
-            $this->optimalResources = $this->resources / 2;
-        }
-
-        $this->optimalTotal = $this->optimalResources + $this->optimalInfluence;
+        parent::__construct($resources, $influence);
     }
 
     public static function fromJsonData(array $data): self
@@ -78,5 +62,9 @@ class Planet
             fn (string $str) => TechSpecialties::from($str),
             $data
         );
+    }
+
+    public function isLegendary(): bool {
+        return $this->legendary != null;
     }
 }

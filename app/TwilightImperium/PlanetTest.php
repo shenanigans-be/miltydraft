@@ -1,43 +1,45 @@
 <?php
 
-namespace App\Game;
+namespace App\TwilightImperium;
 
-use App\Testing\FakesData;
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 class PlanetTest extends TestCase
 {
-    use FakesData;
 
-    public static function planetValues(): iterable {
-        yield "when resource value is higher than influence" => [
-            "resources" => 3,
-            "influence" => 1,
-            "expectedOptimalResources" => 3.0,
-            "expectedOptimalInfluence" => 0.0
+    public static function planets(): iterable
+    {
+        yield "For a legendary planet" => [
+            'planet' => new Planet(
+                "Legendplanet",
+                0,
+                0,
+                "Some string value"
+            ),
+            'expected' => true
         ];
-        yield "when resource value is lower than influence" => [
-            "resources" => 2,
-            "influence" => 4,
-            "expectedOptimalResources" => 0.0,
-            "expectedOptimalInfluence" => 4.0
-        ];
-        yield "when resource value equals influence" => [
-            "resources" => 3,
-            "influence" => 3,
-            "expectedOptimalResources" => 1.5,
-            "expectedOptimalInfluence" => 1.5
+        yield "For a regular planet" => [
+            'planet' => new Planet(
+                "RegularJoePlanet",
+                0,
+                0,
+                null
+            ),
+            'expected' => false
         ];
     }
 
     public static function jsonData(): iterable {
+        $baseJsonData = [
+            "name" => "Tinnes",
+            "resources" =>  2,
+            "influence" => 1,
+        ];
+
         yield "A planet without a legendary" => [
-            "jsonData" => [
-                "name" => "Tinnes",
-                "resources" =>  2,
-                "influence" => 1,
+            "jsonData" => $baseJsonData + [
                 "trait" => "hazardous",
                 "legendary" => false,
                 "specialties" => [
@@ -55,10 +57,7 @@ class PlanetTest extends TestCase
             ]
         ];
         yield "A planet with a legendary" => [
-            "jsonData" => [
-                "name" => "Tinnes",
-                "resources" =>  2,
-                "influence" => 1,
+            "jsonData" => $baseJsonData + [
                 "trait" => "cultural",
                 "legendary" => "I am legend",
                 "specialties" => [
@@ -77,10 +76,7 @@ class PlanetTest extends TestCase
         ];
 
         yield "A planet with legendary false" => [
-            "jsonData" => [
-                "name" => "Tinnes",
-                "resources" =>  2,
-                "influence" => 1,
+            "jsonData" => $baseJsonData + [
                 "trait" => "industrial",
                 "legendary" => false,
                 "specialties" => []
@@ -92,10 +88,7 @@ class PlanetTest extends TestCase
             "expectedTechSpecialties" => []
         ];
         yield "A planet with multiple traits" => [
-            "jsonData" => [
-                "name" => "Tinnes",
-                "resources" =>  2,
-                "influence" => 1,
+            "jsonData" => $baseJsonData + [
                 "trait" => ["cultural", "hazardous"],
                 "legendary" => null,
                 "specialties" => []
@@ -108,10 +101,7 @@ class PlanetTest extends TestCase
             "expectedTechSpecialties" => []
         ];
         yield "A planet with no traits" => [
-            "jsonData" => [
-                "name" => "Tinnes",
-                "resources" =>  2,
-                "influence" => 1,
+            "jsonData" => $baseJsonData + [
                 "trait" => null,
                 "legendary" => null,
                 "specialties" => []
@@ -122,24 +112,6 @@ class PlanetTest extends TestCase
         ];
     }
 
-    #[DataProvider("planetValues")]
-    #[Test]
-    public function itCalculatesOptimalValues(
-        int $resources,
-        int $influence,
-        float $expectedOptimalResources,
-        float $expectedOptimalInfluence
-    ) {
-        $planet = new Planet(
-            $this->faker->word,
-            $resources,
-            $influence,
-        );
-
-        $this->assertSame($expectedOptimalResources, $planet->optimalResources);
-        $this->assertSame($expectedOptimalInfluence, $planet->optimalInfluence);
-        $this->assertSame($expectedOptimalInfluence + $expectedOptimalResources, $planet->optimalTotal);
-    }
 
     #[DataProvider("jsonData")]
     #[Test]
@@ -157,5 +129,11 @@ class PlanetTest extends TestCase
         $this->assertSame($expectedTraits, $planet->traits);
         $this->assertSame($expectedTechSpecialties, $planet->specialties);
         $this->assertSame($expectedLegendary, $planet->legendary);
+    }
+
+    #[DataProvider("planets")]
+    #[Test]
+    public function itExposesHasLegendaryMethod(Planet $planet, bool $expected) {
+        $this->assertSame($expected, $planet->isLegendary());
     }
 }

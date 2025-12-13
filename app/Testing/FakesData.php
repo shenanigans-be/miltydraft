@@ -7,9 +7,17 @@ use Faker\Generator;
 
 trait  FakesData
 {
-    protected Generator $faker;
+    private Generator $faker;
 
-    protected function bootFaker() {
+    private function bootFaker() {
         $this->faker = Factory::create();
+    }
+
+    protected function faker(): Generator {
+        if (!isset($this->faker)) {
+            $this->bootFaker();
+        }
+
+        return $this->faker;
     }
 }

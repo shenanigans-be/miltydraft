@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Game;
+namespace App\TwilightImperium;
 
 enum PlanetTrait:string
 {

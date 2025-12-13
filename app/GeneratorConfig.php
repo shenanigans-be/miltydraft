@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Draft\DraftName;
+
 class GeneratorConfig
 {
     // Maximum value for random seed generation (2^50)
@@ -59,9 +61,7 @@ class GeneratorConfig
                 return_error('Number of players does not match number of names');
             }
 
-            $this->name = get('game_name', '');
-            if (trim($this->name) == '') $this->name = $this->generateName();
-            else $this->name = htmlentities($this->name);
+            $this->name = new DraftName(get('game_name', ''));
             $this->num_slices = (int) get('num_slices');
             $this->num_factions = (int) get('num_factions');
             $this->include_pok = get('include_pok') == true;
@@ -160,33 +160,6 @@ class GeneratorConfig
                 if (count($s) != 5) return_error('Some of the custom slices have the wrong number of tiles. (each should have five)');
             }
         }
-    }
-
-    private function generateName(): string
-    {
-        $adjectives = [
-            'adventurous', 'aggressive', 'angry', 'arrogant', 'beautiful', 'bloody', 'blushing', 'brave',
-            'clever', 'clumsy', 'combative', 'confused', 'crazy', 'curious', 'defiant', 'difficult', 'disgusted', 'doubtful', 'easy',
-            'famous',  'fantastic', 'filthy', 'frightened', 'funny', 'glamorous', 'gleaming', 'glorious',
-            'grumpy', 'homeless', 'hilarious', 'impossible', 'itchy', 'imperial', 'jealous', 'long', 'magnificent', 'lucky',
-            'modern', 'mysterious', 'naughty', 'old-fashioned', 'outstanding', 'outrageous', 'perfect',
-            'poisoned', 'puzzled', 'rich', 'smiling', 'super', 'tasty', 'terrible', 'wandering', 'zealous'
-        ];
-        $nouns = [
-            'people', 'history', 'art', 'world', 'space', 'universe', 'galaxy', 'story',
-            'map', 'game', 'family', 'government', 'system', 'method', 'computer', 'problem',
-            'theory', 'law', 'power', 'knowledge', 'control', 'ability', 'love', 'science',
-            'fact', 'idea', 'area', 'society', 'industry', 'player', 'security', 'country',
-            'equipment', 'analysis', 'policy', 'thought', 'strategy', 'direction', 'technology',
-            'army', 'fight', 'war', 'freedom', 'failure', 'night',  'day', 'energy', 'nation',
-            'moment', 'politics', 'empire', 'president', 'council', 'effort', 'situation',
-            'resource', 'influence', 'agreement', 'union', 'religion', 'virus', 'republic',
-            'drama', 'tension', 'suspense', 'friendship', 'twilight', 'imperium', 'leadership',
-            'operation', 'disaster', 'leader', 'speaker', 'diplomacy', 'politics', 'warfare', 'construction',
-            'trade', 'proposal', 'revolution', 'negotiation'
-        ];
-
-        return 'Operation ' . ucfirst($adjectives[rand(0, count($adjectives) - 1)]) . ' ' . ucfirst($nouns[rand(0, count($nouns) - 1)]);
     }
 
     public function toJson(): array

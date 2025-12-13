@@ -2,7 +2,9 @@
 
 namespace App;
 
-use App\Map\Tile;
+use App\Draft\InvalidSliceException;
+use App\Draft\Slice;
+use App\TwilightImperium\Tile;
 
 class Generator
 {
@@ -51,6 +53,10 @@ class Generator
         }
     }
 
+    /**
+     * @param array<Slice> $slices
+     * @return array
+     */
     private static function convert_slices_data($slices)
     {
         $data = [];
@@ -97,12 +103,16 @@ class Generator
                 $tiles['red'][(2 * $i) + 1],
             ]);
 
-            if (!$slice->validate($config)) {
-                return self::slicesFromTiles($tiles, $config, $previous_tries + 1);
-            }
-
-            if ($slice->arrange() == false) {
-                // impossible slice, retry
+            try {
+                $slice->validate(
+                    $config->minimum_optimal_influence,
+                    $config->minimum_optimal_resources,
+                    $config->minimum_optimal_total,
+                    $config->maximum_optimal_total,
+                    $config->max_1_wormhole ? 1 : null
+                );
+                $slice->arrange();
+            } catch (InvalidSliceException $e) {
                 return self::slicesFromTiles($tiles, $config, $previous_tries + 1);
             }
 

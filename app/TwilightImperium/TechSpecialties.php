@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Game;
+namespace App\TwilightImperium;
 enum TechSpecialties: string
 {
     // red tech

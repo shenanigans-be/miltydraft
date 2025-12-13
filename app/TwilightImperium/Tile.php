@@ -11,7 +11,6 @@ class Tile
     public float $optimalInfluence = 0;
     public float $optimalResources = 0;
     public float $optimalTotal = 0;
-    public $special_count;
 
     public function __construct(
         public string $id,
@@ -51,7 +50,7 @@ class Tile
             array_map(fn(array $stationData) => SpaceStation::fromJsonData($stationData), $data['stations'] ?? []),
             Wormhole::fromJsonData($data['wormhole']),
             $data['anomaly'],
-            $data['hyperlanes'] ?? [],
+            isset($data['hyperlanes']) ? $data['hyperlanes'] : [],
         );
     }
 

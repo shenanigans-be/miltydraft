@@ -3,6 +3,7 @@
 namespace App\TwilightImperium;
 
 use App\Testing\FakesData;
+use App\Testing\PlanetFactory;
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -42,14 +43,13 @@ class EntityWithResourcesAndInfluenceTest extends TestCase
         float $expectedOptimalInfluence
     )
     {
-        $planet = new Planet(
-            $this->faker->word,
+        $entity = new EntityWithResourcesAndInfluence(
             $resources,
-            $influence,
+            $influence
         );
 
-        $this->assertSame($expectedOptimalResources, $planet->optimalResources);
-        $this->assertSame($expectedOptimalInfluence, $planet->optimalInfluence);
-        $this->assertSame($expectedOptimalInfluence + $expectedOptimalResources, $planet->optimalTotal);
+        $this->assertSame($expectedOptimalResources, $entity->optimalResources);
+        $this->assertSame($expectedOptimalInfluence, $entity->optimalInfluence);
+        $this->assertSame($expectedOptimalInfluence + $expectedOptimalResources, $entity->optimalTotal);
     }
 }

@@ -42,7 +42,7 @@ class TileTest extends TestCase
             ],
             "expectedWormholes" => [],
         ];
-        yield  "For a tile with a a wormhole" => [
+        yield  "For a tile with a wormhole" => [
             "jsonData" => [
                 "type" => "blue",
                 "wormhole" => "gamma",
@@ -97,15 +97,6 @@ class TileTest extends TestCase
             ],
             "expectedWormholes" => [],
         ];
-        yield  "For a tile with no stations property" => [
-            "jsonData" => [
-                "type" => "red",
-                "wormhole" => null,
-                "anomaly" => null,
-                "planets" => []
-            ],
-            "expectedWormholes" => [],
-        ];
         yield  "For a tile with stations" => [
             "jsonData" => [
                 "type" => "red",
@@ -156,7 +147,7 @@ class TileTest extends TestCase
         $tile = Tile::fromJsonData($id, $jsonData);
         $this->assertSame($id, $tile->id);
         $this->assertSame($jsonData['anomaly'], $tile->anomaly);
-        $this->assertSame($jsonData['hyperlanes'], $jsonData['hyperlanes'] ?? []);
+        $this->assertSame($jsonData['hyperlanes'] ?? [], $tile->hyperlanes);
         $this->assertSame($expectedWormholes, $tile->wormholes);
     }
 

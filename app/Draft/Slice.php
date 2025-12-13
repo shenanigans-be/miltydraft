@@ -88,10 +88,10 @@ class Slice
         float $maximumOptimalTotal,
         ?int $maxWormholes = null
     ): bool {
-        $special_count = Tile::countSpecials($this->tiles);
+        $specialCount = Tile::countSpecials($this->tiles);
 
         // can't have 2 alpha, beta or legendary planets
-        if ($special_count['alpha'] > 1 || $special_count['beta'] > 1 || $special_count['legendary'] > 1) {
+        if ($specialCount['alpha'] > 1 || $specialCount['beta'] > 1 || $specialCount['legendary'] > 1) {
             throw InvalidSliceException::doesNotMeetRequirements("Too many wormholes or legendary planets");
         }
 
@@ -103,7 +103,7 @@ class Slice
             throw InvalidSliceException::doesNotMeetRequirements("Minimal influence/resources too low");
         }
 
-        if ($maxWormholes != null && $special_count['alpha'] + $special_count['beta'] > $maxWormholes) {
+        if ($maxWormholes != null && $specialCount['alpha'] + $specialCount['beta'] > $maxWormholes) {
             throw InvalidSliceException::doesNotMeetRequirements("More than allowed number of wormholes");
         }
 

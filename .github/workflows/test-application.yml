@@ -21,6 +21,7 @@ jobs:
       matrix:
         testsuite:
           - core
+          - data
     steps:
       - uses: actions/checkout@v5
       - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress

@@ -2,7 +2,7 @@
 
 namespace App\TwilightImperium;
 
-class SpaceStation extends EntityWithResourcesAndInfluence
+class SpaceStation extends SpaceObject
 {
     public function __construct(
         public string $name,

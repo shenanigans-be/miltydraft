@@ -2,7 +2,7 @@
 
 namespace App\TwilightImperium;
 
-class Planet extends EntityWithResourcesAndInfluence
+class Planet extends SpaceObject
 {
     public function __construct(
         public string $name,

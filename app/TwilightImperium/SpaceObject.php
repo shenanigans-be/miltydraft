@@ -2,7 +2,7 @@
 
 namespace App\TwilightImperium;
 
-class EntityWithResourcesAndInfluence
+class SpaceObject
 {
     public float $optimalTotal = 0;
     public float $optimalResources = 0;

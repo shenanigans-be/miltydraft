@@ -2,7 +2,8 @@
     "require": {
         "vlucas/phpdotenv": "^5.4",
         "aws/aws-sdk-php": "^3.339",
-        "ext-json": "*"
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.9"
     },
     "autoload": {
         "psr-4": {

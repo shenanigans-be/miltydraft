@@ -1,0 +1,370 @@
+{
+  "done": false,
+  "id": "693e9b3fb8452",
+  "secrets": {
+    "admin_pass": "cbe0c4bed337c012996d9ee876510363"
+  },
+  "draft": {
+    "players": {
+      "p_564cbfb050046007faea784931962140": {
+        "id": "p_564cbfb050046007faea784931962140",
+        "name": "Ben",
+        "claimed": false,
+        "position": null,
+        "slice": null,
+        "faction": "Free Systems Compact",
+        "team": null
+      },
+      "p_ffbfdb5608320d54d904e07eae678c2a": {
+        "id": "p_ffbfdb5608320d54d904e07eae678c2a",
+        "name": "Esther",
+        "claimed": false,
+        "position": null,
+        "slice": null,
+        "faction": "Last Bastion",
+        "team": null
+      },
+      "p_67161c4c41518e0e1cfc4e2c044269e2": {
+        "id": "p_67161c4c41518e0e1cfc4e2c044269e2",
+        "name": "Frank",
+        "claimed": false,
+        "position": null,
+        "slice": null,
+        "faction": "Gledge Union",
+        "team": null
+      },
+      "p_e6556957358fe40ec9c0bf4a9ddab0ac": {
+        "id": "p_e6556957358fe40ec9c0bf4a9ddab0ac",
+        "name": "Desmond",
+        "claimed": false,
+        "position": null,
+        "slice": "1",
+        "faction": null,
+        "team": null
+      },
+      "p_404e5780ee88e69cab1602093431c2a8": {
+        "id": "p_404e5780ee88e69cab1602093431c2a8",
+        "name": "Amy",
+        "claimed": false,
+        "position": null,
+        "slice": null,
+        "faction": null,
+        "team": null
+      },
+      "p_e37356083346f2cb785de89c36faff1e": {
+        "id": "p_e37356083346f2cb785de89c36faff1e",
+        "name": "Charlie",
+        "claimed": false,
+        "position": null,
+        "slice": null,
+        "faction": null,
+        "team": null
+      }
+    },
+    "log": [
+      {
+        "player": "p_564cbfb050046007faea784931962140",
+        "category": "faction",
+        "value": "Free Systems Compact"
+      },
+      {
+        "player": "p_ffbfdb5608320d54d904e07eae678c2a",
+        "category": "faction",
+        "value": "Last Bastion"
+      },
+      {
+        "player": "p_67161c4c41518e0e1cfc4e2c044269e2",
+        "category": "faction",
+        "value": "Gledge Union"
+      },
+      {
+        "player": "p_e6556957358fe40ec9c0bf4a9ddab0ac",
+        "category": "slice",
+        "value": "1"
+      }
+    ],
+    "current": "p_404e5780ee88e69cab1602093431c2a8"
+  },
+  "slices": [
+    {
+      "tiles": [
+        61,
+        48,
+        59,
+        49,
+        40
+      ],
+      "specialties": [
+        "warfare",
+        "propulsion"
+      ],
+      "wormholes": [
+        "beta"
+      ],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 3,
+      "total_resources": 3,
+      "optimal_influence": 3,
+      "optimal_resources": 2
+    },
+    {
+      "tiles": [
+        60,
+        72,
+        39,
+        68,
+        25
+      ],
+      "specialties": [
+        "warfare"
+      ],
+      "wormholes": [
+        "alpha",
+        "beta"
+      ],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 6,
+      "total_resources": 11,
+      "optimal_influence": 1,
+      "optimal_resources": 10
+    },
+    {
+      "tiles": [
+        27,
+        44,
+        76,
+        79,
+        35
+      ],
+      "specialties": [
+        "biotic",
+        "biotic"
+      ],
+      "wormholes": [
+        "alpha"
+      ],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 10,
+      "total_resources": 11,
+      "optimal_influence": 7,
+      "optimal_resources": 7
+    },
+    {
+      "tiles": [
+        45,
+        34,
+        46,
+        11,
+        36
+      ],
+      "specialties": [
+        "propulsion"
+      ],
+      "wormholes": [],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 8,
+      "total_resources": 8,
+      "optimal_influence": 5.5,
+      "optimal_resources": 5.5
+    },
+    {
+      "tiles": [
+        30,
+        12,
+        50,
+        22,
+        17
+      ],
+      "specialties": [
+        "biotic"
+      ],
+      "wormholes": [
+        "delta"
+      ],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 9,
+      "total_resources": 7,
+      "optimal_influence": 7.5,
+      "optimal_resources": 3.5
+    },
+    {
+      "tiles": [
+        70,
+        73,
+        12,
+        77,
+        21
+      ],
+      "specialties": [
+        "cybernetic",
+        "propulsion"
+      ],
+      "wormholes": [],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 12,
+      "total_resources": 6,
+      "optimal_influence": 10.5,
+      "optimal_resources": 2.5
+    }
+  ],
+  "factions": [
+    "Veldyr Sovereignty",
+    "Free Systems Compact",
+    "Kyro Sodality",
+    "Ghoti Wayfarers",
+    "Zelian Purifier",
+    "Gledge Union",
+    "Nokar Sellships",
+    "Last Bastion",
+    "Savages of Cymiae"
+  ],
+  "config": {
+    "players": [
+      "Ben",
+      "Esther",
+      "Frank",
+      "Desmond",
+      "Amy",
+      "Charlie"
+    ],
+    "name": "Operation Adventurous Fact",
+    "num_slices": 6,
+    "num_factions": 9,
+    "include_pok": true,
+    "include_ds_tiles": true,
+    "include_te_tiles": true,
+    "include_base_factions": true,
+    "include_pok_factions": true,
+    "include_keleres": true,
+    "include_discordant": true,
+    "include_discordantexp": true,
+    "include_te_factions": true,
+    "preset_draft_order": false,
+    "min_wormholes": 0,
+    "min_legendaries": 0,
+    "max_1_wormhole": false,
+    "minimum_optimal_influence": 4,
+    "minimum_optimal_resources": 2.5,
+    "minimum_optimal_total": 9,
+    "maximum_optimal_total": 13,
+    "custom_factions": [
+      "Sardakk N'orr",
+      "The Arborec",
+      "The Barony of Letnev",
+      "The Clan of Saar",
+      "The Embers of Muaat",
+      "The Emirates of Hacan",
+      "The Federation of Sol",
+      "The Ghosts of Creuss",
+      "The L1z1x Mindnet",
+      "The Mentak Coalition",
+      "The Naalu Collective",
+      "The Nekro Virus",
+      "The Universities of Jol-Nar",
+      "The Winnu",
+      "The Xxcha Kingdom",
+      "The Yin Brotherhood",
+      "The Yssaril Tribes",
+      "The Argent Flight",
+      "The Empyrean",
+      "The Mahact Gene-sorcerers",
+      "The Naaz-Rokha Alliance",
+      "The Nomad",
+      "The Titans of Ul",
+      "The Vuil'raith Cabal",
+      "The Council Keleres",
+      "Augurs of Ilyxum",
+      "Celdauri Trade Confederation",
+      "Dih-Mohn Flotilla",
+      "Florzen Profiteers",
+      "Free Systems Compact",
+      "Ghemina Raiders",
+      "Glimmer of Mortheus",
+      "Kollecc Society",
+      "Kortali Tribunal",
+      "Li-Zho Dynasty",
+      "L'Tokk Khrask",
+      "Mirveda Protectorate",
+      "Myko-Mentori",
+      "Nivyn Star Kings",
+      "Olradin League",
+      "Roh'Dhna Mechatronics",
+      "Savages of Cymiae",
+      "Shipwrights of Axis",
+      "Tnelis Syndicate",
+      "Vaden Banking Clans",
+      "Vaylerian Scourge",
+      "Veldyr Sovereignty",
+      "Zealots of Rhodun",
+      "Zelian Purifier",
+      "Bentor Conglomerate",
+      "Berserkers of Kjalengard",
+      "Cheiran Hordes",
+      "Edyn Mandate",
+      "Ghoti Wayfarers",
+      "Gledge Union",
+      "Kyro Sodality",
+      "Lanefir Remnants",
+      "The Monks of Kolume",
+      "Nokar Sellships",
+      "Last Bastion",
+      "The Ral Nel Consortium",
+      "The Deepwrought Scholarate",
+      "The Crimson Rebellion",
+      "The Firmament / The Obsidian"
+    ],
+    "custom_slices": [
+      [
+        "61",
+        "48",
+        "59",
+        "49",
+        "40"
+      ],
+      [
+        "60",
+        "72",
+        "39",
+        "68",
+        "25"
+      ],
+      [
+        "27",
+        "44",
+        "76",
+        "79",
+        "35"
+      ],
+      [
+        "45",
+        "34",
+        "46",
+        "11",
+        "36"
+      ],
+      [
+        "30",
+        "12",
+        "50",
+        "22",
+        "17"
+      ],
+      [
+        "70",
+        "73",
+        "12",
+        "77",
+        "21"
+      ]
+    ],
+    "alliance": null,
+    "seed": 896134222637712
+  },
+  "name": "Custom Slices and Factions"
+}

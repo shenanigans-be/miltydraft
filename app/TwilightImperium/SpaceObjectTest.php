@@ -8,10 +8,8 @@ use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class EntityWithResourcesAndInfluenceTest extends TestCase
+class SpaceObjectTest extends TestCase
 {
-    use FakesData;
-
     public static function values(): iterable
     {
         yield "when resource value is higher than influence" => [
@@ -43,7 +41,7 @@ class EntityWithResourcesAndInfluenceTest extends TestCase
         float $expectedOptimalInfluence
     )
     {
-        $entity = new EntityWithResourcesAndInfluence(
+        $entity = new SpaceObject(
             $resources,
             $influence
         );

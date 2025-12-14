@@ -1,0 +1,360 @@
+{
+  "done": true,
+  "id": "693e979ca04c9",
+  "secrets": {
+    "admin_pass": "1d9f392001338a452efa9e27e843780c",
+    "p_b26d3bfd9f83d741cd71c8023cace30a": "1d57678d1c34aef831fd71fedf07d58e"
+  },
+  "draft": {
+    "players": {
+      "p_b26d3bfd9f83d741cd71c8023cace30a": {
+        "id": "p_b26d3bfd9f83d741cd71c8023cace30a",
+        "name": "Amy",
+        "claimed": true,
+        "position": "3",
+        "slice": "3",
+        "faction": "Berserkers of Kjalengard",
+        "team": null
+      },
+      "p_f57c3d5d815fd0b4aa2579ab15cf17aa": {
+        "id": "p_f57c3d5d815fd0b4aa2579ab15cf17aa",
+        "name": "Ben",
+        "claimed": false,
+        "position": "5",
+        "slice": "0",
+        "faction": "The Ral Nel Consortium",
+        "team": null
+      },
+      "p_a25a5582f3c732d4e2daab7aa80e2c19": {
+        "id": "p_a25a5582f3c732d4e2daab7aa80e2c19",
+        "name": "Charlie",
+        "claimed": false,
+        "position": "4",
+        "slice": "1",
+        "faction": "The Vuil'raith Cabal",
+        "team": null
+      },
+      "p_6ebcab571e776e0ae4692940b72872be": {
+        "id": "p_6ebcab571e776e0ae4692940b72872be",
+        "name": "Desmond",
+        "claimed": false,
+        "position": "0",
+        "slice": "2",
+        "faction": "The Yin Brotherhood",
+        "team": null
+      },
+      "p_8ae9f03017af74dc88d267fcc56e308b": {
+        "id": "p_8ae9f03017af74dc88d267fcc56e308b",
+        "name": "Esther",
+        "claimed": false,
+        "position": "2",
+        "slice": "5",
+        "faction": "Myko-Mentori",
+        "team": null
+      },
+      "p_d9e0f5382fb4da130428ca06936abfaf": {
+        "id": "p_d9e0f5382fb4da130428ca06936abfaf",
+        "name": "Frank",
+        "claimed": false,
+        "position": "1",
+        "slice": "6",
+        "faction": "Roh'Dhna Mechatronics",
+        "team": null
+      }
+    },
+    "log": [
+      {
+        "player": "p_b26d3bfd9f83d741cd71c8023cace30a",
+        "category": "faction",
+        "value": "Berserkers of Kjalengard"
+      },
+      {
+        "player": "p_f57c3d5d815fd0b4aa2579ab15cf17aa",
+        "category": "faction",
+        "value": "The Ral Nel Consortium"
+      },
+      {
+        "player": "p_a25a5582f3c732d4e2daab7aa80e2c19",
+        "category": "slice",
+        "value": "1"
+      },
+      {
+        "player": "p_6ebcab571e776e0ae4692940b72872be",
+        "category": "slice",
+        "value": "2"
+      },
+      {
+        "player": "p_8ae9f03017af74dc88d267fcc56e308b",
+        "category": "position",
+        "value": "2"
+      },
+      {
+        "player": "p_d9e0f5382fb4da130428ca06936abfaf",
+        "category": "position",
+        "value": "1"
+      },
+      {
+        "player": "p_d9e0f5382fb4da130428ca06936abfaf",
+        "category": "slice",
+        "value": "6"
+      },
+      {
+        "player": "p_8ae9f03017af74dc88d267fcc56e308b",
+        "category": "slice",
+        "value": "5"
+      },
+      {
+        "player": "p_6ebcab571e776e0ae4692940b72872be",
+        "category": "position",
+        "value": "0"
+      },
+      {
+        "player": "p_a25a5582f3c732d4e2daab7aa80e2c19",
+        "category": "position",
+        "value": "4"
+      },
+      {
+        "player": "p_f57c3d5d815fd0b4aa2579ab15cf17aa",
+        "category": "slice",
+        "value": "0"
+      },
+      {
+        "player": "p_b26d3bfd9f83d741cd71c8023cace30a",
+        "category": "slice",
+        "value": "3"
+      },
+      {
+        "player": "p_b26d3bfd9f83d741cd71c8023cace30a",
+        "category": "position",
+        "value": "3"
+      },
+      {
+        "player": "p_f57c3d5d815fd0b4aa2579ab15cf17aa",
+        "category": "position",
+        "value": "5"
+      },
+      {
+        "player": "p_a25a5582f3c732d4e2daab7aa80e2c19",
+        "category": "faction",
+        "value": "The Vuil'raith Cabal"
+      },
+      {
+        "player": "p_6ebcab571e776e0ae4692940b72872be",
+        "category": "faction",
+        "value": "The Yin Brotherhood"
+      },
+      {
+        "player": "p_8ae9f03017af74dc88d267fcc56e308b",
+        "category": "faction",
+        "value": "Myko-Mentori"
+      },
+      {
+        "player": "p_d9e0f5382fb4da130428ca06936abfaf",
+        "category": "faction",
+        "value": "Roh'Dhna Mechatronics"
+      }
+    ],
+    "current": "p_d9e0f5382fb4da130428ca06936abfaf"
+  },
+  "slices": [
+    {
+      "tiles": [
+        4274,
+        29,
+        115,
+        61,
+        109
+      ],
+      "specialties": [
+        "warfare",
+        "warfare"
+      ],
+      "wormholes": [],
+      "has_legendaries": true,
+      "legendaries": [
+        "You may exhaust this card when you pass to place 1 ship that matches a unit upgrade technology you owm from your reinforcements into a system that contains your ships."
+      ],
+      "total_influence": 8,
+      "total_resources": 7,
+      "optimal_influence": 7.5,
+      "optimal_resources": 4.5
+    },
+    {
+      "tiles": [
+        4273,
+        102,
+        77,
+        76,
+        75
+      ],
+      "specialties": [
+        "biotic",
+        "propulsion"
+      ],
+      "wormholes": [
+        "alpha"
+      ],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 7,
+      "total_resources": 7,
+      "optimal_influence": 6,
+      "optimal_resources": 4
+    },
+    {
+      "tiles": [
+        49,
+        64,
+        43,
+        4262,
+        20
+      ],
+      "specialties": [
+        "warfare"
+      ],
+      "wormholes": [
+        "beta"
+      ],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 8,
+      "total_resources": 8,
+      "optimal_influence": 6,
+      "optimal_resources": 4
+    },
+    {
+      "tiles": [
+        105,
+        48,
+        24,
+        32,
+        39
+      ],
+      "specialties": [
+        "biotic",
+        "biotic",
+        "warfare"
+      ],
+      "wormholes": [
+        "alpha"
+      ],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 8,
+      "total_resources": 5,
+      "optimal_influence": 6,
+      "optimal_resources": 3
+    },
+    {
+      "tiles": [
+        117,
+        38,
+        4269,
+        19,
+        111
+      ],
+      "specialties": [
+        "cybernetic"
+      ],
+      "wormholes": [],
+      "has_legendaries": true,
+      "legendaries": [
+        "You may exhaust this card at the end of your turn to remove 1 of your ships from the game board and place that unit in an adjacent system that does not contain another player’s ships."
+      ],
+      "total_influence": 7,
+      "total_resources": 11,
+      "optimal_influence": 5,
+      "optimal_resources": 8
+    },
+    {
+      "tiles": [
+        4256,
+        28,
+        113,
+        104,
+        42
+      ],
+      "specialties": [],
+      "wormholes": [
+        "beta"
+      ],
+      "has_legendaries": true,
+      "legendaries": [
+        "You may exhaust this card at the end of your turn and purge a non-faction, non-unit upgrade technology you own to gain 1 technology with the same number of prerequisites."
+      ],
+      "total_influence": 7,
+      "total_resources": 4,
+      "optimal_influence": 6,
+      "optimal_resources": 4
+    },
+    {
+      "tiles": [
+        98,
+        63,
+        50,
+        79,
+        4268
+      ],
+      "specialties": [
+        "biotic"
+      ],
+      "wormholes": [
+        "alpha"
+      ],
+      "has_legendaries": true,
+      "legendaries": [
+        "You may exhaust this card when you pass to place 1 action card from the discard pile faceup on this card; you can purge cards on this card to play them as if they were in your hand."
+      ],
+      "total_influence": 6,
+      "total_resources": 5,
+      "optimal_influence": 4.5,
+      "optimal_resources": 4.5
+    }
+  ],
+  "factions": [
+    "Roh'Dhna Mechatronics",
+    "Berserkers of Kjalengard",
+    "The Yin Brotherhood",
+    "Savages of Cymiae",
+    "Myko-Mentori",
+    "Sardakk N'orr",
+    "Ghoti Wayfarers",
+    "The Ral Nel Consortium",
+    "The Vuil'raith Cabal"
+  ],
+  "config": {
+    "players": [
+      "Amy",
+      "Ben",
+      "Charlie",
+      "Desmond",
+      "Esther",
+      "Frank"
+    ],
+    "name": "Game with every checkbox checked",
+    "num_slices": 7,
+    "num_factions": 9,
+    "include_pok": true,
+    "include_ds_tiles": true,
+    "include_te_tiles": true,
+    "include_base_factions": true,
+    "include_pok_factions": true,
+    "include_keleres": false,
+    "include_discordant": true,
+    "include_discordantexp": true,
+    "include_te_factions": true,
+    "preset_draft_order": true,
+    "min_wormholes": 2,
+    "min_legendaries": 1,
+    "max_1_wormhole": true,
+    "minimum_optimal_influence": 4,
+    "minimum_optimal_resources": 2.5,
+    "minimum_optimal_total": 9,
+    "maximum_optimal_total": 13,
+    "custom_factions": null,
+    "custom_slices": null,
+    "alliance": null,
+    "seed": 123
+  },
+  "name": "Game with every checkbox checked"
+}

@@ -45,4 +45,29 @@ class TileDataTest extends TestCase
 
         $this->assertCount(count($spaceStationData), $spaceStations);
     }
+
+    /**
+     * If we ever change tilenames again (bad idea, turns out) these next test should prevent us from breaking old drafts
+     *
+     * @return void
+     */
+    #[Test]
+    public function allHistoricTileIdsHaveData() {
+        $historicTileIds = json_decode(file_get_contents('data/all-tiles-ever.json'));
+
+        $currentTileIds = array_keys($this->getJsonData());
+
+        foreach($historicTileIds as $id) {
+            $this->assertContains($id, $currentTileIds);
+        }
+    }
+
+    #[Test]
+    public function allHistoricTileIdsHaveImages() {
+        $historicTileIds = json_decode(file_get_contents('data/all-tiles-ever.json'));
+
+        foreach($historicTileIds as $id) {
+            $this->assertFileExists('img/tiles/ST_' . $id . '.png');
+        }
+    }
 }

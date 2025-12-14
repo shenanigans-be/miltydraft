@@ -8,3 +8,4 @@ clean.php
 .DS_Store
 supervisord.log
 supervisord.pid
+tmp

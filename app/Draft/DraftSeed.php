@@ -7,6 +7,7 @@ class DraftSeed
     // Maximum value for random seed generation (2^50)
     // Limited by JavaScript's Number.MAX_SAFE_INTEGER (2^53 - 1) for JSON compatibility
     public const MAX_VALUE = 1125899906842624;
+    public const MIN_VALUE = 1;
 
     private const OFFSET_SLICES = 0;
     private const OFFSET_FACTIONS = 1;
@@ -45,5 +46,10 @@ class DraftSeed
     public function setForPlayerOrder()
     {
         mt_srand($this->seed + self::OFFSET_PLAYER_ORDER);
+    }
+
+    public function isValid()
+    {
+        return $this->seed >= self::MIN_VALUE && $this->seed <= self::MAX_VALUE;
     }
 }

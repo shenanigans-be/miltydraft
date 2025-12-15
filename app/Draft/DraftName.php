@@ -6,13 +6,11 @@ class DraftName implements \Stringable
 {
     private string $name;
 
-    public function __construct(string $submittedName = '') {
-        $submittedName = trim($submittedName);
-
-        if($submittedName == '') {
+    public function __construct(?string $submittedName = null) {
+        if($submittedName == null || trim($submittedName) == '') {
             $this->name = $this->generate();
         } else {
-            $this->name = htmlentities($submittedName);
+            $this->name = htmlentities(trim($submittedName));
         }
     }
 

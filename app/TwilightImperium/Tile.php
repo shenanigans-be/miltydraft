@@ -5,9 +5,8 @@ namespace App\TwilightImperium;
 
 class Tile
 {
-
-    public $totalInfluence = 0;
-    public $totalResources = 0;
+    public int $totalInfluence = 0;
+    public int $totalResources = 0;
     public float $optimalInfluence = 0;
     public float $optimalResources = 0;
     public float $optimalTotal = 0;

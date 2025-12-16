@@ -4,11 +4,6 @@ namespace App\Draft;
 
 class InvalidDraftSettingsException extends \Exception
 {
-    public static function playerCountDoesNotMatch(): self
-    {
-        return new self("Player count does not match number of names");
-    }
-
     public static function playerNamesNotUnique(): self
     {
         return new self("Player names are not unique");

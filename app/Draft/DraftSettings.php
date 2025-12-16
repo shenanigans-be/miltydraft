@@ -13,7 +13,6 @@ use App\TwilightImperium\Edition;
 class DraftSettings
 {
     public function __construct(
-        public int $numberOfPlayers,
         /**
          * @var array<string> $players
          */
@@ -50,11 +49,11 @@ class DraftSettings
     ) {
     }
 
-    protected function includesFactionSet(Edition $e): bool {
+    public function includesFactionSet(Edition $e): bool {
         return in_array($e, $this->factionSets);
     }
 
-    protected function includesTileSet(Edition $e): bool {
+    public function includesTileSet(Edition $e): bool {
         return in_array($e, $this->tileSets);
     }
 
@@ -62,7 +61,6 @@ class DraftSettings
     {
         return [
             'players' => $this->players,
-            'num_players' => $this->numberOfPlayers,
             'preset_draft_order' => $this->presetDraftOrder,
             'name' => (string) $this->name,
             'num_slices' => $this->numberOfSlices,
@@ -130,10 +128,6 @@ class DraftSettings
 
     protected function validatePlayers(): bool
     {
-        if ($this->numberOfPlayers != count(array_filter($this->players))) {
-            throw InvalidDraftSettingsException::playerCountDoesNotMatch();
-        }
-
         if (count(array_unique($this->players)) != count($this->players)) {
             throw InvalidDraftSettingsException::playerNamesNotUnique();
         }
@@ -142,11 +136,11 @@ class DraftSettings
             throw InvalidDraftSettingsException::notEnoughPlayers();
         }
 
-        if ($this->numberOfPlayers > $this->numberOfSlices) {
+        if (count($this->players) > $this->numberOfSlices) {
             throw InvalidDraftSettingsException::notEnoughSlicesForPlayers();
         }
 
-        if ($this->numberOfPlayers > $this->numberOfFactions) {
+        if (count($this->players) > $this->numberOfFactions) {
             throw InvalidDraftSettingsException::notEnoughFactionsForPlayers();
         }
 
@@ -191,7 +185,7 @@ class DraftSettings
     protected function validateCustomSlices(): bool
     {
         if (!empty($this->customSlices)) {
-            if (count($this->customSlices) < $this->numberOfPlayers) {
+            if (count($this->customSlices) < count($this->players)) {
                 throw InvalidDraftSettingsException::notEnoughCustomSlices();
             }
             foreach ($this->customSlices as $s) {
@@ -202,5 +196,85 @@ class DraftSettings
         }
 
         return true;
+    }
+
+    public static function fromJson(array $data): self
+    {
+        $allianceMode = $data['alliance'] != null;
+
+        return new self(
+            $data['players'],
+            $data['preset_draft_order'],
+            new DraftName($data['name']),
+            new DraftSeed($data['seed']),
+            $data['num_slices'],
+            $data['num_factions'],
+            self::tileSetsFromJson($data),
+            self::factionSetsFromJson($data),
+            $data['include_keleres'],
+            $data['min_wormholes'],
+            $data['max_1_wormhole'],
+            $data['min_legendaries'],
+            (float) $data['minimum_optimal_influence'],
+            (float) $data['minimum_optimal_resources'],
+            (float) $data['minimum_optimal_total'],
+            (float) $data['maximum_optimal_total'],
+            $data['custom_factions'] ?? [],
+            $data['custom_slices'] ?? [],
+            $allianceMode,
+            $allianceMode ? AllianceTeamMode::from($data['alliance']['alliance_teams']) : null,
+            $allianceMode ? AllianceTeamPosition::from($data['alliance']['alliance_teams_position']) : null,
+            $allianceMode ? (bool) $data['alliance']['force_double_picks'] : null,
+        );
+    }
+
+    /**
+     * @param $data
+     * @return array<Edition>
+     */
+    private static function tileSetsFromJson($data): array
+    {
+        $tilesets = [];
+
+        // currently there's no way to disable base game tiles
+        $tilesets[] = Edition::BASE_GAME;
+        if ($data['include_pok']) {
+            $tilesets[] = Edition::PROPHECY_OF_KINGS;
+        }
+        if ($data['include_ds_tiles']) {
+            $tilesets[] = Edition::DISCORDANT_STARS_PLUS;
+        }
+        if ($data['include_te_tiles']) {
+            $tilesets[] = Edition::THUNDERS_EDGE;
+        }
+
+        return $tilesets;
+    }
+
+    /**
+     * @param $data
+     * @return array<Edition>
+     */
+    private static function factionSetsFromJson($data): array
+    {
+        $tilesets = [];
+
+        if ($data['include_base_factions']) {
+            $tilesets[] = Edition::BASE_GAME;
+        }
+        if ($data['include_pok_factions']) {
+            $tilesets[] = Edition::PROPHECY_OF_KINGS;
+        }
+        if ($data['include_discordant']) {
+            $tilesets[] = Edition::DISCORDANT_STARS;
+        }
+        if ($data['include_discordantexp']) {
+            $tilesets[] = Edition::DISCORDANT_STARS_PLUS;
+        }
+        if ($data['include_te_factions']) {
+            $tilesets[] = Edition::THUNDERS_EDGE;
+        }
+
+        return $tilesets;
     }
 }

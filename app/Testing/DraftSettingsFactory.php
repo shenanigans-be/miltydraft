@@ -8,12 +8,6 @@ use App\Draft\DraftSettings;
 use App\TwilightImperium\AllianceTeamMode;
 use App\TwilightImperium\AllianceTeamPosition;
 use App\TwilightImperium\Edition;
-use App\TwilightImperium\Planet;
-use App\TwilightImperium\PlanetTrait;
-use App\TwilightImperium\TechSpecialties;
-use App\TwilightImperium\Tile;
-use App\TwilightImperium\TileType;
-use App\TwilightImperium\Wormhole;
 use Faker\Factory;
 
 class DraftSettingsFactory
@@ -36,7 +30,6 @@ class DraftSettingsFactory
         $allianceMode = $properties['allianceMode'] ?? false;
 
         return new DraftSettings(
-            $numberOfPlayers,
             $names,
             $properties['presetDraftOrder'] ?? $faker->boolean(),
             new DraftName($properties['name'] ?? null),

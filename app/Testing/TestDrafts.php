@@ -9,10 +9,10 @@ enum TestDrafts: string
     case ALLIANCE_MODE = "draft.november2025.alliance.json";
 
     private static function loadDraftByFilename(string $filename): array {
-        return json_decode(file_get_contents('data/test-drafts/' . $filename . '.json'));
+        return json_decode(file_get_contents('data/test-drafts/' . $filename), true);
     }
 
-    public static function testDraftsProvider(): iterable
+    public static function provideTestDrafts(): iterable
     {
         foreach(TestDrafts::cases() as $case) {
             yield $case->name => [

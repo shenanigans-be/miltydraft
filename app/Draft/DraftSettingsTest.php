@@ -4,10 +4,12 @@ namespace App\Draft;
 
 use App\Testing\DraftSettingsFactory;
 use App\Testing\TestCase;
+use App\Testing\TestDrafts;
 use App\TwilightImperium\AllianceTeamMode;
 use App\TwilightImperium\AllianceTeamPosition;
 use App\TwilightImperium\Edition;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\Attributes\Test;
 
 class DraftSettingsTest extends TestCase
@@ -16,7 +18,6 @@ class DraftSettingsTest extends TestCase
     public function itCanBeConvertedToAnArray()
     {
         $draftSettings = new DraftSettings(
-            4,
             ["john", "mike", "suzy", "robin"],
             true,
             new DraftName("Testgame"),
@@ -59,7 +60,6 @@ class DraftSettingsTest extends TestCase
 
         $array = $draftSettings->toArray();
 
-        $this->assertSame(4, $array['num_players']);
         $this->assertSame(["john", "mike", "suzy", "robin"], $array['players']);
         $this->assertSame("Testgame", $array['name']);
         $this->assertSame(5, $array['num_slices']);
@@ -98,17 +98,6 @@ class DraftSettingsTest extends TestCase
 
     public static function validationCases()
     {
-        yield "When player count does not match player names" => [
-            'data' => [
-                'numberOfPlayers' => 4,
-                'players' => [
-                    'sam',
-                    'josie',
-                    'kyle'
-                ]
-            ],
-            'exception' => InvalidDraftSettingsException::playerCountDoesNotMatch()
-        ];
         yield "When player names are not unique" => [
             "data" => [
                 'players' => [
@@ -276,5 +265,52 @@ class DraftSettingsTest extends TestCase
         $this->expectExceptionMessage(InvalidDraftSettingsException::notEnoughCustomSlices()->getMessage());
 
         $draft->validate();
+    }
+
+    #[DataProviderExternal(TestDrafts::class, "provideTestDrafts")]
+    #[Test]
+    public function itCanBeInstantiatedFromJson($data) {
+        $draftSettings = DraftSettings::fromJson($data['config']);
+
+        $this->assertSame($data['config']['name'], (string) $draftSettings->name);
+        $this->assertSame($data['config']['num_slices'], $draftSettings->numberOfSlices);
+        $this->assertSame($data['config']['num_factions'], $draftSettings->numberOfFactions);
+        $this->assertSame($data['config']['include_pok'], $draftSettings->includesTileSet(Edition::PROPHECY_OF_KINGS));
+        $this->assertSame($data['config']['include_ds_tiles'], $draftSettings->includesTileSet(Edition::DISCORDANT_STARS_PLUS));
+        $this->assertSame($data['config']['include_te_tiles'], $draftSettings->includesTileSet(Edition::THUNDERS_EDGE));
+        $this->assertSame($data['config']['include_base_factions'], $draftSettings->includesFactionSet(Edition::BASE_GAME));
+        $this->assertSame($data['config']['include_pok_factions'], $draftSettings->includesFactionSet(Edition::PROPHECY_OF_KINGS));
+        $this->assertSame($data['config']['include_te_factions'], $draftSettings->includesFactionSet(Edition::THUNDERS_EDGE));
+        $this->assertSame($data['config']['include_discordant'], $draftSettings->includesFactionSet(Edition::DISCORDANT_STARS));
+        $this->assertSame($data['config']['include_discordantexp'], $draftSettings->includesFactionSet(Edition::DISCORDANT_STARS_PLUS));
+        $this->assertSame($data['config']['include_keleres'], $draftSettings->includeCouncilKeleresFaction);
+        $this->assertSame($data['config']['preset_draft_order'], $draftSettings->presetDraftOrder);
+        $this->assertSame($data['config']['min_wormholes'], $draftSettings->minimumWormholes);
+        $this->assertSame($data['config']['min_legendaries'], $draftSettings->minimumLegendaryPlanets);
+        $this->assertSame($data['config']['max_1_wormhole'], $draftSettings->maxOneWormholesPerSlice);
+        $this->assertSame((float) $data['config']['minimum_optimal_influence'], $draftSettings->minimumOptimalInfluence);
+        $this->assertSame((float) $data['config']['minimum_optimal_resources'], $draftSettings->minimumOptimalResources);
+        $this->assertSame((float) $data['config']['minimum_optimal_total'], $draftSettings->minimumOptimalTotal);
+        $this->assertSame((float) $data['config']['maximum_optimal_total'], $draftSettings->maximumOptimalTotal);
+        if ($data['config']['custom_factions'] == null) {
+            $this->assertSame([], $draftSettings->customFactions);
+        } else {
+            $this->assertSame($data['config']['custom_factions'], $draftSettings->customFactions);
+        }
+        if ($data['config']['custom_slices'] == null) {
+            $this->assertSame([], $draftSettings->customSlices);
+        } else {
+            $this->assertSame($data['config']['custom_slices'], $draftSettings->customSlices);
+        }
+        $this->assertSame($data['config']['seed'], $draftSettings->seed->getValue());
+        if ($data['config']['alliance'] != null) {
+            $this->assertSame($data['config']['alliance']['alliance_teams'], $draftSettings->allianceTeamMode->value);
+            $this->assertSame($data['config']['alliance']['alliance_teams_position'], $draftSettings->allianceTeamPosition->value);
+            $this->assertSame($data['config']['alliance']['force_double_picks'], $draftSettings->allianceForceDoublePicks);
+        } else {
+            $this->assertNull($draftSettings->allianceTeamMode);
+            $this->assertNull($draftSettings->allianceTeamPosition);
+            $this->assertNull($draftSettings->allianceForceDoublePicks);
+        }
     }
 }

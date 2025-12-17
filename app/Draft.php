@@ -21,7 +21,7 @@ class Draft implements \JsonSerializable
         private string $name
     ) {
         $this->draft = ($draft === [] ? [
-            'playerNames' => $this->generatePlayerData(),
+            'players' => $this->generatePlayerData(),
             'log' => [],
         ] : $draft);
 
@@ -151,7 +151,7 @@ class Draft implements \JsonSerializable
     public function currentPlayer(): string
     {
         $doneSteps = count($this->draft['log']);
-        $snakeDraft = array_merge(array_keys($this->draft['playerNames']), array_keys(array_reverse($this->draft['playerNames'])));
+        $snakeDraft = array_merge(array_keys($this->draft['players']), array_keys(array_reverse($this->draft['players'])));
         return $snakeDraft[$doneSteps % count($snakeDraft)];
     }
 
@@ -162,7 +162,7 @@ class Draft implements \JsonSerializable
 
     public function players(): array
     {
-        return $this->draft['playerNames'];
+        return $this->draft['players'];
     }
 
     public function isDone(): bool
@@ -174,7 +174,7 @@ class Draft implements \JsonSerializable
     {
         $last_log = array_pop($this->draft['log']);
 
-        $this->draft["playerNames"][$last_log['player']][$last_log['category']] = null;
+        $this->draft["players"][$last_log['player']][$last_log['category']] = null;
         $this->draft['current'] = $last_log['player'];
 
         $this->save();
@@ -188,7 +188,7 @@ class Draft implements \JsonSerializable
             'value' => $value
         ];
 
-        $this->draft['playerNames'][$player][$category] = $value;
+        $this->draft['players'][$player][$category] = $value;
 
         $this->draft['current'] = $this->currentPlayer();
 
@@ -199,10 +199,10 @@ class Draft implements \JsonSerializable
 
     public function claim($player)
     {
-        if ($this->draft['playerNames'][$player]["claimed"] == true) {
+        if ($this->draft['players'][$player]["claimed"] == true) {
             return_error('Already claimed');
         }
-        $this->draft['playerNames'][$player]["claimed"] = true;
+        $this->draft['players'][$player]["claimed"] = true;
         $this->secrets[$player] = md5(uniqid("", true));
 
         return $this->save();
@@ -210,10 +210,10 @@ class Draft implements \JsonSerializable
 
     public function unclaim($player)
     {
-        if ($this->draft['playerNames'][$player]["claimed"] == false) {
+        if ($this->draft['players'][$player]["claimed"] == false) {
             return_error('Already unclaimed');
         }
-        $this->draft['playerNames'][$player]["claimed"] = false;
+        $this->draft['players'][$player]["claimed"] = false;
         unset($this->secrets[$player]);
 
         return $this->save();
@@ -253,7 +253,7 @@ class Draft implements \JsonSerializable
         }
 
         if ($regen_order) {
-            $this->draft['playerNames'] = $this->generatePlayerData();
+            $this->draft['players'] = $this->generatePlayerData();
         }
 
         $this->save();
@@ -309,7 +309,7 @@ class Draft implements \JsonSerializable
         $teams = [];
         $currentTeam = [];
         $i = 0;
-        // put playerNames in teams
+        // put players in teams
         while(count($teamNames) > 0) {
             $currentTeam[] = $this->config->players[$i];
             $i++;

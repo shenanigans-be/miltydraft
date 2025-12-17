@@ -60,7 +60,7 @@ class DraftSettingsTest extends TestCase
 
         $array = $draftSettings->toArray();
 
-        $this->assertSame(["john", "mike", "suzy", "robin"], $array['playerNames']);
+        $this->assertSame(["john", "mike", "suzy", "robin"], $array['players']);
         $this->assertSame("Testgame", $array['name']);
         $this->assertSame(5, $array['num_slices']);
         $this->assertSame(8, $array['num_factions']);

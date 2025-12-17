@@ -58,7 +58,7 @@ class GeneratorConfig
 
             $this->players = array_filter(array_map('htmlentities', get('player', [])));
             if ((int) get('num_players') != count($this->players)) {
-                return_error('Number of playerNames does not match number of names');
+                return_error('Number of players does not match number of names');
             }
 
             $this->name = new DraftName(get('game_name', ''));
@@ -136,16 +136,16 @@ class GeneratorConfig
     private function validate(): void
     {
 
-        if (count($this->players) > count(array_filter($this->players))) return_error('Some playerNames names are not filled out');
+        if (count($this->players) > count(array_filter($this->players))) return_error('Some player names are not filled out');
         if (count(array_unique($this->players)) != count($this->players)) return_error('Players should all have unique names');
         $num_tiles = self::NUM_BASE_BLUE + $this->include_pok*self::NUM_POK_BLUE + $this->include_ds_tiles*self::NUM_DS_BLUE + $this->include_te_tiles*self::NUM_TE_BLUE;
         $num_red = self::NUM_BASE_RED + $this->include_pok*self::NUM_POK_RED + $this->include_ds_tiles*self::NUM_DS_RED + $this->include_te_tiles*self::NUM_TE_RED;
         // maximum number of possible slices, 3 blue and 2 red tiles per slice
         $max_slices = min(floor($num_tiles/3), floor($num_red/2));
-        if ($max_slices < $this->num_slices) return_error('Can only draft up to ' . $max_slices . ' slices with the selected tiles. (And by extension you can only do drafts up to ' . $max_slices . ' playerNames)');
-        if (count($this->players) < 3) return_error('Please enter at least 3 playerNames');
-        if ($this->num_factions < count($this->players)) return_error("Can't have less factions than playerNames");
-        if ($this->num_slices < count($this->players)) return_error("Can't have less slices than playerNames");
+        if ($max_slices < $this->num_slices) return_error('Can only draft up to ' . $max_slices . ' slices with the selected tiles. (And by extension you can only do drafts up to ' . $max_slices . ' players)');
+        if (count($this->players) < 3) return_error('Please enter at least 3 players');
+        if ($this->num_factions < count($this->players)) return_error("Can't have less factions than players");
+        if ($this->num_slices < count($this->players)) return_error("Can't have less slices than players");
         if ($this->maximum_optimal_total < $this->minimum_optimal_total) return_error("Maximum optimal can't be less than minimum");
         $max_legendaries = $this->include_pok*self::NUM_POK_LEGENDARIES + $this->include_ds_tiles*self::NUM_DS_LEGENDARIES + $this->include_te_tiles*self::NUM_TE_LEGENDARIES;
         if ($max_legendaries < $this->min_legendaries) return_error('Cannot include ' . $this->min_legendaries . ' legendaries, maximum number available is ' . $max_legendaries);
@@ -153,9 +153,9 @@ class GeneratorConfig
         if ($this->seed !== null && ($this->seed < 1 || $this->seed > self::MAX_SEED_VALUE)) return_error('Seed must be between 1 and ' . self::MAX_SEED_VALUE);
         // Must include at least 1 of base, pok, discordant, or discordant expansion to have enough factions to use
         if (!($this->include_base_factions || $this->include_pok_factions || $this->include_discordant || $this->include_discordantexp || $this->include_te_factions)) return_error("Not enough factions selected.");
-        // if($this->custom_factions != null && count($this->custom_factions) < count($this->playerNames)) return_error("Not enough custom factions for number of playerNames");
+        // if($this->custom_factions != null && count($this->custom_factions) < count($this->players)) return_error("Not enough custom factions for number of players");
         if ($this->custom_slices != null) {
-            if (count($this->custom_slices) < count($this->players)) return_error("Not enough custom slices for number of playerNames");
+            if (count($this->custom_slices) < count($this->players)) return_error("Not enough custom slices for number of players");
             foreach ($this->custom_slices as $s) {
                 if (count($s) != 5) return_error('Some of the custom slices have the wrong number of tiles. (each should have five)');
             }

@@ -14,7 +14,7 @@ class DraftSeed
     private const OFFSET_PLAYER_ORDER = 2;
     private int $seed;
 
-    public function __construct(int $seed = null)
+    public function __construct(?int $seed = null)
     {
         if ($seed == null) {
             $this->seed = self::generate();

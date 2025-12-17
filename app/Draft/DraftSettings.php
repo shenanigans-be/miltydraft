@@ -60,7 +60,7 @@ class DraftSettings
     public function toArray()
     {
         return [
-            'playerNames' => $this->playerNames,
+            'players' => $this->playerNames,
             'preset_draft_order' => $this->presetDraftOrder,
             'name' => (string) $this->name,
             'num_slices' => $this->numberOfSlices,
@@ -104,19 +104,9 @@ class DraftSettings
      */
     public function validate(): bool
     {
-        /*
-
-        if ($this->custom_slices != null) {
-            if (count($this->custom_slices) < count($this->playerNames)) return_error("Not enough custom slices for number of playerNames");
-            foreach ($this->custom_slices as $s) {
-                if (count($s) != 5) return_error('Some of the custom slices have the wrong number of tiles. (each should have five)');
-            }
-        }
-        */
         if (!$this->seed->isValid()) {
             throw InvalidDraftSettingsException::invalidSeed();
         }
-
 
         $this->validatePlayers();
         $this->validateTiles();

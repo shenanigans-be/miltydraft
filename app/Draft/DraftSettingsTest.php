@@ -60,7 +60,7 @@ class DraftSettingsTest extends TestCase
 
         $array = $draftSettings->toArray();
 
-        $this->assertSame(["john", "mike", "suzy", "robin"], $array['players']);
+        $this->assertSame(["john", "mike", "suzy", "robin"], $array['playerNames']);
         $this->assertSame("Testgame", $array['name']);
         $this->assertSame(5, $array['num_slices']);
         $this->assertSame(8, $array['num_factions']);
@@ -100,7 +100,7 @@ class DraftSettingsTest extends TestCase
     {
         yield "When player names are not unique" => [
             "data" => [
-                'players' => [
+                'playerNames' => [
                     'sam',
                     'sam',
                     'kyle'
@@ -108,9 +108,9 @@ class DraftSettingsTest extends TestCase
             ],
             'exception' => InvalidDraftSettingsException::playerNamesNotUnique()
         ];
-        yield "When not enough players" => [
+        yield "When not enough playerNames" => [
             "data" => [
-                'players' => [
+                'playerNames' => [
                     'sam',
                     'kyle'
                 ]

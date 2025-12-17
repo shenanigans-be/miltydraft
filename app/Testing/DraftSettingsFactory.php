@@ -19,13 +19,13 @@ class DraftSettingsFactory
 
         if (isset($properties['numberOfPlayers'])) {
             $numberOfPlayers = $properties['numberOfPlayers'];
-        } elseif (isset($properties['players'])) {
-            $numberOfPlayers = count($properties['players']);
+        } elseif (isset($properties['playerNames'])) {
+            $numberOfPlayers = count($properties['playerNames']);
         } else {
             $numberOfPlayers = 6;
         }
 
-        $names = $properties['players'] ?? array_map(fn () => $faker->name(), range(1, $numberOfPlayers));
+        $names = $properties['playerNames'] ?? array_map(fn () => $faker->name(), range(1, $numberOfPlayers));
 
         $allianceMode = $properties['allianceMode'] ?? false;
 

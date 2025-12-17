@@ -11,17 +11,17 @@ class InvalidDraftSettingsException extends \Exception
 
     public static function notEnoughPlayers(): self
     {
-        return new self("Should have at least 3 players");
+        return new self("Should have at least 3 playerNames");
     }
 
     public static function notEnoughSlicesForPlayers(): self
     {
-        return new self("Cannot have less slices than players");
+        return new self("Cannot have less slices than playerNames");
     }
 
     public static function notEnoughFactionsForPlayers(): self
     {
-        return new self("Cannot have less factions than players");
+        return new self("Cannot have less factions than playerNames");
     }
 
     public static function notEnoughTilesForSlices(float $maxSlices): self

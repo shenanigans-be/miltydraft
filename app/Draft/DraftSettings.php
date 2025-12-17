@@ -14,18 +14,18 @@ class DraftSettings
 {
     public function __construct(
         /**
-         * @var array<string> $players
+         * @var array<string> $playerNames
          */
-        public array $players,
-        public bool $presetDraftOrder,
+        public array     $playerNames,
+        public bool      $presetDraftOrder,
         public DraftName $name,
         public DraftSeed $seed,
-        public int $numberOfSlices,
-        public int $numberOfFactions,
+        public int       $numberOfSlices,
+        public int       $numberOfFactions,
         /**
          * @var array<Edition>
          */
-        public array $tileSets,
+        public array     $tileSets,
         /**
          * @var array<Edition>
          */
@@ -60,7 +60,7 @@ class DraftSettings
     public function toArray()
     {
         return [
-            'players' => $this->players,
+            'playerNames' => $this->playerNames,
             'preset_draft_order' => $this->presetDraftOrder,
             'name' => (string) $this->name,
             'num_slices' => $this->numberOfSlices,
@@ -107,7 +107,7 @@ class DraftSettings
         /*
 
         if ($this->custom_slices != null) {
-            if (count($this->custom_slices) < count($this->players)) return_error("Not enough custom slices for number of players");
+            if (count($this->custom_slices) < count($this->playerNames)) return_error("Not enough custom slices for number of playerNames");
             foreach ($this->custom_slices as $s) {
                 if (count($s) != 5) return_error('Some of the custom slices have the wrong number of tiles. (each should have five)');
             }
@@ -128,19 +128,19 @@ class DraftSettings
 
     protected function validatePlayers(): bool
     {
-        if (count(array_unique($this->players)) != count($this->players)) {
+        if (count(array_unique($this->playerNames)) != count($this->playerNames)) {
             throw InvalidDraftSettingsException::playerNamesNotUnique();
         }
 
-        if (count($this->players) < 3) {
+        if (count($this->playerNames) < 3) {
             throw InvalidDraftSettingsException::notEnoughPlayers();
         }
 
-        if (count($this->players) > $this->numberOfSlices) {
+        if (count($this->playerNames) > $this->numberOfSlices) {
             throw InvalidDraftSettingsException::notEnoughSlicesForPlayers();
         }
 
-        if (count($this->players) > $this->numberOfFactions) {
+        if (count($this->playerNames) > $this->numberOfFactions) {
             throw InvalidDraftSettingsException::notEnoughFactionsForPlayers();
         }
 
@@ -185,7 +185,7 @@ class DraftSettings
     protected function validateCustomSlices(): bool
     {
         if (!empty($this->customSlices)) {
-            if (count($this->customSlices) < count($this->players)) {
+            if (count($this->customSlices) < count($this->playerNames)) {
                 throw InvalidDraftSettingsException::notEnoughCustomSlices();
             }
             foreach ($this->customSlices as $s) {

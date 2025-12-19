@@ -2,7 +2,7 @@
 
 namespace App\Draft;
 
-class DraftName implements \Stringable
+class Name implements \Stringable
 {
     private string $name;
 

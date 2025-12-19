@@ -12,16 +12,16 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\Attributes\Test;
 
-class DraftSettingsTest extends TestCase
+class SettingsTest extends TestCase
 {
     #[Test]
     public function itCanBeConvertedToAnArray()
     {
-        $draftSettings = new DraftSettings(
+        $draftSettings = new Settings(
             ["john", "mike", "suzy", "robin"],
             true,
-            new DraftName("Testgame"),
-            new DraftSeed(123),
+            new Name("Testgame"),
+            new Seed(123),
             5,
             8,
             [
@@ -211,7 +211,7 @@ class DraftSettingsTest extends TestCase
             "valid" => false
         ];
         yield "When seed is too high" => [
-            "seed" => DraftSeed::MAX_VALUE + 12,
+            "seed" => Seed::MAX_VALUE + 12,
             "valid" => false
         ];
         yield "When seed is valid" => [
@@ -270,7 +270,7 @@ class DraftSettingsTest extends TestCase
     #[DataProviderExternal(TestDrafts::class, "provideTestDrafts")]
     #[Test]
     public function itCanBeInstantiatedFromJson($data) {
-        $draftSettings = DraftSettings::fromJson($data['config']);
+        $draftSettings = Settings::fromJson($data['config']);
 
         $this->assertSame($data['config']['name'], (string) $draftSettings->name);
         $this->assertSame($data['config']['num_slices'], $draftSettings->numberOfSlices);

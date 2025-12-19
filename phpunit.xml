@@ -9,6 +9,8 @@
         stopOnFailure="false"
         displayDetailsOnTestsThatTriggerWarnings="true"
         cacheDirectory=".phpunit.cache"
+        displayDetailsOnPhpunitDeprecations="true"
+        displayDetailsOnTestsThatTriggerDeprecations="true"
         backupStaticProperties="false"
 >
     <testsuites>

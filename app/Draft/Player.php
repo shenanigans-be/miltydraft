@@ -5,21 +5,21 @@ namespace App\Draft;
 class Player
 {
     public function __construct(
-        public string $id,
-        public string $name,
-        public bool $claimed = false,
+        public readonly PlayerId $id,
+        public readonly string $name,
+        public readonly bool $claimed = false,
         // enum with the 8 positions?
-        public ?string $pickedPosition = null,
-        public ?string $pickedFaction = null,
-        public ?string $pickedSlice = null,
-        public ?string $team = null
+        public readonly ?string $pickedPosition = null,
+        public readonly ?string $pickedFaction = null,
+        public readonly ?string $pickedSlice = null,
+        public readonly ?string $team = null
     ) {
     }
 
     public static function fromJson($playerData): self
     {
         return new self(
-            $playerData['id'],
+            PlayerId::fromString($playerData['id']),
             $playerData['name'],
             $playerData['claimed'],
             $playerData['position'],
@@ -32,7 +32,7 @@ class Player
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->id->value,
             'name' => $this->name,
             'claimed' => $this->claimed,
             'position' => $this->pickedPosition,
@@ -55,5 +55,31 @@ class Player
     public function hasPickedPosition(): bool
     {
         return $this->pickedPosition != null;
+    }
+
+    public function hasPicked(PickCategory $category): bool
+    {
+        return match($category) {
+            PickCategory::FACTION => $this->hasPickedFaction(),
+            PickCategory::SLICE => $this->hasPickedSlice(),
+            PickCategory::POSITION => $this->hasPickedPosition(),
+        };
+    }
+
+    public function pick(PickCategory $category, string $pick): Player
+    {
+        if ($this->hasPicked($category)) {
+            throw InvalidPickException::playerHasAlreadyPicked($category);
+        }
+
+        return new self(
+            $this->id,
+            $this->name,
+            $this->claimed,
+            $category == PickCategory::POSITION ? $pick : $this->pickedPosition,
+            $category == PickCategory::FACTION ? $pick : $this->pickedFaction,
+            $category == PickCategory::SLICE ? $pick : $this->pickedSlice,
+            $this->team,
+        );
     }
 }

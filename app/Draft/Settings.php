@@ -10,26 +10,26 @@ use App\TwilightImperium\Edition;
  * @todo This class is friggin huge. We could sepatate all the validators into their own class
  * or have SliceSettings, FactionSettings,...
  */
-class DraftSettings
+class Settings
 {
     public function __construct(
         /**
          * @var array<string> $playerNames
          */
-        public array     $playerNames,
-        public bool      $presetDraftOrder,
-        public DraftName $name,
-        public DraftSeed $seed,
-        public int       $numberOfSlices,
-        public int       $numberOfFactions,
+        public array $playerNames,
+        public bool  $presetDraftOrder,
+        public Name  $name,
+        public Seed  $seed,
+        public int   $numberOfSlices,
+        public int   $numberOfFactions,
         /**
          * @var array<Edition>
          */
-        public array     $tileSets,
+        public array $tileSets,
         /**
          * @var array<Edition>
          */
-        public array $factionSets,
+        public array     $factionSets,
         // @todo figure out a better way to integrate this
         // should be required-ish when TE is included, but optional if PoK is included
         public bool $includeCouncilKeleresFaction,
@@ -195,8 +195,8 @@ class DraftSettings
         return new self(
             $data['players'],
             $data['preset_draft_order'],
-            new DraftName($data['name']),
-            new DraftSeed($data['seed']),
+            new Name($data['name']),
+            new Seed($data['seed']),
             $data['num_slices'],
             $data['num_factions'],
             self::tileSetsFromJson($data),

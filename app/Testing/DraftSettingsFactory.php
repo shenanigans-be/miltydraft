@@ -2,9 +2,9 @@
 
 namespace App\Testing;
 
-use App\Draft\DraftName;
-use App\Draft\DraftSeed;
-use App\Draft\DraftSettings;
+use App\Draft\Name;
+use App\Draft\Seed;
+use App\Draft\Settings;
 use App\TwilightImperium\AllianceTeamMode;
 use App\TwilightImperium\AllianceTeamPosition;
 use App\TwilightImperium\Edition;
@@ -12,7 +12,7 @@ use Faker\Factory;
 
 class DraftSettingsFactory
 {
-    public static function make(array $properties = []): DraftSettings
+    public static function make(array $properties = []): Settings
     {
         $faker = Factory::create();
 
@@ -29,11 +29,11 @@ class DraftSettingsFactory
 
         $allianceMode = $properties['allianceMode'] ?? false;
 
-        return new DraftSettings(
+        return new Settings(
             $names,
             $properties['presetDraftOrder'] ?? $faker->boolean(),
-            new DraftName($properties['name'] ?? null),
-            new DraftSeed($properties['seed'] ?? null),
+            new Name($properties['name'] ?? null),
+            new Seed($properties['seed'] ?? null),
             $properties['numberOfSlices'] ?? $numberOfPlayers + 2,
             $properties['numberOfFactions'] ?? $numberOfPlayers + 2,
             $properties['tileSets'] ?? [

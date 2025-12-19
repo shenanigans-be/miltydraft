@@ -2,7 +2,7 @@
 
 namespace App\Draft;
 
-class DraftSeed
+class Seed
 {
     // Maximum value for random seed generation (2^50)
     // Limited by JavaScript's Number.MAX_SAFE_INTEGER (2^53 - 1) for JSON compatibility

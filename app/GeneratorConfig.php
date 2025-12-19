@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Draft\DraftName;
+use App\Draft\Name;
 
 class GeneratorConfig
 {
@@ -61,7 +61,7 @@ class GeneratorConfig
                 return_error('Number of players does not match number of names');
             }
 
-            $this->name = new DraftName(get('game_name', ''));
+            $this->name = new Name(get('game_name', ''));
             $this->num_slices = (int) get('num_slices');
             $this->num_factions = (int) get('num_factions');
             $this->include_pok = get('include_pok') == true;

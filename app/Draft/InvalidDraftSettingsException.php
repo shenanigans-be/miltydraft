@@ -45,7 +45,7 @@ class InvalidDraftSettingsException extends \Exception
     }
 
     public static function invalidSeed(): self {
-        return new self(sprintf("Seed must be between %d and %d", DraftSeed::MIN_VALUE, DraftSeed::MAX_VALUE));
+        return new self(sprintf("Seed must be between %d and %d", Seed::MIN_VALUE, Seed::MAX_VALUE));
     }
 
     public static function notEnoughFactionsInSet(int $max): self {

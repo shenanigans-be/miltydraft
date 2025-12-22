@@ -2,6 +2,7 @@
 
 namespace App\TwilightImperium;
 
+use App\Testing\Factories\TileFactory;
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -16,12 +17,7 @@ class TileTest extends TestCase
             new Planet('test',3, 3),
         ];
 
-        $tile = new Tile(
-            "test",
-            TileType::BLUE,
-            $planets,
-            [],
-        );
+        $tile = TileFactory::make($planets);
 
         $this->assertSame(7, $tile->totalResources);
         $this->assertSame(5, $tile->totalInfluence);
@@ -38,7 +34,8 @@ class TileTest extends TestCase
                 "wormhole" => null,
                 "anomaly" => null,
                 "planets" => [],
-                "stations" => []
+                "stations" => [],
+                "set" => Edition::BASE_GAME->value
             ],
             "expectedWormholes" => [],
         ];
@@ -48,7 +45,8 @@ class TileTest extends TestCase
                 "wormhole" => "gamma",
                 "anomaly" => null,
                 "planets" => [],
-                "stations" => []
+                "stations" => [],
+                "set" => Edition::PROPHECY_OF_KINGS->value
             ],
             "expectedWormholes" => [Wormhole::GAMMA],
         ];
@@ -58,7 +56,8 @@ class TileTest extends TestCase
                 "wormhole" => null,
                 "anomaly" => "nebula",
                 "planets" => [],
-                "stations" => []
+                "stations" => [],
+                "set" => Edition::THUNDERS_EDGE->value
             ],
             "expectedWormholes" => [],
         ];
@@ -67,7 +66,8 @@ class TileTest extends TestCase
                 "type" => "red",
                 "wormhole" => null,
                 "anomaly" => null,
-                "planets" => []
+                "planets" => [],
+                "set" => Edition::DISCORDANT_STARS->value
             ],
             "expectedWormholes" => [],
         ];
@@ -93,7 +93,8 @@ class TileTest extends TestCase
                         "legendary" => false,
                         "specialties" => []
                     ]
-                ]
+                ],
+                "set" => Edition::DISCORDANT_STARS_PLUS->value
             ],
             "expectedWormholes" => [],
         ];
@@ -114,7 +115,8 @@ class TileTest extends TestCase
                         "resources" =>  1,
                         "influence" => 1,
                     ]
-                ]
+                ],
+                "set" => Edition::THUNDERS_EDGE->value
             ],
             "expectedWormholes" => [],
         ];
@@ -133,7 +135,8 @@ class TileTest extends TestCase
                         0,
                         2
                     ],
-                ]
+                ],
+                "set" => Edition::PROPHECY_OF_KINGS->value
             ],
             "expectedWormholes" => [],
         ];
@@ -144,7 +147,7 @@ class TileTest extends TestCase
     public function itCanBeInitializedFromJsonData(array $jsonData, array $expectedWormholes) {
         $id = "tile-id";
 
-        $tile = Tile::fromJsonData($id, $jsonData);
+        $tile = Tile::fromJsonData($id,TileTier::MEDIUM, $jsonData);
         $this->assertSame($id, $tile->id);
         $this->assertSame($jsonData['anomaly'], $tile->anomaly);
         $this->assertSame($jsonData['hyperlanes'] ?? [], $tile->hyperlanes);
@@ -166,14 +169,7 @@ class TileTest extends TestCase
     #[DataProvider("anomalies")]
     #[Test]
     public function itCanCheckForAnomalies(?string $anomaly, bool $expected) {
-        $tile = new Tile(
-            "test-with-anomaly",
-            TileType::BLUE,
-            [],
-            [],
-            [],
-            $anomaly
-        );
+        $tile = TileFactory::make([], [], $anomaly);
 
         $this->assertSame($expected, $tile->hasAnomaly());
     }
@@ -181,36 +177,30 @@ class TileTest extends TestCase
     public static function wormholeTiles() {
         yield "When tile has wormhole" => [
             "lookingFor" => Wormhole::ALPHA,
-            "has" => [Wormhole::ALPHA],
+            "hasWormholes" => [Wormhole::ALPHA],
             "expected" => true
         ];
         yield "When tile has multiple wormholes" => [
             "lookingFor" => Wormhole::BETA,
-            "has" => [Wormhole::ALPHA, Wormhole::BETA],
+            "hasWormholes" => [Wormhole::ALPHA, Wormhole::BETA],
             "expected" => true
         ];
         yield "When tile does not have wormhole" => [
             "lookingFor" => Wormhole::EPSILON,
-            "has" => [Wormhole::GAMMA],
+            "hasWormholes" => [Wormhole::GAMMA],
             "expected" => false
         ];
         yield "When tile has no wormholes" => [
             "lookingFor" => Wormhole::DELTA,
-            "has" => [],
+            "hasWormholes" => [],
             "expected" => false
         ];
     }
 
     #[DataProvider('wormholeTiles')]
     #[Test]
-    public function itCanCheckForWormholes(Wormhole $lookingFor, array $has, bool $expected) {
-        $tile = new Tile(
-            "test",
-            TileType::BLUE,
-            [],
-            [],
-            $has
-        );
+    public function itCanCheckForWormholes(Wormhole $lookingFor, array $hasWormholes, bool $expected) {
+        $tile = TileFactory::make([], $hasWormholes);
 
         $this->assertSame($expected, $tile->hasWormhole($lookingFor));
     }
@@ -220,11 +210,11 @@ class TileTest extends TestCase
         $regularPlanet = new Planet("regular", 1, 1);
         $legendaryPlanet = new Planet("legendary", 3, 3, "Legend has it...");
 
-        $tileWithLegendary = new Tile("with-legendary", TileType::GREEN, [
+        $tileWithLegendary = TileFactory::make([
             $regularPlanet,
             $legendaryPlanet
         ]);
-        $tileWithoutLegendary = new Tile("without-legendary", TileType::GREEN, [
+        $tileWithoutLegendary = TileFactory::make([
             $regularPlanet
         ]);
 
@@ -235,10 +225,7 @@ class TileTest extends TestCase
     public static function tiles()
     {
         yield "When tile has nothing special" => [
-            "tile" => new Tile(
-                "regular-tile",
-                TileType::BLUE,
-            ),
+            "tile" => TileFactory::make(),
             "expected" => [
                 "alpha" => 0,
                 "beta" => 0,
@@ -246,13 +233,7 @@ class TileTest extends TestCase
             ]
         ];
         yield "When tile has wormhole" => [
-            "tile" => new Tile(
-                "regular-tile",
-                TileType::BLUE,
-                [],
-                [],
-                [Wormhole::ALPHA]
-            ),
+            "tile" => TileFactory::make([], [Wormhole::ALPHA]),
             "expected" => [
                 "alpha" => 1,
                 "beta" => 0,
@@ -260,27 +241,17 @@ class TileTest extends TestCase
             ]
         ];
         yield "When tile has multiple wormholes" => [
-            "tile" => new Tile(
-                "regular-tile",
-                TileType::BLUE,
-                [],
-                [],
-                [Wormhole::ALPHA, Wormhole::BETA]
-            ),
+            "tile" => TileFactory::make([], [Wormhole::ALPHA, Wormhole::BETA]),
             "expected" => [
                 "alpha" => 1,
                 "beta" => 1,
                 "legendary" => 0
             ]
         ];
-        yield "When tile has legendary" => [
-            "tile" => new Tile(
-                "regular-tile",
-                TileType::BLUE,
-                [
+        yield "When tile has legendary planet" => [
+            "tile" => TileFactory::make([
                     new Planet("test", 0, 0, "yes")
-                ]
-            ),
+            ]),
             "expected" => [
                 "alpha" => 0,
                 "beta" => 0,
@@ -288,13 +259,8 @@ class TileTest extends TestCase
             ]
         ];
         yield "When tile has wormhole and legendary" => [
-            "tile" => new Tile(
-                "regular-tile",
-                TileType::BLUE,
-                [
-                    new Planet("test", 0, 0, "yes")
-                ],
-                [],
+            "tile" => TileFactory::make(
+                [new Planet("test", 0, 0, "yes")],
                 [Wormhole::BETA]
             ),
             "expected" => [
@@ -323,4 +289,25 @@ class TileTest extends TestCase
         $this->assertSame($expected["beta"] * 2, $count["beta"]);
         $this->assertSame($expected["legendary"] * 2, $count["legendary"]);
     }
+
+    public static function allJsonTiles(): iterable
+    {
+        $tileJsonData = json_decode(file_get_contents('data/tiles.json'), true);
+        foreach($tileJsonData as $key => $tileData) {
+            yield "Tile #" . $key => [
+                'key' => $key,
+                'tileData' => $tileData
+            ];
+        }
+    }
+
+    #[Test]
+    #[DataProvider('allJsonTiles')]
+    public function tilesCanBeFetchedFromJson($key, $tileData)
+    {
+        $tiles = Tile::all();
+        $this->assertArrayHasKey($key, $tiles);
+        // the "toJson" tests should cover the rest, we're just making sure it can fetch all the tiles
+    }
+
 }

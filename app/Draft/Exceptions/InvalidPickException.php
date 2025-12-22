@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Draft;
+namespace App\Draft\Exceptions;
+
+use App\Draft\PickCategory;
 
 class InvalidPickException extends \Exception
 {

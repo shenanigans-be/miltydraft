@@ -2,10 +2,13 @@
 
 namespace App;
 
-use App\Draft\InvalidSliceException;
+use App\Draft\Exceptions\InvalidSliceException;
 use App\Draft\Slice;
 use App\TwilightImperium\Tile;
 
+/**
+ * @deprecated
+ */
 class Generator
 {
     private const SEED_OFFSET_SLICES = 0;
@@ -246,7 +249,6 @@ class Generator
             foreach ($config->custom_factions as $f) {
                 $factions[] = $f;
             }
-
 
             // add some more boys and girls untill we reach the magic number
             $i = 0;

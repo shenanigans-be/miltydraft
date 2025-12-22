@@ -2,9 +2,10 @@
 
 namespace App\Draft;
 
-use App\Testing\PlanetFactory;
+use App\Draft\Exceptions\InvalidSliceException;
+use App\Testing\Factories\PlanetFactory;
+use App\Testing\Factories\TileFactory;
 use App\Testing\TestCase;
-use App\Testing\TileFactory;
 use App\TwilightImperium\Planet;
 use App\TwilightImperium\Wormhole;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -96,9 +97,10 @@ class SliceTest extends TestCase
         if (!$canBeArranged) {
             $this->expectException(InvalidSliceException::class);
         }
-
         $slice = new Slice($tiles);
-        $slice->arrange();
+        $seed = new Seed(1);
+
+        $slice->arrange($seed);
 
         $this->assertTrue($slice->tileArrangementIsValid());
     }

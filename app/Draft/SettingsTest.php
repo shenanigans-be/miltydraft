@@ -2,7 +2,8 @@
 
 namespace App\Draft;
 
-use App\Testing\DraftSettingsFactory;
+use App\Draft\Exceptions\InvalidDraftSettingsException;
+use App\Testing\Factories\DraftSettingsFactory;
 use App\Testing\TestCase;
 use App\Testing\TestDrafts;
 use App\TwilightImperium\AllianceTeamMode;
@@ -285,7 +286,7 @@ class SettingsTest extends TestCase
         $this->assertSame($data['config']['include_discordantexp'], $draftSettings->includesFactionSet(Edition::DISCORDANT_STARS_PLUS));
         $this->assertSame($data['config']['include_keleres'], $draftSettings->includeCouncilKeleresFaction);
         $this->assertSame($data['config']['preset_draft_order'], $draftSettings->presetDraftOrder);
-        $this->assertSame($data['config']['min_wormholes'], $draftSettings->minimumWormholes);
+        $this->assertSame($data['config']['min_wormholes'], $draftSettings->minimumTwoAlphaAndBetaWormholes ? 2 : 0);
         $this->assertSame($data['config']['min_legendaries'], $draftSettings->minimumLegendaryPlanets);
         $this->assertSame($data['config']['max_1_wormhole'], $draftSettings->maxOneWormholesPerSlice);
         $this->assertSame((float) $data['config']['minimum_optimal_influence'], $draftSettings->minimumOptimalInfluence);

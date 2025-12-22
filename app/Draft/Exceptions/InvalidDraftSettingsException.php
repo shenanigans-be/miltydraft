@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Draft;
+namespace App\Draft\Exceptions;
+
+use App\Draft\Seed;
 
 class InvalidDraftSettingsException extends \Exception
 {
@@ -58,5 +60,9 @@ class InvalidDraftSettingsException extends \Exception
 
     public static function invalidCustomSlices(): self {
         return new self("Custom slices error, either the formatting is incorrect or slices don't have enough tiles (each should have 5)");
+    }
+
+    public static function cannotGenerateSlices(): self {
+        return new self("Selection contains no valid slices. This happens occasionally to valid configurations but it probably means that the parameters are impossible.");
     }
 }

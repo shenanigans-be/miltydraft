@@ -15,12 +15,15 @@ To install a local copy of this app you can clone it from the Git Repo:
 
 Then follow these steps:
 
-1. Add `127.0.0.1 miltydraft.test` to your `/etc/hosts` file. This first step is optional though. You can use
+1. Add `127.0.0.1 milty.localhost` to your `/etc/hosts` file. This first step is optional though. You can use
    127.0.0.1 directly as well.
 2. Run `docker-compose up -d --build`. This will first build the image, then start all services.
 3. Run `docker-compose exec app composer install`. This will install all php dependencies.
 4. Create a `.env` file. See `.env.example` for details.
-5. Go to [http://miltydraft.test](http://miltydraft.test) or [127.0.0.1](127.0.0.1) in your browser.
+5. Go to [https://milty.localhost](https://milty.localhost) in your browser (or http://localhost if you don't want to go through the hassle of the following steps) 
+6. Your browser might give you some scary warnings about untrusted certificates. That's because we're using a self-signed certificate.
+If you want to, you can add the certificate to your device's truster certificate.
+7. Run `docker compose exec app cat /home/app/.local/share/caddy/pki/authorities/local/root.crt > caddy-cert.crt` to make a copy of the certificate in `caddy-cert.crt` (which you can then import wherever you need it)
 
 ### Libraries and Dependencies
 

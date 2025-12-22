@@ -2,6 +2,8 @@
 
 namespace App\Draft;
 
+use App\Draft\Exceptions\InvalidPickException;
+
 class Player
 {
     public function __construct(
@@ -26,6 +28,19 @@ class Player
             $playerData['faction'],
             $playerData['slice'],
             $playerData['team'] ?? null,
+        );
+    }
+
+    public static function create(string $name, ?string $team = null)
+    {
+        return new self(
+            PlayerId::generate(),
+            $name,
+            false,
+            null,
+            null,
+            null,
+            $team
         );
     }
 

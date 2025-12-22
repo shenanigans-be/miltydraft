@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Draft;
+namespace App\Draft\Exceptions;
 
 class InvalidSliceException extends \Exception
 {
@@ -14,7 +14,7 @@ class InvalidSliceException extends \Exception
         return new self("Slice validation fails on: " . $reason);
     }
 
-    public static function hasNoValidArragenemnt(): self
+    public static function hasNoValidArrangement(): self
     {
         return new self("Slice has no valid arrangement");
     }

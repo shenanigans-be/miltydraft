@@ -2,25 +2,25 @@
 
 namespace App\Draft;
 
+use App\Draft\Generators\FactionPoolGenerator;
+use App\Draft\Generators\SlicePoolGenerator;
+
 class Draft
 {
     public function __construct(
         public string   $id,
         public bool     $isDone,
-        /**
-         * @var array<string, Player> $players
-         */
+        /** @var array<string, Player> $players */
         public array    $players,
         public Settings $settings,
         public Secrets  $secrets,
-        /**
-         * @var array<Pick> $log
-         */
+        /** @var array<Slice> $slices */
+        public array $slices,
+        /** @var array<string> $factionPool */
+        public array $factionPool,
+        /** @var array<Pick> $log */
         public array $log = [],
         public ?PlayerId $currentPlayerId = null,
-        // @todo Current
-        // @todo Slices
-        // @todo Factions
     ) {
     }
 
@@ -41,14 +41,21 @@ class Draft
             $players,
             Settings::fromJson($data['config']),
             Secrets::fromJson($data['secrets']),
+            [],
+            $data['factions'],
             array_map(fn ($logData) => Pick::fromJson($logData), $data['draft']['log']),
             PlayerId::fromString($data['draft']['current'])
         );
     }
 
-    public function toArray(): array
+    public function toFileContent(): string
     {
-        return [
+        return json_encode($this->toArray(true));
+    }
+
+    public function toArray($includeSecrets = false): array
+    {
+        $data = [
             'id' => $this->id,
             'done' => $this->isDone,
             'config' => $this->settings->toArray(),
@@ -57,7 +64,35 @@ class Draft
                 'log' =>  array_map(fn (Pick $pick) => $pick->toArray(), $this->log),
                 'current' => $this->currentPlayerId->value
             ],
-            'secrets' => $this->secrets->toArray(),
+            'factions' => $this->factionPool
         ];
+
+        if ($includeSecrets) {
+            $data['secrets'] = $this->secrets->toArray();
+        }
+
+        return $data;
     }
+
+    public static function createFromSettings(Settings $settings)
+    {
+        $factionPooLGenerator = new FactionPoolGenerator($settings);
+        $slicePoolGenerator = new SlicePoolGenerator($settings);
+
+        return new self(
+            DraftId::generate(),
+            false,
+            // @todo
+            [],
+            $settings,
+            Secrets::new(),
+            $slicePoolGenerator->generate(),
+            $factionPooLGenerator->generate(),
+            [],
+            // @todo
+            null
+        );
+    }
+
+
 }

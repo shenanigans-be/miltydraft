@@ -5,12 +5,18 @@ namespace App\Http;
 class JsonResponse extends HttpResponse
 {
     public function __construct(
-        protected array $data
+        protected array $data,
+        public int $code = 200
     ) {
-
+        parent::__construct($this->code);
     }
 
-    public function __toString()
+    public function code(): int
+    {
+        return $this->code;
+    }
+
+    public function getBody(): string
     {
         return json_encode($this->data);
     }

@@ -4,6 +4,9 @@ namespace App;
 
 use App\Draft\Name;
 
+/**
+ * @deprecated
+ */
 class GeneratorConfig
 {
     // Maximum value for random seed generation (2^50)

@@ -14,6 +14,8 @@ class Tile
     public function __construct(
         public string $id,
         public TileType $tileType,
+        public TileTier $tier,
+        public Edition $edition,
         /**
          * @var array<Planet>
          */
@@ -41,14 +43,20 @@ class Tile
         }
     }
 
-    public static function fromJsonData(string $id, array $data): self {
+    public static function fromJsonData(
+        string $id,
+        TileTier $tier,
+        array $data
+    ): self {
         return new self(
             $id,
             TileType::from($data['type']),
+            $tier,
+            Edition::from($data['set']),
             array_map(fn(array $planetData) => Planet::fromJsonData($planetData), $data['planets'] ?? []),
             array_map(fn(array $stationData) => SpaceStation::fromJsonData($stationData), $data['stations'] ?? []),
             Wormhole::fromJsonData($data['wormhole']),
-            $data['anomaly'],
+            $data['anomaly'] ?? null,
             isset($data['hyperlanes']) ? $data['hyperlanes'] : [],
         );
     }
@@ -74,7 +82,7 @@ class Tile
 
 
     /**
-     * @todo Refactor
+     * @todo deprecate
      *
      * @param Tile[] $tiles
      * @return int[]
@@ -97,5 +105,51 @@ class Tile
         }
 
         return $count;
+    }
+
+    /**
+     * @return string, TileTier
+     */
+    public static function tierData(): array
+    {
+        $tierData = json_decode(file_get_contents('data/tile-selection.json'));
+        $tileTiers = [];
+
+        foreach($tierData as $tierLists) {
+            foreach($tierLists as $level => $list) {
+                foreach($list as $id) {
+                    $tileTiers[$id] = TileTier::from($level);
+                }
+            }
+        }
+
+        return $tileTiers;
+    }
+
+    /**
+     * @return array<string, Tile>
+     */
+    public static function all(): array
+    {
+        $allTileData = json_decode(file_get_contents('data/tiles.json'), true);
+        $tileTiers = self::tierData();
+        $tiles = [];
+
+        // merge tier and tile data
+        // We're keeping it in separate files for maintainability
+        foreach ($allTileData as $tileId => $tileData) {
+            $isMecRexOrMallice = count($tileData['planets']) > 0 &&
+                ($tileData['planets'][0]['name'] == "Mecatol Rex" || $tileData['planets'][0]['name'] == "Mallice");
+
+            $tier = match($tileData['type']) {
+                "red" => TileTier::RED,
+                "blue" => $isMecRexOrMallice ? TileTier::NONE : $tileTiers[$tileId],
+                default => TileTier::NONE
+            };
+
+            $tiles[$tileId] = Tile::fromJsonData($tileId, $tier, $tileData);
+        }
+
+        return $tiles;
     }
 }

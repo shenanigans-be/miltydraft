@@ -1,57 +1,73 @@
 <?php
 
-function d($var)
-{
-    echo '<pre>';
-    var_dump($var);
-    echo '</pre>';
-}
-
-function dd(...$variables)
-{
-    echo '<pre>';
-    foreach($variables as $var) {
+if (!function_exists('d')) {
+    function d($var)
+    {
+        echo '<pre>';
         var_dump($var);
+        echo '</pre>';
     }
-    die('</pre>');
 }
 
-function e($condition, $yes, $no = '')
-{
-    if ($condition) echo $yes;
-    else echo $no;
+
+if (!function_exists('app')) {
+    function app():\App\Application
+    {
+        return \App\Application::getInstance();
+    }
 }
 
-function get($param, $default = null)
-{
-    if (isset($_POST[$param])) return $_POST[$param];
-    if (isset($_GET[$param])) return $_GET[$param];
-    return $default;
+if (!function_exists('dd')) {
+    function dd(...$variables)
+    {
+        echo '<pre>';
+        foreach ($variables as $var) {
+            var_dump($var);
+        }
+        die('</pre>');
+    }
 }
 
-function url($uri)
-{
-    return $_ENV['URL'] . $uri;
+
+if (!function_exists('e')) {
+    function e($condition, $yes, $no = '')
+    {
+        if ($condition) echo $yes;
+        else echo $no;
+    }
 }
 
-function return_error($err)
-{
-    die(json_encode(['error' => $err]));
+if (!function_exists('env')) {
+    function env($key, $defaultValue = null)
+    {
+        return $_ENV[$key] ?? $defaultValue;
+    }
 }
 
-function return_data($data)
-{
-    header('Access-Control-Allow-Origin: *');
-    die(json_encode($data));
+if (!function_exists('get')) {
+    function get($key, $default = null)
+    {
+        return $_GET[$key] ?? $default;
+    }
 }
 
-function ordinal($number)
-{
-    $ends = array('th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th');
-    if ((($number % 100) >= 11) && (($number % 100) <= 13))
-        return $number . 'th';
-    else
-        return $number . $ends[$number % 10];
+if (!function_exists('url')) {
+    function url($uri)
+    {
+        return env('URL', 'https://milty.shenanigans.be/') . $uri;
+    }
+}
+
+
+if (!function_exists('ordinal')) {
+    function ordinal($number)
+    {
+        $ends = array('th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th');
+        if ((($number % 100) >= 11) && (($number % 100) <= 13))
+            return $number . 'th';
+        else
+            return $number . $ends[$number % 10];
+    }
 }
 
 function abort($code, $message = null) {

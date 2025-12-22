@@ -2,6 +2,9 @@
 
 namespace App\Draft;
 
+/**
+ * Contains and generates the player "passwords" (used to authenticate across devices)
+ */
 class Secrets
 {
     private const ADMIN_SECRET_KEY = 'admin_pass';
@@ -23,9 +26,9 @@ class Secrets
         ];
     }
 
-    public static function generate(): string
+    public static function generatePassword(): string
     {
-        return  base64_encode(random_bytes(16));
+        return base64_encode(random_bytes(16));
     }
 
     public function checkAdminSecret($secret): bool {
@@ -42,5 +45,10 @@ class Secrets
             $data[self::ADMIN_SECRET_KEY],
             array_filter($data, fn (string $key) => $key != self::ADMIN_SECRET_KEY, ARRAY_FILTER_USE_KEY)
         );
+    }
+
+    public static function new(): self
+    {
+        return new self(self::generatePassword());
     }
 }

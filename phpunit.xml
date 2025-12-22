@@ -29,5 +29,6 @@
     </source>
     <php>
         <env name="APP_ENV" value="testing"/>
+        <env name="URL" value="http://localhost"/>
     </php>
 </phpunit>

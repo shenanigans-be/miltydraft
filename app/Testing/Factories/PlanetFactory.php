@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Testing;
+namespace App\Testing\Factories;
 
 use App\TwilightImperium\Planet;
 use App\TwilightImperium\PlanetTrait;
 use App\TwilightImperium\TechSpecialties;
-use App\TwilightImperium\Tile;
-use App\TwilightImperium\TileType;
-use App\TwilightImperium\Wormhole;
 use Faker\Factory;
 
 class PlanetFactory

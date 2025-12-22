@@ -5,51 +5,6 @@ if (!file_exists('vendor/autoload.php')) {
 }
 
 require_once 'vendor/autoload.php';
-require_once 'bootstrap/helpers.php';
-
-function app() {
-    try {
-        $requestPath = $_SERVER['REQUEST_URI'];
-
-        $requestChunks = explode('?', $requestPath);
-
-        if($requestChunks[0] == '/') {
-            require_once 'templates/generate.php';
-        } else {
-            $pathChunks = explode('/', substr($requestChunks[0], 1));
-
-            if(count($pathChunks) == 0) {
-                throw new Exception("Something went wrong decoding path");
-            }
-
-            if($pathChunks[0] == 'd') {
-                if(!isset($pathChunks[1])) {
-                    abort(404, 'No draft specified');
-                }
-
-                define('DRAFT_ID', $pathChunks[1]);
-                require_once 'templates/draft.php';
-            } elseif ($pathChunks[0] == 'api') {
-
-                if(!isset($pathChunks[1])) {
-                    abort(404, 'No API endpoint specified');
-                }
-
-                $apiFile = __DIR__ . '/../app/api/' . $pathChunks[1] . '.php';
-
-                if (file_exists($apiFile)) {
-                    require_once $apiFile;
-                } else {
-                    abort(404, 'Unknown API endpoint');
-                }
-            } else {
-                abort(404, 'Unknown path');
-            }
-        }
-    } catch (Exception $e) {
-        abort(500, $e->getMessage());
-    }
-}
 
 try {
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');

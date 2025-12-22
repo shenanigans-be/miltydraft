@@ -12,7 +12,7 @@ class SecretsTest extends TestCase
     {
         $previouslyGenerated = "kOFY/yBXdhP5cC97tlxPhQ==";
         mt_srand(123);
-        $secret = Secrets::generate();
+        $secret = Secrets::generatePassword();
 
         $this->assertNotSame($previouslyGenerated, $secret);
     }

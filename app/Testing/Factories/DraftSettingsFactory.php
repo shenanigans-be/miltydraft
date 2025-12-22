@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Testing;
+namespace App\Testing\Factories;
 
 use App\Draft\Name;
 use App\Draft\Seed;
@@ -47,7 +47,7 @@ class DraftSettingsFactory
                 Edition::THUNDERS_EDGE
             ],
             $properties['includeCouncilKeleresFaction'] ?? false,
-            $properties['minimumWormholes'] ?? 0,
+            $properties['minimumTwoAlphaBetaWormholes'] ?? $faker->boolean(),
 
             $properties['maxOneWormholePerSlice'] ?? $faker->boolean(),
             $properties['minimumLegendaryPlanets'] ?? $faker->numberBetween(0, 1),

@@ -4,7 +4,12 @@ namespace App\Http;
 
 abstract class RequestHandler
 {
-    public abstract function handle(HttpRequest $request): HttpResponse;
+    public function __construct(
+        protected HttpRequest $request
+    ) {
+    }
+
+    public abstract function handle(): HttpResponse;
 
     protected function error(string $error): ErrorResponse
     {

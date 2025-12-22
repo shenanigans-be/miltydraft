@@ -2,6 +2,7 @@
 
 namespace App\Draft;
 
+use App\Draft\Exceptions\InvalidDraftSettingsException;
 use App\TwilightImperium\AllianceTeamMode;
 use App\TwilightImperium\AllianceTeamPosition;
 use App\TwilightImperium\Edition;
@@ -33,7 +34,7 @@ class Settings
         // @todo figure out a better way to integrate this
         // should be required-ish when TE is included, but optional if PoK is included
         public bool $includeCouncilKeleresFaction,
-        public int $minimumWormholes,
+        public bool $minimumTwoAlphaAndBetaWormholes,
         public bool $maxOneWormholesPerSlice,
         public int $minimumLegendaryPlanets,
         public float $minimumOptimalInfluence,
@@ -59,6 +60,10 @@ class Settings
 
     public function toArray()
     {
+        /**
+         * @todo refactor to use tileSets and factionSets and 'minimumLegendaryPlanets
+         * But don't break backwards compatibility!
+         */
         return [
             'players' => $this->playerNames,
             'preset_draft_order' => $this->presetDraftOrder,
@@ -69,19 +74,16 @@ class Settings
             'include_pok' => $this->includesTileSet(Edition::PROPHECY_OF_KINGS),
             'include_ds_tiles' => $this->includesTileSet(Edition::DISCORDANT_STARS_PLUS),
             'include_te_tiles' => $this->includesTileSet(Edition::THUNDERS_EDGE),
-            // @todo refactor frontend to use tile sets. Backwards compatibility!
-            // factions
+            // faction settings
             'include_base_factions' => $this->includesFactionSet(Edition::BASE_GAME),
             'include_pok_factions' => $this->includesFactionSet(Edition::PROPHECY_OF_KINGS),
             'include_te_factions' => $this->includesFactionSet(Edition::THUNDERS_EDGE),
             'include_discordant' => $this->includesFactionSet(Edition::DISCORDANT_STARS),
             'include_discordantexp' => $this->includesFactionSet(Edition::DISCORDANT_STARS_PLUS),
             'include_keleres' => $this->includeCouncilKeleresFaction,
-            // @todo refactor frontend to use faction sets. Backwards compatibility!
             // slice settings
-            'min_wormholes' => $this->minimumWormholes,
+            'min_wormholes' => $this->minimumTwoAlphaAndBetaWormholes ? 2 : 0,
             'max_1_wormhole' => $this->maxOneWormholesPerSlice,
-            // @todo refactor frontend to use this instead of min_legendary_planets. Don't break backwards compatibility!
             'min_legendaries' => $this->minimumLegendaryPlanets,
             'minimum_optimal_influence' => $this->minimumOptimalInfluence,
             'minimum_optimal_resources' => $this->minimumOptimalResources,
@@ -196,7 +198,7 @@ class Settings
             $data['players'],
             $data['preset_draft_order'],
             new Name($data['name']),
-            new Seed($data['seed']),
+            new Seed($data['seed'] ?? null),
             $data['num_slices'],
             $data['num_factions'],
             self::tileSetsFromJson($data),

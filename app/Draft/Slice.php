@@ -2,6 +2,7 @@
 
 namespace App\Draft;
 
+use App\Draft\Exceptions\InvalidSliceException;
 use App\TwilightImperium\TechSpecialties;
 use App\TwilightImperium\Tile;
 use App\TwilightImperium\Wormhole;
@@ -47,7 +48,7 @@ class Slice
             $this->optimalResources += $tile->optimalResources;
             $this->optimalTotal += $tile->optimalTotal;
 
-            $this->wormholes = array_merge($tile->wormholes);
+            $this->wormholes = array_merge($this->wormholes, $tile->wormholes);
 
             foreach ($tile->planets as $planet) {
                 foreach ($planet->specialties as $spec) {
@@ -79,6 +80,8 @@ class Slice
     }
 
     /**
+     * @todo don't use countSpecials
+     *
      * @throws InvalidSliceException
      */
     public function validate(
@@ -118,14 +121,15 @@ class Slice
         return true;
     }
 
-    public function arrange(): void {
+    public function arrange(Seed $seed): void {
         $tries = 0;
         while (!$this->tileArrangementIsValid()) {
+            $seed->setForSlices($tries);
             shuffle($this->tiles);
             $tries++;
 
             if ($tries > self::MAX_ARRANGEMENT_TRIES) {
-                throw InvalidSliceException::hasNoValidArragenemnt();
+                throw InvalidSliceException::hasNoValidArrangement();
             }
         }
     }
@@ -165,5 +169,20 @@ class Slice
         }
 
         return true;
+    }
+
+    public function tileIds(): array
+    {
+        return array_map(fn (Tile $t) => $t->id, $this->tiles);
+    }
+
+    public function hasLegendary(): bool
+    {
+        return count($this->legendaryPlanets) > 0;
+    }
+
+    public function hasWormhole(Wormhole $wormhole): bool
+    {
+        return in_array($wormhole, $this->wormholes);
     }
 }

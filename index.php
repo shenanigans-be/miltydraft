@@ -1,3 +1,5 @@
 <?php
     require_once 'bootstrap/boot.php';
-    app();
+    $application = \App\Application::getInstance();
+    $application->run();
+?>

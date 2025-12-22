@@ -5,45 +5,61 @@ namespace data;
 use App\TwilightImperium\Planet;
 use App\TwilightImperium\SpaceStation;
 use App\Testing\TestCase;
+use App\TwilightImperium\Tile;
+use App\TwilightImperium\TileTier;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 class TileDataTest extends TestCase
 {
-    protected function getJsonData(): array
+    protected static function getJsonData(): array
     {
         return json_decode(file_get_contents('data/tiles.json'), true);
     }
 
+
+    public static function allJsonTiles()
+    {
+        foreach(self::getJsonData() as $key => $tileData) {
+            yield "Tile #" . $key => [
+                'id' => $key,
+                'data' => $tileData
+            ];
+        }
+    }
+
     #[Test]
-    public function allPlanetsInTilesJsonAreValid() {
+    #[DataProvider('allJsonTiles')]
+    public function allPlanetsInTilesJsonAreValid($id, $data) {
         $planetJsonData = [];
-        foreach($this->getJsonData() as $t) {
-            if (isset($t['planets'])) {
-                foreach($t['planets'] as $p) {
-                    $planetJsonData[] = $p;
-                }
+        if (isset($data['planets'])) {
+            foreach($data['planets'] as $p) {
+                $planetJsonData[] = $p;
             }
         }
 
         $planets = array_map(fn (array $data) => Planet::fromJsonData($data), $planetJsonData);
 
-        $this->assertCount(count($planetJsonData), $planets);
+        if (empty($planetJsonData)) {
+            $this->expectNotToPerformAssertions();
+        } else {
+            $this->assertCount(count($planetJsonData), $planets);
+        }
+
     }
 
     #[Test]
-    public function allSpaceStationsInTilesJsonAreValid() {
-        $spaceStationData = [];
-        foreach($this->getJsonData() as $t) {
-            if (isset($t['stations'])) {
-                foreach($t['stations'] as $p) {
-                    $spaceStationData[] = $p;
-                }
-            }
-        }
+    #[DataProvider('allJsonTiles')]
+    public function allSpaceStationsInTilesJsonAreValid($id, $data) {
+        $spaceStationData = $data['stations'] ?? [];
 
         $spaceStations = array_map(fn (array $data) => SpaceStation::fromJsonData($data), $spaceStationData);
 
-        $this->assertCount(count($spaceStationData), $spaceStations);
+        if (empty($spaceStationData)) {
+            $this->expectNotToPerformAssertions();
+        } else {
+            $this->assertCount(count($spaceStationData), $spaceStations);
+        }
     }
 
     /**
@@ -52,14 +68,41 @@ class TileDataTest extends TestCase
      * @return void
      */
     #[Test]
-    public function allHistoricTileIdsHaveData() {
+    public function allHistoricTileIdsHaveData()
+    {
         $historicTileIds = json_decode(file_get_contents('data/historic-test-data/all-tiles-ever.json'));
 
-        $currentTileIds = array_keys($this->getJsonData());
+        $currentTileIds = array_keys(self::getJsonData());
 
         foreach($historicTileIds as $id) {
             $this->assertContains($id, $currentTileIds);
         }
+    }
+
+    #[Test]
+    #[DataProvider('allJsonTiles')]
+    public function allBlueTilesAreInTiers($id, $data)
+    {
+        $tileTiers = Tile::tierData();
+
+        $isMecRexOrMallice = count($data['planets']) > 0 &&
+            ($data['planets'][0]['name'] == "Mecatol Rex" || $data['planets'][0]['name'] == "Mallice");
+
+
+        if ($data['type'] == "blue" && !$isMecRexOrMallice) {
+            $this->assertArrayHasKey($id, $tileTiers);
+        } else {
+            $this->expectNotToPerformAssertions();
+        }
+    }
+
+    #[Test]
+    #[DataProvider('allJsonTiles')]
+    public function tilesCanBeFetchedFromJson($id, $data)
+    {
+        // we're ignoring the tier for now, that's for TileTest
+        $tile = Tile::fromJsonData($id,TileTier::MEDIUM, $data);
+        $this->assertSame($data['anomaly'] ?? null, $tile->anomaly);
     }
 
     /**
@@ -67,7 +110,7 @@ class TileDataTest extends TestCase
      **/
 //    public function allHistoricTileIdsHaveImages() {
 //        $historicTileIds = json_decode(file_get_contents('data/all-tiles-ever.json'));
-//        $tiles = $this->getJsonData();
+//        $tiles = self::getJsonData();
 //
 //        foreach($historicTileIds as $id) {
 //            if (!isset($tiles[$id]['faction'])) {

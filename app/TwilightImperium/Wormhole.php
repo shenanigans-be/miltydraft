@@ -26,6 +26,13 @@ enum Wormhole: string
                 self::ALPHA,
                 self::BETA
             ];
+        } if ($wormhole == "all") {
+            // Mallice
+            return [
+                self::ALPHA,
+                self::BETA,
+                self::GAMMA,
+            ];
         } else {
             return [
                 self::from($wormhole)

@@ -4,7 +4,7 @@ namespace App\Testing;
 
 trait MakesHttpRequests
 {
-    protected function call($method, $url, $data): TestResponse
+    protected function call(string $method, string $url, array $data = []): TestResponse
     {
         $client = new \GuzzleHttp\Client();
         $response = $client->request($method, $url);

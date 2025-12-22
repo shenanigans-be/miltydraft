@@ -4,6 +4,9 @@ namespace App;
 
 use Aws\S3\Exception\S3Exception;
 
+/**
+ * @deprecated
+ */
 class Draft implements \JsonSerializable
 {
     private const SEED_OFFSET_PLAYER_ORDER = 2;

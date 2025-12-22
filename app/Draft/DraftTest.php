@@ -2,7 +2,7 @@
 
 namespace App\Draft;
 
-use App\Testing\DraftSettingsFactory;
+use App\Testing\Factories\DraftSettingsFactory;
 use App\Testing\TestCase;
 use App\Testing\TestDrafts;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
@@ -24,6 +24,9 @@ class DraftTest extends TestCase
         $this->assertSame($data['config']['name'], (string) $draft->settings->name);
         $this->assertSame($draft->id, $data['id']);
         $this->assertSame($draft->isDone, $data['done']);
+        foreach($data['factions'] as $faction) {
+            $this->assertContains($faction, $draft->factionPool);
+        }
         $this->assertSame($draft->currentPlayerId->value, $data['draft']['current']);
     }
 
@@ -42,6 +45,12 @@ class DraftTest extends TestCase
             new Secrets(
                 'secret123',
             ),
+            [],
+            [
+                "Mahact",
+                "Vulraith",
+                "Xxcha"
+            ],
             [new Pick($player->id, PickCategory::FACTION, "Vulraith")],
             $player->id
         );
@@ -54,5 +63,8 @@ class DraftTest extends TestCase
         $this->assertSame($player->name, $data['draft']['players'][$player->id->value]['name']);
         $this->assertSame($player->id->value, $data['draft']['current']);
         $this->assertSame("Vulraith", $data['draft']['log'][0]['value']);
+        foreach($draft->factionPool as $faction) {
+            $this->assertContains($faction, $data['factions']);
+        }
     }
 }

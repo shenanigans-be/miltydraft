@@ -2,6 +2,8 @@
 
 namespace App\Http\RequestHandlers;
 
+use App\Draft\Exceptions\DraftRepositoryException;
+use App\Http\ErrorResponse;
 use App\Http\HtmlResponse;
 use App\Http\HttpRequest;
 use App\Http\HttpResponse;
@@ -11,10 +13,14 @@ class HandleViewDraftRequest extends RequestHandler
 {
     public function handle(): HttpResponse
     {
-        // @todo do better
-        define('DRAFT_ID', $this->request->get('id'));
+        try {
+            $draft = app()->repository->load($this->request->get('id'));
+        } catch (DraftRepositoryException $e) {
+            return new ErrorResponse('Draft not found', 404, true);
+        }
+
         return new HtmlResponse(
-            require_once 'templates/draft.php'
+            include 'templates/draft.php'
         );
     }
 }

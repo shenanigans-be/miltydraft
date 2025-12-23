@@ -20,4 +20,11 @@ enum TestDrafts: string
             ];
         }
     }
+
+    public static function provideSingleTestDraft(): iterable
+    {
+        yield "When using a finished draft" => [
+            'data' => self::loadDraftByFilename(self::FINISHED_ALL_CHECKBOXES->value)
+        ];
+    }
 }

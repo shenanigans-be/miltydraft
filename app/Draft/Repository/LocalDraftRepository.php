@@ -27,7 +27,7 @@ class LocalDraftRepository implements DraftRepository
             throw DraftRepositoryException::notFound($id);
         }
 
-        $rawDraft = file_get_contents($path);
+        $rawDraft = json_decode(file_get_contents($path), true);
 
         return Draft::fromJson($rawDraft);
     }
@@ -35,5 +35,10 @@ class LocalDraftRepository implements DraftRepository
     public function save(Draft $draft)
     {
         file_put_contents($this->pathToDraft($draft->id), $draft->toFileContent());
+    }
+
+    public function delete(string $id)
+    {
+        unlink($this->pathToDraft($id));
     }
 }

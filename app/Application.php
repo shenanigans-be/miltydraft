@@ -34,6 +34,7 @@ class Application
         $response = $this->handleIncomingRequest();
 
         http_response_code($response->code);
+        header('Content-type: ' . $response->getContentType());
         echo $response->getBody();
 
         exit;

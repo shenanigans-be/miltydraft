@@ -13,7 +13,7 @@ class Faction
         public readonly string $id,
         public readonly string $homeSystemTileNumber,
         public readonly string $linkToWiki,
-        public readonly Edition $edition
+        public readonly Edition $edition,
     ) {
     }
 
@@ -47,6 +47,19 @@ class Faction
             "keleres" => Edition::THUNDERS_EDGE,
             "discordant" => Edition::DISCORDANT_STARS,
             "discordantexp" => Edition::DISCORDANT_STARS_PLUS,
+            default => throw new \Exception("Faction has invalid set")
         };
+    }
+
+    /**
+     * @todo fix this mess
+     */
+    public function homesystem(): string
+    {
+        if(in_array($this->edition, [Edition::DISCORDANT_STARS, Edition::DISCORDANT_STARS_PLUS])) {
+            return 'DS_' . $this->id;
+        } else {
+            return $this->homeSystemTileNumber;
+        }
     }
 }

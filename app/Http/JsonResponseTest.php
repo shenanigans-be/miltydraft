@@ -13,6 +13,6 @@ class JsonResponseTest extends TestCase
             "foo" => "bar"
         ];
         $response = new JsonResponse($data);
-        $this->assertSame(json_encode($data), (string) $response);
+        $this->assertSame(json_encode($data), $response->getBody());
     }
 }

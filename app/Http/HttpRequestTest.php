@@ -38,14 +38,14 @@ class HttpRequestTest extends TestCase
     #[Test]
     public function itCanRetrieveParameters(string $param, array $get, array $post, $expectedValue)
     {
-        $request = new HttpRequest($get, $post);
+        $request = new HttpRequest($get, $post, []);
         $this->assertSame($expectedValue, $request->get($param));
     }
 
     #[Test]
     public function itCanReturnDefaultValueForParameter()
     {
-        $request = new HttpRequest([], []);
+        $request = new HttpRequest([], [], []);
         $this->assertSame("bar", $request->get("foo", "bar"));
     }
 

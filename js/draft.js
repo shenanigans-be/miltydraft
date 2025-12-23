@@ -340,7 +340,7 @@ function refreshData() {
                 $('#error-popup').show();
                 loading(false);
             } else {
-                window.draft = resp.draft;
+                window.draft = resp;
                 refresh();
 
                 // if we're looking at the map, regen it

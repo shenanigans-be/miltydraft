@@ -30,29 +30,43 @@ if (!function_exists('dd')) {
 
 
 if (!function_exists('e')) {
-    function e($condition, $yes, $no = '')
+    function e($condition, $yes, $no = ''): void
     {
         if ($condition) echo $yes;
         else echo $no;
     }
 }
 
+
+if (!function_exists('yesno')) {
+    /**
+     * return "yes" or "no" based on condition
+     *
+     * @param $condition
+     * @return void
+     */
+    function yesno($condition): string
+    {
+        return $condition ? "yes" : "no";
+    }
+}
+
 if (!function_exists('env')) {
-    function env($key, $defaultValue = null)
+    function env($key, $defaultValue = null): ?string
     {
         return $_ENV[$key] ?? $defaultValue;
     }
 }
 
 if (!function_exists('get')) {
-    function get($key, $default = null)
+    function get($key, $default = null): string
     {
         return $_GET[$key] ?? $default;
     }
 }
 
 if (!function_exists('url')) {
-    function url($uri)
+    function url($uri): string
     {
         return env('URL', 'https://milty.shenanigans.be/') . $uri;
     }
@@ -60,27 +74,13 @@ if (!function_exists('url')) {
 
 
 if (!function_exists('ordinal')) {
-    function ordinal($number)
+    function ordinal($number): string
     {
         $ends = array('th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th');
         if ((($number % 100) >= 11) && (($number % 100) <= 13))
             return $number . 'th';
         else
             return $number . $ends[$number % 10];
-    }
-}
-
-function abort($code, $message = null) {
-    http_response_code($code);
-    switch($code) {
-        case 404:
-            die($message ?? 'Not found');
-        default:
-            if(!$_ENV['DEBUG']) {
-                die('Something went wrong');
-            } else {
-                die($message ?? 'Something went wrong');
-            }
     }
 }
 

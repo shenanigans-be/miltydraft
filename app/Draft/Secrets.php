@@ -10,11 +10,11 @@ class Secrets
     private const ADMIN_SECRET_KEY = 'admin_pass';
 
     public function __construct(
-        private readonly string $adminSecret,
+        public readonly string $adminSecret,
         /**
          * @var array<string, string> $playerSecrets
          */
-      private array $playerSecrets = []
+      public array $playerSecrets = []
     ) {
     }
 
@@ -45,10 +45,5 @@ class Secrets
             $data[self::ADMIN_SECRET_KEY],
             array_filter($data, fn (string $key) => $key != self::ADMIN_SECRET_KEY, ARRAY_FILTER_USE_KEY)
         );
-    }
-
-    public static function new(): self
-    {
-        return new self(self::generatePassword());
     }
 }

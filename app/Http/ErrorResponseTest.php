@@ -13,6 +13,6 @@ class ErrorResponseTest extends TestCase
 
         $this->assertSame(json_encode([
             "error" => "foo"
-        ]), (string) $response);
+        ]), $response->getBody());
     }
 }

@@ -30,5 +30,7 @@
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="URL" value="http://localhost"/>
+        <env name="STORAGE" value="local"/>
+        <env name="STORAGE_PATH" value="tmp/test-drafts"/>
     </php>
 </phpunit>

@@ -1,10 +1,10 @@
 <?php
 
-use App\Draft;
+use App\DeprecatedDraft;
 use App\GeneratorConfig;
 
 if (get('regen') != null) {
-    $draft = Draft::load(get('regen'));
+    $draft = DeprecatedDraft::load(get('regen'));
 
     if (!$draft->isAdminPass(get('admin'))) return_error('You are not allowed to do this');
     if (!empty($draft->log())) return_error('Draft already in progress');
@@ -20,7 +20,7 @@ if (get('regen') != null) {
     ]);
 } else {
     $config = new GeneratorConfig(true);
-    $draft = Draft::createFromConfig($config);
+    $draft = DeprecatedDraft::createFromConfig($config);
     $draft->save();
     return_data([
         'id' => $draft->getId(),

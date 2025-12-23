@@ -3,6 +3,7 @@
 namespace App\Draft;
 
 use App\Draft\Exceptions\InvalidDraftSettingsException;
+use App\Http\HttpRequest;
 use App\TwilightImperium\AllianceTeamMode;
 use App\TwilightImperium\AllianceTeamPosition;
 use App\TwilightImperium\Edition;
@@ -149,6 +150,7 @@ class Settings
 
         $maxSlices = min(floor($blueTiles/3), floor($redTiles/2));
 
+
         if ($this->numberOfSlices > $maxSlices) {
             throw InvalidDraftSettingsException::notEnoughTilesForSlices($maxSlices);
         }
@@ -201,8 +203,8 @@ class Settings
             new Seed($data['seed'] ?? null),
             $data['num_slices'],
             $data['num_factions'],
-            self::tileSetsFromJson($data),
-            self::factionSetsFromJson($data),
+            self::tileSetsFromPayload($data),
+            self::factionSetsFromPayload($data),
             $data['include_keleres'],
             $data['min_wormholes'],
             $data['max_1_wormhole'],
@@ -224,7 +226,7 @@ class Settings
      * @param $data
      * @return array<Edition>
      */
-    private static function tileSetsFromJson($data): array
+    private static function tileSetsFromPayload($data): array
     {
         $tilesets = [];
 
@@ -233,10 +235,10 @@ class Settings
         if ($data['include_pok']) {
             $tilesets[] = Edition::PROPHECY_OF_KINGS;
         }
-        if ($data['include_ds_tiles']) {
+        if ($data['include_ds_tiles'] ?? false) {
             $tilesets[] = Edition::DISCORDANT_STARS_PLUS;
         }
-        if ($data['include_te_tiles']) {
+        if ($data['include_te_tiles'] ?? false) {
             $tilesets[] = Edition::THUNDERS_EDGE;
         }
 
@@ -247,7 +249,7 @@ class Settings
      * @param $data
      * @return array<Edition>
      */
-    private static function factionSetsFromJson($data): array
+    private static function factionSetsFromPayload($data): array
     {
         $tilesets = [];
 
@@ -257,16 +259,90 @@ class Settings
         if ($data['include_pok_factions']) {
             $tilesets[] = Edition::PROPHECY_OF_KINGS;
         }
-        if ($data['include_discordant']) {
+        if ($data['include_discordant'] ?? false) {
             $tilesets[] = Edition::DISCORDANT_STARS;
         }
-        if ($data['include_discordantexp']) {
+        if ($data['include_discordantexp'] ?? false) {
             $tilesets[] = Edition::DISCORDANT_STARS_PLUS;
         }
-        if ($data['include_te_factions']) {
+        if ($data['include_te_factions'] ?? false) {
             $tilesets[] = Edition::THUNDERS_EDGE;
         }
 
         return $tilesets;
+    }
+
+    public function factionSetNames()
+    {
+        return array_map(fn (\App\TwilightImperium\Edition $e) => $e->fullName(), $this->factionSets);
+    }
+
+    public function tileSetNames()
+    {
+        return array_map(fn (\App\TwilightImperium\Edition $e) => $e->fullName(), $this->tileSets);
+    }
+
+    public static function fromRequest(HttpRequest $request): self
+    {
+
+        $playerNames = [];
+        for ($i = 0; $i < $request->get('num_players'); $i++) {
+            $playerName = trim($request->get('players')[$i]);
+
+            if ($playerName != '') {
+                $playerNames[] = $playerName;
+            }
+        }
+
+        $allianceMode = (bool) $request->get('alliance_on', false);
+
+        $customSlices = [];
+        if ($request->get('custom_slices', '') != '') {
+            $sliceData = explode("\n", get('custom_slices'));
+            foreach ($sliceData as $s) {
+                $slice = [];
+                $t = explode(',', $s);
+                foreach ($t as $tile) {
+                    $tile = trim($tile);
+                    $slice[] = $tile;
+                }
+                $customSlices[] = $slice;
+            }
+        }
+
+        return new self(
+            $playerNames,
+            $request->get('preset_draft_order') == 'on',
+            new Name($request->get('name')),
+            new Seed($request->get('seed') != null ? (int) $request->get('seed') : null),
+            (int) $request->get('num_slices'),
+            (int) $request->get('num_factions'),
+            self::tileSetsFromPayload([
+                'include_pok' => $request->get('include_pok') == 'on',
+                'include_ds_tiles' => $request->get('include_ds_tiles') == 'on',
+                'include_te_tiles' => $request->get('include_te_tiles') == 'on',
+            ]),
+            self::factionSetsFromPayload([
+                'include_base_factions' => $request->get('include_base_factions') == 'on',
+                'include_pok_factions' => $request->get('include_pok_factions') == 'on',
+                'include_te_factions' => $request->get('include_te_factions') == 'on',
+                'include_discordant' => $request->get('include_discordant') == 'on',
+                'include_discordantexp' => $request->get('include_discordantexp') == 'on',
+            ]),
+            $request->get('include_keleres') == 'on',
+            $request->get('wormholes', 0) == 1,
+            $request->get('max_wormhole') == 'on',
+            (int) $request->get('min_legendaries'),
+            (float) $request->get('min_inf'),
+            (float) $request->get('min_res'),
+            (float) $request->get('min_total'),
+            (float) $request->get('max_total'),
+            $request->get('custom_factions') ?? [],
+            $customSlices,
+            $allianceMode,
+            $allianceMode ? AllianceTeamMode::from($request->get('alliance_teams')) : null,
+            $allianceMode ? AllianceTeamPosition::from($request->get('alliance_teams_position')) : null,
+            $allianceMode ? $request->get('force_double_picks') == 'on' : null,
+        );
     }
 }

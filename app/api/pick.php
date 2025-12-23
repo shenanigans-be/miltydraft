@@ -6,7 +6,7 @@ $player = get('player');
 $category = get('category');
 $value = get('value');
 
-$draft = \App\Draft::load($id);
+$draft = \App\DeprecatedDraft::load($id);
 
 $is_admin = $draft->isAdminPass(get('admin'));
 if ($draft == null) return_error('draft not found');

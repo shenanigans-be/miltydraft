@@ -31,7 +31,7 @@ class Player
         );
     }
 
-    public static function create(string $name, ?string $team = null)
+    public static function create(string $name)
     {
         return new self(
             PlayerId::generate(),
@@ -39,7 +39,19 @@ class Player
             false,
             null,
             null,
-            null,
+            null
+        );
+    }
+
+    public function putInTeam(string $team): Player
+    {
+        return new self(
+            $this->id,
+            $this->name,
+            $this->claimed,
+            $this->pickedPosition,
+            $this->pickedFaction,
+            $this->pickedSlice,
             $team
         );
     }

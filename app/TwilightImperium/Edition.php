@@ -12,6 +12,17 @@ enum Edition: string
     // @todo merge DS and DS plus?
     case DISCORDANT_STARS_PLUS = "DSPlus";
 
+    public function fullName(): string
+    {
+        return match($this) {
+            Edition::BASE_GAME => "Base Game",
+            Edition::PROPHECY_OF_KINGS => "Prophecy of Kings",
+            Edition::THUNDERS_EDGE => "Thunder's Edge",
+            Edition::DISCORDANT_STARS => "Discordant Stars",
+            Edition::DISCORDANT_STARS_PLUS => "Discordant Stars Plus",
+        };
+    }
+
     /**
      * For now, only discordant stars doesn't have a dedicated tileset, but that might change
      *

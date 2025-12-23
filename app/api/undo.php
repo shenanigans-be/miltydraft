@@ -1,6 +1,6 @@
 <?php
 
-$draft = \App\Draft::load(get('draft'));
+$draft = \App\DeprecatedDraft::load(get('draft'));
 
 $is_admin = $draft->isAdminPass(get('admin'));
 

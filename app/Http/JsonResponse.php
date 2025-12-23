@@ -20,4 +20,9 @@ class JsonResponse extends HttpResponse
     {
         return json_encode($this->data);
     }
+
+    public function getContentType(): string
+    {
+        return 'application/json';
+    }
 }

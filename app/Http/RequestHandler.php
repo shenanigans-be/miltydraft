@@ -15,4 +15,9 @@ abstract class RequestHandler
     {
         return new ErrorResponse($error);
     }
+
+    public function json($data = [], $code = 200): JsonResponse
+    {
+        return new JsonResponse($data, $code);
+    }
 }

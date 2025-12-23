@@ -8,4 +8,5 @@ interface DraftRepository
 {
     public function load(string $id): Draft;
     public function save(Draft $draft);
+    public function delete(string $id);
 }

@@ -58,6 +58,7 @@ $(document).ready(function () {
             formData.append(values[i].name, values[i].value);
         }
 
+        // @todo json body
         const request = new XMLHttpRequest();
         request.open("POST", routes.generate);
         request.onreadystatechange = function () {

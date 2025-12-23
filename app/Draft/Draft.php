@@ -4,6 +4,8 @@ namespace App\Draft;
 
 use App\Draft\Generators\FactionPoolGenerator;
 use App\Draft\Generators\SlicePoolGenerator;
+use App\TwilightImperium\Faction;
+use App\TwilightImperium\Tile;
 
 class Draft
 {
@@ -14,9 +16,9 @@ class Draft
         public array    $players,
         public Settings $settings,
         public Secrets  $secrets,
-        /** @var array<Slice> $slices */
-        public array $slices,
-        /** @var array<string> $factionPool */
+        /** @var array<Slice> $slicePool */
+        public array $slicePool,
+        /** @var array<Faction> $factionPool */
         public array $factionPool,
         /** @var array<Pick> $log */
         public array $log = [],
@@ -41,11 +43,38 @@ class Draft
             $players,
             Settings::fromJson($data['config']),
             Secrets::fromJson($data['secrets']),
-            [],
-            $data['factions'],
+            self::slicesFromJson($data['slices']),
+            self::factionsFromJson($data['factions']),
             array_map(fn ($logData) => Pick::fromJson($logData), $data['draft']['log']),
             PlayerId::fromString($data['draft']['current'])
         );
+    }
+
+    /**
+     * @return array<Slice>
+     */
+    private static function slicesFromJson($slicesData): array
+    {
+        $allTiles = Tile::all();
+        return array_map(function (array $sliceData) use ($allTiles) {
+            $tiles = array_map(
+                fn (string|int $tileId) => $allTiles[$tileId],
+                $sliceData['tiles']
+            );
+            return new Slice($tiles);
+        }, $slicesData);
+    }
+
+
+    /**
+     * @return array<Faction>
+     */
+    private static function factionsFromJson($factionNames): array
+    {
+        $allFactions = Faction::all();
+        return array_map(function (string $name) use ($allFactions) {
+            return $allFactions[$name];
+        }, $factionNames);
     }
 
     public function toFileContent(): string
@@ -64,7 +93,8 @@ class Draft
                 'log' =>  array_map(fn (Pick $pick) => $pick->toArray(), $this->log),
                 'current' => $this->currentPlayerId->value
             ],
-            'factions' => $this->factionPool
+            'factions' => array_map(fn (Faction $f) => $f->name, $this->factionPool),
+            'slices' => array_map(fn (Slice $s) => ['tiles' => $s->tileIds()], $this->slicePool),
         ];
 
         if ($includeSecrets) {
@@ -92,6 +122,18 @@ class Draft
             // @todo
             null
         );
+    }
+
+    public function determineCurrentPlayer(): PlayerId
+    {
+        $doneSteps = count($this->log);
+        $snakeDraft = array_merge(array_keys($this->players), array_keys(array_reverse($this->players)));
+        return PlayerId::fromString($snakeDraft[$doneSteps % count($snakeDraft)]);
+    }
+
+    public function canRegenerate(): bool
+    {
+        return empty($this->log);
     }
 
 

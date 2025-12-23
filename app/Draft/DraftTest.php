@@ -5,6 +5,8 @@ namespace App\Draft;
 use App\Testing\Factories\DraftSettingsFactory;
 use App\Testing\TestCase;
 use App\Testing\TestDrafts;
+use App\TwilightImperium\Faction;
+use App\TwilightImperium\Tile;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -24,8 +26,11 @@ class DraftTest extends TestCase
         $this->assertSame($data['config']['name'], (string) $draft->settings->name);
         $this->assertSame($draft->id, $data['id']);
         $this->assertSame($draft->isDone, $data['done']);
+
+        $factionPoolNames = array_map(fn (Faction $f) => $f->name, $draft->factionPool);
+
         foreach($data['factions'] as $faction) {
-            $this->assertContains($faction, $draft->factionPool);
+            $this->assertContains($faction, $factionPoolNames);
         }
         $this->assertSame($draft->currentPlayerId->value, $data['draft']['current']);
     }
@@ -33,6 +38,8 @@ class DraftTest extends TestCase
     #[Test]
     public function itCanBeConvertedToArray()
     {
+        $factions = Faction::all();
+        $tiles = Tile::all();
         $player =  new Player(
             PlayerId::fromString("player_123"),
             "Alice"
@@ -45,11 +52,19 @@ class DraftTest extends TestCase
             new Secrets(
                 'secret123',
             ),
-            [],
             [
-                "Mahact",
-                "Vulraith",
-                "Xxcha"
+               new Slice([
+                   $tiles["64"],
+                   $tiles["33"],
+                   $tiles["42"],
+                   $tiles["67"],
+                   $tiles["59"],
+               ]),
+            ],
+            [
+                $factions['The Barony of Letnev'],
+                $factions['The Embers of Muaat'],
+                $factions['The Clan of Saar']
             ],
             [new Pick($player->id, PickCategory::FACTION, "Vulraith")],
             $player->id
@@ -64,7 +79,10 @@ class DraftTest extends TestCase
         $this->assertSame($player->id->value, $data['draft']['current']);
         $this->assertSame("Vulraith", $data['draft']['log'][0]['value']);
         foreach($draft->factionPool as $faction) {
-            $this->assertContains($faction, $data['factions']);
+            $this->assertContains($faction->name, $data['factions']);
+        }
+        foreach($draft->slicePool as $slice) {
+            $this->assertContains($slice->tileIds(), $data['slices']);
         }
     }
 }

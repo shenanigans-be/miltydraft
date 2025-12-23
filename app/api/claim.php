@@ -1,6 +1,6 @@
 <?php
 
-$draft = \App\Draft::load(get('draft'));
+$draft = \App\DeprecatedDraft::load(get('draft'));
 $unclaim = get('unclaim') == 1;
 $playerId = get('player');
 

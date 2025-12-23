@@ -108,7 +108,7 @@ class Tile
     }
 
     /**
-     * @return string, TileTier
+     * @return array<string, TileTier>
      */
     public static function tierData(): array
     {

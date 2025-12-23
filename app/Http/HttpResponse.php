@@ -9,5 +9,7 @@ abstract class HttpResponse
     ) {
 
     }
+
     abstract public function getBody(): string;
+    abstract public function getContentType(): string;
 }

@@ -20,4 +20,9 @@ class HtmlResponse extends HttpResponse
     {
         return $this->html;
     }
+
+    public function getContentType(): string
+    {
+        return 'text/html; charset=UTF-8';
+    }
 }

@@ -63,6 +63,7 @@ class Slice
 
     public function toJson(): array
     {
+        // @refactor so that tile ids just get imported from json and then populated from those tiles
         return [
             'tiles' => array_map(fn(Tile $tile) => $tile->id, $this->tiles),
             'specialties' => $this->specialties,

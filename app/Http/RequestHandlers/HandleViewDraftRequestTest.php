@@ -34,11 +34,10 @@ class HandleViewDraftRequestTest extends RequestHandlerTestCase
         $handler = new HandleViewDraftRequest(new HttpRequest([], [], ['id' => (string) $draft->id]));
         $response = $handler->handle();
 
-
+        $this->assertSame($response->code, 200);
 
         // cleanup
         app()->repository->delete($draft->id);
-        dd($response);
     }
 
     #[Test]

@@ -11,10 +11,6 @@ class HandleUndoRequest extends RequestHandler
 {
     public function handle(): HttpResponse
     {
-        // @todo do better
-        define('DRAFT_ID', $this->request->get('id'));
-        return new HtmlResponse(
-            require_once 'templates/draft.php'
-        );
+        // @todo
     }
 }

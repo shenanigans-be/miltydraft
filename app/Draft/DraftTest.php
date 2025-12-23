@@ -82,7 +82,7 @@ class DraftTest extends TestCase
             $this->assertContains($faction->name, $data['factions']);
         }
         foreach($draft->slicePool as $slice) {
-            $this->assertContains($slice->tileIds(), $data['slices']);
+            $this->assertContains(['tiles' => $slice->tileIds()], $data['slices']);
         }
     }
 }

@@ -10,8 +10,6 @@ class HandleViewFormRequest extends RequestHandler
 {
     public function handle(): HttpResponse
     {
-        return new HtmlResponse(
-            require_once 'templates/generate.php'
-        );
+        return $this->html('templates/generate.php');
     }
 }

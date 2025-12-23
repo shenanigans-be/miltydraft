@@ -437,9 +437,9 @@
             "restore": "<?= url('api/restore') ?>"
         }
     </script>
-    <script src="<?= url('js/vendor.js?v=' . $_ENV['VERSION']) ?>"></script>
-    <script src="<?= url('js/draft.js?v=' . $_ENV['VERSION']) ?>"></script>
-    <script src="<?= url('js/generate-map.js?v=' . $_ENV['VERSION']) ?>"></script>
+    <script src="<?= url('js/vendor.js?v=' . env('VERSION')) ?>"></script>
+    <script src="<?= url('js/draft.js?v=' . env('VERSION')) ?>"></script>
+    <script src="<?= url('js/generate-map.js?v=' . env('VERSION')) ?>"></script>
 </body>
 
 </html>

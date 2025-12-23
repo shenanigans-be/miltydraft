@@ -33,7 +33,7 @@ class ApplicationTest extends TestCase
         ];
 
         yield "For fetching draft data" => [
-            'route' => '/api/data/1234',
+            'route' => '/api/draft/1234',
             'handler' => HandleGetDraftRequest::class
         ];
 

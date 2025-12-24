@@ -11,6 +11,7 @@ use App\Http\HttpResponse;
 use App\Http\RequestHandler;
 use App\Http\Route;
 use App\Http\RouteMatch;
+use Clockwork\Clockwork;
 
 /**
  * Unsure why I did this from scratch. I was on a bit of a refactoring roll and I couldn't resist.
@@ -37,6 +38,7 @@ class Application
         header('Content-type: ' . $response->getContentType());
         echo $response->getBody();
 
+
         exit;
     }
 
@@ -45,7 +47,7 @@ class Application
         try {
             $handler = $this->handlerForRequest($_SERVER['REQUEST_URI']);
             if ($handler == null) {
-                return new ErrorResponse("Not found", 404);
+                return new ErrorResponse("Page not found", 404, true);
             } else {
                 return $handler->handle();
             }

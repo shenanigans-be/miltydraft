@@ -17,8 +17,9 @@ class ErrorResponse extends JsonResponse
     public function getBody(): string
     {
         if ($this->showErrorPage) {
-            $error = $this->error;
-            return include 'templates/error.php';
+            return HtmlResponse::renderTemplate('templates/error.php', [
+                'error' => $this->error
+            ]);
         } else {
             // return json
             return parent::getBody();
@@ -28,7 +29,7 @@ class ErrorResponse extends JsonResponse
     public function getContentType(): string
     {
         if ($this->showErrorPage) {
-            return include 'text/html';
+            return 'text/html';
         } else {
             return parent::getContentType();
         }

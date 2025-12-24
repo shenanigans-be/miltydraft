@@ -8,6 +8,11 @@ namespace App\TwilightImperium;
  */
 class Faction
 {
+    /**
+     * @var array<string, Faction> $allFactionData
+     */
+    private static array $allFactionData;
+
     public function __construct(
         public readonly string $name,
         public readonly string $id,

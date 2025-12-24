@@ -4,6 +4,7 @@ namespace App\Draft\Generators;
 
 use App\Draft\Exceptions\InvalidDraftSettingsException;
 use App\Draft\Exceptions\InvalidSliceException;
+use App\Draft\Seed;
 use App\Draft\Settings;
 use App\Draft\Slice;
 use App\TwilightImperium\Tile;
@@ -15,7 +16,8 @@ use App\TwilightImperium\Wormhole;
  */
 class SlicePoolGenerator
 {
-    const MAX_TRIES = 4000;
+    const MAX_TILE_SELECTION_TRIES = 100;
+    const MAX_SLICES_FROM_SELECTION_TRIES = 1000;
 
     /**
      * @var array<string, Tile> $tileData
@@ -24,14 +26,7 @@ class SlicePoolGenerator
 
     /** @var array<Tile> $allGatheredTiles  */
     private readonly array $allGatheredTiles;
-    /** @var array<Tile> $gatheredHighTierTiles  */
-    private array $gatheredHighTierTiles;
-    /** @var array<Tile> $gatheredMediumTierTiles  */
-    private array $gatheredMediumTierTiles;
-    /** @var array<Tile> $gatheredLowTierTiles  */
-    private array $gatheredLowTierTiles;
-    /** @var array<Tile> $gatheredRedTiles  */
-    private array $gatheredRedTiles;
+    private readonly TilePool $gatheredTiles;
 
     public int $tries;
 
@@ -58,24 +53,26 @@ class SlicePoolGenerator
         foreach($this->allGatheredTiles as $tile) {
             switch($tile->tier) {
                 case TileTier::HIGH:
-                    $highTier[] = $tile;
+                    $highTier[] = $tile->id;
                     break;
                 case TileTier::MEDIUM:
-                    $midTier[] = $tile;
+                    $midTier[] = $tile->id;
                     break;
                 case TileTier::LOW:
-                    $lowTier[] = $tile;
+                    $lowTier[] = $tile->id;
                     break;
                 case TileTier::RED:
-                    $redTier[] = $tile;
+                    $redTier[] = $tile->id;
                     break;
             };
         }
 
-        $this->gatheredHighTierTiles = $highTier;
-        $this->gatheredMediumTierTiles = $midTier;
-        $this->gatheredLowTierTiles = $lowTier;
-        $this->gatheredRedTiles = $redTier;
+        $this->gatheredTiles = new TilePool(
+            $highTier,
+            $midTier,
+            $lowTier,
+            $redTier
+        );
     }
 
     /**
@@ -90,78 +87,92 @@ class SlicePoolGenerator
         }
     }
 
-
-    private function attemptToGenerate(int $previousTries = 0): array
+    private function attemptToGenerate($previousTries = 0): array
     {
-        if ($previousTries > self::MAX_TRIES) {
+        $slices = [];
+
+        if ($previousTries > self::MAX_TILE_SELECTION_TRIES) {
             throw InvalidDraftSettingsException::cannotGenerateSlices();
         }
 
         $this->settings->seed->setForSlices($previousTries);
+        $this->gatheredTiles->shuffle();
+        $tilePool = $this->gatheredTiles->slice($this->settings->numberOfSlices);
 
-        shuffle($this->gatheredHighTierTiles);
-        shuffle($this->gatheredMediumTierTiles);
-        shuffle($this->gatheredLowTierTiles);
-        shuffle($this->gatheredRedTiles);
+        $tilePoolIsValid =  $this->validateTileSelection($tilePool->allIds());
 
-        // we need one high, medium, low and 2 red tier tiles per slice
-        $highTier = array_slice($this->gatheredHighTierTiles, 0, $this->settings->numberOfSlices);
-        $midTier = array_slice($this->gatheredMediumTierTiles, 0, $this->settings->numberOfSlices);
-        $lowTier = array_slice($this->gatheredLowTierTiles, 0, $this->settings->numberOfSlices);
-        $redTier = array_slice($this->gatheredRedTiles, 0, $this->settings->numberOfSlices * 2);
-
-        $validSelection = $this->validateTileSelection(array_merge(
-            $highTier,
-            $midTier,
-            $lowTier,
-            $redTier
-        ));
-
-        if (!$validSelection) {
+        if (!$tilePoolIsValid) {
             return $this->attemptToGenerate($previousTries + 1);
         }
 
-        $slices = [];
-        for ($i = 0; $i < $this->settings->numberOfSlices; $i++) {
-            $slice = new Slice([
-                $highTier[$i],
-                $midTier[$i],
-                $lowTier[$i],
-                $redTier[$i * 2],
-                $redTier[($i * 2) + 1]
-            ]);
-            try {
-                $slice->validate(
-                    $this->settings->minimumOptimalInfluence,
-                    $this->settings->minimumOptimalResources,
-                    $this->settings->minimumOptimalTotal,
-                    $this->settings->maximumOptimalTotal,
-                    $this->settings->maxOneWormholesPerSlice ? 1 : null
-                );
-                $slice->arrange($this->settings->seed);
+        $validSlicesFromPool = $this->makeSlicesFromPool($tilePool);
+        if (empty($validSlicesFromPool)) {
+            unset($validSlicesFromPool);
+            return $this->attemptToGenerate($previousTries + 1);
+        } else {
+            return $validSlicesFromPool;
+        }
+    }
 
-                // if we didn't run into any exceptions here: it's a good slice!
-                $slices[] = $slice;
-            } catch (InvalidSliceException $invalidSlice) {
-                return $this->attemptToGenerate($previousTries + 1);
-            }
+    private function makeSlicesFromPool(TilePool $pool, $previousTries = 0): array
+    {
+        if ($previousTries > self::MAX_SLICES_FROM_SELECTION_TRIES) {
+            return [];
         }
 
-        $this->tries = $previousTries;
+        $this->settings->seed->setForSlices($previousTries);
+        $pool->shuffle();
+
+        $slices = [];
+
+        for ($i = 0; $i < $this->settings->numberOfSlices; $i++) {
+            $slice = new Slice([
+                $this->tileData[$pool->highTier[$i]],
+                $this->tileData[$pool->midTier[$i]],
+                $this->tileData[$pool->lowTier[$i]],
+                $this->tileData[$pool->redTier[$i * 2]],
+                $this->tileData[$pool->redTier[($i * 2) + 1]]
+            ]);
+
+            $sliceIsValid = $slice->validate(
+                $this->settings->minimumOptimalInfluence,
+                $this->settings->minimumOptimalResources,
+                $this->settings->minimumOptimalTotal,
+                $this->settings->maximumOptimalTotal,
+                $this->settings->maxOneWormholesPerSlice
+            );
+
+            if (!$sliceIsValid) {
+                unset($slice);
+                unset($slices);
+                return $this->makeSlicesFromPool($pool, $previousTries + 1);
+            }
+
+            if(!$slice->arrange($this->settings->seed)) {
+                unset($slice);
+                unset($slices);
+                return $this->makeSlicesFromPool($pool, $previousTries);
+            }
+
+            $slices[] = $slice;
+        }
+
         return $slices;
     }
 
     /**
-     * @param array<Tile> $tiles
+     * @param array $tileIds
      * @return bool
      */
-    private function validateTileSelection(array $tiles): bool
+    private function validateTileSelection(array $tileIds): bool
     {
+        $tileInfo = array_map(fn (string $id) => $this->tileData[$id], $tileIds);
+
         $alphaWormholeCount = 0;
         $betaWormholeCount = 0;
         $legendaryPlanetCount = 0;
 
-        foreach($tiles as $t) {
+        foreach($tileInfo as $t) {
             if ($t->hasWormhole(Wormhole::ALPHA)) {
                 $alphaWormholeCount++;
             }
@@ -199,40 +210,15 @@ class SlicePoolGenerator
     }
 
     /**
-     * @param array<Tile> $tiles
-     * @return array<string>
-     */
-    private function pluckTileIds(array $tiles): array
-    {
-        return array_map(fn(Tile $t) => $t->id, $tiles);
-    }
-
-    /**
      * Debug and test methods
      */
-
-    public function gatheredTilesIds(): array
-    {
-        return $this->pluckTileIds($this->allGatheredTiles);
-    }
-
     public function gatheredTiles(): array
     {
         return $this->allGatheredTiles;
     }
 
-    public function gatheredTileTierIds(): array
+    public function gatheredTileTiers(): TilePool
     {
-        return array_map(fn (array $tier) => $this->pluckTileIds($tier), $this->gatheredTileTiers());
-    }
-
-    public function gatheredTileTiers(): array
-    {
-        return [
-            TileTier::HIGH->value => $this->gatheredHighTierTiles,
-            TileTier::MEDIUM->value => $this->gatheredMediumTierTiles,
-            TileTier::LOW->value => $this->gatheredLowTierTiles,
-            TileTier::RED->value => $this->gatheredRedTiles,
-        ];
+        return $this->gatheredTiles;
     }
 }

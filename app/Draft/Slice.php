@@ -9,9 +9,8 @@ use App\TwilightImperium\Wormhole;
 
 class Slice
 {
-    protected const MAX_ARRANGEMENT_TRIES = 12;
+    protected const MAX_ARRANGEMENT_TRIES = 100;
 
-    protected array $tileArrangement;
     /**
      * @var array<Wormhole>
      */
@@ -82,21 +81,19 @@ class Slice
 
     /**
      * @todo don't use countSpecials
-     *
-     * @throws InvalidSliceException
      */
     public function validate(
         float $minimumOptimalInfluence,
         float $minimumOptimalResources,
         float $minimumOptimalTotal,
         float $maximumOptimalTotal,
-        ?int $maxWormholes = null
+        bool $maxOneWormhole
     ): bool {
         $specialCount = Tile::countSpecials($this->tiles);
 
         // can't have 2 alpha, beta or legendary planets
         if ($specialCount['alpha'] > 1 || $specialCount['beta'] > 1 || $specialCount['legendary'] > 1) {
-            throw InvalidSliceException::doesNotMeetRequirements("Too many wormholes or legendary planets");
+            return false;
         }
 
         // has the right minimum optimal values?
@@ -104,11 +101,11 @@ class Slice
             $this->optimalInfluence < $minimumOptimalInfluence ||
             $this->optimalResources < $minimumOptimalResources
         ) {
-            throw InvalidSliceException::doesNotMeetRequirements("Minimal influence/resources too low");
+            return false;
         }
 
-        if ($maxWormholes != null && $specialCount['alpha'] + $specialCount['beta'] > $maxWormholes) {
-            throw InvalidSliceException::doesNotMeetRequirements("More than allowed number of wormholes");
+        if ($maxOneWormhole && $specialCount['alpha'] + $specialCount['beta'] > 1) {
+            return false;
         }
 
         // has the right total optimal value? (not too much, not too little)
@@ -116,13 +113,13 @@ class Slice
             $this->optimalTotal < $minimumOptimalTotal ||
             $this->optimalTotal > $maximumOptimalTotal
         ) {
-            throw InvalidSliceException::doesNotMeetRequirements("Optimal values too high or low");
+            return false;
         }
 
         return true;
     }
 
-    public function arrange(Seed $seed): void {
+    public function arrange(Seed $seed): bool {
         $tries = 0;
         while (!$this->tileArrangementIsValid()) {
             $seed->setForSlices($tries);
@@ -130,9 +127,10 @@ class Slice
             $tries++;
 
             if ($tries > self::MAX_ARRANGEMENT_TRIES) {
-                throw InvalidSliceException::hasNoValidArrangement();
+                return false;
             }
         }
+        return true;
     }
 
     /**

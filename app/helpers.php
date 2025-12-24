@@ -1,10 +1,12 @@
 <?php
 
 if (!function_exists('d')) {
-    function d($var)
+    function d(...$variables)
     {
         echo '<pre>';
-        var_dump($var);
+        foreach($variables as $v) {
+            var_dump($v);
+        }
         echo '</pre>';
     }
 }
@@ -55,6 +57,17 @@ if (!function_exists('env')) {
     function env($key, $defaultValue = null): ?string
     {
         return $_ENV[$key] ?? $defaultValue;
+    }
+}
+
+
+if (!function_exists('human_filesize')) {
+    function human_filesize($bytes, $dec = 2): string {
+
+        $size   = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+        $factor = floor((strlen($bytes) - 1) / 3);
+        if ($factor == 0) $dec = 0;
+        return sprintf("%.{$dec}f %s", $bytes / (1024 ** $factor), $size[$factor]);
     }
 }
 

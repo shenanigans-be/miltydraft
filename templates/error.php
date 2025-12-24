@@ -32,24 +32,24 @@
             <nav>
                 <div class="content-wrap">
                     <div class="left">
-                        <a class="active" href="#draft">Draft</a>
+                        <a class="active" href="#main">Whoops</a>
                     </div>
                     <div class="right">
                         <a href="#faq">FAQ</a>
                     </div>
                 </div>
             </nav>
-            <div class="tab active" id="draft">
+            <div class="tab active" id="main">
                 <div class="content-wrap">
-                    <h2>Draft not found. (or something else went wrong)</h2>
+                    <h2><?= $error ?? 'Something went wrong' ?></h2>
+                    <p class="center">
+                        <a class="btn" href="/">Back to Homesystem</a>
+                    </p>
                 </div>
             </div>
             <?php require_once 'templates/faq.php'; ?>
         </div>
     </div>
-
-    <script src="<?= url('js/vendor.js?v=' . $_ENV['VERSION']) ?>"></script>
-    <script src="<?= url('js/draft.js?v=' . $_ENV['VERSION']) ?>"></script>
 </body>
 
 </html>

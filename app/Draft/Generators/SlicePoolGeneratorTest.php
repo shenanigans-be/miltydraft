@@ -27,7 +27,7 @@ class SlicePoolGeneratorTest extends TestCase
 
         $tiles = $generator->gatheredTiles();
         $tiers = $generator->gatheredTileTiers();
-        $combinedTiers = count($tiers["high"]) + count($tiers["mid"]) + count($tiers["low"]) + count($tiers["red"]);
+        $combinedTiers = count($tiers->allIds());
 
         $this->assertSame(count($tiles), $combinedTiers);
         foreach($tiles as $t) {
@@ -36,16 +36,6 @@ class SlicePoolGeneratorTest extends TestCase
             if (!empty($t->planets)) {
                 $this->assertNotEquals($t->planets[0]->name, "Mecatol Rex");
                 $this->assertNotEquals($t->planets[0]->name, "Mallice");
-            }
-        }
-
-        foreach($generator->gatheredTileTierIds() as $key => $tier) {
-            foreach ($tier as $tileId) {
-                foreach($generator->gatheredTileTierIds() as $key2 => $tier2) {
-                    if ($key != $key2) {
-                        $this->assertNotContains($tileId, $tier2);
-                    }
-                }
             }
         }
     }
@@ -64,6 +54,7 @@ class SlicePoolGeneratorTest extends TestCase
         ]);
         $generator = new SlicePoolGenerator($settings);
 
+
         $slices = $generator->generate();
 
         $tileIds = array_reduce(
@@ -81,7 +72,8 @@ class SlicePoolGeneratorTest extends TestCase
                 $settings->minimumOptimalInfluence,
                 $settings->minimumOptimalResources,
                 $settings->minimumOptimalTotal,
-                $settings->maximumOptimalTotal
+                $settings->maximumOptimalTotal,
+                $settings->maxOneWormholesPerSlice
             ));
         }
     }
@@ -128,18 +120,19 @@ class SlicePoolGeneratorTest extends TestCase
             'minimumOptimalTotal' => 9,
             'maximumOptimalTotal' => 13,
         ]);
+
         $generator = new SlicePoolGenerator($settings);
-        $pregeneratedSlices = [
-            ["64", "33", "42", "67", "59"],
-            ["29", "66", "20", "39", "47"],
-            ["27", "32", "79", "68", "19"],
-            ["35", "37", "22", "40", "50"],
-        ];
 
         $slices = $generator->generate();
 
+        $generatedSlices = array_map(fn (Slice $slice) => $slice->tileIds(), $slices);
+
+        $secondGenerator = new SlicePoolGenerator($settings);
+
+        $slices = $secondGenerator->generate();
+
         foreach($slices as $sliceIndex => $slice) {
-            $this->assertSame($pregeneratedSlices[$sliceIndex], $slice->tileIds());
+            $this->assertSame($generatedSlices[$sliceIndex], $slice->tileIds());
         }
     }
 

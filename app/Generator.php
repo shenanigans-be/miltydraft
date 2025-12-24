@@ -112,7 +112,7 @@ class Generator
                     $config->minimum_optimal_resources,
                     $config->minimum_optimal_total,
                     $config->maximum_optimal_total,
-                    $config->max_1_wormhole ? 1 : null
+                    $config->max_1_wormhole
                 );
                 $slice->arrange();
             } catch (InvalidSliceException $e) {

@@ -21,6 +21,17 @@ class HtmlResponse extends HttpResponse
         return $this->html;
     }
 
+    /**
+     * @todo put this somewhere else
+     */
+    public static function renderTemplate($template, $data): string
+    {
+        ob_start();
+        extract($data);
+        include $template;
+        return ob_get_clean();
+    }
+
     public function getContentType(): string
     {
         return 'text/html; charset=UTF-8';

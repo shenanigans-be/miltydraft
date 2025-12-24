@@ -11,6 +11,11 @@ class Tile
     public float $optimalResources = 0;
     public float $optimalTotal = 0;
 
+    /**
+     * @var array<string, Faction> $allTileData
+     */
+    private static array $allTileData;
+
     public function __construct(
         public string $id,
         public TileType $tileType,
@@ -131,25 +136,30 @@ class Tile
      */
     public static function all(): array
     {
-        $allTileData = json_decode(file_get_contents('data/tiles.json'), true);
-        $tileTiers = self::tierData();
-        $tiles = [];
+        if (!isset(self::$allTileData)) {
+            $allTileData = json_decode(file_get_contents('data/tiles.json'), true);
+            $tileTiers = self::tierData();
+            /** @var array<string, Tile> $tiles */
+            $tiles = [];
 
-        // merge tier and tile data
-        // We're keeping it in separate files for maintainability
-        foreach ($allTileData as $tileId => $tileData) {
-            $isMecRexOrMallice = count($tileData['planets']) > 0 &&
-                ($tileData['planets'][0]['name'] == "Mecatol Rex" || $tileData['planets'][0]['name'] == "Mallice");
+            // merge tier and tile data
+            // We're keeping it in separate files for maintainability
+            foreach ($allTileData as $tileId => $tileData) {
+                $isMecRexOrMallice = count($tileData['planets']) > 0 &&
+                    ($tileData['planets'][0]['name'] == "Mecatol Rex" || $tileData['planets'][0]['name'] == "Mallice");
 
-            $tier = match($tileData['type']) {
-                "red" => TileTier::RED,
-                "blue" => $isMecRexOrMallice ? TileTier::NONE : $tileTiers[$tileId],
-                default => TileTier::NONE
-            };
+                $tier = match($tileData['type']) {
+                    "red" => TileTier::RED,
+                    "blue" => $isMecRexOrMallice ? TileTier::NONE : $tileTiers[$tileId],
+                    default => TileTier::NONE
+                };
 
-            $tiles[$tileId] = Tile::fromJsonData($tileId, $tier, $tileData);
+                $tiles[$tileId] = Tile::fromJsonData($tileId, $tier, $tileData);
+            }
+
+            self::$allTileData = $tiles;
         }
 
-        return $tiles;
+        return self::$allTileData;
     }
 }

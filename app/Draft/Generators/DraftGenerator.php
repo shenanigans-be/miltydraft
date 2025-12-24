@@ -13,7 +13,8 @@ use App\TwilightImperium\AllianceTeamMode;
 class DraftGenerator
 {
     private readonly FactionPoolGenerator $factionPoolGenerator;
-    private readonly SlicePoolGenerator $slicePoolGenerator;
+    // @todo change back to private
+    public readonly SlicePoolGenerator $slicePoolGenerator;
 
     public function __construct(
         private readonly Settings $settings
@@ -52,7 +53,7 @@ class DraftGenerator
      */
     protected function generateTeamNames(): array
     {
-        return array_slice(['A', 'B', 'C', 'D'], 0, count($this->playerNames) / 2);
+        return array_slice(['A', 'B', 'C', 'D'], 0, count($this->settings->playerNames) / 2);
     }
 
     /**
@@ -68,18 +69,22 @@ class DraftGenerator
 
         if ($this->settings->allianceMode) {
             $teamNames = $this->generateTeamNames();
+            $teamPlayers = [];
 
             if ($this->settings->allianceTeamMode == AllianceTeamMode::RANDOM) {
                 shuffle($players);
             }
 
-            for ($i = 0; $i < count($players); $i+=2) {
-                $teamName = $teamNames[$i/2];
+            var_dump($players);
 
-                $players[] = $players[$i]->putInTeam($teamName);
-                $players[] = $players[$i + 1]->putInTeam($teamName);
+            for ($i = 0; $i < count($players); $i++) {
+                $teamName = $teamNames[(int) floor($i/2)];
+
+                $player = array_shift($players);
+                $teamPlayers[$player->id->value] = $player->putInTeam($teamName);
             }
 
+            $players = $teamPlayers;
         }
 
         if (!$this->settings->presetDraftOrder) {

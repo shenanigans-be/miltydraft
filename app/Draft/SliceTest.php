@@ -94,15 +94,13 @@ class SliceTest extends TestCase
     #[Test]
     public function itCanArrangeTiles(array $tiles, bool $canBeArranged)
     {
-        if (!$canBeArranged) {
-            $this->expectException(InvalidSliceException::class);
-        }
         $slice = new Slice($tiles);
         $seed = new Seed(1);
 
-        $slice->arrange($seed);
+        $arranged = $slice->arrange($seed);
 
-        $this->assertTrue($slice->tileArrangementIsValid());
+        $this->assertSame($canBeArranged, $arranged);
+        $this->assertSame($canBeArranged, $slice->tileArrangementIsValid());
     }
 
     #[Test]
@@ -116,9 +114,9 @@ class SliceTest extends TestCase
             TileFactory::make(),
         ]);
 
-        $this->expectException(InvalidSliceException::class);
+        $valid = $slice->validate(0, 0, 0, 0, true);
 
-        $slice->validate(0, 0, 0, 0, null);
+        $this->assertFalse($valid);
     }
 
     #[Test]
@@ -132,9 +130,9 @@ class SliceTest extends TestCase
             TileFactory::make(),
         ]);
 
-        $this->expectException(InvalidSliceException::class);
+        $valid = $slice->validate(0, 0, 0, 0, false);
 
-        $slice->validate(0, 0, 0, 0, null);
+        $this->assertFalse($valid);
     }
 
     #[Test]
@@ -148,9 +146,9 @@ class SliceTest extends TestCase
             TileFactory::make(),
         ]);
 
-        $this->expectException(InvalidSliceException::class);
+        $valid = $slice->validate(0, 0, 0, 0, true);
 
-        $slice->validate(0, 0, 0, 0, 1);
+        $this->assertFalse($valid);
     }
 
     #[Test]
@@ -174,15 +172,15 @@ class SliceTest extends TestCase
             TileFactory::make(),
         ]);
 
-        $this->expectException(InvalidSliceException::class);
-
-        $slice->validate(
+        $valid = $slice->validate(
             2,
             0,
             0,
             0,
-            1
+            false
         );
+
+        $this->assertFalse($valid);
     }
 
     #[Test]
@@ -206,14 +204,14 @@ class SliceTest extends TestCase
             TileFactory::make(),
         ]);
 
-        $this->expectException(InvalidSliceException::class);
-
-        $slice->validate(
+        $valid = $slice->validate(
             0,
             3,
             0,
             0,
+            false
         );
+        $this->assertFalse($valid);
     }
 
     #[Test]
@@ -237,14 +235,15 @@ class SliceTest extends TestCase
             TileFactory::make(),
         ]);
 
-        $this->expectException(InvalidSliceException::class);
-
-        $slice->validate(
+        $valid = $slice->validate(
             0,
             0,
             5,
-            0
+            0,
+            false
         );
+
+        $this->assertFalse($valid);
     }
 
     #[Test]
@@ -273,14 +272,14 @@ class SliceTest extends TestCase
             TileFactory::make(),
         ]);
 
-        $this->expectException(InvalidSliceException::class);
-
-        $slice->validate(
+        $valid = $slice->validate(
             0,
             0,
             0,
-            4
+            4,
+            false
         );
+        $this->assertFalse($valid);
     }
 
 
@@ -318,7 +317,8 @@ class SliceTest extends TestCase
             1,
             3,
             5,
-            7
+            7,
+            false
         );
 
         $this->assertTrue($valid);

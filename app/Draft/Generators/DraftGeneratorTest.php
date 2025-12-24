@@ -2,6 +2,7 @@
 
 namespace App\Draft\Generators;
 
+use App\Draft\Player;
 use App\Testing\Factories\DraftSettingsFactory;
 use App\Testing\TestCase;
 use App\TwilightImperium\AllianceTeamMode;
@@ -17,6 +18,7 @@ class DraftGeneratorTest extends TestCase
             'numberOfPlayers' => 4,
         ]);
         $generator = new DraftGenerator($settings);
+
 
         $draft = $generator->generate();
 
@@ -79,15 +81,33 @@ class DraftGeneratorTest extends TestCase
     #[Test]
     public function itCanGeneratePlayerDataForAlliances()
     {
-        $originalPlayerNames = ['Alice', 'Bob', 'Christine', 'David', 'Ellis', ''];
+        $originalPlayerNames = ['Alice', 'Bob', 'Christine', 'David', 'Elliot', 'Frank'];
         $settings = DraftSettingsFactory::make([
             'playerNames' => $originalPlayerNames,
             'allianceMode' => true,
             'allianceTeamMode' => AllianceTeamMode::PRESET,
+            'presetDraftOrder' => true
         ]);
+        $generator = new DraftGenerator($settings);
+        $draft = $generator->generate();
 
+        /**
+         * @var array<Player> $players
+         */
+        $players = array_values($draft->players);
 
-
+        $this->assertSame('Alice', $players[0]->name);
+        $this->assertSame('A', $players[0]->team);
+        $this->assertSame('Bob', $players[1]->name);
+        $this->assertSame('A', $players[1]->team);
+        $this->assertSame('Christine', $players[2]->name);
+        $this->assertSame('B', $players[2]->team);
+        $this->assertSame('David', $players[3]->name);
+        $this->assertSame('B', $players[3]->team);
+        $this->assertSame('Elliot', $players[4]->name);
+        $this->assertSame('C', $players[4]->team);
+        $this->assertSame('Frank', $players[5]->name);
+        $this->assertSame('C', $players[5]->team);
     }
 
 }

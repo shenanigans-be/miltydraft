@@ -13,4 +13,5 @@ apk --update --no-cache add \
   g++ \
   git \
   libtool \
-  make
+  make \
+  linux-headers

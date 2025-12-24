@@ -10,4 +10,5 @@ return [
     '/api/draft/{id}/restore' => \App\Http\RequestHandlers\HandleRestoreClaimRequest::class,
     '/api/draft/{id}/undo' => \App\Http\RequestHandlers\HandleUndoRequest::class,
     '/api/draft/{id}' => \App\Http\RequestHandlers\HandleGetDraftRequest::class,
+    '/test' => \App\Http\RequestHandlers\HandleTestGeneratorRequest::class,
 ];

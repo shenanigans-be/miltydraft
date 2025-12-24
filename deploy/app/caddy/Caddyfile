@@ -32,6 +32,5 @@
     import common_config
 }
 milty.localhost {
-    tls internal
     import common_config
 }

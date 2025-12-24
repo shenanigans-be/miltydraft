@@ -331,9 +331,6 @@ function refreshData() {
         type: "GET",
         url: window.routes.data,
         dataType: 'json',
-        data: {
-            'draft': draft.id,
-        },
         success: function (resp) {
             if (resp.error) {
                 $('#error-message').html(resp.error);

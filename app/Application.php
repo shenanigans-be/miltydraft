@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Draft\Exceptions\DraftRepositoryException;
 use App\Draft\Repository\DraftRepository;
 use App\Draft\Repository\LocalDraftRepository;
 use App\Draft\Repository\S3DraftRepository;

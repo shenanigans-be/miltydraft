@@ -62,7 +62,14 @@ class DraftGenerator
     public function generatePlayerData(): array
     {
         $players = [];
-        foreach ($this->settings->playerNames as $name) {
+
+        $playerNames = [...$this->settings->playerNames];
+
+        if (!$this->settings->presetDraftOrder) {
+            shuffle($playerNames);
+        }
+
+        foreach ($playerNames as $name) {
             $p = Player::create($name);
             $players[$p->id->value] = $p;
         }
@@ -81,10 +88,6 @@ class DraftGenerator
             }
 
             $players = $teamPlayers;
-        }
-
-        if (!$this->settings->presetDraftOrder) {
-            shuffle($players);
         }
 
         return $players;

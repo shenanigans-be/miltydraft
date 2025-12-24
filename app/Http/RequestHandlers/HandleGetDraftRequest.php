@@ -4,8 +4,6 @@ namespace App\Http\RequestHandlers;
 
 use App\Draft\Exceptions\DraftRepositoryException;
 use App\Http\ErrorResponse;
-use App\Http\HtmlResponse;
-use App\Http\HttpRequest;
 use App\Http\HttpResponse;
 use App\Http\JsonResponse;
 use App\Http\RequestHandler;

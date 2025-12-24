@@ -4,6 +4,8 @@ namespace App\Http;
 
 class HtmlResponse extends HttpResponse
 {
+    const CONTENT_TYPE = 'text/html; charset=UTF-8';
+
     public function __construct(
         protected string $html,
         public int $code = 200
@@ -34,6 +36,6 @@ class HtmlResponse extends HttpResponse
 
     public function getContentType(): string
     {
-        return 'text/html; charset=UTF-8';
+        return self::CONTENT_TYPE;
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http;
 
 class JsonResponse extends HttpResponse
 {
+    public const CONTENT_TYPE = 'application/json';
+
     public function __construct(
         protected array $data,
         public int $code = 200

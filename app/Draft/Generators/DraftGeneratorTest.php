@@ -10,7 +10,7 @@ use PHPUnit\Framework\Attributes\Test;
 
 class DraftGeneratorTest extends TestCase
 {
-    // #[Test]
+    #[Test]
     public function itCanGenerateADraftBasedOnSettings()
     {
         // don't have to check slices and factions, that's tested in their respective generators
@@ -24,12 +24,10 @@ class DraftGeneratorTest extends TestCase
 
         $this->assertNotEmpty($draft->slicePool);
         $this->assertNotEmpty($draft->factionPool);
-        $this->assertNotNull($draft->currentPlayerId);
-
-        unset($generator);
+        $this->assertEquals($draft->currentPlayerId, array_values($draft->players)[0]->id);
     }
 
-    // #[Test]
+    #[Test]
     public function itCanGeneratePlayerData()
     {
         $originalPlayerNames = ['Alice', 'Bob', 'Christine', 'David'];
@@ -53,11 +51,9 @@ class DraftGeneratorTest extends TestCase
 
         $this->assertCount(count($originalPlayerNames), array_unique($playerIds));
         $this->assertCount(count($originalPlayerNames), array_unique($playerNames));
-
-        unset($generator);
     }
 
-   // #[Test]
+    #[Test]
     public function itCanGeneratePlayerDataInPresetOrder()
     {
         $originalPlayerNames = ['Alice', 'Bob', 'Christine', 'David'];

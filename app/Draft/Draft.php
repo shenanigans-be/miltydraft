@@ -104,26 +104,6 @@ class Draft
         return $data;
     }
 
-    public static function createFromSettings(Settings $settings)
-    {
-        $factionPooLGenerator = new FactionPoolGenerator($settings);
-        $slicePoolGenerator = new SlicePoolGenerator($settings);
-
-        return new self(
-            DraftId::generate(),
-            false,
-            // @todo
-            [],
-            $settings,
-            Secrets::new(),
-            $slicePoolGenerator->generate(),
-            $factionPooLGenerator->generate(),
-            [],
-            // @todo
-            null
-        );
-    }
-
     public function determineCurrentPlayer(): PlayerId
     {
         $doneSteps = count($this->log);

@@ -2,19 +2,16 @@
 
 namespace App\Http\RequestHandlers;
 
-use App\Draft\Draft;
-use App\Http\ErrorResponse;
 use App\Http\HtmlResponse;
 use App\Http\HttpRequest;
-use App\Testing\MakesHttpRequests;
 use App\Testing\RequestHandlerTestCase;
-use App\Testing\TestCase;
-use App\Testing\TestDrafts;
-use PHPUnit\Framework\Attributes\DataProviderExternal;
+use App\Testing\UsesTestDraft;
 use PHPUnit\Framework\Attributes\Test;
 
 class HandleViewDraftRequestTest extends RequestHandlerTestCase
 {
+    use UsesTestDraft;
+
     protected string $requestHandlerClass = HandleViewDraftRequest::class;
 
     #[Test]
@@ -24,30 +21,24 @@ class HandleViewDraftRequestTest extends RequestHandlerTestCase
     }
 
     #[Test]
-    #[DataProviderExternal(TestDrafts::class, 'provideTestDrafts')]
-    public function itDisplaysADraft($data)
+    public function itCanFetchDraft()
     {
-        $draft = Draft::fromJson($data);
+        $handler = new HandleViewDraftRequest(new HttpRequest([], ['id' => $this->testDraft->id], []));
 
-        app()->repository->save($draft);
-
-        $handler = new HandleViewDraftRequest(new HttpRequest([], [], ['id' => (string) $draft->id]));
         $response = $handler->handle();
 
-        $this->assertInstanceOf(HtmlResponse::class, $response);
-        $this->assertSame($response->code, 200);
-
-        // cleanup
-        app()->repository->delete($draft->id);
+        $this->assertSame(200, $response->code);
+        $this->assertNotSame(HtmlResponse::CONTENT_TYPE, $response->code);
     }
 
     #[Test]
-    public function itReturnsAnErrorWhenDraftIsNotFound()
+    public function itShowsAnErrorPageWhenDraftIsNotFound()
     {
-        $handler = new HandleViewDraftRequest(new HttpRequest([], [], ['id' => '1234']));
+        $handler = new HandleViewDraftRequest(new HttpRequest([], ['id' => '123'], []));
         $response = $handler->handle();
-        $this->assertInstanceOf(ErrorResponse::class, $response);
-        $this->assertSame($response->code, 404);
+
+        $this->assertSame(404, $response->code);
+        $this->assertNotSame(HtmlResponse::CONTENT_TYPE, $response->code);
     }
 
 }

@@ -33,4 +33,5 @@ class HttpRequest
         }
         return $defaultValue;
     }
+
 }

@@ -15,6 +15,13 @@ class HandleGenerateDraftRequestTest extends RequestHandlerTestCase
 {
     protected string $requestHandlerClass = HandleGenerateDraftRequest::class;
 
+
+    #[Test]
+    public function itIsConfiguredAsRouteHandler()
+    {
+        $this->assertIsConfiguredAsHandlerForRoute('/api/generate');
+    }
+
     #[Test]
     public function itReturnsErrorWhenSettingsAreInvalid()
     {
@@ -253,11 +260,7 @@ class HandleGenerateDraftRequestTest extends RequestHandlerTestCase
     #[DataProvider('settingsPayload')]
     public function itParsesSettingsFromRequest($postData, $field, $expected, $expectedWhenNotSet)
     {
-        $handler = new HandleGenerateDraftRequest(new HttpRequest(
-            [],
-            $postData,
-            [],
-        ));
+        $handler = new HandleGenerateDraftRequest(new HttpRequest([], $postData, []));
 
         $this->assertSame($expected, $handler->settingValue($field));
     }

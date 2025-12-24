@@ -11,9 +11,9 @@ abstract class RequestHandler
 
     public abstract function handle(): HttpResponse;
 
-    protected function error(string $error): ErrorResponse
+    protected function error(string $error, $code = 500, $showErrorPage = false): ErrorResponse
     {
-        return new ErrorResponse($error);
+        return new ErrorResponse($error, $code, $showErrorPage);
     }
 
     public function html($template, $data = [], $code = 200): HtmlResponse

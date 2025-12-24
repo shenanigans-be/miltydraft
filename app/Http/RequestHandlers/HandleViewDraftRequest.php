@@ -9,14 +9,14 @@ use App\Http\HttpRequest;
 use App\Http\HttpResponse;
 use App\Http\RequestHandler;
 
-class HandleViewDraftRequest extends RequestHandler
+class HandleViewDraftRequest extends DraftRequestHandler
 {
     public function handle(): HttpResponse
     {
-        try {
-            $draft = app()->repository->load($this->request->get('id'));
-        } catch (DraftRepositoryException $e) {
-            return new ErrorResponse('Draft not found', 404, true);
+        $draft = $this->loadDraftByUrlId();
+
+        if ($draft == null) {
+            return $this->error('Draft not found', 404, true);
         }
 
         return $this->html(

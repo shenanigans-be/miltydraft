@@ -137,6 +137,25 @@ class SlicePoolGeneratorTest extends TestCase
     }
 
     #[Test]
+    public function itCanGenerateSlicesForDifficultSettings()
+    {
+        $settings = DraftSettingsFactory::make([
+            'numberOfSlices' => 8,
+            'tileSets' => [Edition::BASE_GAME, Edition::PROPHECY_OF_KINGS, Edition::THUNDERS_EDGE],
+            'maxOneWormholePerSlice' => true,
+            'minimumLegendaryPlanets' => 2,
+            'minimumTwoAlphaBetaWormholes' => true,
+            'minimumOptimalTotal' => 10,
+            'maximumOptimalTotal' => 13,
+        ]);
+
+        $generator = new SlicePoolGenerator($settings);
+        $generator->generate();
+
+        $this->expectNotToPerformAssertions();
+    }
+
+    #[Test]
     public function itCanGenerateSlicesWithMinimumTwoAlphaAndBetaWormholes()
     {
         $settings = DraftSettingsFactory::make([

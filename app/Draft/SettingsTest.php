@@ -178,6 +178,17 @@ class SettingsTest extends TestCase
     }
 
     #[Test]
+    public function itValidatesPlayerNamesNotEmpty() {
+        $draft = DraftSettingsFactory::make([
+            'playerNames' => ['Alice', 'Bob', '', ''],
+        ]);
+
+        $this->expectException(InvalidDraftSettingsException::class);
+        $this->expectExceptionMessage(InvalidDraftSettingsException::notAllPlayerNamesAreFilled()->getMessage());
+        $draft->validate();
+    }
+
+    #[Test]
     public function itValidatesMinimumLegendaryPlanets() {
         $draft = DraftSettingsFactory::make([
             'minimumLegendaryPlanets' => 6,

@@ -6,6 +6,12 @@ use App\Draft\Seed;
 
 class InvalidDraftSettingsException extends \Exception
 {
+
+    public static function notAllPlayerNamesAreFilled(): self
+    {
+        return new self("Not all player names are filled in");
+    }
+
     public static function playerNamesNotUnique(): self
     {
         return new self("Player names are not unique");

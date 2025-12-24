@@ -3,6 +3,8 @@
 namespace App\Http\RequestHandlers;
 
 use App\Draft\Draft;
+use App\Http\ErrorResponse;
+use App\Http\HtmlResponse;
 use App\Http\HttpRequest;
 use App\Testing\MakesHttpRequests;
 use App\Testing\RequestHandlerTestCase;
@@ -13,8 +15,6 @@ use PHPUnit\Framework\Attributes\Test;
 
 class HandleViewDraftRequestTest extends RequestHandlerTestCase
 {
-    use MakesHttpRequests;
-
     protected string $requestHandlerClass = HandleViewDraftRequest::class;
 
     #[Test]
@@ -34,6 +34,7 @@ class HandleViewDraftRequestTest extends RequestHandlerTestCase
         $handler = new HandleViewDraftRequest(new HttpRequest([], [], ['id' => (string) $draft->id]));
         $response = $handler->handle();
 
+        $this->assertInstanceOf(HtmlResponse::class, $response);
         $this->assertSame($response->code, 200);
 
         // cleanup
@@ -43,7 +44,10 @@ class HandleViewDraftRequestTest extends RequestHandlerTestCase
     #[Test]
     public function itReturnsAnErrorWhenDraftIsNotFound()
     {
-        // @todo
+        $handler = new HandleViewDraftRequest(new HttpRequest([], [], ['id' => '1234']));
+        $response = $handler->handle();
+        $this->assertInstanceOf(ErrorResponse::class, $response);
+        $this->assertSame($response->code, 404);
     }
 
 }

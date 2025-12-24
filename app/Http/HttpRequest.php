@@ -20,7 +20,7 @@ class HttpRequest
         );
     }
 
-    public function get($key, $defaultValue = null): ?string
+    public function get($key, $defaultValue = null)
     {
         if (isset($this->urlParameters[$key])) {
             return $this->urlParameters[$key];

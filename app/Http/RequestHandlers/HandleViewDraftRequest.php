@@ -19,7 +19,6 @@ class HandleViewDraftRequest extends RequestHandler
             return new ErrorResponse('Draft not found', 404, true);
         }
 
-
         return $this->html(
             'templates/draft.php',
              [

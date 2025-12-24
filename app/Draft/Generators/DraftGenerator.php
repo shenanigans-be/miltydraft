@@ -75,12 +75,8 @@ class DraftGenerator
                 shuffle($players);
             }
 
-            var_dump($players);
-
-            for ($i = 0; $i < count($players); $i++) {
+            foreach(array_values($players) as $i => $player) {
                 $teamName = $teamNames[(int) floor($i/2)];
-
-                $player = array_shift($players);
                 $teamPlayers[$player->id->value] = $player->putInTeam($teamName);
             }
 

@@ -3,6 +3,9 @@
 namespace App\Testing;
 
 use App\Application;
+use App\Http\HttpRequest;
+use App\Http\HttpResponse;
+use App\Http\RequestHandlers\HandleViewDraftRequest;
 use PHPUnit\Framework\Attributes\After;
 use PHPUnit\Framework\Attributes\Before;
 use \PHPUnit\Framework\TestCase as BaseTestCase;
@@ -29,5 +32,16 @@ abstract class RequestHandlerTestCase extends BaseTestCase
     {
         $determinedHandler = $this->application->handlerForRequest($route);
         $this->assertInstanceOf($this->requestHandlerClass, $determinedHandler);
+    }
+
+    public function handleRequest($getParameters = [], $postParameters = [], $urlParameters = []): HttpResponse
+    {
+        $handler = new $this->requestHandlerClass(new HttpRequest($getParameters, $postParameters, $urlParameters));
+        return $handler->handle();
+    }
+
+    public function assertJsonResponseSame(array $expected, HttpResponse $response)
+    {
+        $this->assertSame($expected, json_decode($response->getBody(), true));
     }
 }

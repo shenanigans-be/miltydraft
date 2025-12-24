@@ -3,8 +3,6 @@
 namespace App\Draft\Generators;
 
 use App\Draft\Exceptions\InvalidDraftSettingsException;
-use App\Draft\Exceptions\InvalidSliceException;
-use App\Draft\Seed;
 use App\Draft\Settings;
 use App\Draft\Slice;
 use App\TwilightImperium\Tile;
@@ -17,7 +15,7 @@ use App\TwilightImperium\Wormhole;
 class SlicePoolGenerator
 {
     const MAX_TILE_SELECTION_TRIES = 100;
-    const MAX_SLICES_FROM_SELECTION_TRIES = 1000;
+    const MAX_SLICES_FROM_SELECTION_TRIES = 400;
 
     /**
      * @var array<string, Tile> $tileData

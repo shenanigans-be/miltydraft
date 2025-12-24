@@ -121,6 +121,10 @@ class Settings
 
     protected function validatePlayers(): bool
     {
+        if (count(array_filter($this->playerNames)) != count($this->playerNames)) {
+            throw InvalidDraftSettingsException::notAllPlayerNamesAreFilled();
+        }
+
         if (count(array_unique($this->playerNames)) != count($this->playerNames)) {
             throw InvalidDraftSettingsException::playerNamesNotUnique();
         }
@@ -226,7 +230,7 @@ class Settings
      * @param $data
      * @return array<Edition>
      */
-    private static function tileSetsFromPayload($data): array
+    public static function tileSetsFromPayload($data): array
     {
         $tilesets = [];
 
@@ -249,7 +253,7 @@ class Settings
      * @param $data
      * @return array<Edition>
      */
-    private static function factionSetsFromPayload($data): array
+    public static function factionSetsFromPayload($data): array
     {
         $tilesets = [];
 
@@ -280,69 +284,5 @@ class Settings
     public function tileSetNames()
     {
         return array_map(fn (\App\TwilightImperium\Edition $e) => $e->fullName(), $this->tileSets);
-    }
-
-    public static function fromRequest(HttpRequest $request): self
-    {
-
-        $playerNames = [];
-        for ($i = 0; $i < $request->get('num_players'); $i++) {
-            $playerName = trim($request->get('players')[$i]);
-
-            if ($playerName != '') {
-                $playerNames[] = $playerName;
-            }
-        }
-
-        $allianceMode = (bool) $request->get('alliance_on', false);
-
-        $customSlices = [];
-        if ($request->get('custom_slices', '') != '') {
-            $sliceData = explode("\n", get('custom_slices'));
-            foreach ($sliceData as $s) {
-                $slice = [];
-                $t = explode(',', $s);
-                foreach ($t as $tile) {
-                    $tile = trim($tile);
-                    $slice[] = $tile;
-                }
-                $customSlices[] = $slice;
-            }
-        }
-
-        return new self(
-            $playerNames,
-            $request->get('preset_draft_order') == 'on',
-            new Name($request->get('name')),
-            new Seed($request->get('seed') != null ? (int) $request->get('seed') : null),
-            (int) $request->get('num_slices'),
-            (int) $request->get('num_factions'),
-            self::tileSetsFromPayload([
-                'include_pok' => $request->get('include_pok') == 'on',
-                'include_ds_tiles' => $request->get('include_ds_tiles') == 'on',
-                'include_te_tiles' => $request->get('include_te_tiles') == 'on',
-            ]),
-            self::factionSetsFromPayload([
-                'include_base_factions' => $request->get('include_base_factions') == 'on',
-                'include_pok_factions' => $request->get('include_pok_factions') == 'on',
-                'include_te_factions' => $request->get('include_te_factions') == 'on',
-                'include_discordant' => $request->get('include_discordant') == 'on',
-                'include_discordantexp' => $request->get('include_discordantexp') == 'on',
-            ]),
-            $request->get('include_keleres') == 'on',
-            $request->get('wormholes', 0) == 1,
-            $request->get('max_wormhole') == 'on',
-            (int) $request->get('min_legendaries'),
-            (float) $request->get('min_inf'),
-            (float) $request->get('min_res'),
-            (float) $request->get('min_total'),
-            (float) $request->get('max_total'),
-            $request->get('custom_factions') ?? [],
-            $customSlices,
-            $allianceMode,
-            $allianceMode ? AllianceTeamMode::from($request->get('alliance_teams')) : null,
-            $allianceMode ? AllianceTeamPosition::from($request->get('alliance_teams_position')) : null,
-            $allianceMode ? $request->get('force_double_picks') == 'on' : null,
-        );
     }
 }

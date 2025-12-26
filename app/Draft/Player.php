@@ -2,6 +2,7 @@
 
 namespace App\Draft;
 
+use App\Draft\Exceptions\InvalidClaimException;
 use App\Draft\Exceptions\InvalidPickException;
 
 class Player
@@ -53,6 +54,40 @@ class Player
             $this->pickedFaction,
             $this->pickedSlice,
             $team
+        );
+    }
+
+    public function unclaim(): Player
+    {
+        if (!$this->claimed) {
+            throw InvalidClaimException::playerNotClaimed();
+        }
+
+        return new self(
+            $this->id,
+            $this->name,
+            false,
+            $this->pickedPosition,
+            $this->pickedFaction,
+            $this->pickedSlice,
+            $this->team
+        );
+    }
+
+    public function claim(): Player
+    {
+        if ($this->claimed) {
+            throw InvalidClaimException::playerAlreadyClaimed();
+        }
+
+        return new self(
+            $this->id,
+            $this->name,
+            true,
+            $this->pickedPosition,
+            $this->pickedFaction,
+            $this->pickedSlice,
+            $this->team
         );
     }
 

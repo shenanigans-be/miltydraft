@@ -2,8 +2,8 @@
 
 namespace App\Http\RequestHandlers;
 
+use App\Draft\Commands\GenerateDraft;
 use App\Draft\Exceptions\InvalidDraftSettingsException;
-use App\Draft\Generators\DraftGenerator;
 use App\Draft\Name;
 use App\Draft\Seed;
 use App\Draft\Settings;
@@ -34,7 +34,7 @@ class HandleGenerateDraftRequest extends RequestHandler
             return new ErrorResponse($e->getMessage(), 400);
         }
 
-        $draft = (new DraftGenerator($this->settingsFromRequest()))->generate();
+        $draft = dispatch(new GenerateDraft($this->settingsFromRequest()));
 
         app()->repository->save($draft);
 

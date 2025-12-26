@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Draft\Generators;
+namespace App\Draft\Commands;
 
 use App\Draft\Exceptions\InvalidDraftSettingsException;
 use App\Draft\Slice;
@@ -14,7 +14,7 @@ use App\TwilightImperium\Wormhole;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\Attributes\Test;
 
-class SlicePoolGeneratorTest extends TestCase
+class GenerateSlicePoolTest extends TestCase
 {
     #[Test]
     #[DataProviderExternal(TestSets::class, 'setCombinations')]
@@ -23,7 +23,7 @@ class SlicePoolGeneratorTest extends TestCase
         $settings = DraftSettingsFactory::make([
             'tileSets' => $sets,
         ]);
-        $generator = new SlicePoolGenerator($settings);
+        $generator = new GenerateSlicePool($settings);
 
         $tiles = $generator->gatheredTiles();
         $tiers = $generator->gatheredTileTiers();
@@ -52,10 +52,10 @@ class SlicePoolGeneratorTest extends TestCase
             'minimumLegendaryPlanets' => 0,
             'minimumTwoAlphaBetaWormholes' => false,
         ]);
-        $generator = new SlicePoolGenerator($settings);
+        $generator = new GenerateSlicePool($settings);
 
 
-        $slices = $generator->generate();
+        $slices = $generator->handle();
 
         $tileIds = array_reduce(
             $slices,
@@ -89,9 +89,9 @@ class SlicePoolGeneratorTest extends TestCase
             'minimumLegendaryPlanets' => 0,
             'minimumTwoAlphaBetaWormholes' => false,
         ]);
-        $generator = new SlicePoolGenerator($settings);
+        $generator = new GenerateSlicePool($settings);
 
-        $slices = $generator->generate();
+        $slices = $generator->handle();
 
         $tileIds = array_reduce(
             $slices,
@@ -121,15 +121,15 @@ class SlicePoolGeneratorTest extends TestCase
             'maximumOptimalTotal' => 13,
         ]);
 
-        $generator = new SlicePoolGenerator($settings);
+        $generator = new GenerateSlicePool($settings);
 
-        $slices = $generator->generate();
+        $slices = $generator->handle();
 
         $generatedSlices = array_map(fn (Slice $slice) => $slice->tileIds(), $slices);
 
-        $secondGenerator = new SlicePoolGenerator($settings);
+        $secondGenerator = new GenerateSlicePool($settings);
 
-        $slices = $secondGenerator->generate();
+        $slices = $secondGenerator->handle();
 
         foreach($slices as $sliceIndex => $slice) {
             $this->assertSame($generatedSlices[$sliceIndex], $slice->tileIds());
@@ -149,8 +149,8 @@ class SlicePoolGeneratorTest extends TestCase
             'maximumOptimalTotal' => 13,
         ]);
 
-        $generator = new SlicePoolGenerator($settings);
-        $generator->generate();
+        $generator = new GenerateSlicePool($settings);
+        $generator->handle();
 
         $this->expectNotToPerformAssertions();
     }
@@ -167,9 +167,9 @@ class SlicePoolGeneratorTest extends TestCase
 
         $this->assertTrue($settings->minimumTwoAlphaAndBetaWormholes);
 
-        $generator = new SlicePoolGenerator($settings);
+        $generator = new GenerateSlicePool($settings);
 
-        $slices = $generator->generate();
+        $slices = $generator->handle();
 
 
         $alphaWormholeCount = 0;
@@ -195,9 +195,9 @@ class SlicePoolGeneratorTest extends TestCase
             'tileSets' => [Edition::BASE_GAME, Edition::PROPHECY_OF_KINGS],
             'minimumLegendaryPlanets' => 1,
         ]);
-        $generator = new SlicePoolGenerator($settings);
+        $generator = new GenerateSlicePool($settings);
 
-        $slices = $generator->generate();
+        $slices = $generator->handle();
 
         $legendaryPlanetCount = 0;
         foreach($slices as $slice) {
@@ -217,9 +217,9 @@ class SlicePoolGeneratorTest extends TestCase
             'tileSets' => [Edition::BASE_GAME, Edition::PROPHECY_OF_KINGS, Edition::DISCORDANT_STARS],
             'maxOneWormholePerSlice' => true,
         ]);
-        $generator = new SlicePoolGenerator($settings);
+        $generator = new GenerateSlicePool($settings);
 
-        $slices = $generator->generate();
+        $slices = $generator->handle();
 
         foreach($slices as $slice) {
             $this->assertLessThanOrEqual(1, count($slice->wormholes));
@@ -236,13 +236,13 @@ class SlicePoolGeneratorTest extends TestCase
             ["35", "37", "22", "40", "50"],
         ];
 
-        $generator = new SlicePoolGenerator(DraftSettingsFactory::make([
+        $generator = new GenerateSlicePool(DraftSettingsFactory::make([
             'numberOfSlices' => 4,
             'customSlices' => $customSlices
         ]));
 
 
-        $slices = $generator->generate();
+        $slices = $generator->handle();
 
         foreach($slices as $sliceIndex => $slice) {
             $this->assertSame($customSlices[$sliceIndex], $slice->tileIds());
@@ -253,7 +253,7 @@ class SlicePoolGeneratorTest extends TestCase
     #[Test]
     public function itGivesUpIfSettingsAreImpossible()
     {
-        $generator = new SlicePoolGenerator(DraftSettingsFactory::make([
+        $generator = new GenerateSlicePool(DraftSettingsFactory::make([
             'numberOfSlices' => 4,
             'minimumOptimalInfluence' => 40
         ]));
@@ -261,6 +261,6 @@ class SlicePoolGeneratorTest extends TestCase
         $this->expectException(InvalidDraftSettingsException::class);
         $this->expectExceptionMessage(InvalidDraftSettingsException::cannotGenerateSlices()->getMessage());
 
-        $generator->generate();
+        $generator->handle();
     }
 }

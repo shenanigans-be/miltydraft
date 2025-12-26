@@ -19,6 +19,14 @@ if (!function_exists('app')) {
     }
 }
 
+
+if (!function_exists('dispatch')) {
+    function dispatch(\App\Shared\Command $command): mixed
+    {
+        return app()->handle($command);
+    }
+}
+
 if (!function_exists('dd')) {
     function dd(...$variables)
     {

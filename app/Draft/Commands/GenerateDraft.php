@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Draft\Generators;
+namespace App\Draft\Commands;
 
 use App\Draft\Draft;
 use App\Draft\DraftId;
@@ -8,25 +8,24 @@ use App\Draft\Player;
 use App\Draft\PlayerId;
 use App\Draft\Secrets;
 use App\Draft\Settings;
+use App\Shared\Command;
 use App\TwilightImperium\AllianceTeamMode;
 
-class DraftGenerator
+class GenerateDraft implements Command
 {
-    private readonly FactionPoolGenerator $factionPoolGenerator;
-    // @todo change back to private
-    public readonly SlicePoolGenerator $slicePoolGenerator;
-
     public function __construct(
         private readonly Settings $settings
     )
     {
-        $this->slicePoolGenerator = new SlicePoolGenerator($this->settings);
-        $this->factionPoolGenerator = new FactionPoolGenerator($this->settings);
     }
 
-    public function generate(): Draft
+    public function handle(): Draft
     {
         $players = $this->generatePlayerData();
+
+        // not going through dispatch method because if we're faking it then that sucks
+        $slices = (new GenerateSlicePool($this->settings))->handle();
+        $factions = (new GenerateFactionPool($this->settings))->handle();
 
         return new Draft(
             DraftId::generate(),
@@ -34,8 +33,8 @@ class DraftGenerator
             $players,
             $this->settings,
             $this->generateSecrets(),
-            $this->slicePoolGenerator->generate(),
-            $this->factionPoolGenerator->generate(),
+            $slices,
+            $factions,
             [],
             PlayerId::fromString(array_key_first($players))
         );
@@ -43,7 +42,7 @@ class DraftGenerator
 
     protected function generateSecrets(): Secrets
     {
-        return new Secrets(Secrets::generatePassword());
+        return new Secrets(Secrets::generateSecret());
     }
 
 
@@ -61,6 +60,7 @@ class DraftGenerator
      */
     public function generatePlayerData(): array
     {
+        /** @var array<string, Player> $players */
         $players = [];
 
         $playerNames = [...$this->settings->playerNames];

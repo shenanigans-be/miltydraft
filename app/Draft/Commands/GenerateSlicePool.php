@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Draft\Generators;
+namespace App\Draft\Commands;
 
 use App\Draft\Exceptions\InvalidDraftSettingsException;
 use App\Draft\Settings;
 use App\Draft\Slice;
+use App\Draft\TilePool;
+use App\Shared\Command;
 use App\TwilightImperium\Tile;
 use App\TwilightImperium\TileTier;
 use App\TwilightImperium\Wormhole;
 
-/**
- * Generates a pool of draftable slices based on settings
- */
-class SlicePoolGenerator
+class GenerateSlicePool implements Command
 {
     const MAX_TILE_SELECTION_TRIES = 100;
     const MAX_SLICES_FROM_SELECTION_TRIES = 400;
@@ -73,10 +72,8 @@ class SlicePoolGenerator
         );
     }
 
-    /**
-     * @return array<Slice>
-     */
-    public function generate(): array
+    /** @return array<Slice> */
+    public function handle(): array
     {
         if (!empty($this->settings->customSlices)) {
             return $this->slicesFromCustomSlices();
@@ -187,8 +184,8 @@ class SlicePoolGenerator
         }
 
         if (
-           $this->settings->minimumTwoAlphaAndBetaWormholes &&
-           ($alphaWormholeCount < 2 || $betaWormholeCount < 2)
+            $this->settings->minimumTwoAlphaAndBetaWormholes &&
+            ($alphaWormholeCount < 2 || $betaWormholeCount < 2)
         ) {
             return false;
         }

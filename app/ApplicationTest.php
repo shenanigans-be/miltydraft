@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Http\RequestHandlers\HandleClaimPlayerRequest;
+use App\Http\RequestHandlers\HandleClaimOrUnclaimPlayerRequest;
 use App\Http\RequestHandlers\HandleGenerateDraftRequest;
 use App\Http\RequestHandlers\HandleGetDraftRequest;
 use App\Http\RequestHandlers\HandlePickRequest;
@@ -43,27 +43,27 @@ class ApplicationTest extends TestCase
         ];
 
         yield "For making a pick" => [
-            'route' => '/api/draft/1234/pick',
+            'route' => '/api/pick',
             'handler' => HandlePickRequest::class
         ];
 
         yield "For claiming a player" => [
-            'route' => '/api/draft/1234/claim',
-            'handler' => HandleClaimPlayerRequest::class
+            'route' => '/api/claim',
+            'handler' => HandleClaimOrUnclaimPlayerRequest::class
         ];
 
         yield "For restoring a claim" => [
-            'route' => '/api/draft/1234/restore',
+            'route' => '/api/restore',
             'handler' => HandleRestoreClaimRequest::class
         ];
 
         yield "For undoing a pick" => [
-            'route' => '/api/draft/1234/undo',
+            'route' => '/api/undo',
             'handler' => HandleUndoRequest::class
         ];
 
         yield "For regenerating a draft" => [
-            'route' => '/api/draft/1234/regenerate',
+            'route' => '/api/regenerate',
             'handler' => HandleRegenerateDraftRequest::class
         ];
     }

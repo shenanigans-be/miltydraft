@@ -12,7 +12,7 @@ class SecretsTest extends TestCase
     {
         $previouslyGenerated = "kOFY/yBXdhP5cC97tlxPhQ==";
         mt_srand(123);
-        $secret = Secrets::generatePassword();
+        $secret = Secrets::generateSecret();
 
         $this->assertNotSame($previouslyGenerated, $secret);
     }
@@ -29,8 +29,8 @@ class SecretsTest extends TestCase
         $secret = Secrets::fromJson($secretData);
 
         $this->assertTrue($secret->checkAdminSecret('secret124'));
-        $this->assertTrue($secret->checkPlayerSecret('player_1', 'secret456'));
-        $this->assertTrue($secret->checkPlayerSecret('player_3', 'secret789'));
+        $this->assertTrue($secret->checkPlayerSecret(PlayerId::fromString('player_1'), 'secret456'));
+        $this->assertTrue($secret->checkPlayerSecret(PlayerId::fromString('player_3'), 'secret789'));
     }
 
     #[Test]

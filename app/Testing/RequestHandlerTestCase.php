@@ -48,18 +48,38 @@ abstract class RequestHandlerTestCase extends BaseTestCase
         $this->assertSame($expected, json_decode($response->getBody(), true));
     }
 
+    public function assertResponseContentType(string $expected, HttpResponse $response)
+    {
+        $this->assertSame($expected, $response->getContentType());
+    }
+
     public function assertResponseJson(HttpResponse $response)
     {
-        $this->assertSame(JsonResponse::CONTENT_TYPE, $response->getContentType());
+        $this->assertResponseContentType(JsonResponse::CONTENT_TYPE, $response);
     }
 
     public function assertResponseHtml(HttpResponse $response)
     {
-        $this->assertSame(HtmlResponse::CONTENT_TYPE, $response->getContentType());
+        $this->assertResponseContentType(HtmlResponse::CONTENT_TYPE, $response);
+    }
+
+    public function assertResponseCode(int $expected, HttpResponse $response)
+    {
+        $this->assertSame($expected, $response->code);
     }
 
     public function assertResponseOk(HttpResponse $response)
     {
-        $this->assertSame(200, $response->code);
+        $this->assertResponseCode(200, $response);
+    }
+
+    public function assertResponseNotFound(HttpResponse $response)
+    {
+        $this->assertResponseCode(404, $response);
+    }
+
+    public function assertForbidden(HttpResponse $response)
+    {
+        $this->assertResponseCode(403, $response);
     }
 }

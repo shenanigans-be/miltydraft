@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Draft\Generators;
+namespace App\Draft\Commands;
 
 use App\Draft\Player;
 use App\Testing\Factories\DraftSettingsFactory;
@@ -8,7 +8,7 @@ use App\Testing\TestCase;
 use App\TwilightImperium\AllianceTeamMode;
 use PHPUnit\Framework\Attributes\Test;
 
-class DraftGeneratorTest extends TestCase
+class GenerateDraftTest extends TestCase
 {
     #[Test]
     public function itCanGenerateADraftBasedOnSettings()
@@ -17,10 +17,8 @@ class DraftGeneratorTest extends TestCase
         $settings = DraftSettingsFactory::make([
             'numberOfPlayers' => 4,
         ]);
-        $generator = new DraftGenerator($settings);
-
-
-        $draft = $generator->generate();
+        $generator = new GenerateDraft($settings);
+        $draft = $generator->handle();
 
         $this->assertNotEmpty($draft->slicePool);
         $this->assertNotEmpty($draft->factionPool);
@@ -34,9 +32,8 @@ class DraftGeneratorTest extends TestCase
         $settings = DraftSettingsFactory::make([
             'playerNames' => $originalPlayerNames,
         ]);
-        $generator = new DraftGenerator($settings);
-
-        $draft = $generator->generate();
+        $generator = new GenerateDraft($settings);
+        $draft = $generator->handle();
 
         $playerIds = [];
         $playerNames = [];
@@ -61,9 +58,9 @@ class DraftGeneratorTest extends TestCase
             'playerNames' => $originalPlayerNames,
             'presetDraftOrder' => true
         ]);
-        $generator = new DraftGenerator($settings);
+        $generator = new GenerateDraft($settings);
 
-        $draft = $generator->generate();
+        $draft = $generator->handle();
 
         $playerNames = [];
         foreach($draft->players as $player) {
@@ -84,8 +81,8 @@ class DraftGeneratorTest extends TestCase
             'allianceTeamMode' => AllianceTeamMode::PRESET,
             'presetDraftOrder' => true
         ]);
-        $generator = new DraftGenerator($settings);
-        $draft = $generator->generate();
+        $generator = new GenerateDraft($settings);
+        $draft = $generator->handle();
 
         /**
          * @var array<Player> $players
@@ -105,5 +102,4 @@ class DraftGeneratorTest extends TestCase
         $this->assertSame('Frank', $players[5]->name);
         $this->assertSame('C', $players[5]->team);
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Draft\Exceptions\DraftRepositoryException;
 use App\Draft\Repository\DraftRepository;
 use App\Draft\Repository\LocalDraftRepository;
 use App\Draft\Repository\S3DraftRepository;
@@ -12,7 +11,8 @@ use App\Http\HttpResponse;
 use App\Http\RequestHandler;
 use App\Http\Route;
 use App\Http\RouteMatch;
-use Clockwork\Clockwork;
+use App\Shared\Command;
+use App\Testing\DispatcherSpy;
 
 /**
  * Unsure why I did this from scratch. I was on a bit of a refactoring roll and I couldn't resist.
@@ -21,6 +21,9 @@ class Application
 {
     public readonly DraftRepository $repository;
     private static self $instance;
+
+    public bool $spyOnDispatcher = false;
+    public DispatcherSpy $spy;
 
     public function __construct()
     {
@@ -90,6 +93,27 @@ class Application
             }
 
             return $handler;
+        }
+    }
+
+    public function spyOnDispatcher($commandReturnValue = null)
+    {
+        $this->spyOnDispatcher = true;
+        $this->spy = new DispatcherSpy($commandReturnValue);
+    }
+
+    public function dontSpyOnDispatcher()
+    {
+        $this->spyOnDispatcher = false;
+        unset($this->spy);
+    }
+
+    public function handle(Command $command)
+    {
+        if ($this->spyOnDispatcher) {
+            return $this->spy->handle($command);
+        } else {
+            return $command->handle();
         }
     }
 

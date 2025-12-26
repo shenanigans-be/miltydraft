@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Draft\Generators;
+namespace App\Draft\Commands;
 
 use App\Draft\Settings;
+use App\Shared\Command;
 use App\TwilightImperium\Faction;
 
 /**
  * Generates a pool of draftable factions based on settings
  */
-class FactionPoolGenerator
+class GenerateFactionPool implements Command
 {
     private readonly array $factionData;
 
@@ -21,7 +22,7 @@ class FactionPoolGenerator
     /**
      * @return array<Faction>
      */
-    public function generate(): array
+    public function handle(): array
     {
         $this->settings->seed->setForFactions();
         $factionsFromSets = $this->gatherFactionsFromSelectedSets();

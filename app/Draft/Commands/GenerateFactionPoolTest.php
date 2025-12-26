@@ -1,29 +1,27 @@
 <?php
 
-namespace App\Draft\Generators;
+namespace App\Draft\Commands;
 
-use App\Draft\Seed;
 use App\Testing\Factories\DraftSettingsFactory;
 use App\Testing\TestCase;
 use App\Testing\TestSets;
 use App\TwilightImperium\Edition;
 use App\TwilightImperium\Faction;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\Attributes\Test;
 
-class FactionPoolGeneratorTest extends TestCase
+class GenerateFactionPoolTest extends TestCase
 {
     #[Test]
     #[DataProviderExternal(TestSets::class, 'setCombinations')]
     public function itCanGenerateChoicesFromFactionSets($sets)
     {
-        $generator = new FactionPoolGenerator(DraftSettingsFactory::make([
+        $generator = new GenerateFactionPool(DraftSettingsFactory::make([
             'factionSets' => $sets,
             'numberOfFactions' => 10
         ]));
 
-        $choices = $generator->generate();
+        $choices = $generator->handle();
         $choicesNames = array_map(fn (Faction $faction) => $faction->name, $choices);
 
         $this->assertCount(10, $choices);
@@ -42,13 +40,13 @@ class FactionPoolGeneratorTest extends TestCase
             "The Emirates of Hacan",
             "The Ghosts of Creuss",
         ];
-        $generator = new FactionPoolGenerator(DraftSettingsFactory::make([
+        $generator = new GenerateFactionPool(DraftSettingsFactory::make([
             'customFactions' => $customFactions,
             'factionSets' => [Edition::BASE_GAME],
             'numberOfFactions' => 3
         ]));
 
-        $choices = $generator->generate();
+        $choices = $generator->handle();
 
         $this->assertCount(3, $choices);
         foreach($choices as $choice) {
@@ -59,7 +57,7 @@ class FactionPoolGeneratorTest extends TestCase
     #[Test]
     public function itGeneratesTheSameFactionsFromTheSameSeed()
     {
-        $generator = new FactionPoolGenerator(DraftSettingsFactory::make([
+        $generator = new GenerateFactionPool(DraftSettingsFactory::make([
             'seed' => 123,
             'factionSets' => [Edition::BASE_GAME],
             'numberOfFactions' => 3
@@ -70,7 +68,7 @@ class FactionPoolGeneratorTest extends TestCase
             'The Yssaril Tribes'
         ];
 
-        $choices = $generator->generate();
+        $choices = $generator->handle();
 
         foreach($previouslyGeneratedChoices as $i => $name) {
             $this->assertSame($name, $choices[$i]->name);
@@ -85,13 +83,13 @@ class FactionPoolGeneratorTest extends TestCase
             'The Emirates of Hacan',
             'The Yssaril Tribes'
         ];
-        $generator = new FactionPoolGenerator(DraftSettingsFactory::make([
+        $generator = new GenerateFactionPool(DraftSettingsFactory::make([
             'factionSets' => [Edition::BASE_GAME],
             'customFactions' => $customFactions,
             'numberOfFactions' => 10
         ]));
 
-        $choices = $generator->generate();
+        $choices = $generator->handle();
         $choicesNames = array_map(fn (Faction $faction) => $faction->name, $choices);
 
         foreach($customFactions as $f) {

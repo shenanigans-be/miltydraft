@@ -2,9 +2,12 @@
 
 namespace App\Http\RequestHandlers;
 
+use App\Draft\Commands\GenerateDraft;
 use App\Draft\Exceptions\InvalidDraftSettingsException;
 use App\Http\HttpRequest;
+use App\Testing\FakesCommands;
 use App\Testing\RequestHandlerTestCase;
+use App\Testing\UsesTestDraft;
 use App\TwilightImperium\AllianceTeamMode;
 use App\TwilightImperium\AllianceTeamPosition;
 use App\TwilightImperium\Edition;
@@ -13,8 +16,10 @@ use PHPUnit\Framework\Attributes\Test;
 
 class HandleGenerateDraftRequestTest extends RequestHandlerTestCase
 {
-    protected string $requestHandlerClass = HandleGenerateDraftRequest::class;
+    use FakesCommands;
+    use UsesTestDraft;
 
+    protected string $requestHandlerClass = HandleGenerateDraftRequest::class;
 
     #[Test]
     public function itIsConfiguredAsRouteHandler()
@@ -272,5 +277,27 @@ class HandleGenerateDraftRequestTest extends RequestHandlerTestCase
     {
         $handler = new HandleGenerateDraftRequest(new HttpRequest([], [], []));
         $this->assertSame($expectedWhenNotSet, $handler->settingValue($field));
+    }
+
+
+    #[Test]
+    public function itGeneratesADraft()
+    {
+        $this->setExpectedReturnValue($this->testDraft);
+
+        $response = $this->handleRequest([
+            'num_players' => 4,
+            'player' => ['John', 'Paul', 'George', 'Ringo'],
+            'include_pok' => true,
+            'num_slices' => 4,
+            'num_factions' => 4,
+            'include_pok_factions' => true,
+            'include_base_factions' => true,
+        ]);;
+
+        $this->assertCommandWasDispatched(GenerateDraft::class);
+
+        $this->assertResponseOk($response);
+        $this->assertResponseJson($response);
     }
 }

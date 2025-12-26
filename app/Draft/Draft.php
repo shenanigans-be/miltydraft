@@ -2,14 +2,13 @@
 
 namespace App\Draft;
 
-use App\Draft\Generators\FactionPoolGenerator;
-use App\Draft\Generators\SlicePoolGenerator;
 use App\TwilightImperium\Faction;
 use App\TwilightImperium\Tile;
 
 class Draft
 {
     public function __construct(
+        // @todo implement DraftId value object
         public string   $id,
         public bool     $isDone,
         /** @var array<string, Player> $players */
@@ -114,6 +113,11 @@ class Draft
     public function canRegenerate(): bool
     {
         return empty($this->log);
+    }
+
+    public function playerById(PlayerId $id): Player
+    {
+        return $this->players[$id->value] ?? throw new \Exception('Player not found in draft');
     }
 
 

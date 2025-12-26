@@ -26,17 +26,45 @@ class Secrets
         ];
     }
 
-    public static function generatePassword(): string
+    public static function generateSecret(): string
     {
         return base64_encode(random_bytes(16));
+    }
+
+    public function generateSecretForPlayer(PlayerId $playerId): string
+    {
+        $secret = self::generateSecret();
+        $this->playerSecrets[$playerId->value] = $secret;
+        return $secret;
+    }
+
+    public function removeSecretForPlayer(PlayerId $playerId)
+    {
+        unset($this->playerSecrets[$playerId->value]);
+    }
+
+    public function secretById(PlayerId $playerId): ?string
+    {
+        return $this->playerSecrets[$playerId->value] ?? null;
     }
 
     public function checkAdminSecret($secret): bool {
         return $secret == $this->adminSecret;
     }
 
-    public function checkPlayerSecret($id, $secret): bool {
-        return isset($this->playerSecrets[$id]) && $secret == $this->playerSecrets[$id];
+    public function playerIdBySecret(string $secret): ?PlayerId {
+        foreach($this->playerSecrets as $key => $playerSecret) {
+            if ($playerSecret == $secret) {
+                return PlayerId::fromString($key);
+            }
+        }
+
+        return null;
+    }
+
+
+    public function checkPlayerSecret(PlayerId $id, string $secret): bool {
+        return isset($this->playerSecrets[$id->value]) && $secret == $this->playerSecrets[$id->value];
     }
 
     public static function fromJson($data): self

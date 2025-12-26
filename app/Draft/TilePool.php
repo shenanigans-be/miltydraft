@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Draft\Generators;
-
-use App\TwilightImperium\Tile;
+namespace App\Draft;
 
 class TilePool
 {

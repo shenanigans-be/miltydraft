@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
 /**
@@ -14,7 +16,7 @@ class Secrets
         /**
          * @var array<string, string> $playerSecrets
          */
-      public array $playerSecrets = []
+      public array $playerSecrets = [],
     ) {
     }
 
@@ -22,7 +24,7 @@ class Secrets
     {
         return [
             self::ADMIN_SECRET_KEY => $this->adminSecret,
-            ...$this->playerSecrets
+            ...$this->playerSecrets,
         ];
     }
 
@@ -35,10 +37,11 @@ class Secrets
     {
         $secret = self::generateSecret();
         $this->playerSecrets[$playerId->value] = $secret;
+
         return $secret;
     }
 
-    public function removeSecretForPlayer(PlayerId $playerId)
+    public function removeSecretForPlayer(PlayerId $playerId): void
     {
         unset($this->playerSecrets[$playerId->value]);
     }
@@ -62,7 +65,6 @@ class Secrets
         return null;
     }
 
-
     public function checkPlayerSecret(PlayerId $id, string $secret): bool {
         return isset($this->playerSecrets[$id->value]) && $secret == $this->playerSecrets[$id->value];
     }
@@ -71,7 +73,7 @@ class Secrets
     {
         return new self(
             $data[self::ADMIN_SECRET_KEY],
-            array_filter($data, fn (string $key) => $key != self::ADMIN_SECRET_KEY, ARRAY_FILTER_USE_KEY)
+            array_filter($data, fn (string $key) => $key != self::ADMIN_SECRET_KEY, ARRAY_FILTER_USE_KEY),
         );
     }
 }

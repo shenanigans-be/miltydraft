@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http;
 
 abstract class RequestHandler
 {
     public function __construct(
-        protected HttpRequest $request
+        protected HttpRequest $request,
     ) {
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http;
 
 class JsonResponse extends HttpResponse
@@ -8,7 +10,7 @@ class JsonResponse extends HttpResponse
 
     public function __construct(
         protected array $data,
-        public int $code = 200
+        public int $code = 200,
     ) {
         parent::__construct($this->code);
     }

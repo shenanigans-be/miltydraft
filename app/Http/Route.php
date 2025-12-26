@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http;
 
 class Route
@@ -8,7 +10,7 @@ class Route
 
     public function __construct(
         private readonly string $route,
-        private readonly string $handlerClass
+        private readonly string $handlerClass,
     ) {
         $this->routeChunks = explode('/', $this->route);
     }
@@ -45,13 +47,13 @@ class Route
             }
         }
 
-        if (!$allChunksMatch) {
+        if (! $allChunksMatch) {
             return null;
         }
 
         return new RouteMatch(
             $this->handlerClass,
-            $parameters
+            $parameters,
         );
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Testing\Factories;
 
 use App\TwilightImperium\Edition;
@@ -22,17 +24,17 @@ class TileFactory
         array $wormholes = [],
         ?string $anomaly = null,
         TileTier $tier = TileTier::MEDIUM,
-        Edition $edition = Edition::BASE_GAME
+        Edition $edition = Edition::BASE_GAME,
     ): Tile {
         return new Tile(
-            "tile-" . bin2hex(random_bytes(2)),
+            'tile-' . bin2hex(random_bytes(2)),
             TileType::BLUE,
             $tier,
             $edition,
             $planets,
             [],
             $wormholes,
-            $anomaly
+            $anomaly,
         );
     }
 }

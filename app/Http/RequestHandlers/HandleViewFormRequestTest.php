@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\RequestHandlers;
 
 use App\Testing\RequestHandlerTestCase;
@@ -11,14 +13,13 @@ class HandleViewFormRequestTest extends RequestHandlerTestCase
     protected string $requestHandlerClass = HandleViewFormRequest::class;
 
     #[Test]
-    public function itIsConfiguredAsRouteHandler()
+    public function itIsConfiguredAsRouteHandler(): void
     {
         $this->assertIsConfiguredAsHandlerForRoute('/');
     }
 
-
     #[Test]
-    public function itReturnsTheForm()
+    public function itReturnsTheForm(): void
     {
         $response = $this->handleRequest();
 

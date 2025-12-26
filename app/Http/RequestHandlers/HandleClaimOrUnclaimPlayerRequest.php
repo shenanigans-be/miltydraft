@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\RequestHandlers;
 
 use App\Draft\Commands\ClaimPlayer;
 use App\Draft\Commands\UnclaimPlayer;
-use App\Draft\Draft;
 use App\Draft\Exceptions\DraftRepositoryException;
 use App\Draft\PlayerId;
 use App\Http\ErrorResponse;
 use App\Http\HttpResponse;
-use App\Http\RequestHandler;
 
 class HandleClaimOrUnclaimPlayerRequest extends DraftRequestHandler
 {
@@ -37,7 +37,7 @@ class HandleClaimOrUnclaimPlayerRequest extends DraftRequestHandler
                 'draft' => $draft->toArray(),
                 'player' => $playerId->value,
                 'success' => true,
-                'secret' => $unclaim ? null : $secret
+                'secret' => $unclaim ? null : $secret,
             ]);
 
         } catch (DraftRepositoryException $e) {

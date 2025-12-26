@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
 class Pick
@@ -16,7 +18,7 @@ class Pick
         return new self(
             PlayerId::fromString($data['player']),
             PickCategory::from($data['category']),
-            $data['value']
+            $data['value'],
         );
     }
 
@@ -25,7 +27,7 @@ class Pick
         return [
             'player' => $this->playerId->value,
             'category' => $this->category->value,
-            'value' => $this->pickedOption
+            'value' => $this->pickedOption,
         ];
     }
 }

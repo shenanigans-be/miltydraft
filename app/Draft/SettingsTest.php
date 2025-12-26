@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
 use App\Draft\Exceptions\InvalidDraftSettingsException;
@@ -16,12 +18,12 @@ use PHPUnit\Framework\Attributes\Test;
 class SettingsTest extends TestCase
 {
     #[Test]
-    public function itCanBeConvertedToAnArray()
+    public function itCanBeConvertedToAnArray(): void
     {
         $draftSettings = new Settings(
-            ["john", "mike", "suzy", "robin"],
+            ['john', 'mike', 'suzy', 'robin'],
             true,
-            new Name("Testgame"),
+            new Name('Testgame'),
             new Seed(123),
             5,
             8,
@@ -37,7 +39,7 @@ class SettingsTest extends TestCase
                 Edition::DISCORDANT_STARS_PLUS,
             ],
             true,
-            2,
+            true,
             true,
             3,
             4.5,
@@ -45,24 +47,24 @@ class SettingsTest extends TestCase
             18.3,
             29,
             [
-                "The Titans of Ul",
-                "Free Systems Compact"
+                'The Titans of Ul',
+                'Free Systems Compact',
             ],
             [
                 [
-                    1, 2, 3, 4, 5
-                ]
+                    1, 2, 3, 4, 5,
+                ],
             ],
             true,
             AllianceTeamMode::RANDOM,
             AllianceTeamPosition::NEIGHBORS,
-            true
+            true,
         );
 
         $array = $draftSettings->toArray();
 
-        $this->assertSame(["john", "mike", "suzy", "robin"], $array['players']);
-        $this->assertSame("Testgame", $array['name']);
+        $this->assertSame(['john', 'mike', 'suzy', 'robin'], $array['players']);
+        $this->assertSame('Testgame', $array['name']);
         $this->assertSame(5, $array['num_slices']);
         $this->assertSame(8, $array['num_factions']);
         $this->assertSame(true, $array['include_pok']);
@@ -83,53 +85,53 @@ class SettingsTest extends TestCase
         $this->assertSame(18.3, $array['minimum_optimal_total']);
         $this->assertSame(29.0, $array['maximum_optimal_total']);
         $this->assertSame([
-            "The Titans of Ul",
-            "Free Systems Compact"
+            'The Titans of Ul',
+            'Free Systems Compact',
         ], $array['custom_factions']);
         $this->assertSame([
             [
-                1, 2, 3, 4, 5
-            ]
+                1, 2, 3, 4, 5,
+            ],
         ], $array['custom_slices']);
         $this->assertSame(123, $array['seed']);
-        $this->assertSame("random", $array['alliance']['alliance_teams']);
-        $this->assertSame("neighbors", $array['alliance']['alliance_teams_position']);
+        $this->assertSame('random', $array['alliance']['alliance_teams']);
+        $this->assertSame('neighbors', $array['alliance']['alliance_teams_position']);
         $this->assertSame(true, $array['alliance']['force_double_picks']);
     }
 
     public static function validationCases()
     {
-        yield "When player names are not unique" => [
-            "data" => [
+        yield 'When player names are not unique' => [
+            'data' => [
                 'playerNames' => [
                     'sam',
                     'sam',
-                    'kyle'
-                ]
+                    'kyle',
+                ],
             ],
-            'exception' => InvalidDraftSettingsException::playerNamesNotUnique()
+            'exception' => InvalidDraftSettingsException::playerNamesNotUnique(),
         ];
-        yield "When not enough playerNames" => [
-            "data" => [
+        yield 'When not enough playerNames' => [
+            'data' => [
                 'playerNames' => [
                     'sam',
-                    'kyle'
-                ]
+                    'kyle',
+                ],
             ],
-            'exception' => InvalidDraftSettingsException::notEnoughPlayers()
+            'exception' => InvalidDraftSettingsException::notEnoughPlayers(),
         ];
-        yield "When checking slice count" => [
-            "data" => [
+        yield 'When checking slice count' => [
+            'data' => [
                 'numberOfPlayers' => 4,
-                'numberOfSlices' => 3
+                'numberOfSlices' => 3,
             ],
-            'exception' => InvalidDraftSettingsException::notEnoughSlicesForPlayers()
+            'exception' => InvalidDraftSettingsException::notEnoughSlicesForPlayers(),
         ];
     }
 
-    #[DataProvider("validationCases")]
+    #[DataProvider('validationCases')]
     #[Test]
-    public function itThrowsValidationErrors($data, \Exception $exception)
+    public function itThrowsValidationErrors($data, \Exception $exception): void
     {
         $draft = DraftSettingsFactory::make($data);
 
@@ -139,11 +141,11 @@ class SettingsTest extends TestCase
     }
 
     #[Test]
-    public function itValidatesFactionCount()
+    public function itValidatesFactionCount(): void
     {
         $draft = DraftSettingsFactory::make([
             'numberOfPlayers' => 4,
-            'numberOfFactions' => 2
+            'numberOfFactions' => 2,
         ]);
 
         $this->expectException(InvalidDraftSettingsException::class);
@@ -152,12 +154,12 @@ class SettingsTest extends TestCase
     }
 
     #[Test]
-    public function itValidatesNumberOfSlices() {
+    public function itValidatesNumberOfSlices(): void {
         $draft = DraftSettingsFactory::make([
             'numberOfSlices' => 7,
             'tileSets' => [
-                Edition::BASE_GAME
-            ]
+                Edition::BASE_GAME,
+            ],
         ]);
 
         $this->expectException(InvalidDraftSettingsException::class);
@@ -166,7 +168,7 @@ class SettingsTest extends TestCase
     }
 
     #[Test]
-    public function itValidatesOptimalMaximum() {
+    public function itValidatesOptimalMaximum(): void {
         $draft = DraftSettingsFactory::make([
             'minimumOptimalTotal' => 7,
             'maximumOptimalTotal' => 4,
@@ -178,7 +180,7 @@ class SettingsTest extends TestCase
     }
 
     #[Test]
-    public function itValidatesPlayerNamesNotEmpty() {
+    public function itValidatesPlayerNamesNotEmpty(): void {
         $draft = DraftSettingsFactory::make([
             'playerNames' => ['Alice', 'Bob', '', ''],
         ]);
@@ -189,13 +191,13 @@ class SettingsTest extends TestCase
     }
 
     #[Test]
-    public function itValidatesMinimumLegendaryPlanets() {
+    public function itValidatesMinimumLegendaryPlanets(): void {
         $draft = DraftSettingsFactory::make([
             'minimumLegendaryPlanets' => 6,
             'tileSets' => [
                 Edition::BASE_GAME,
-                Edition::THUNDERS_EDGE
-            ]
+                Edition::THUNDERS_EDGE,
+            ],
         ]);
 
         $this->expectException(InvalidDraftSettingsException::class);
@@ -204,11 +206,11 @@ class SettingsTest extends TestCase
     }
 
     #[Test]
-    public function itValidatesMinimumLegendaryPlanetsAgainstSlices() {
+    public function itValidatesMinimumLegendaryPlanetsAgainstSlices(): void {
         $draft = DraftSettingsFactory::make([
             'numberOfPlayers' => 5,
             'minimumLegendaryPlanets' => 6,
-            'numberOfSlices' => 5
+            'numberOfSlices' => 5,
         ]);
 
         $this->expectException(InvalidDraftSettingsException::class);
@@ -218,25 +220,25 @@ class SettingsTest extends TestCase
 
     public static function seedValues(): iterable
     {
-        yield "When seed is negative" => [
-            "seed" => -1,
-            "valid" => false
+        yield 'When seed is negative' => [
+            'seed' => -1,
+            'valid' => false,
         ];
-        yield "When seed is too high" => [
-            "seed" => Seed::MAX_VALUE + 12,
-            "valid" => false
+        yield 'When seed is too high' => [
+            'seed' => Seed::MAX_VALUE + 12,
+            'valid' => false,
         ];
-        yield "When seed is valid" => [
-            "seed" => 50312,
-            "valid" => true
+        yield 'When seed is valid' => [
+            'seed' => 50312,
+            'valid' => true,
         ];
     }
 
-    #[DataProvider("seedValues")]
+    #[DataProvider('seedValues')]
     #[Test]
-    public function itValidatesSeed($seed, $valid) {
+    public function itValidatesSeed($seed, $valid): void {
         $draft = DraftSettingsFactory::make([
-            'seed' => $seed
+            'seed' => $seed,
         ]);
 
         if ($valid) {
@@ -250,12 +252,12 @@ class SettingsTest extends TestCase
     }
 
     #[Test]
-    public function itValidatesFactionSetCount() {
+    public function itValidatesFactionSetCount(): void {
         $draft = DraftSettingsFactory::make([
             'numberOfFactions' => 20,
             'factionSets' => [
-                Edition::BASE_GAME
-            ]
+                Edition::BASE_GAME,
+            ],
         ]);
 
         $this->expectException(InvalidDraftSettingsException::class);
@@ -265,12 +267,12 @@ class SettingsTest extends TestCase
     }
 
     #[Test]
-    public function itValidatesCustomSlices() {
+    public function itValidatesCustomSlices(): void {
         $draft = DraftSettingsFactory::make([
             'numberOfPlayers' => 5,
             'customSlices' => [
-                [1, 2, 3, 4, 5]
-            ]
+                [1, 2, 3, 4, 5],
+            ],
         ]);
 
         $this->expectException(InvalidDraftSettingsException::class);
@@ -279,9 +281,9 @@ class SettingsTest extends TestCase
         $draft->validate();
     }
 
-    #[DataProviderExternal(TestDrafts::class, "provideTestDrafts")]
+    #[DataProviderExternal(TestDrafts::class, 'provideTestDrafts')]
     #[Test]
-    public function itCanBeInstantiatedFromJson($data) {
+    public function itCanBeInstantiatedFromJson($data): void {
         $draftSettings = Settings::fromJson($data['config']);
 
         $this->assertSame($data['config']['name'], (string) $draftSettings->name);

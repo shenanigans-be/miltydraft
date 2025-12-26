@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft\Commands;
 
 use App\Draft\Draft;
@@ -12,7 +14,7 @@ class UnclaimPlayer implements Command
     private Player $player;
     public function __construct(
         public Draft $draft,
-        public PlayerId $playerId
+        public PlayerId $playerId,
     )
     {
         $this->player = $this->draft->playerById($this->playerId);

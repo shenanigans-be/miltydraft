@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft\Commands;
 
 use App\Draft\Exceptions\InvalidDraftSettingsException;
@@ -18,7 +20,7 @@ class GenerateSlicePoolTest extends TestCase
 {
     #[Test]
     #[DataProviderExternal(TestSets::class, 'setCombinations')]
-    public function itGathersTheCorrectTiles($sets)
+    public function itGathersTheCorrectTiles($sets): void
     {
         $settings = DraftSettingsFactory::make([
             'tileSets' => $sets,
@@ -33,16 +35,16 @@ class GenerateSlicePoolTest extends TestCase
         foreach($tiles as $t) {
             $this->assertContains($t->edition, $sets);
             $this->assertNotEquals($t->tileType, TileType::GREEN);
-            if (!empty($t->planets)) {
-                $this->assertNotEquals($t->planets[0]->name, "Mecatol Rex");
-                $this->assertNotEquals($t->planets[0]->name, "Mallice");
+            if (! empty($t->planets)) {
+                $this->assertNotEquals($t->planets[0]->name, 'Mecatol Rex');
+                $this->assertNotEquals($t->planets[0]->name, 'Mallice');
             }
         }
     }
 
     #[Test]
     #[DataProviderExternal(TestSets::class, 'setCombinations')]
-    public function itCanGenerateValidSlicesBasedOnSets($sets)
+    public function itCanGenerateValidSlicesBasedOnSets($sets): void
     {
         // we're doing this on easy mode so that the "Only base game" tile set has a decent chance of working
         $settings = DraftSettingsFactory::make([
@@ -54,14 +56,13 @@ class GenerateSlicePoolTest extends TestCase
         ]);
         $generator = new GenerateSlicePool($settings);
 
-
         $slices = $generator->handle();
 
         $tileIds = array_reduce(
             $slices,
             fn ($allTiles, Slice $s) => array_merge(
                 $allTiles,
-                array_map(fn (Tile $t) => $t->id, $s->tiles)
+                array_map(fn (Tile $t) => $t->id, $s->tiles),
             ),
             [],
         );
@@ -73,14 +74,14 @@ class GenerateSlicePoolTest extends TestCase
                 $settings->minimumOptimalResources,
                 $settings->minimumOptimalTotal,
                 $settings->maximumOptimalTotal,
-                $settings->maxOneWormholesPerSlice
+                $settings->maxOneWormholesPerSlice,
             ));
         }
     }
 
     #[Test]
     #[DataProviderExternal(TestSets::class, 'setCombinations')]
-    public function itDoesNotReuseTiles($sets)
+    public function itDoesNotReuseTiles($sets): void
     {
         $settings = DraftSettingsFactory::make([
             'numberOfSlices' => 4,
@@ -97,7 +98,7 @@ class GenerateSlicePoolTest extends TestCase
             $slices,
             fn($allTiles, Slice $s) => array_merge(
                 $allTiles,
-                array_map(fn(Tile $t) => $t->id, $s->tiles)
+                array_map(fn(Tile $t) => $t->id, $s->tiles),
             ),
             [],
         );
@@ -106,7 +107,7 @@ class GenerateSlicePoolTest extends TestCase
     }
 
     #[Test]
-    public function itGeneratesTheSameSlicesFromSameSeed()
+    public function itGeneratesTheSameSlicesFromSameSeed(): void
     {
         $settings = DraftSettingsFactory::make([
             'seed' => 123,
@@ -137,7 +138,7 @@ class GenerateSlicePoolTest extends TestCase
     }
 
     #[Test]
-    public function itCanGenerateSlicesForDifficultSettings()
+    public function itCanGenerateSlicesForDifficultSettings(): void
     {
         $settings = DraftSettingsFactory::make([
             'numberOfSlices' => 8,
@@ -156,7 +157,7 @@ class GenerateSlicePoolTest extends TestCase
     }
 
     #[Test]
-    public function itCanGenerateSlicesWithMinimumTwoAlphaAndBetaWormholes()
+    public function itCanGenerateSlicesWithMinimumTwoAlphaAndBetaWormholes(): void
     {
         $settings = DraftSettingsFactory::make([
             'numberOfSlices' => 6,
@@ -170,7 +171,6 @@ class GenerateSlicePoolTest extends TestCase
         $generator = new GenerateSlicePool($settings);
 
         $slices = $generator->handle();
-
 
         $alphaWormholeCount = 0;
         $betaWormholeCount = 0;
@@ -188,7 +188,7 @@ class GenerateSlicePoolTest extends TestCase
     }
 
     #[Test]
-    public function itCanGenerateSlicesWithMinimumAmountOfLegendaryPlanets()
+    public function itCanGenerateSlicesWithMinimumAmountOfLegendaryPlanets(): void
     {
         $settings = DraftSettingsFactory::make([
             'numberOfSlices' => 6,
@@ -210,7 +210,7 @@ class GenerateSlicePoolTest extends TestCase
     }
 
     #[Test]
-    public function itCanGenerateSlicesWithMaxOneWormholePerSlice()
+    public function itCanGenerateSlicesWithMaxOneWormholePerSlice(): void
     {
         $settings = DraftSettingsFactory::make([
             'numberOfSlices' => 6,
@@ -227,20 +227,19 @@ class GenerateSlicePoolTest extends TestCase
     }
 
     #[Test]
-    public function itCanReturnCustomSlices()
+    public function itCanReturnCustomSlices(): void
     {
         $customSlices = [
-            ["64", "33", "42", "67", "59"],
-            ["29", "66", "20", "39", "47"],
-            ["27", "32", "79", "68", "19"],
-            ["35", "37", "22", "40", "50"],
+            ['64', '33', '42', '67', '59'],
+            ['29', '66', '20', '39', '47'],
+            ['27', '32', '79', '68', '19'],
+            ['35', '37', '22', '40', '50'],
         ];
 
         $generator = new GenerateSlicePool(DraftSettingsFactory::make([
             'numberOfSlices' => 4,
-            'customSlices' => $customSlices
+            'customSlices' => $customSlices,
         ]));
-
 
         $slices = $generator->handle();
 
@@ -249,13 +248,12 @@ class GenerateSlicePoolTest extends TestCase
         }
     }
 
-
     #[Test]
-    public function itGivesUpIfSettingsAreImpossible()
+    public function itGivesUpIfSettingsAreImpossible(): void
     {
         $generator = new GenerateSlicePool(DraftSettingsFactory::make([
             'numberOfSlices' => 4,
-            'minimumOptimalInfluence' => 40
+            'minimumOptimalInfluence' => 40,
         ]));
 
         $this->expectException(InvalidDraftSettingsException::class);

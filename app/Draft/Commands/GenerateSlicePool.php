@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft\Commands;
 
 use App\Draft\Exceptions\InvalidDraftSettingsException;
@@ -17,18 +19,18 @@ class GenerateSlicePool implements Command
     const MAX_SLICES_FROM_SELECTION_TRIES = 400;
 
     /**
-     * @var array<string, Tile> $tileData
+     * @var array<string, Tile>
      */
     private readonly array $tileData;
 
-    /** @var array<Tile> $allGatheredTiles  */
+    /** @var array<Tile> */
     private readonly array $allGatheredTiles;
     private readonly TilePool $gatheredTiles;
 
     public int $tries;
 
     public function __construct(
-        private readonly Settings $settings
+        private readonly Settings $settings,
     ) {
         $this->tileData = Tile::all();
 
@@ -38,7 +40,7 @@ class GenerateSlicePool implements Command
             fn (Tile $tile) =>
                 in_array($tile->edition, $this->settings->tileSets) &&
                 // tier none is mec rex and such...
-                $tile->tier != TileTier::NONE
+                $tile->tier != TileTier::NONE,
         );
 
         // sort pre-selected tiles in tiers
@@ -51,15 +53,19 @@ class GenerateSlicePool implements Command
             switch($tile->tier) {
                 case TileTier::HIGH:
                     $highTier[] = $tile->id;
+
                     break;
                 case TileTier::MEDIUM:
                     $midTier[] = $tile->id;
+
                     break;
                 case TileTier::LOW:
                     $lowTier[] = $tile->id;
+
                     break;
                 case TileTier::RED:
                     $redTier[] = $tile->id;
+
                     break;
             };
         }
@@ -68,14 +74,14 @@ class GenerateSlicePool implements Command
             $highTier,
             $midTier,
             $lowTier,
-            $redTier
+            $redTier,
         );
     }
 
     /** @return array<Slice> */
     public function handle(): array
     {
-        if (!empty($this->settings->customSlices)) {
+        if (! empty($this->settings->customSlices)) {
             return $this->slicesFromCustomSlices();
         } else {
             return $this->attemptToGenerate();
@@ -94,15 +100,16 @@ class GenerateSlicePool implements Command
         $this->gatheredTiles->shuffle();
         $tilePool = $this->gatheredTiles->slice($this->settings->numberOfSlices);
 
-        $tilePoolIsValid =  $this->validateTileSelection($tilePool->allIds());
+        $tilePoolIsValid = $this->validateTileSelection($tilePool->allIds());
 
-        if (!$tilePoolIsValid) {
+        if (! $tilePoolIsValid) {
             return $this->attemptToGenerate($previousTries + 1);
         }
 
         $validSlicesFromPool = $this->makeSlicesFromPool($tilePool);
         if (empty($validSlicesFromPool)) {
             unset($validSlicesFromPool);
+
             return $this->attemptToGenerate($previousTries + 1);
         } else {
             return $validSlicesFromPool;
@@ -126,7 +133,7 @@ class GenerateSlicePool implements Command
                 $this->tileData[$pool->midTier[$i]],
                 $this->tileData[$pool->lowTier[$i]],
                 $this->tileData[$pool->redTier[$i * 2]],
-                $this->tileData[$pool->redTier[($i * 2) + 1]]
+                $this->tileData[$pool->redTier[($i * 2) + 1]],
             ]);
 
             $sliceIsValid = $slice->validate(
@@ -134,18 +141,20 @@ class GenerateSlicePool implements Command
                 $this->settings->minimumOptimalResources,
                 $this->settings->minimumOptimalTotal,
                 $this->settings->maximumOptimalTotal,
-                $this->settings->maxOneWormholesPerSlice
+                $this->settings->maxOneWormholesPerSlice,
             );
 
-            if (!$sliceIsValid) {
+            if (! $sliceIsValid) {
                 unset($slice);
                 unset($slices);
+
                 return $this->makeSlicesFromPool($pool, $previousTries + 1);
             }
 
-            if(!$slice->arrange($this->settings->seed)) {
+            if(! $slice->arrange($this->settings->seed)) {
                 unset($slice);
                 unset($slices);
+
                 return $this->makeSlicesFromPool($pool, $previousTries);
             }
 
@@ -200,6 +209,7 @@ class GenerateSlicePool implements Command
     {
         return array_map(function (array $sliceData) {
             $tileData = array_map(fn ($tileId) => $this->tileData[$tileId], $sliceData);
+
             return new Slice($tileData);
         }, $this->settings->customSlices);
     }

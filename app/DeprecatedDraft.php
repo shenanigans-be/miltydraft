@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use Aws\S3\Exception\S3Exception;
@@ -21,7 +23,7 @@ class DeprecatedDraft implements \JsonSerializable
         private array $slices,
         private array $factions,
         private GeneratorConfig $config,
-        private string $name
+        private string $name,
     ) {
         $this->draft = ($draft === [] ? [
             'players' => $this->generatePlayerData(),
@@ -29,13 +31,13 @@ class DeprecatedDraft implements \JsonSerializable
         ] : $draft);
 
         $this->done = $this->isDone();
-        $this->draft["current"] = $this->currentPlayer();
+        $this->draft['current'] = $this->currentPlayer();
     }
 
     public static function createFromConfig(GeneratorConfig $config)
     {
         $id = uniqid();
-        $secrets = array("admin_pass" => md5(uniqid("", true)));
+        $secrets = ['admin_pass' => md5(uniqid('', true))];
         $slices = Generator::slices($config);
         $factions = Generator::factions($config);
 
@@ -53,10 +55,10 @@ class DeprecatedDraft implements \JsonSerializable
     {
         $s3 = new \Aws\S3\S3Client([
             'version' => 'latest',
-            'region'  => 'us-east-1',
+            'region' => 'us-east-1',
             'endpoint' => 'https://' . $_ENV['REGION'] . '.digitaloceanspaces.com',
             'credentials' => [
-                'key'    => $_ENV['ACCESS_KEY'],
+                'key' => $_ENV['ACCESS_KEY'],
                 'secret' => $_ENV['ACCESS_SECRET'],
             ],
         ]);
@@ -66,7 +68,7 @@ class DeprecatedDraft implements \JsonSerializable
 
     public static function load($id): self
     {
-        if (!$id) {
+        if (! $id) {
             throw new \Exception('Tried to load draft with no id');
         }
 
@@ -75,7 +77,7 @@ class DeprecatedDraft implements \JsonSerializable
 
                 $path = $_ENV['STORAGE_PATH'] . '/' . 'draft_' . $id . '.json';
 
-                if(!file_exists($path)) {
+                if(! file_exists($path)) {
                   throw new \Exception('Draft not found');
                 }
 
@@ -84,7 +86,7 @@ class DeprecatedDraft implements \JsonSerializable
                 $s3 = self::getS3Client();
                 $file = $s3->getObject([
                     'Bucket' => $_ENV['BUCKET'],
-                    'Key'    => 'draft_' . $id . '.json',
+                    'Key' => 'draft_' . $id . '.json',
                 ]);
 
                 $rawDraft = (string) $file['Body'];
@@ -92,9 +94,9 @@ class DeprecatedDraft implements \JsonSerializable
 
             $draft = json_decode($rawDraft, true);
 
-            $secrets = $draft["secrets"] ?: array("admin_pass" => $draft["admin_pass"]);
+            $secrets = $draft['secrets'] ?: ['admin_pass' => $draft['admin_pass']];
 
-            return new self($id, $secrets, $draft["draft"], $draft["slices"], $draft["factions"], GeneratorConfig::fromArray($draft["config"]), $draft["name"]);
+            return new self($id, $secrets, $draft['draft'], $draft['slices'], $draft['factions'], GeneratorConfig::fromArray($draft['config']), $draft['name']);
         } catch (S3Exception $e) {
             abort(404, 'Draft not found');
         }
@@ -108,27 +110,27 @@ class DeprecatedDraft implements \JsonSerializable
 
     public function getAdminPass(): string
     {
-        return $this->secrets["admin_pass"];
+        return $this->secrets['admin_pass'];
     }
 
     public function isAdminPass(?string $pass): bool
     {
-        return ($pass ?: "") === $this->getAdminPass();
+        return ($pass ?: '') === $this->getAdminPass();
     }
 
-    public function getPlayerSecret($playerId = ""): string
+    public function getPlayerSecret($playerId = ''): string
     {
-        return $this->secrets[$playerId] ?: "";
+        return $this->secrets[$playerId] ?: '';
     }
 
     public function isPlayerSecret($playerId, $secret): bool
     {
-        return ($secret ?: "") === $this->getPlayerSecret($playerId);
+        return ($secret ?: '') === $this->getPlayerSecret($playerId);
     }
 
     public function getPlayerIdBySecret($secret): string
     {
-        return array_search($secret ?: "", $this->secrets);
+        return array_search($secret ?: '', $this->secrets);
     }
 
     public function name(): string
@@ -155,6 +157,7 @@ class DeprecatedDraft implements \JsonSerializable
     {
         $doneSteps = count($this->draft['log']);
         $snakeDraft = array_merge(array_keys($this->draft['players']), array_keys(array_reverse($this->draft['players'])));
+
         return $snakeDraft[$doneSteps % count($snakeDraft)];
     }
 
@@ -173,22 +176,22 @@ class DeprecatedDraft implements \JsonSerializable
         return count($this->log()) >= (count($this->players()) * 3);
     }
 
-    public function undoLastAction()
+    public function undoLastAction(): void
     {
         $last_log = array_pop($this->draft['log']);
 
-        $this->draft["players"][$last_log['player']][$last_log['category']] = null;
+        $this->draft['players'][$last_log['player']][$last_log['category']] = null;
         $this->draft['current'] = $last_log['player'];
 
         $this->save();
     }
 
-    public function pick($player, $category, $value)
+    public function pick($player, $category, $value): void
     {
         $this->draft['log'][] = [
             'player' => $player,
             'category' => $category,
-            'value' => $value
+            'value' => $value,
         ];
 
         $this->draft['players'][$player][$category] = $value;
@@ -202,21 +205,21 @@ class DeprecatedDraft implements \JsonSerializable
 
     public function claim($player)
     {
-        if ($this->draft['players'][$player]["claimed"] == true) {
+        if ($this->draft['players'][$player]['claimed'] == true) {
             return_error('Already claimed');
         }
-        $this->draft['players'][$player]["claimed"] = true;
-        $this->secrets[$player] = md5(uniqid("", true));
+        $this->draft['players'][$player]['claimed'] = true;
+        $this->secrets[$player] = md5(uniqid('', true));
 
         return $this->save();
     }
 
     public function unclaim($player)
     {
-        if ($this->draft['players'][$player]["claimed"] == false) {
+        if ($this->draft['players'][$player]['claimed'] == false) {
             return_error('Already unclaimed');
         }
-        $this->draft['players'][$player]["claimed"] = false;
+        $this->draft['players'][$player]['claimed'] = false;
         unset($this->secrets[$player]);
 
         return $this->save();
@@ -231,9 +234,9 @@ class DeprecatedDraft implements \JsonSerializable
 
             $result = $s3->putObject([
                 'Bucket' => $_ENV['BUCKET'],
-                'Key'    => 'draft_' . $this->getId() . '.json',
-                'Body'   => (string) $this,
-                'ACL'    => 'private'
+                'Key' => 'draft_' . $this->getId() . '.json',
+                'Body' => (string) $this,
+                'ACL' => 'private',
             ]);
 
             return $result;
@@ -266,7 +269,7 @@ class DeprecatedDraft implements \JsonSerializable
     {
         $player_data = [];
 
-        $alliance_mode =  $this->config->alliance != null;
+        $alliance_mode = $this->config->alliance != null;
 
         if ($this->config->seed !== null) {
             mt_srand($this->config->seed + self::SEED_OFFSET_PLAYER_ORDER);
@@ -275,11 +278,10 @@ class DeprecatedDraft implements \JsonSerializable
         if ($alliance_mode) {
             $playerTeams = $this->generateTeams();
         } else {
-            if(!$this->config->preset_draft_order || !isset($this->config->preset_draft_order)) {
+            if(! $this->config->preset_draft_order || ! isset($this->config->preset_draft_order)) {
                 shuffle($this->config->players);
             }
         }
-
 
         $player_names = $this->config->players;
 
@@ -294,7 +296,7 @@ class DeprecatedDraft implements \JsonSerializable
                 'position' => null,
                 'slice' => null,
                 'faction' => null,
-                'team' => $alliance_mode ? $playerTeams[$p] : null
+                'team' => $alliance_mode ? $playerTeams[$p] : null,
             ];
         }
 
@@ -305,7 +307,7 @@ class DeprecatedDraft implements \JsonSerializable
     {
         $teamNames = array_slice(['A', 'B', 'C', 'D'], 0, count($this->config->players) / 2);
 
-        if ($this->config->alliance["alliance_teams"] == 'random') {
+        if ($this->config->alliance['alliance_teams'] == 'random') {
             shuffle($this->config->players);
         }
 
@@ -360,8 +362,9 @@ class DeprecatedDraft implements \JsonSerializable
     public function jsonSerialize(): array
     {
         $draft = $this->toArray();
-        unset($draft["secrets"]);
-        unset($draft["admin_pass"]);
+        unset($draft['secrets']);
+        unset($draft['admin_pass']);
+
         return $draft;
     }
 }

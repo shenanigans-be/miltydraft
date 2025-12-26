@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\TwilightImperium;
 enum TechSpecialties: string
 {
     // red tech
-    case WARFARE = "warfare";
+    case WARFARE = 'warfare';
     // yellow tech
-    case CYBERNETIC = "cybernetic";
+    case CYBERNETIC = 'cybernetic';
     // green tech
-    case BIOTIC = "biotic";
+    case BIOTIC = 'biotic';
     // blue tech
-    case PROPULSION = "propulsion";
+    case PROPULSION = 'propulsion';
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\RequestHandlers;
 
 use App\Http\HtmlResponse;
@@ -15,13 +17,13 @@ class HandleViewDraftRequestTest extends RequestHandlerTestCase
     protected string $requestHandlerClass = HandleViewDraftRequest::class;
 
     #[Test]
-    public function itIsConfiguredAsRouteHandler()
+    public function itIsConfiguredAsRouteHandler(): void
     {
         $this->assertIsConfiguredAsHandlerForRoute('/d/123');
     }
 
     #[Test]
-    public function itCanFetchDraft()
+    public function itCanFetchDraft(): void
     {
         $handler = new HandleViewDraftRequest(new HttpRequest([], ['id' => $this->testDraft->id], []));
 
@@ -32,7 +34,7 @@ class HandleViewDraftRequestTest extends RequestHandlerTestCase
     }
 
     #[Test]
-    public function itShowsAnErrorPageWhenDraftIsNotFound()
+    public function itShowsAnErrorPageWhenDraftIsNotFound(): void
     {
         $handler = new HandleViewDraftRequest(new HttpRequest([], ['id' => '123'], []));
         $response = $handler->handle();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use App\Draft\Exceptions\InvalidSliceException;
@@ -17,7 +19,7 @@ class Generator
     public static function slices($config, $previous_tries = 0)
     {
         if ($previous_tries > 100) {
-            return_error("Selection contains no valid slices. This happens occasionally to valid configurations but it probably means that the parameters are impossible.");
+            return_error('Selection contains no valid slices. This happens occasionally to valid configurations but it probably means that the parameters are impossible.');
         }
 
         if ($config->seed !== null) {
@@ -90,10 +92,10 @@ class Generator
         }
 
         // reshuffle
-        shuffle($tiles["high"]);
-        shuffle($tiles["mid"]);
-        shuffle($tiles["low"]);
-        shuffle($tiles["red"]);
+        shuffle($tiles['high']);
+        shuffle($tiles['mid']);
+        shuffle($tiles['low']);
+        shuffle($tiles['red']);
 
         for ($i = 0; $i < $config->num_slices; $i++) {
             // grab some tiles
@@ -112,7 +114,7 @@ class Generator
                     $config->minimum_optimal_resources,
                     $config->minimum_optimal_total,
                     $config->maximum_optimal_total,
-                    $config->max_1_wormhole
+                    $config->max_1_wormhole,
                 );
                 $slice->arrange();
             } catch (InvalidSliceException $e) {
@@ -125,7 +127,6 @@ class Generator
 
         return $slices;
     }
-
 
     /**
      * Make a tile selection based on tier-listing
@@ -140,7 +141,7 @@ class Generator
         $selection_valid = false;
 
         if ($previous_tries > 2000) {
-            return_error("Max. number of tries exceeded: no valid tile selection found");
+            return_error('Max. number of tries exceeded: no valid tile selection found');
         }
 
         if ($config->seed !== null && $previous_tries > 0) {
@@ -153,20 +154,19 @@ class Generator
         shuffle($tiles['red']);
 
         $selection = [
-            'high' => array_slice($tiles["high"], 0, $config->num_slices),
-            'mid' => array_slice($tiles["mid"], 0, $config->num_slices),
-            'low' => array_slice($tiles["low"], 0, $config->num_slices),
-            'red' => array_slice($tiles["red"], 0, $config->num_slices * 2),
+            'high' => array_slice($tiles['high'], 0, $config->num_slices),
+            'mid' => array_slice($tiles['mid'], 0, $config->num_slices),
+            'low' => array_slice($tiles['low'], 0, $config->num_slices),
+            'red' => array_slice($tiles['red'], 0, $config->num_slices * 2),
         ];
 
-
-        $all = array_merge($selection["high"], $selection["mid"], $selection["low"], $selection["red"]);
+        $all = array_merge($selection['high'], $selection['mid'], $selection['low'], $selection['red']);
 
         // check if the wormhole/legendary count is high enough
         $counts = Tile::countSpecials($all);
 
         // validate against minimums
-        if ($counts["alpha"] < $config->min_wormholes || $counts["beta"] < $config->min_wormholes || $counts["legendary"] < $config->min_legendaries) {
+        if ($counts['alpha'] < $config->min_wormholes || $counts['beta'] < $config->min_wormholes || $counts['legendary'] < $config->min_legendaries) {
             // try again
             return self::select_tiles($tiles, $config, $previous_tries + 1);
         } else {
@@ -224,7 +224,6 @@ class Generator
         return $all_tiles;
     }
 
-
     private static function import_faction_data()
     {
         return json_decode(file_get_contents('data/factions.json'), true);
@@ -242,7 +241,6 @@ class Generator
 
         $possible_factions = self::filtered_factions($config);
 
-
         if ($config->custom_factions != null) {
             $factions = [];
 
@@ -255,19 +253,17 @@ class Generator
             while (count($factions) < $config->num_factions) {
                 $f = $possible_factions[$i];
 
-                if (!in_array($f, $factions)) {
+                if (! in_array($f, $factions)) {
                     $factions[] = $f;
                 }
 
                 $i++;
             }
 
-
             shuffle($factions);
         } else {
             $factions = $possible_factions;
         };
-
 
         return array_slice($factions, 0, $config->num_factions);
     }
@@ -278,35 +274,34 @@ class Generator
         $faction_data = self::import_faction_data();
         $factions = [];
         foreach ($faction_data as $faction => $data) {
-            if ($data["set"] == "base" && $config->include_base_factions) {
+            if ($data['set'] == 'base' && $config->include_base_factions) {
                 $factions[] = $faction;
             }
-            if ($data["set"] == "pok" && $config->include_pok_factions) {
+            if ($data['set'] == 'pok' && $config->include_pok_factions) {
                 $factions[] = $faction;
             }
-            if ($data["set"] == "keleres" && $config->include_keleres) {
+            if ($data['set'] == 'keleres' && $config->include_keleres) {
                 $factions[] = $faction;
             }
-            if ($data["set"] == "discordant" && $config->include_discordant) {
+            if ($data['set'] == 'discordant' && $config->include_discordant) {
                 $factions[] = $faction;
             }
-            if ($data["set"] == "discordantexp" && $config->include_discordantexp) {
+            if ($data['set'] == 'discordantexp' && $config->include_discordantexp) {
                 $factions[] = $faction;
             }
-            if ($data["set"] == "te" && $config->include_te_factions) {
+            if ($data['set'] == 'te' && $config->include_te_factions) {
                 $factions[] = $faction;
             }
         }
         shuffle($factions);
+
         return $factions;
     }
-
 
     private static function import_tile_data()
     {
         $data = json_decode(file_get_contents('data/tiles.json'), true);
         $tiles = [];
-
 
         foreach ($data as $i => $tile_data) {
             $tiles[$i] = new Tile($i, $tile_data);

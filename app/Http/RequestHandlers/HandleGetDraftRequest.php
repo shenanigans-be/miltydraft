@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\RequestHandlers;
 
 use App\Draft\Exceptions\DraftRepositoryException;
@@ -19,7 +21,7 @@ class HandleGetDraftRequest extends RequestHandler
         }
 
         return new JsonResponse(
-            $draft->toArray()
+            $draft->toArray(),
         );
     }
 }

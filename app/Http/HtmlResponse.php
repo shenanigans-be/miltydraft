@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http;
 
 class HtmlResponse extends HttpResponse
@@ -8,7 +10,7 @@ class HtmlResponse extends HttpResponse
 
     public function __construct(
         protected string $html,
-        public int $code = 200
+        public int $code = 200,
     ) {
         parent::__construct($this->code);
     }
@@ -31,6 +33,7 @@ class HtmlResponse extends HttpResponse
         ob_start();
         extract($data);
         include $template;
+
         return ob_get_clean();
     }
 

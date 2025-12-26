@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft\Commands;
 
 use App\Draft\Exceptions\InvalidClaimException;
@@ -13,7 +15,7 @@ class UnclaimPlayerTest extends TestCase
     use UsesTestDraft;
 
     #[Test]
-    public function itCanUnclaimAPlayer()
+    public function itCanUnclaimAPlayer(): void
     {
         $playerId = PlayerId::fromString(array_key_first($this->testDraft->players));
 
@@ -32,7 +34,7 @@ class UnclaimPlayerTest extends TestCase
     }
 
     #[Test]
-    public function itThrowsAnErrorIfPlayerIsNotPartOfDraft()
+    public function itThrowsAnErrorIfPlayerIsNotPartOfDraft(): void
     {
         $playerId = PlayerId::fromString('123');
 
@@ -41,9 +43,8 @@ class UnclaimPlayerTest extends TestCase
         $claimPlayer->handle();
     }
 
-
     #[Test]
-    public function itThrowsAnErrorIfPlayerIsNotClaimed()
+    public function itThrowsAnErrorIfPlayerIsNotClaimed(): void
     {
         $playerId = PlayerId::fromString(array_key_first($this->testDraft->players));
 
@@ -52,6 +53,5 @@ class UnclaimPlayerTest extends TestCase
         $this->expectException(InvalidClaimException::class);
         $unclaim->handle();
     }
-
 
 }

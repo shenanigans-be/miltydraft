@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
 use App\Draft\Exceptions\InvalidSliceException;
@@ -33,7 +35,7 @@ class Slice
      * @param Tile[] $tiles
      */
     function __construct(
-        public array $tiles
+        public array $tiles,
     ) {
         // if the slice doesn't have 5 tiles in it, something went awry
         if (count($this->tiles) != 5) {
@@ -75,7 +77,7 @@ class Slice
             'total_influence' => $this->totalInfluence,
             'total_resources' => $this->totalResources,
             'optimal_influence' => $this->optimalInfluence,
-            'optimal_resources' => $this->optimalResources
+            'optimal_resources' => $this->optimalResources,
         ];
     }
 
@@ -87,7 +89,7 @@ class Slice
         float $minimumOptimalResources,
         float $minimumOptimalTotal,
         float $maximumOptimalTotal,
-        bool $maxOneWormhole
+        bool $maxOneWormhole,
     ): bool {
         $specialCount = Tile::countSpecials($this->tiles);
 
@@ -121,7 +123,7 @@ class Slice
 
     public function arrange(Seed $seed): bool {
         $tries = 0;
-        while (!$this->tileArrangementIsValid()) {
+        while (! $this->tileArrangementIsValid()) {
             $seed->setForSlices($tries);
             shuffle($this->tiles);
             $tries++;
@@ -130,6 +132,7 @@ class Slice
                 return false;
             }
         }
+
         return true;
     }
 
@@ -153,7 +156,6 @@ class Slice
      */
     public function tileArrangementIsValid(): bool
     {
-
 
         $neighbours = [[0, 1], [0, 3], [1, 2], [1, 3], [1, 4], [3, 4]];
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft\Repository;
 
 use App\Draft\Draft;
@@ -15,7 +17,7 @@ class LocalDraftRepositoryTest extends TestCase
 
     #[Test]
     #[DataProviderExternal(TestDrafts::class, 'provideSingleTestDraft')]
-    public function itCanSaveADraft($data)
+    public function itCanSaveADraft($data): void
     {
         $d = Draft::fromJson($data);
         $repository = new LocalDraftRepository();
@@ -35,7 +37,7 @@ class LocalDraftRepositoryTest extends TestCase
 
     #[Test]
     #[DataProviderExternal(TestDrafts::class, 'provideSingleTestDraft')]
-    public function itCanLoadADraft($data)
+    public function itCanLoadADraft($data): void
     {
         $draftPath = 'tmp/test-drafts/draft_' . $data['id'] . '.json';
         file_put_contents($draftPath, json_encode($data));
@@ -49,7 +51,7 @@ class LocalDraftRepositoryTest extends TestCase
     }
 
     #[After]
-    protected function cleanupAfterTests()
+    protected function cleanupAfterTests(): void
     {
         $r = new LocalDraftRepository();
         foreach ($this->draftsToCleanUp as $id) {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft\Commands;
 
 use App\Draft\Settings;
@@ -14,7 +16,7 @@ class GenerateFactionPool implements Command
     private readonly array $factionData;
 
     public function __construct(
-        private readonly Settings $settings
+        private readonly Settings $settings,
     ) {
         $this->factionData = Faction::all();
     }
@@ -29,7 +31,7 @@ class GenerateFactionPool implements Command
 
         $gatheredFactions = [];
 
-        if (!empty($this->settings->customFactions)) {
+        if (! empty($this->settings->customFactions)) {
             foreach ($this->settings->customFactions as $f) {
                 $gatheredFactions[] = $factionsFromSets[$f];
                 // take out the selected faction, so it doesn't get re-drawn in the next part
@@ -46,6 +48,7 @@ class GenerateFactionPool implements Command
         }
 
         shuffle($gatheredFactions);
+
         return array_slice($gatheredFactions, 0, $this->settings->numberOfFactions);
     }
 
@@ -55,7 +58,7 @@ class GenerateFactionPool implements Command
             $this->factionData,
             fn (Faction $faction) =>
                 in_array($faction->edition, $this->settings->factionSets) ||
-                $faction->name == "The Council Keleres" && $this->settings->includeCouncilKeleresFaction
+                $faction->name == 'The Council Keleres' && $this->settings->includeCouncilKeleresFaction,
         );
     }
 }

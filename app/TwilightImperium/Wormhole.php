@@ -1,23 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\TwilightImperium;
 
 enum Wormhole: string
 {
-    case ALPHA = "alpha";
-    case BETA = "beta";
-    case GAMMA = "gamma";
-    case DELTA = "delta";
-    case EPSILON = "epsilon";
+    case ALPHA = 'alpha';
+    case BETA = 'beta';
+    case GAMMA = 'gamma';
+    case DELTA = 'delta';
+    case EPSILON = 'epsilon';
 
     public function symbol(): string
     {
         return match($this) {
-            self::ALPHA => "&alpha;",
-            self::BETA => "&beta;",
-            self::GAMMA => "&gamma;",
-            self::DELTA => "&delta;",
-            self::EPSILON => "&eplison;",
+            self::ALPHA => '&alpha;',
+            self::BETA => '&beta;',
+            self::GAMMA => '&gamma;',
+            self::DELTA => '&delta;',
+            self::EPSILON => '&eplison;',
         };
     }
 
@@ -30,13 +32,12 @@ enum Wormhole: string
     public static function fromJsonData(?string $wormhole): array
     {
         if ($wormhole == null) return [];
-
-        if ($wormhole == "alpha-beta") {
+        if ($wormhole == 'alpha-beta') {
             return [
                 self::ALPHA,
-                self::BETA
+                self::BETA,
             ];
-        } if ($wormhole == "all") {
+        } if ($wormhole == 'all') {
             // Mallice
             return [
                 self::ALPHA,
@@ -45,7 +46,7 @@ enum Wormhole: string
             ];
         } else {
             return [
-                self::from($wormhole)
+                self::from($wormhole),
             ];
         }
     }

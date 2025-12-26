@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
 use App\Testing\TestCase;
@@ -10,34 +12,34 @@ class PickTest extends TestCase
 {
     public static function pickCases(): iterable
     {
-        yield "For a faction pick" => [
-            "pickData" => [
-                "player" => "1234",
-                "category" => "faction",
-                "value" => "Xxcha"
-            ]
+        yield 'For a faction pick' => [
+            'pickData' => [
+                'player' => '1234',
+                'category' => 'faction',
+                'value' => 'Xxcha',
+            ],
         ];
 
-        yield "For a position pick" => [
-            "pickData" => [
-                "player" => "1234",
-                "category" => "position",
-                "value" => "4"
-            ]
+        yield 'For a position pick' => [
+            'pickData' => [
+                'player' => '1234',
+                'category' => 'position',
+                'value' => '4',
+            ],
         ];
 
-        yield "For a slice pick" => [
-            "pickData" => [
-                "player" => "1234",
-                "category" => "slice",
-                "value" => "1"
-            ]
+        yield 'For a slice pick' => [
+            'pickData' => [
+                'player' => '1234',
+                'category' => 'slice',
+                'value' => '1',
+            ],
         ];
     }
 
     #[Test]
     #[DataProvider('pickCases')]
-    public function itCanConvertFromJsonData($pickData)
+    public function itCanConvertFromJsonData($pickData): void
     {
         $pick = Pick::fromJson($pickData);
 

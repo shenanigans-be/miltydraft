@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\TwilightImperium;
 
 class SpaceObject
@@ -10,7 +12,7 @@ class SpaceObject
 
     public function __construct(
         public int $resources,
-        public int $influence
+        public int $influence,
     )
     {
         if ($this->influence > $this->resources) {

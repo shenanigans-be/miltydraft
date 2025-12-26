@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use App\Draft\Repository\DraftRepository;
@@ -34,7 +36,7 @@ class Application
         }
     }
 
-    public function run()
+    public function run(): void
     {
         $response = $this->handleIncomingRequest();
 
@@ -49,7 +51,7 @@ class Application
         try {
             $handler = $this->handlerForRequest($_SERVER['REQUEST_URI']);
             if ($handler == null) {
-                return new ErrorResponse("Page not found", 404, true);
+                return new ErrorResponse('Page not found', 404, true);
             } else {
                 return $handler->handle();
             }
@@ -77,7 +79,7 @@ class Application
 
     public function handlerForRequest(string $requestUri): ?RequestHandler
     {
-        $requestChunks = explode("?", $requestUri);
+        $requestChunks = explode('?', $requestUri);
 
         $match = $this->matchToRoute($requestChunks[0]);
 
@@ -88,21 +90,21 @@ class Application
 
             $handler = new $match->requestHandlerClass($request);
 
-            if (!$handler instanceof RequestHandler) {
-                throw new \Exception("Handler does not implement RequestHandler");
+            if (! $handler instanceof RequestHandler) {
+                throw new \Exception('Handler does not implement RequestHandler');
             }
 
             return $handler;
         }
     }
 
-    public function spyOnDispatcher($commandReturnValue = null)
+    public function spyOnDispatcher($commandReturnValue = null): void
     {
         $this->spyOnDispatcher = true;
         $this->spy = new DispatcherSpy($commandReturnValue);
     }
 
-    public function dontSpyOnDispatcher()
+    public function dontSpyOnDispatcher(): void
     {
         $this->spyOnDispatcher = false;
         unset($this->spy);
@@ -119,7 +121,7 @@ class Application
 
     public static function getInstance(): self
     {
-        if (!isset(self::$instance)) {
+        if (! isset(self::$instance)) {
             self::$instance = new Application();
         }
 

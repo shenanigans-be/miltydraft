@@ -1,25 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\TwilightImperium;
 
 enum Edition: string
 {
 
-    case BASE_GAME = "BaseGame";
-    case PROPHECY_OF_KINGS = "PoK";
-    case THUNDERS_EDGE = "TE";
-    case DISCORDANT_STARS = "DS";
+    case BASE_GAME = 'BaseGame';
+    case PROPHECY_OF_KINGS = 'PoK';
+    case THUNDERS_EDGE = 'TE';
+    case DISCORDANT_STARS = 'DS';
     // @todo merge DS and DS plus?
-    case DISCORDANT_STARS_PLUS = "DSPlus";
+    case DISCORDANT_STARS_PLUS = 'DSPlus';
 
     public function fullName(): string
     {
         return match($this) {
-            Edition::BASE_GAME => "Base Game",
-            Edition::PROPHECY_OF_KINGS => "Prophecy of Kings",
+            Edition::BASE_GAME => 'Base Game',
+            Edition::PROPHECY_OF_KINGS => 'Prophecy of Kings',
             Edition::THUNDERS_EDGE => "Thunder's Edge",
-            Edition::DISCORDANT_STARS => "Discordant Stars",
-            Edition::DISCORDANT_STARS_PLUS => "Discordant Stars Plus",
+            Edition::DISCORDANT_STARS => 'Discordant Stars',
+            Edition::DISCORDANT_STARS_PLUS => 'Discordant Stars Plus',
         };
     }
 
@@ -31,13 +33,13 @@ enum Edition: string
     private static function editionsWithoutTiles(): array
     {
         return [
-            self::DISCORDANT_STARS
+            self::DISCORDANT_STARS,
         ];
     }
 
     public function hasValidTileSet(): bool
     {
-        return !in_array($this, self::editionsWithoutTiles());
+        return ! in_array($this, self::editionsWithoutTiles());
     }
 
     // @todo move to tileset class?
@@ -73,7 +75,6 @@ enum Edition: string
             Edition::DISCORDANT_STARS_PLUS => 5,
         };
     }
-
 
     public function factionCount(): int
     {

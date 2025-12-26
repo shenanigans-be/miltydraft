@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\RequestHandlers;
 
 use App\Draft\Commands\GenerateDraft;
@@ -25,7 +27,6 @@ class HandleGenerateDraftRequest extends RequestHandler
         $this->settings = $this->settingsFromRequest();
     }
 
-
     public function handle(): HttpResponse
     {
         try {
@@ -40,7 +41,7 @@ class HandleGenerateDraftRequest extends RequestHandler
 
         return $this->json([
             'id' => $draft->id,
-            'admin' => $draft->secrets->adminSecret
+            'admin' => $draft->secrets->adminSecret,
         ]);
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Testing;
 
 use Faker\Factory;
@@ -9,12 +11,12 @@ trait  FakesData
 {
     private Generator $faker;
 
-    private function bootFaker() {
+    private function bootFaker(): void {
         $this->faker = Factory::create();
     }
 
     protected function faker(): Generator {
-        if (!isset($this->faker)) {
+        if (! isset($this->faker)) {
             $this->bootFaker();
         }
 

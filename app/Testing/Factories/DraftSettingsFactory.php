@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Testing\Factories;
 
 use App\Draft\Name;
@@ -15,7 +17,6 @@ class DraftSettingsFactory
     public static function make(array $properties = []): Settings
     {
         $faker = Factory::create();
-
 
         if (isset($properties['numberOfPlayers'])) {
             $numberOfPlayers = $properties['numberOfPlayers'];
@@ -39,16 +40,15 @@ class DraftSettingsFactory
             $properties['tileSets'] ?? [
                 Edition::BASE_GAME,
                 Edition::PROPHECY_OF_KINGS,
-                Edition::THUNDERS_EDGE
+                Edition::THUNDERS_EDGE,
             ],
             $properties['factionSets'] ?? [
                 Edition::BASE_GAME,
                 Edition::PROPHECY_OF_KINGS,
-                Edition::THUNDERS_EDGE
+                Edition::THUNDERS_EDGE,
             ],
             $properties['includeCouncilKeleresFaction'] ?? false,
             $properties['minimumTwoAlphaBetaWormholes'] ?? $faker->boolean(),
-
             $properties['maxOneWormholePerSlice'] ?? $faker->boolean(),
             $properties['minimumLegendaryPlanets'] ?? $faker->numberBetween(0, 1),
             $properties['minimumOptimalInfluence'] ?? 4,

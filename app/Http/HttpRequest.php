@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http;
 
 class HttpRequest
@@ -7,7 +9,7 @@ class HttpRequest
     public function __construct(
         protected readonly array $getParameters,
         protected readonly array $postParameters,
-        protected readonly array $urlParameters
+        protected readonly array $urlParameters,
     ) {
     }
 
@@ -16,7 +18,7 @@ class HttpRequest
         return new self(
             $_GET,
             $_POST,
-            $urlParameters
+            $urlParameters,
         );
     }
 
@@ -31,6 +33,7 @@ class HttpRequest
         if (isset($this->postParameters[$key])) {
             return $this->postParameters[$key];
         }
+
         return $defaultValue;
     }
 

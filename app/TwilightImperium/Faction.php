@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\TwilightImperium;
 
 /**
@@ -9,7 +11,7 @@ namespace App\TwilightImperium;
 class Faction
 {
     /**
-     * @var array<string, Faction> $allFactionData
+     * @var array<string, Faction>
      */
     private static array $allFactionData;
 
@@ -39,6 +41,7 @@ class Faction
     public static function all(): array
     {
         $rawData = json_decode(file_get_contents('data/factions.json'), true);
+
         return array_map(fn ($factionData) => self::fromJson($factionData), $rawData);
     }
 
@@ -46,13 +49,13 @@ class Faction
     private static function editionFromFactionJson($factionEdition): Edition
     {
         return match ($factionEdition) {
-            "base" => Edition::BASE_GAME,
-            "pok" => Edition::PROPHECY_OF_KINGS,
-            "te" => Edition::THUNDERS_EDGE,
-            "keleres" => Edition::THUNDERS_EDGE,
-            "discordant" => Edition::DISCORDANT_STARS,
-            "discordantexp" => Edition::DISCORDANT_STARS_PLUS,
-            default => throw new \Exception("Faction has invalid set")
+            'base' => Edition::BASE_GAME,
+            'pok' => Edition::PROPHECY_OF_KINGS,
+            'te' => Edition::THUNDERS_EDGE,
+            'keleres' => Edition::THUNDERS_EDGE,
+            'discordant' => Edition::DISCORDANT_STARS,
+            'discordantexp' => Edition::DISCORDANT_STARS_PLUS,
+            default => throw new \Exception('Faction has invalid set'),
         };
     }
 

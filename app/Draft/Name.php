@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
 class Name implements \Stringable
@@ -27,7 +29,7 @@ class Name implements \Stringable
             'famous',  'fantastic', 'filthy', 'frightened', 'funny', 'glamorous', 'gleaming', 'glorious',
             'grumpy', 'homeless', 'hilarious', 'impossible', 'itchy', 'imperial', 'jealous', 'long', 'magnificent', 'lucky',
             'modern', 'mysterious', 'naughty', 'old-fashioned', 'outstanding', 'outrageous', 'perfect',
-            'poisoned', 'puzzled', 'rich', 'smiling', 'super', 'tasty', 'terrible', 'wandering', 'zealous'
+            'poisoned', 'puzzled', 'rich', 'smiling', 'super', 'tasty', 'terrible', 'wandering', 'zealous',
         ];
         $nouns = [
             'people', 'history', 'art', 'world', 'space', 'universe', 'galaxy', 'story',
@@ -40,7 +42,7 @@ class Name implements \Stringable
             'resource', 'influence', 'agreement', 'union', 'religion', 'virus', 'republic',
             'drama', 'tension', 'suspense', 'friendship', 'twilight', 'imperium', 'leadership',
             'operation', 'disaster', 'leader', 'speaker', 'diplomacy', 'politics', 'warfare', 'construction',
-            'trade', 'proposal', 'revolution', 'negotiation'
+            'trade', 'proposal', 'revolution', 'negotiation',
         ];
 
         return 'Operation ' . ucfirst($adjectives[rand(0, count($adjectives) - 1)]) . ' ' . ucfirst($nouns[rand(0, count($nouns) - 1)]);

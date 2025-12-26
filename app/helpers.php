@@ -1,7 +1,9 @@
 <?php
 
-if (!function_exists('d')) {
-    function d(...$variables)
+declare(strict_types=1);
+
+if (! function_exists('d')) {
+    function d(...$variables): void
     {
         echo '<pre>';
         foreach($variables as $v) {
@@ -11,24 +13,22 @@ if (!function_exists('d')) {
     }
 }
 
-
-if (!function_exists('app')) {
-    function app():\App\Application
+if (! function_exists('app')) {
+    function app():App\Application
     {
-        return \App\Application::getInstance();
+        return App\Application::getInstance();
     }
 }
 
-
-if (!function_exists('dispatch')) {
-    function dispatch(\App\Shared\Command $command): mixed
+if (! function_exists('dispatch')) {
+    function dispatch(App\Shared\Command $command): mixed
     {
         return app()->handle($command);
     }
 }
 
-if (!function_exists('dd')) {
-    function dd(...$variables)
+if (! function_exists('dd')) {
+    function dd(...$variables): void
     {
         echo '<pre>';
         foreach ($variables as $var) {
@@ -38,8 +38,7 @@ if (!function_exists('dd')) {
     }
 }
 
-
-if (!function_exists('e')) {
+if (! function_exists('e')) {
     function e($condition, $yes, $no = ''): void
     {
         if ($condition) echo $yes;
@@ -47,8 +46,7 @@ if (!function_exists('e')) {
     }
 }
 
-
-if (!function_exists('yesno')) {
+if (! function_exists('yesno')) {
     /**
      * return "yes" or "no" based on condition
      *
@@ -57,54 +55,52 @@ if (!function_exists('yesno')) {
      */
     function yesno($condition): string
     {
-        return $condition ? "yes" : "no";
+        return $condition ? 'yes' : 'no';
     }
 }
 
-if (!function_exists('env')) {
+if (! function_exists('env')) {
     function env($key, $defaultValue = null): ?string
     {
         return $_ENV[$key] ?? $defaultValue;
     }
 }
 
-
-if (!function_exists('human_filesize')) {
+if (! function_exists('human_filesize')) {
     function human_filesize($bytes, $dec = 2): string {
 
-        $size   = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+        $size = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         $factor = floor((strlen($bytes) - 1) / 3);
         if ($factor == 0) $dec = 0;
+
         return sprintf("%.{$dec}f %s", $bytes / (1024 ** $factor), $size[$factor]);
     }
 }
 
-if (!function_exists('get')) {
-    function get($key, $default = null): string
+if (! function_exists('get')) {
+    function get($key, $default = null): mixed
     {
         return $_GET[$key] ?? $default;
     }
 }
 
-if (!function_exists('url')) {
+if (! function_exists('url')) {
     function url($uri): string
     {
         return env('URL', 'https://milty.shenanigans.be/') . $uri;
     }
 }
 
-
-if (!function_exists('ordinal')) {
+if (! function_exists('ordinal')) {
     function ordinal($number): string
     {
-        $ends = array('th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th');
+        $ends = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
         if ((($number % 100) >= 11) && (($number % 100) <= 13))
             return $number . 'th';
         else
             return $number . $ends[$number % 10];
     }
 }
-
 
 if (! function_exists('class_uses_recursive')) {
     /**
@@ -129,7 +125,6 @@ if (! function_exists('class_uses_recursive')) {
         return array_unique($results);
     }
 }
-
 
 if (! function_exists('trait_uses_recursive')) {
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\TwilightImperium;
 
 class SpaceStation extends SpaceObject
@@ -7,7 +9,7 @@ class SpaceStation extends SpaceObject
     public function __construct(
         public string $name,
         int $resources,
-        int $influence
+        int $influence,
     )
     {
         parent::__construct($resources, $influence);
@@ -18,7 +20,7 @@ class SpaceStation extends SpaceObject
         return new self(
             $data['name'],
             $data['resources'],
-            $data['influence']
+            $data['influence'],
         );
     }
 }

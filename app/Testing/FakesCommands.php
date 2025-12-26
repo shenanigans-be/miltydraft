@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Testing;
 
 use App\Shared\Command;
@@ -11,36 +13,36 @@ trait FakesCommands
 {
 
     #[Before]
-    public function setupSpy()
+    public function setupSpy(): void
     {
         app()->spyOnDispatcher();
     }
 
     #[After]
-    public function teardownSpy()
+    public function teardownSpy(): void
     {
         app()->dontSpyOnDispatcher();
     }
 
-    public function setExpectedReturnValue($return = null)
+    public function setExpectedReturnValue($return = null): void
     {
         app()->spyOnDispatcher($return);
     }
 
-    public function assertCommandWasDispatched($class, $times = 1)
+    public function assertCommandWasDispatched($class, $times = 1): void
     {
         $dispatched = array_filter(
             app()->spy->dispatchedCommands,
-            fn (Command $cmd) => get_class($cmd) == $class
+            fn (Command $cmd) => get_class($cmd) == $class,
         );
         Assert::assertSame($times, count($dispatched));
     }
 
-    public function assertCommandWasDispatchedWith($class, $callback, $times = 1)
+    public function assertCommandWasDispatchedWith($class, $callback, $times = 1): void
     {
         $dispatched = array_filter(
             app()->spy->dispatchedCommands,
-            $callback
+            $callback,
         );
     }
 }

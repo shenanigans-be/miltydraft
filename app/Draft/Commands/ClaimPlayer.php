@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft\Commands;
 
 use App\Draft\Draft;
-use App\Draft\Player;
 use App\Draft\PlayerId;
 use App\Shared\Command;
 
@@ -11,7 +12,7 @@ class ClaimPlayer implements Command
 {
     public function __construct(
         public Draft $draft,
-        public PlayerId $playerId
+        public PlayerId $playerId,
     )
     {
     }

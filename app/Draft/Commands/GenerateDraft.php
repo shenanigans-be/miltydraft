@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft\Commands;
 
 use App\Draft\Draft;
@@ -14,7 +16,7 @@ use App\TwilightImperium\AllianceTeamMode;
 class GenerateDraft implements Command
 {
     public function __construct(
-        private readonly Settings $settings
+        private readonly Settings $settings,
     )
     {
     }
@@ -36,7 +38,7 @@ class GenerateDraft implements Command
             $slices,
             $factions,
             [],
-            PlayerId::fromString(array_key_first($players))
+            PlayerId::fromString(array_key_first($players)),
         );
     }
 
@@ -44,8 +46,6 @@ class GenerateDraft implements Command
     {
         return new Secrets(Secrets::generateSecret());
     }
-
-
 
     /**
      * @return array<string>
@@ -65,7 +65,7 @@ class GenerateDraft implements Command
 
         $playerNames = [...$this->settings->playerNames];
 
-        if (!$this->settings->presetDraftOrder) {
+        if (! $this->settings->presetDraftOrder) {
             shuffle($playerNames);
         }
 
@@ -83,7 +83,7 @@ class GenerateDraft implements Command
             }
 
             foreach(array_values($players) as $i => $player) {
-                $teamName = $teamNames[(int) floor($i/2)];
+                $teamName = $teamNames[(int) floor($i / 2)];
                 $teamPlayers[$player->id->value] = $player->putInTeam($teamName);
             }
 
@@ -105,6 +105,7 @@ class GenerateDraft implements Command
             $p = Player::create($name);
             $players[$p->id->value] = $p;
         }
+
         return $players;
     }
 }

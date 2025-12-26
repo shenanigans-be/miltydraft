@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
 class Seed
@@ -33,17 +35,17 @@ class Seed
         return $this->seed;
     }
 
-    public function setForFactions()
+    public function setForFactions(): void
     {
         mt_srand($this->seed + self::OFFSET_FACTIONS);
     }
 
-    public function setForSlices($previousTries = 0)
+    public function setForSlices($previousTries = 0): void
     {
         mt_srand($this->seed + self::OFFSET_SLICES + $previousTries);
     }
 
-    public function setForPlayerOrder()
+    public function setForPlayerOrder(): void
     {
         mt_srand($this->seed + self::OFFSET_PLAYER_ORDER);
     }

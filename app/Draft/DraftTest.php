@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
 use App\Testing\Factories\DraftSettingsFactory;
@@ -16,9 +18,9 @@ use PHPUnit\Framework\Attributes\Test;
  */
 class DraftTest extends TestCase
 {
-    #[DataProviderExternal(TestDrafts::class, "provideTestDrafts")]
+    #[DataProviderExternal(TestDrafts::class, 'provideTestDrafts')]
     #[Test]
-    public function ìtCanBeInitialisedFromJson($data)
+    public function ìtCanBeInitialisedFromJson($data): void
     {
         $draft = Draft::fromJson($data);
 
@@ -36,13 +38,13 @@ class DraftTest extends TestCase
     }
 
     #[Test]
-    public function itCanBeConvertedToArray()
+    public function itCanBeConvertedToArray(): void
     {
         $factions = Faction::all();
         $tiles = Tile::all();
-        $player =  new Player(
-            PlayerId::fromString("player_123"),
-            "Alice"
+        $player = new Player(
+            PlayerId::fromString('player_123'),
+            'Alice',
         );
         $draft = new Draft(
             '1243',
@@ -54,20 +56,20 @@ class DraftTest extends TestCase
             ),
             [
                new Slice([
-                   $tiles["64"],
-                   $tiles["33"],
-                   $tiles["42"],
-                   $tiles["67"],
-                   $tiles["59"],
+                   $tiles['64'],
+                   $tiles['33'],
+                   $tiles['42'],
+                   $tiles['67'],
+                   $tiles['59'],
                ]),
             ],
             [
                 $factions['The Barony of Letnev'],
                 $factions['The Embers of Muaat'],
-                $factions['The Clan of Saar']
+                $factions['The Clan of Saar'],
             ],
-            [new Pick($player->id, PickCategory::FACTION, "Vulraith")],
-            $player->id
+            [new Pick($player->id, PickCategory::FACTION, 'Vulraith')],
+            $player->id,
         );
 
         $data = $draft->toArray();
@@ -77,7 +79,7 @@ class DraftTest extends TestCase
         $this->assertSame($draft->isDone, $data['done']);
         $this->assertSame($player->name, $data['draft']['players'][$player->id->value]['name']);
         $this->assertSame($player->id->value, $data['draft']['current']);
-        $this->assertSame("Vulraith", $data['draft']['log'][0]['value']);
+        $this->assertSame('Vulraith', $data['draft']['log'][0]['value']);
         foreach($draft->factionPool as $faction) {
             $this->assertContains($faction->name, $data['factions']);
         }

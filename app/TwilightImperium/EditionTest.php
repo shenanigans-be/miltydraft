@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\TwilightImperium;
 
 use App\Testing\TestCase;
@@ -8,7 +10,7 @@ use PHPUnit\Framework\Attributes\Test;
 class EditionTest extends TestCase
 {
     #[Test]
-    public function itCanCheckForValidTileSets()
+    public function itCanCheckForValidTileSets(): void
     {
         foreach(Edition::cases() as $edition) {
             if ($edition == Edition::DISCORDANT_STARS) {
@@ -20,7 +22,7 @@ class EditionTest extends TestCase
     }
 
     #[Test]
-    public function itReturnsTheCorrectNumbersForBaseGame()
+    public function itReturnsTheCorrectNumbersForBaseGame(): void
     {
         $this->assertSame(20, Edition::BASE_GAME->blueTileCount());
         $this->assertSame(12, Edition::BASE_GAME->redTileCount());
@@ -29,7 +31,7 @@ class EditionTest extends TestCase
     }
 
     #[Test]
-    public function itReturnsTheCorrectNumbersForPoK()
+    public function itReturnsTheCorrectNumbersForPoK(): void
     {
         $this->assertSame(16, Edition::PROPHECY_OF_KINGS->blueTileCount());
         $this->assertSame(6, Edition::PROPHECY_OF_KINGS->redTileCount());
@@ -38,7 +40,7 @@ class EditionTest extends TestCase
     }
 
     #[Test]
-    public function itReturnsTheCorrectNumbersForThundersEdge()
+    public function itReturnsTheCorrectNumbersForThundersEdge(): void
     {
         $this->assertSame(15, Edition::THUNDERS_EDGE->blueTileCount());
         $this->assertSame(5, Edition::THUNDERS_EDGE->redTileCount());
@@ -47,7 +49,7 @@ class EditionTest extends TestCase
     }
 
     #[Test]
-    public function itReturnsTheCorrectNumbersForDiscordantStars()
+    public function itReturnsTheCorrectNumbersForDiscordantStars(): void
     {
         $this->assertSame(0, Edition::DISCORDANT_STARS->blueTileCount());
         $this->assertSame(0, Edition::DISCORDANT_STARS->redTileCount());
@@ -56,7 +58,7 @@ class EditionTest extends TestCase
     }
 
     #[Test]
-    public function itReturnsTheCorrectNumbersForDiscordantStarsPlus()
+    public function itReturnsTheCorrectNumbersForDiscordantStarsPlus(): void
     {
         $this->assertSame(16, Edition::DISCORDANT_STARS_PLUS->blueTileCount());
         $this->assertSame(8, Edition::DISCORDANT_STARS_PLUS->redTileCount());

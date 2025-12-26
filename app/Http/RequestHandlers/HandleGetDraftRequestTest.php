@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\RequestHandlers;
 
-use App\Http\HtmlResponse;
-use App\Http\HttpRequest;
 use App\Testing\RequestHandlerTestCase;
 use App\Testing\UsesTestDraft;
 use PHPUnit\Framework\Attributes\Test;
@@ -15,13 +15,13 @@ class HandleGetDraftRequestTest extends RequestHandlerTestCase
     protected string $requestHandlerClass = HandleGetDraftRequest::class;
 
     #[Test]
-    public function itIsConfiguredAsRouteHandler()
+    public function itIsConfiguredAsRouteHandler(): void
     {
         $this->assertIsConfiguredAsHandlerForRoute('/api/draft/123');
     }
 
     #[Test]
-    public function itReturnsErrorIfDraftNotFound()
+    public function itReturnsErrorIfDraftNotFound(): void
     {
         $response = $this->handleRequest(['id' => '12344']);
 
@@ -31,7 +31,7 @@ class HandleGetDraftRequestTest extends RequestHandlerTestCase
     }
 
     #[Test]
-    public function itCanReturnDraftData()
+    public function itCanReturnDraftData(): void
     {
         $response = $this->handleRequest(['id' => $this->testDraft->id]);
 

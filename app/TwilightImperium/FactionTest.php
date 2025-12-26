@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\TwilightImperium;
 
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;
-use function Aws\filter;
 
 /**
  * Historical data integrity and such is tested in data/FactionDataTest
@@ -12,7 +13,7 @@ use function Aws\filter;
 class FactionTest extends TestCase
 {
     #[Test]
-    public function allFactionsCanBeInitialisedFromJson()
+    public function allFactionsCanBeInitialisedFromJson(): void
     {
         $rawData = json_decode(file_get_contents('data/factions.json'), true);
         $factions = Faction::all();

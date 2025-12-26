@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
 class TilePool
@@ -30,7 +32,7 @@ class TilePool
             array_slice($this->highTier, 0, $numberOfSlices),
             array_slice($this->midTier, 0, $numberOfSlices),
             array_slice($this->lowTier, 0, $numberOfSlices),
-            array_slice($this->redTier, 0, $numberOfSlices * 2)
+            array_slice($this->redTier, 0, $numberOfSlices * 2),
         );
     }
 

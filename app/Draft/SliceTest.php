@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
-use App\Draft\Exceptions\InvalidSliceException;
 use App\Testing\Factories\PlanetFactory;
 use App\Testing\Factories\TileFactory;
 use App\Testing\TestCase;
@@ -14,24 +15,24 @@ use PHPUnit\Framework\Attributes\Test;
 class SliceTest extends TestCase
 {
     #[Test]
-    public function itCalculatesTotalAndOptimalValues()
+    public function itCalculatesTotalAndOptimalValues(): void
     {
         $planets = [
             PlanetFactory::make([
                 'resources' => 4,
-                'influence' => 2
+                'influence' => 2,
             ]),  // optimal: 4, 0
             PlanetFactory::make([
                 'resources' => 3,
-                'influence' => 3
+                'influence' => 3,
             ]), // optimal: 1.5, 1.5
             PlanetFactory::make([
                 'resources' => 1,
-                'influence' => 0
+                'influence' => 0,
             ]), // optimal: 1, 0
             PlanetFactory::make([
                 'resources' => 1,
-                'influence' => 2
+                'influence' => 2,
             ]), // optimal: 0, 2
         ];
 
@@ -39,7 +40,6 @@ class SliceTest extends TestCase
         $totalResources = array_reduce($planets, fn ($sum, Planet $p) => $sum += $p->resources);
         $optimalInfluence = array_reduce($planets, fn ($sum, Planet $p) => $sum += $p->optimalInfluence);
         $optimalResources = array_reduce($planets, fn ($sum, Planet $p) => $sum += $p->optimalResources);
-
 
         $slice = new Slice([
             TileFactory::make([$planets[0], $planets[1]]),
@@ -58,41 +58,41 @@ class SliceTest extends TestCase
 
     public static function tileConfigurations(): iterable
     {
-        yield "When it has no anomalies" => [
-            "tiles" => [
+        yield 'When it has no anomalies' => [
+            'tiles' => [
                 TileFactory::make([], [], null),
                 TileFactory::make([], [], null),
                 TileFactory::make([], [], null),
                 TileFactory::make([], [], null),
                 TileFactory::make([], [], null),
             ],
-            "canBeArranged" => true
+            'canBeArranged' => true,
         ];
-        yield "When it has some anomalies" => [
-            "tiles" => [
-                TileFactory::make([], [], "nebula"),
-                TileFactory::make([], [], "asteroid field"),
+        yield 'When it has some anomalies' => [
+            'tiles' => [
+                TileFactory::make([], [], 'nebula'),
+                TileFactory::make([], [], 'asteroid field'),
                 TileFactory::make([], [], null),
                 TileFactory::make([], [], null),
                 TileFactory::make([], [], null),
             ],
-            "canBeArranged" => true
+            'canBeArranged' => true,
         ];
-        yield "When it has too many anomalies" => [
-            "tiles" => [
-                TileFactory::make([], [], "nebula"),
-                TileFactory::make([], [], "asteroid field"),
-                TileFactory::make([], [], "gravity-rift"),
-                TileFactory::make([], [], "supernova"),
+        yield 'When it has too many anomalies' => [
+            'tiles' => [
+                TileFactory::make([], [], 'nebula'),
+                TileFactory::make([], [], 'asteroid field'),
+                TileFactory::make([], [], 'gravity-rift'),
+                TileFactory::make([], [], 'supernova'),
                 TileFactory::make([], [], null),
             ],
-            "canBeArranged" => false
+            'canBeArranged' => false,
         ];
     }
 
-    #[DataProvider("tileConfigurations")]
+    #[DataProvider('tileConfigurations')]
     #[Test]
-    public function itCanArrangeTiles(array $tiles, bool $canBeArranged)
+    public function itCanArrangeTiles(array $tiles, bool $canBeArranged): void
     {
         $slice = new Slice($tiles);
         $seed = new Seed(1);
@@ -104,7 +104,7 @@ class SliceTest extends TestCase
     }
 
     #[Test]
-    public function itWontAllowSlicesWithTooManyWormholes()
+    public function itWontAllowSlicesWithTooManyWormholes(): void
     {
         $slice = new Slice([
             TileFactory::make([], [Wormhole::ALPHA]),
@@ -120,7 +120,7 @@ class SliceTest extends TestCase
     }
 
     #[Test]
-    public function itWontAllowSlicesWithTooManyLegendaryPlanets()
+    public function itWontAllowSlicesWithTooManyLegendaryPlanets(): void
     {
         $slice = new Slice([
             TileFactory::make([PlanetFactory::make(['legendary' => 'Yes'])]),
@@ -136,7 +136,7 @@ class SliceTest extends TestCase
     }
 
     #[Test]
-    public function itCanValidateMaxWormholes()
+    public function itCanValidateMaxWormholes(): void
     {
         $slice = new Slice([
             TileFactory::make([], [Wormhole::ALPHA]),
@@ -152,20 +152,20 @@ class SliceTest extends TestCase
     }
 
     #[Test]
-    public function itCanValidateMinimumOptimalInfluence()
+    public function itCanValidateMinimumOptimalInfluence(): void
     {
         $slice = new Slice([
             TileFactory::make([
                 PlanetFactory::make([
                     'influence' => 2,
-                    'resources' => 3
-                ])
+                    'resources' => 3,
+                ]),
             ]),
             TileFactory::make([
                 PlanetFactory::make([
                     'influence' => 1,
-                    'resources' => 0
-                ])
+                    'resources' => 0,
+                ]),
             ]),
             TileFactory::make(),
             TileFactory::make(),
@@ -177,27 +177,27 @@ class SliceTest extends TestCase
             0,
             0,
             0,
-            false
+            false,
         );
 
         $this->assertFalse($valid);
     }
 
     #[Test]
-    public function itCanValidateMinimumOptimalResources()
+    public function itCanValidateMinimumOptimalResources(): void
     {
         $slice = new Slice([
             TileFactory::make([
                 PlanetFactory::make([
                     'influence' => 5,
-                    'resources' => 2
-                ])
+                    'resources' => 2,
+                ]),
             ]),
             TileFactory::make([
                 PlanetFactory::make([
                     'influence' => 1,
-                    'resources' => 1
-                ])
+                    'resources' => 1,
+                ]),
             ]),
             TileFactory::make(),
             TileFactory::make(),
@@ -209,26 +209,26 @@ class SliceTest extends TestCase
             3,
             0,
             0,
-            false
+            false,
         );
         $this->assertFalse($valid);
     }
 
     #[Test]
-    public function itCanValidateMinimumOptimalTotal()
+    public function itCanValidateMinimumOptimalTotal(): void
     {
         $slice = new Slice([
             TileFactory::make([
                 PlanetFactory::make([
                     'influence' => 4,
-                    'resources' => 2
-                ])
+                    'resources' => 2,
+                ]),
             ]),
             TileFactory::make([
                 PlanetFactory::make([
                     'influence' => 1,
-                    'resources' => 1
-                ])
+                    'resources' => 1,
+                ]),
             ]),
             TileFactory::make(),
             TileFactory::make(),
@@ -240,33 +240,33 @@ class SliceTest extends TestCase
             0,
             5,
             0,
-            false
+            false,
         );
 
         $this->assertFalse($valid);
     }
 
     #[Test]
-    public function itCanValidateMaximumOptimalTotal()
+    public function itCanValidateMaximumOptimalTotal(): void
     {
         $slice = new Slice([
             TileFactory::make([
                 PlanetFactory::make([
                     'influence' => 2,
-                    'resources' => 4
-                ])
+                    'resources' => 4,
+                ]),
             ]),
             TileFactory::make([
                 PlanetFactory::make([
                     'influence' => 2,
-                    'resources' => 1
-                ])
+                    'resources' => 1,
+                ]),
             ]),
             TileFactory::make([
                 PlanetFactory::make([
                     'influence' => 3,
-                    'resources' => 1
-                ])
+                    'resources' => 1,
+                ]),
             ]),
             TileFactory::make(),
             TileFactory::make(),
@@ -277,37 +277,36 @@ class SliceTest extends TestCase
             0,
             0,
             4,
-            false
+            false,
         );
         $this->assertFalse($valid);
     }
 
-
     #[Test]
-    public function itCanValidateAValidSlice()
+    public function itCanValidateAValidSlice(): void
     {
         $slice = new Slice([
             TileFactory::make([
                 PlanetFactory::make([
                     'influence' => 2,
                     'resources' => 3,
-                ])
+                ]),
             ]),
             TileFactory::make([
                 PlanetFactory::make([
                     'influence' => 2,
-                    'resources' => 1
-                ])
+                    'resources' => 1,
+                ]),
             ]),
             TileFactory::make([
                 PlanetFactory::make([
                     'influence' => 1,
-                    'resources' => 1
+                    'resources' => 1,
                 ]),
                 PlanetFactory::make([
                     'influence' => 1,
-                    'resources' => 1
-                ])
+                    'resources' => 1,
+                ]),
             ]),
             TileFactory::make(),
             TileFactory::make(),
@@ -318,7 +317,7 @@ class SliceTest extends TestCase
             3,
             5,
             7,
-            false
+            false,
         );
 
         $this->assertTrue($valid);

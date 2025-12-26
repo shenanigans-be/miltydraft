@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
 use App\Testing\TestCase;
@@ -10,9 +12,9 @@ use PHPUnit\Framework\Attributes\Test;
 
 class PlayerTest extends TestCase
 {
-    #[DataProviderExternal(TestDrafts::class, "provideTestDrafts")]
+    #[DataProviderExternal(TestDrafts::class, 'provideTestDrafts')]
     #[Test]
-    public function itCanBeInstantiatedFromJson($data)
+    public function itCanBeInstantiatedFromJson($data): void
     {
         foreach($data['draft']['players'] as $playerData) {
             $p = Player::fromJson($playerData);
@@ -25,49 +27,48 @@ class PlayerTest extends TestCase
     }
 
     #[Test]
-    public function itChecksIfPlayerHasPickedPosition()
+    public function itChecksIfPlayerHasPickedPosition(): void
     {
-        $player1 = new Player(PlayerId::fromString("1"), 'Alice', false, "1");
-        $player2 = new Player(PlayerId::fromString("2"), 'Bob');
+        $player1 = new Player(PlayerId::fromString('1'), 'Alice', false, '1');
+        $player2 = new Player(PlayerId::fromString('2'), 'Bob');
 
         $this->assertTrue($player1->hasPickedPosition());
         $this->assertFalse($player2->hasPickedPosition());
     }
 
     #[Test]
-    public function itChecksIfPlayerHasPickedFaction()
+    public function itChecksIfPlayerHasPickedFaction(): void
     {
-        $player1 = new Player(PlayerId::fromString("1"), 'Alice', false, null, "Mahact");
-        $player2 = new Player(PlayerId::fromString("2"), 'Bob');
+        $player1 = new Player(PlayerId::fromString('1'), 'Alice', false, null, 'Mahact');
+        $player2 = new Player(PlayerId::fromString('2'), 'Bob');
 
         $this->assertTrue($player1->hasPickedFaction());
         $this->assertFalse($player2->hasPickedFaction());
     }
 
     #[Test]
-    public function itChecksIfPlayerHasPickedSlice()
+    public function itChecksIfPlayerHasPickedSlice(): void
     {
-        $player1 = new Player(PlayerId::fromString("1"), 'Alice', false, null, null, "1");
-        $player2 = new Player(PlayerId::fromString("2"), 'Bob');
+        $player1 = new Player(PlayerId::fromString('1'), 'Alice', false, null, null, '1');
+        $player2 = new Player(PlayerId::fromString('2'), 'Bob');
 
         $this->assertTrue($player1->hasPickedSlice());
         $this->assertFalse($player2->hasPickedSlice());
     }
 
-
     #[Test]
-    public function itCanBeConvertedToAnArray()
+    public function itCanBeConvertedToAnArray(): void
     {
         $player1 = new Player(
-            PlayerId::fromString("1"),
+            PlayerId::fromString('1'),
             'Alice',
             true,
             '2',
-            "Mahact",
+            'Mahact',
             '3',
-            'A'
+            'A',
         );
-        $player2 = new Player(PlayerId::fromString("2"), 'Bob');
+        $player2 = new Player(PlayerId::fromString('2'), 'Bob');
 
         $this->assertSame([
             'id' => '1',
@@ -85,40 +86,40 @@ class PlayerTest extends TestCase
             'position' => null,
             'faction' => null,
             'slice' => null,
-            'team' => null
+            'team' => null,
         ], $player2->toArray());
     }
 
     public static function picks(): iterable
     {
-        yield "When picking slice" => [
+        yield 'When picking slice' => [
             'category' => PickCategory::SLICE,
         ];
 
-        yield "When picking position" => [
+        yield 'When picking position' => [
             'category' => PickCategory::POSITION,
         ];
 
-        yield "When picking faction" => [
+        yield 'When picking faction' => [
             'category' => PickCategory::FACTION,
         ];
     }
 
     #[Test]
     #[DataProvider('picks')]
-    public function itCanPickSomething($category)
+    public function itCanPickSomething($category): void
     {
         $player = new Player(
-            PlayerId::fromString("1"),
+            PlayerId::fromString('1'),
             'Alice',
             true,
             $category == PickCategory::POSITION ? null : '2',
-            $category == PickCategory::FACTION ? null : "Mahact",
+            $category == PickCategory::FACTION ? null : 'Mahact',
             $category == PickCategory::SLICE ? null : '3',
-            'A'
+            'A',
         );
 
-        $newPlayerVo = $player->pick($category, "some-value");
+        $newPlayerVo = $player->pick($category, 'some-value');
 
         $this->assertEquals($player->id, $newPlayerVo->id);
         $this->assertSame($player->name, $newPlayerVo->name);
@@ -129,17 +130,20 @@ class PlayerTest extends TestCase
             case PickCategory::POSITION:
                 $this->assertSame($player->pickedSlice, $newPlayerVo->pickedSlice);
                 $this->assertSame($player->pickedFaction, $newPlayerVo->pickedFaction);
-                $this->assertSame("some-value", $newPlayerVo->pickedPosition);
+                $this->assertSame('some-value', $newPlayerVo->pickedPosition);
+
                 break;
             case PickCategory::FACTION:
                 $this->assertSame($player->pickedSlice, $newPlayerVo->pickedSlice);
                 $this->assertSame($player->pickedPosition, $newPlayerVo->pickedPosition);
-                $this->assertSame("some-value", $newPlayerVo->pickedFaction);
+                $this->assertSame('some-value', $newPlayerVo->pickedFaction);
+
                 break;
             case PickCategory::SLICE:
                 $this->assertSame($player->pickedPosition, $newPlayerVo->pickedPosition);
                 $this->assertSame($player->pickedFaction, $newPlayerVo->pickedFaction);
-                $this->assertSame("some-value", $newPlayerVo->pickedSlice);
+                $this->assertSame('some-value', $newPlayerVo->pickedSlice);
+
                 break;
         }
     }

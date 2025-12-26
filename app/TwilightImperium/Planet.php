@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\TwilightImperium;
 
 class Planet extends SpaceObject
@@ -16,7 +18,7 @@ class Planet extends SpaceObject
         /**
          * @var array<TechSpecialties>
          */
-        public array $specialties = []
+        public array $specialties = [],
     ) {
         parent::__construct($resources, $influence);
     }
@@ -30,8 +32,8 @@ class Planet extends SpaceObject
             // @todo refactor tiles.json to use legendary: null instead of false
             ($data['legendary'] !== false) ? $data['legendary'] : null,
             self::traitsFromJsonData($data['trait']),
-            self::techSpecialtiesFromJsonData($data['specialties'])
-         );
+            self::techSpecialtiesFromJsonData($data['specialties']),
+        );
     }
 
     // @todo update the tiles.json so that all planets just have an array of traits
@@ -47,7 +49,7 @@ class Planet extends SpaceObject
             // process array of traits, even if it's just one string
             return array_map(
                 fn (string $str) => PlanetTrait::from($str),
-                is_array($data) ? $data : [$data]
+                is_array($data) ? $data : [$data],
             );
         }
     }
@@ -60,7 +62,7 @@ class Planet extends SpaceObject
     {
         return array_map(
             fn (string $str) => TechSpecialties::from($str),
-            $data
+            $data,
         );
     }
 

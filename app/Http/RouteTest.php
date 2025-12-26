@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http;
 
 use App\Testing\TestCase;
@@ -8,7 +10,7 @@ use PHPUnit\Framework\Attributes\Test;
 class RouteTest extends TestCase
 {
     #[Test]
-    public function itCanMatchARoute()
+    public function itCanMatchARoute(): void
     {
         $route = new Route('/hello/world', 'SomeClass');
 
@@ -20,7 +22,7 @@ class RouteTest extends TestCase
     }
 
     #[Test]
-    public function itCanCaptureUrlParameters()
+    public function itCanCaptureUrlParameters(): void
     {
         $route = new Route('/slug/{foo}/edit/{bar}', 'SomeClass');
 
@@ -32,7 +34,7 @@ class RouteTest extends TestCase
     }
 
     #[Test]
-    public function itCanDealWithATrailingSlash()
+    public function itCanDealWithATrailingSlash(): void
     {
         $route = new Route('/slug/{id}', 'SomeClass');
 
@@ -43,7 +45,7 @@ class RouteTest extends TestCase
     }
 
     #[Test]
-    public function itCanRouteToIndex()
+    public function itCanRouteToIndex(): void
     {
         $route = new Route('/', 'IndexClass');
 

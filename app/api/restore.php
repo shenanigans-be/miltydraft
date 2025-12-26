@@ -1,21 +1,22 @@
 <?php
 
-$draft = \App\DeprecatedDraft::load(get('draft'));
+declare(strict_types=1);
+
+$draft = App\DeprecatedDraft::load(get('draft'));
 $secret = get('secret');
 
 if ($draft->isAdminPass($secret)) {
   return return_data([
       'admin' => $secret,
-      'success' => true
+      'success' => true,
   ]);
 }
 
 $playerId = $draft->getPlayerIdBySecret($secret);
 
-if (!$playerId) return return_error('No session found with that passkey');
-
+if (! $playerId) return return_error('No session found with that passkey');
 return_data([
     'player' => $playerId,
     'secret' => $secret,
-    'success' => true
+    'success' => true,
 ]);

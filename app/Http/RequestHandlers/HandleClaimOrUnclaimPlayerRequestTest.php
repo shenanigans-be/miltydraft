@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\RequestHandlers;
 
 use App\Draft\Commands\ClaimPlayer;
@@ -16,13 +18,13 @@ class HandleClaimOrUnclaimPlayerRequestTest extends RequestHandlerTestCase
     protected string $requestHandlerClass = HandleClaimOrUnclaimPlayerRequest::class;
 
     #[Test]
-    public function itIsConfiguredAsRouteHandler()
+    public function itIsConfiguredAsRouteHandler(): void
     {
         $this->assertIsConfiguredAsHandlerForRoute('/api/claim');
     }
 
     #[Test]
-    public function itReturnsJson()
+    public function itReturnsJson(): void
     {
         $response = $this->handleRequest(['draft' => $this->testDraft->id, 'player' => array_keys($this->testDraft->players)[0]]);
         $this->assertResponseOk($response);
@@ -30,7 +32,7 @@ class HandleClaimOrUnclaimPlayerRequestTest extends RequestHandlerTestCase
     }
 
     #[Test]
-    public function itReturnsErrorIfDraftNotFound()
+    public function itReturnsErrorIfDraftNotFound(): void
     {
 
         $response = $this->handleRequest(['draft' => '123', 'player' => '123']);
@@ -39,26 +41,24 @@ class HandleClaimOrUnclaimPlayerRequestTest extends RequestHandlerTestCase
         $this->assertJsonResponseSame(['error' => 'Draft not found'], $response);
     }
 
-
     #[Test]
-    public function itCanClaimAPlayer()
+    public function itCanClaimAPlayer(): void
     {
         $this->setExpectedReturnValue('1234');
         $playerId = array_keys($this->testDraft->players)[0];
         $this->handleRequest(['draft' => $this->testDraft->id, 'player' => $playerId]);
-        $this->assertCommandWasDispatchedWith(ClaimPlayer::class, function (ClaimPlayer $cmd) use ($playerId) {
+        $this->assertCommandWasDispatchedWith(ClaimPlayer::class, function (ClaimPlayer $cmd) use ($playerId): void {
             $this->assertSame($this->testDraft->id, $cmd->draft->id);
             $this->assertSame($playerId, $cmd->playerId->value);
         });
     }
 
-
     #[Test]
-    public function itCanUnclaimAPlayer()
+    public function itCanUnclaimAPlayer(): void
     {
         $playerId = array_keys($this->testDraft->players)[0];
         $this->handleRequest(['draft' => $this->testDraft->id, 'player' => $playerId, 'unclaim' => 1]);
-        $this->assertCommandWasDispatchedWith(UnclaimPlayer::class, function (UnclaimPlayer $cmd) use ($playerId) {
+        $this->assertCommandWasDispatchedWith(UnclaimPlayer::class, function (UnclaimPlayer $cmd) use ($playerId): void {
             $this->assertSame($this->testDraft->id, $cmd->draft->id);
             $this->assertSame($playerId, $cmd->playerId->value);
         });

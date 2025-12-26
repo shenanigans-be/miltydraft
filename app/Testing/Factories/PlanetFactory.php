@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Testing\Factories;
 
 use App\TwilightImperium\Planet;
@@ -12,6 +14,7 @@ class PlanetFactory
     public static function make(array $properties = []): Planet
     {
         $faker = Factory::create();
+
         return new Planet(
             $properties['name'] ?? $faker->word(),
             $properties['resources'] ?? $faker->numberBetween(0, 4),
@@ -22,7 +25,7 @@ class PlanetFactory
                 PlanetTrait::HAZARDOUS,
                 PlanetTrait::CULTURAL,
             ], 1),
-            $properties['specialties'] ??$faker->randomElements([
+            $properties['specialties'] ?? $faker->randomElements([
                 TechSpecialties::WARFARE,
                 TechSpecialties::PROPULSION,
                 TechSpecialties::CYBERNETIC,

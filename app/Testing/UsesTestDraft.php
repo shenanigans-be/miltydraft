@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Testing;
 
 use App\Draft\Commands\GenerateDraft;
 use App\Draft\Draft;
-use App\Draft\Generators\DraftGenerator;
 use App\Testing\Factories\DraftSettingsFactory;
 use App\TwilightImperium\Edition;
 use PHPUnit\Framework\Attributes\After;
@@ -15,7 +16,7 @@ trait UsesTestDraft
     protected Draft $testDraft;
 
     #[Before]
-    protected function setupTestDraft($settings = null)
+    protected function setupTestDraft($settings = null): void
     {
         if ($settings == null) {
             // make a standard-ass draft. We should test edge cases separately
@@ -33,14 +34,13 @@ trait UsesTestDraft
         app()->repository->save($this->testDraft);
     }
 
-    public function reloadDraft()
+    public function reloadDraft(): void
     {
         $this->testDraft = app()->repository->load($this->testDraft->id);
     }
 
-
     #[After]
-    public function deleteTestDraft()
+    public function deleteTestDraft(): void
     {
         app()->repository->delete($this->testDraft->id);
         unset($this->testDraft);

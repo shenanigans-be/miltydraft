@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\TwilightImperium;
 
 use App\Testing\TestCase;
@@ -11,116 +13,115 @@ class PlanetTest extends TestCase
 
     public static function planets(): iterable
     {
-        yield "For a legendary planet" => [
+        yield 'For a legendary planet' => [
             'planet' => new Planet(
-                "Legendplanet",
+                'Legendplanet',
                 0,
                 0,
-                "Some string value"
+                'Some string value',
             ),
-            'expected' => true
+            'expected' => true,
         ];
-        yield "For a regular planet" => [
+        yield 'For a regular planet' => [
             'planet' => new Planet(
-                "RegularJoePlanet",
+                'RegularJoePlanet',
                 0,
                 0,
-                null
+                null,
             ),
-            'expected' => false
+            'expected' => false,
         ];
     }
 
     public static function jsonData(): iterable {
         $baseJsonData = [
-            "name" => "Tinnes",
-            "resources" =>  2,
-            "influence" => 1,
+            'name' => 'Tinnes',
+            'resources' => 2,
+            'influence' => 1,
         ];
 
-        yield "A planet without a legendary" => [
-            "jsonData" => $baseJsonData + [
-                "trait" => "hazardous",
-                "legendary" => false,
-                "specialties" => [
-                    "biotic",
-                    "cybernetic"
-                ]
+        yield 'A planet without a legendary' => [
+            'jsonData' => $baseJsonData + [
+                'trait' => 'hazardous',
+                'legendary' => false,
+                'specialties' => [
+                    'biotic',
+                    'cybernetic',
+                ],
             ],
-            "expectedLegendary" => null,
-            "expectedTraits" => [
-                PlanetTrait::HAZARDOUS
+            'expectedLegendary' => null,
+            'expectedTraits' => [
+                PlanetTrait::HAZARDOUS,
             ],
-            "expectedTechSpecialties" => [
+            'expectedTechSpecialties' => [
                 TechSpecialties::BIOTIC,
-                TechSpecialties::CYBERNETIC
-            ]
+                TechSpecialties::CYBERNETIC,
+            ],
         ];
-        yield "A planet with a legendary" => [
-            "jsonData" => $baseJsonData + [
-                "trait" => "cultural",
-                "legendary" => "I am legend",
-                "specialties" => [
-                    "propulsion",
-                    "warfare"
-                ]
+        yield 'A planet with a legendary' => [
+            'jsonData' => $baseJsonData + [
+                'trait' => 'cultural',
+                'legendary' => 'I am legend',
+                'specialties' => [
+                    'propulsion',
+                    'warfare',
+                ],
             ],
-            "expectedLegendary" => "I am legend",
-            "expectedTraits" => [
-                PlanetTrait::CULTURAL
+            'expectedLegendary' => 'I am legend',
+            'expectedTraits' => [
+                PlanetTrait::CULTURAL,
             ],
-            "expectedTechSpecialties" => [
+            'expectedTechSpecialties' => [
                 TechSpecialties::PROPULSION,
-                TechSpecialties::WARFARE
-            ]
+                TechSpecialties::WARFARE,
+            ],
         ];
 
-        yield "A planet with legendary false" => [
-            "jsonData" => $baseJsonData + [
-                "trait" => "industrial",
-                "legendary" => false,
-                "specialties" => []
+        yield 'A planet with legendary false' => [
+            'jsonData' => $baseJsonData + [
+                'trait' => 'industrial',
+                'legendary' => false,
+                'specialties' => [],
             ],
-            "expectedLegendary" => null,
-            "expectedTraits" => [
-                PlanetTrait::INDUSTRIAL
+            'expectedLegendary' => null,
+            'expectedTraits' => [
+                PlanetTrait::INDUSTRIAL,
             ],
-            "expectedTechSpecialties" => []
+            'expectedTechSpecialties' => [],
         ];
-        yield "A planet with multiple traits" => [
-            "jsonData" => $baseJsonData + [
-                "trait" => ["cultural", "hazardous"],
-                "legendary" => null,
-                "specialties" => []
+        yield 'A planet with multiple traits' => [
+            'jsonData' => $baseJsonData + [
+                'trait' => ['cultural', 'hazardous'],
+                'legendary' => null,
+                'specialties' => [],
             ],
-            "expectedLegendary" => null,
-            "expectedTraits" => [
+            'expectedLegendary' => null,
+            'expectedTraits' => [
                 PlanetTrait::CULTURAL,
-                PlanetTrait::HAZARDOUS
+                PlanetTrait::HAZARDOUS,
             ],
-            "expectedTechSpecialties" => []
+            'expectedTechSpecialties' => [],
         ];
-        yield "A planet with no traits" => [
-            "jsonData" => $baseJsonData + [
-                "trait" => null,
-                "legendary" => null,
-                "specialties" => []
+        yield 'A planet with no traits' => [
+            'jsonData' => $baseJsonData + [
+                'trait' => null,
+                'legendary' => null,
+                'specialties' => [],
             ],
-            "expectedLegendary" => null,
-            "expectedTraits" => [],
-            "expectedTechSpecialties" => []
+            'expectedLegendary' => null,
+            'expectedTraits' => [],
+            'expectedTechSpecialties' => [],
         ];
     }
 
-
-    #[DataProvider("jsonData")]
+    #[DataProvider('jsonData')]
     #[Test]
     public function itcanCreateAPlanetFromJsonData(
         array $jsonData,
         ?string $expectedLegendary,
         array $expectedTraits,
         array $expectedTechSpecialties,
-    ) {
+    ): void {
         $planet = Planet::fromJsonData($jsonData);
 
         $this->assertSame($jsonData['name'], $planet->name);
@@ -131,9 +132,9 @@ class PlanetTest extends TestCase
         $this->assertSame($expectedLegendary, $planet->legendary);
     }
 
-    #[DataProvider("planets")]
+    #[DataProvider('planets')]
     #[Test]
-    public function itExposesHasLegendaryMethod(Planet $planet, bool $expected) {
+    public function itExposesHasLegendaryMethod(Planet $planet, bool $expected): void {
         $this->assertSame($expected, $planet->isLegendary());
     }
 }

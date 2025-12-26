@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
 use App\Draft\Exceptions\InvalidDraftSettingsException;
-use App\Http\HttpRequest;
 use App\TwilightImperium\AllianceTeamMode;
 use App\TwilightImperium\AllianceTeamPosition;
 use App\TwilightImperium\Edition;
@@ -47,7 +48,7 @@ class Settings
         public bool $allianceMode,
         public ?AllianceTeamMode $allianceTeamMode = null,
         public ?AllianceTeamPosition $allianceTeamPosition = null,
-        public ?bool $allianceForceDoublePicks = null
+        public ?bool $allianceForceDoublePicks = null,
     ) {
     }
 
@@ -83,6 +84,7 @@ class Settings
             'include_discordantexp' => $this->includesFactionSet(Edition::DISCORDANT_STARS_PLUS),
             'include_keleres' => $this->includeCouncilKeleresFaction,
             // slice settings
+            // @todo replace with minimumTwoAlphaAndBetaWormholes
             'min_wormholes' => $this->minimumTwoAlphaAndBetaWormholes ? 2 : 0,
             'max_1_wormhole' => $this->maxOneWormholesPerSlice,
             'min_legendaries' => $this->minimumLegendaryPlanets,
@@ -96,8 +98,8 @@ class Settings
             'alliance' => $this->allianceMode ? [
                 'alliance_teams' => $this->allianceTeamMode->value,
                 'alliance_teams_position' => $this->allianceTeamPosition->value,
-                'force_double_picks' => $this->allianceForceDoublePicks
-            ] : null
+                'force_double_picks' => $this->allianceForceDoublePicks,
+            ] : null,
         ];
     }
 
@@ -107,7 +109,7 @@ class Settings
      */
     public function validate(): bool
     {
-        if (!$this->seed->isValid()) {
+        if (! $this->seed->isValid()) {
             throw InvalidDraftSettingsException::invalidSeed();
         }
 
@@ -144,7 +146,7 @@ class Settings
         return true;
     }
 
-    protected function validateTiles() {
+    protected function validateTiles(): void {
         // @todo base this on tile-selection.json instead of constants
         // better yet: make a tileset php class that contain the data instead of loading json
 
@@ -152,8 +154,7 @@ class Settings
         $redTiles = array_reduce($this->tileSets, fn ($sum, Edition $e) => $sum += $e->redTileCount(), 0);
         $legendaryPlanets = array_reduce($this->tileSets, fn ($sum, Edition $e) => $sum += $e->legendaryPlanetCount(), 0);
 
-        $maxSlices = min(floor($blueTiles/3), floor($redTiles/2));
-
+        $maxSlices = min(floor($blueTiles / 3), floor($redTiles / 2));
 
         if ($this->numberOfSlices > $maxSlices) {
             throw InvalidDraftSettingsException::notEnoughTilesForSlices($maxSlices);
@@ -172,7 +173,7 @@ class Settings
         }
     }
 
-    protected function validateFactions()
+    protected function validateFactions(): void
     {
         $factions = array_reduce($this->factionSets, fn ($sum, Edition $e) => $sum += $e->factionCount(), 0);
         if ($factions < $this->numberOfFactions) {
@@ -182,7 +183,7 @@ class Settings
 
     protected function validateCustomSlices(): bool
     {
-        if (!empty($this->customSlices)) {
+        if (! empty($this->customSlices)) {
             if (count($this->customSlices) < count($this->playerNames)) {
                 throw InvalidDraftSettingsException::notEnoughCustomSlices();
             }
@@ -210,7 +211,7 @@ class Settings
             self::tileSetsFromPayload($data),
             self::factionSetsFromPayload($data),
             $data['include_keleres'],
-            $data['min_wormholes'],
+            $data['min_wormholes'] == 2,
             $data['max_1_wormhole'],
             $data['min_legendaries'],
             (float) $data['minimum_optimal_influence'],
@@ -278,11 +279,11 @@ class Settings
 
     public function factionSetNames()
     {
-        return array_map(fn (\App\TwilightImperium\Edition $e) => $e->fullName(), $this->factionSets);
+        return array_map(fn (Edition $e) => $e->fullName(), $this->factionSets);
     }
 
     public function tileSetNames()
     {
-        return array_map(fn (\App\TwilightImperium\Edition $e) => $e->fullName(), $this->tileSets);
+        return array_map(fn (Edition $e) => $e->fullName(), $this->tileSets);
     }
 }

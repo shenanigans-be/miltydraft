@@ -1,13 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\RequestHandlers;
 
-use App\Draft\Exceptions\DraftRepositoryException;
-use App\Http\ErrorResponse;
-use App\Http\HtmlResponse;
-use App\Http\HttpRequest;
 use App\Http\HttpResponse;
-use App\Http\RequestHandler;
 
 class HandleViewDraftRequest extends DraftRequestHandler
 {
@@ -21,9 +18,9 @@ class HandleViewDraftRequest extends DraftRequestHandler
 
         return $this->html(
             'templates/draft.php',
-             [
-                 'draft' => $draft
-             ]
+            [
+                 'draft' => $draft,
+             ],
         );
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft\Repository;
 
 use App\Draft\Draft;
@@ -23,7 +25,7 @@ class LocalDraftRepository implements DraftRepository
     {
         $path = $this->pathToDraft($id);
 
-        if(!file_exists($path)) {
+        if(! file_exists($path)) {
             throw DraftRepositoryException::notFound($id);
         }
 
@@ -32,12 +34,12 @@ class LocalDraftRepository implements DraftRepository
         return Draft::fromJson($rawDraft);
     }
 
-    public function save(Draft $draft)
+    public function save(Draft $draft): void
     {
         file_put_contents($this->pathToDraft($draft->id), $draft->toFileContent());
     }
 
-    public function delete(string $id)
+    public function delete(string $id): void
     {
         unlink($this->pathToDraft($id));
     }

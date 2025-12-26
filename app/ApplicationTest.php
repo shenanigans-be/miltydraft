@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use App\Http\RequestHandlers\HandleClaimOrUnclaimPlayerRequest;
@@ -22,55 +24,55 @@ class ApplicationTest extends TestCase
 {
     public static function allRoutes()
     {
-        yield "For viewing the form" => [
+        yield 'For viewing the form' => [
             'route' => '/',
-            'handler' => HandleViewFormRequest::class
+            'handler' => HandleViewFormRequest::class,
         ];
 
-        yield "For viewing a draft" => [
+        yield 'For viewing a draft' => [
             'route' => '/d/1234',
-            'handler' => HandleViewDraftRequest::class
+            'handler' => HandleViewDraftRequest::class,
         ];
 
-        yield "For fetching draft data" => [
+        yield 'For fetching draft data' => [
             'route' => '/api/draft/1234',
-            'handler' => HandleGetDraftRequest::class
+            'handler' => HandleGetDraftRequest::class,
         ];
 
-        yield "For generating a draft" => [
+        yield 'For generating a draft' => [
             'route' => '/api/generate',
-            'handler' => HandleGenerateDraftRequest::class
+            'handler' => HandleGenerateDraftRequest::class,
         ];
 
-        yield "For making a pick" => [
+        yield 'For making a pick' => [
             'route' => '/api/pick',
-            'handler' => HandlePickRequest::class
+            'handler' => HandlePickRequest::class,
         ];
 
-        yield "For claiming a player" => [
+        yield 'For claiming a player' => [
             'route' => '/api/claim',
-            'handler' => HandleClaimOrUnclaimPlayerRequest::class
+            'handler' => HandleClaimOrUnclaimPlayerRequest::class,
         ];
 
-        yield "For restoring a claim" => [
+        yield 'For restoring a claim' => [
             'route' => '/api/restore',
-            'handler' => HandleRestoreClaimRequest::class
+            'handler' => HandleRestoreClaimRequest::class,
         ];
 
-        yield "For undoing a pick" => [
+        yield 'For undoing a pick' => [
             'route' => '/api/undo',
-            'handler' => HandleUndoRequest::class
+            'handler' => HandleUndoRequest::class,
         ];
 
-        yield "For regenerating a draft" => [
+        yield 'For regenerating a draft' => [
             'route' => '/api/regenerate',
-            'handler' => HandleRegenerateDraftRequest::class
+            'handler' => HandleRegenerateDraftRequest::class,
         ];
     }
 
     #[Test]
     #[DataProvider('allRoutes')]
-    public function itHasHandlerForAllRoutes($route, $handler)
+    public function itHasHandlerForAllRoutes($route, $handler): void
     {
         $application = new Application();
         $determinedHandler = $application->handlerForRequest($route);

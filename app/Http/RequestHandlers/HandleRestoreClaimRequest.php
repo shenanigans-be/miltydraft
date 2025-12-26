@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\RequestHandlers;
 
 use App\Http\HttpResponse;
-use App\Http\RequestHandler;
 
 class HandleRestoreClaimRequest extends DraftRequestHandler
 {
@@ -21,7 +22,7 @@ class HandleRestoreClaimRequest extends DraftRequestHandler
         if ($draft->secrets->checkAdminSecret($secret)) {
             return $this->json([
                 'admin' => $secret,
-                'success' => true
+                'success' => true,
             ]);
         }
 
@@ -33,7 +34,7 @@ class HandleRestoreClaimRequest extends DraftRequestHandler
             return $this->json([
                 'player' => $playerId->value,
                 'secret' => $secret,
-                'success' => true
+                'success' => true,
             ]);
         }
     }

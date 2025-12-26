@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft\Commands;
 
 use App\Testing\Factories\DraftSettingsFactory;
@@ -14,11 +16,11 @@ class GenerateFactionPoolTest extends TestCase
 {
     #[Test]
     #[DataProviderExternal(TestSets::class, 'setCombinations')]
-    public function itCanGenerateChoicesFromFactionSets($sets)
+    public function itCanGenerateChoicesFromFactionSets($sets): void
     {
         $generator = new GenerateFactionPool(DraftSettingsFactory::make([
             'factionSets' => $sets,
-            'numberOfFactions' => 10
+            'numberOfFactions' => 10,
         ]));
 
         $choices = $generator->handle();
@@ -32,18 +34,18 @@ class GenerateFactionPoolTest extends TestCase
     }
 
     #[Test]
-    public function itUsesOnlyCustomFactionsWhenEnoughAreProvided()
+    public function itUsesOnlyCustomFactionsWhenEnoughAreProvided(): void
     {
         $customFactions = [
-            "The Barony of Letnev",
-            "The Clan of Saar",
-            "The Emirates of Hacan",
-            "The Ghosts of Creuss",
+            'The Barony of Letnev',
+            'The Clan of Saar',
+            'The Emirates of Hacan',
+            'The Ghosts of Creuss',
         ];
         $generator = new GenerateFactionPool(DraftSettingsFactory::make([
             'customFactions' => $customFactions,
             'factionSets' => [Edition::BASE_GAME],
-            'numberOfFactions' => 3
+            'numberOfFactions' => 3,
         ]));
 
         $choices = $generator->handle();
@@ -55,17 +57,17 @@ class GenerateFactionPoolTest extends TestCase
     }
 
     #[Test]
-    public function itGeneratesTheSameFactionsFromTheSameSeed()
+    public function itGeneratesTheSameFactionsFromTheSameSeed(): void
     {
         $generator = new GenerateFactionPool(DraftSettingsFactory::make([
             'seed' => 123,
             'factionSets' => [Edition::BASE_GAME],
-            'numberOfFactions' => 3
+            'numberOfFactions' => 3,
         ]));
         $previouslyGeneratedChoices = [
             'The Ghosts of Creuss',
             'The Emirates of Hacan',
-            'The Yssaril Tribes'
+            'The Yssaril Tribes',
         ];
 
         $choices = $generator->handle();
@@ -76,17 +78,17 @@ class GenerateFactionPoolTest extends TestCase
     }
 
     #[Test]
-    public function itTakesFromSetsWhenNotEnoughCustomFactionsAreProvided()
+    public function itTakesFromSetsWhenNotEnoughCustomFactionsAreProvided(): void
     {
         $customFactions = [
             'The Ghosts of Creuss',
             'The Emirates of Hacan',
-            'The Yssaril Tribes'
+            'The Yssaril Tribes',
         ];
         $generator = new GenerateFactionPool(DraftSettingsFactory::make([
             'factionSets' => [Edition::BASE_GAME],
             'customFactions' => $customFactions,
-            'numberOfFactions' => 10
+            'numberOfFactions' => 10,
         ]));
 
         $choices = $generator->handle();

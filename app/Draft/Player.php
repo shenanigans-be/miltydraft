@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
 use App\Draft\Exceptions\InvalidClaimException;
@@ -15,7 +17,7 @@ class Player
         public readonly ?string $pickedPosition = null,
         public readonly ?string $pickedFaction = null,
         public readonly ?string $pickedSlice = null,
-        public readonly ?string $team = null
+        public readonly ?string $team = null,
     ) {
     }
 
@@ -40,7 +42,7 @@ class Player
             false,
             null,
             null,
-            null
+            null,
         );
     }
 
@@ -53,13 +55,13 @@ class Player
             $this->pickedPosition,
             $this->pickedFaction,
             $this->pickedSlice,
-            $team
+            $team,
         );
     }
 
     public function unclaim(): Player
     {
-        if (!$this->claimed) {
+        if (! $this->claimed) {
             throw InvalidClaimException::playerNotClaimed();
         }
 
@@ -70,7 +72,7 @@ class Player
             $this->pickedPosition,
             $this->pickedFaction,
             $this->pickedSlice,
-            $this->team
+            $this->team,
         );
     }
 
@@ -87,7 +89,7 @@ class Player
             $this->pickedPosition,
             $this->pickedFaction,
             $this->pickedSlice,
-            $this->team
+            $this->team,
         );
     }
 

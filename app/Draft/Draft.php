@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
 use App\TwilightImperium\Faction;
@@ -33,6 +35,7 @@ class Draft
         $players = array_reduce($data['draft']['players'], function ($players, $playerData) {
             $player = Player::fromJson($playerData);
             $players[$player->id->value] = $player;
+
             return $players;
         }, []);
 
@@ -45,7 +48,7 @@ class Draft
             self::slicesFromJson($data['slices']),
             self::factionsFromJson($data['factions']),
             array_map(fn ($logData) => Pick::fromJson($logData), $data['draft']['log']),
-            PlayerId::fromString($data['draft']['current'])
+            PlayerId::fromString($data['draft']['current']),
         );
     }
 
@@ -55,15 +58,16 @@ class Draft
     private static function slicesFromJson($slicesData): array
     {
         $allTiles = Tile::all();
+
         return array_map(function (array $sliceData) use ($allTiles) {
             $tiles = array_map(
                 fn (string|int $tileId) => $allTiles[$tileId],
-                $sliceData['tiles']
+                $sliceData['tiles'],
             );
+
             return new Slice($tiles);
         }, $slicesData);
     }
-
 
     /**
      * @return array<Faction>
@@ -71,6 +75,7 @@ class Draft
     private static function factionsFromJson($factionNames): array
     {
         $allFactions = Faction::all();
+
         return array_map(function (string $name) use ($allFactions) {
             return $allFactions[$name];
         }, $factionNames);
@@ -89,8 +94,8 @@ class Draft
             'config' => $this->settings->toArray(),
             'draft' => [
                 'players' => array_map(fn (Player $player) => $player->toArray(), $this->players),
-                'log' =>  array_map(fn (Pick $pick) => $pick->toArray(), $this->log),
-                'current' => $this->currentPlayerId->value
+                'log' => array_map(fn (Pick $pick) => $pick->toArray(), $this->log),
+                'current' => $this->currentPlayerId->value,
             ],
             'factions' => array_map(fn (Faction $f) => $f->name, $this->factionPool),
             'slices' => array_map(fn (Slice $s) => ['tiles' => $s->tileIds()], $this->slicePool),
@@ -107,6 +112,7 @@ class Draft
     {
         $doneSteps = count($this->log);
         $snakeDraft = array_merge(array_keys($this->players), array_keys(array_reverse($this->players)));
+
         return PlayerId::fromString($snakeDraft[$doneSteps % count($snakeDraft)]);
     }
 
@@ -119,6 +125,5 @@ class Draft
     {
         return $this->players[$id->value] ?? throw new \Exception('Player not found in draft');
     }
-
 
 }

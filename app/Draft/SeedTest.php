@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft;
 
 use App\Testing\TestCase;
@@ -11,21 +13,21 @@ class SeedTest extends TestCase
     private const TEST_SLICE_TRIES = 3;
 
     #[Test]
-    public function itCanGenerateASeed()
+    public function itCanGenerateASeed(): void
     {
         $seed = new Seed();
         $this->assertIsInt($seed->getValue());
     }
 
     #[Test]
-    public function itCanUseAUserSeed()
+    public function itCanUseAUserSeed(): void
     {
         $seed = new Seed(self::TEST_SEED);
         $this->assertSame(self::TEST_SEED, $seed->getValue());
     }
 
     #[Test]
-    public function itCanSetTheFactionSeed()
+    public function itCanSetTheFactionSeed(): void
     {
         $seed = new Seed(self::TEST_SEED);
         $seed->setForFactions();
@@ -35,7 +37,7 @@ class SeedTest extends TestCase
     }
 
     #[Test]
-    public function itCanSetTheSliceSeed()
+    public function itCanSetTheSliceSeed(): void
     {
         $seed = new Seed(self::TEST_SEED);
         $seed->setForSlices(self::TEST_SLICE_TRIES);
@@ -45,7 +47,7 @@ class SeedTest extends TestCase
     }
 
     #[Test]
-    public function itCanSetThePlayerOrderSeed()
+    public function itCanSetThePlayerOrderSeed(): void
     {
         $seed = new Seed(self::TEST_SEED);
         $seed->setForPlayerOrder();
@@ -55,20 +57,20 @@ class SeedTest extends TestCase
     }
 
     #[Test]
-    public function arraysAreShuffledPredictablyWhenSeedIsSet()
+    public function arraysAreShuffledPredictablyWhenSeedIsSet(): void
     {
         $seed = new Seed(self::TEST_SEED);
         $seed->setForFactions();
 
         $a = [
-            "a", "b", "c", "d", "f", "e", "g"
+            'a', 'b', 'c', 'd', 'f', 'e', 'g',
         ];
 
         shuffle($a);
 
         // pre-calculated using TEST_SEED + factions
         $newOrder = [
-            "a", "g", "e", "f", "d", "c", "b"
+            'a', 'g', 'e', 'f', 'd', 'c', 'b',
         ];
 
         foreach ($a as $idx => $value) {

@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\RequestHandlers;
 
 use App\Draft\Draft;
 use App\Draft\Exceptions\DraftRepositoryException;
-use App\Http\ErrorResponse;
-use App\Http\HttpRequest;
 use App\Http\RequestHandler;
 
 abstract class DraftRequestHandler extends RequestHandler

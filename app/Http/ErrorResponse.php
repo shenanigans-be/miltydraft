@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http;
 
 class ErrorResponse extends JsonResponse
@@ -7,10 +9,10 @@ class ErrorResponse extends JsonResponse
     public function __construct(
         protected string $error,
         public int $code = 500,
-        public bool $showErrorPage = false
+        public bool $showErrorPage = false,
     ) {
         parent::__construct([
-            "error" => $this->error
+            'error' => $this->error,
         ], $code);
     }
 
@@ -18,7 +20,7 @@ class ErrorResponse extends JsonResponse
     {
         if ($this->showErrorPage) {
             return HtmlResponse::renderTemplate('templates/error.php', [
-                'error' => $this->error
+                'error' => $this->error,
             ]);
         } else {
             // return json

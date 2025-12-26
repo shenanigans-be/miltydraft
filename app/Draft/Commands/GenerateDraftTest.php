@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Draft\Commands;
 
 use App\Draft\Player;
@@ -11,7 +13,7 @@ use PHPUnit\Framework\Attributes\Test;
 class GenerateDraftTest extends TestCase
 {
     #[Test]
-    public function itCanGenerateADraftBasedOnSettings()
+    public function itCanGenerateADraftBasedOnSettings(): void
     {
         // don't have to check slices and factions, that's tested in their respective generators
         $settings = DraftSettingsFactory::make([
@@ -26,7 +28,7 @@ class GenerateDraftTest extends TestCase
     }
 
     #[Test]
-    public function itCanGeneratePlayerData()
+    public function itCanGeneratePlayerData(): void
     {
         $originalPlayerNames = ['Alice', 'Bob', 'Christine', 'David'];
         $settings = DraftSettingsFactory::make([
@@ -51,12 +53,12 @@ class GenerateDraftTest extends TestCase
     }
 
     #[Test]
-    public function itCanGeneratePlayerDataInPresetOrder()
+    public function itCanGeneratePlayerDataInPresetOrder(): void
     {
         $originalPlayerNames = ['Alice', 'Bob', 'Christine', 'David'];
         $settings = DraftSettingsFactory::make([
             'playerNames' => $originalPlayerNames,
-            'presetDraftOrder' => true
+            'presetDraftOrder' => true,
         ]);
         $generator = new GenerateDraft($settings);
 
@@ -72,14 +74,14 @@ class GenerateDraftTest extends TestCase
     }
 
     #[Test]
-    public function itCanGeneratePlayerDataForAlliances()
+    public function itCanGeneratePlayerDataForAlliances(): void
     {
         $originalPlayerNames = ['Alice', 'Bob', 'Christine', 'David', 'Elliot', 'Frank'];
         $settings = DraftSettingsFactory::make([
             'playerNames' => $originalPlayerNames,
             'allianceMode' => true,
             'allianceTeamMode' => AllianceTeamMode::PRESET,
-            'presetDraftOrder' => true
+            'presetDraftOrder' => true,
         ]);
         $generator = new GenerateDraft($settings);
         $draft = $generator->handle();

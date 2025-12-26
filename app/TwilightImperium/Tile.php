@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\TwilightImperium;
 
@@ -12,7 +13,7 @@ class Tile
     public float $optimalTotal = 0;
 
     /**
-     * @var array<string, Faction> $allTileData
+     * @var array<string, Faction>
      */
     private static array $allTileData;
 
@@ -51,7 +52,7 @@ class Tile
     public static function fromJsonData(
         string $id,
         TileTier $tier,
-        array $data
+        array $data,
     ): self {
         return new self(
             $id,
@@ -85,7 +86,6 @@ class Tile
         return false;
     }
 
-
     /**
      * @todo deprecate
      *
@@ -95,7 +95,7 @@ class Tile
     public static function countSpecials(array $tiles)
     {
         $count = [
-            "legendary" => 0
+            'legendary' => 0,
         ];
         foreach(Wormhole::cases() as $wormhole) {
             $count[$wormhole->value] = 0;
@@ -106,7 +106,7 @@ class Tile
                 $count[$w->value]++
             ];
 
-            if ($tile->hasLegendaryPlanet()) $count["legendary"]++;
+            if ($tile->hasLegendaryPlanet()) $count['legendary']++;
         }
 
         return $count;
@@ -136,7 +136,7 @@ class Tile
      */
     public static function all(): array
     {
-        if (!isset(self::$allTileData)) {
+        if (! isset(self::$allTileData)) {
             $allTileData = json_decode(file_get_contents('data/tiles.json'), true);
             $tileTiers = self::tierData();
             /** @var array<string, Tile> $tiles */
@@ -146,15 +146,15 @@ class Tile
             // We're keeping it in separate files for maintainability
             foreach ($allTileData as $tileId => $tileData) {
                 $isMecRexOrMallice = count($tileData['planets']) > 0 &&
-                    ($tileData['planets'][0]['name'] == "Mecatol Rex" || $tileData['planets'][0]['name'] == "Mallice");
+                    ($tileData['planets'][0]['name'] == 'Mecatol Rex' || $tileData['planets'][0]['name'] == 'Mallice');
 
                 $tier = match($tileData['type']) {
-                    "red" => TileTier::RED,
-                    "blue" => $isMecRexOrMallice ? TileTier::NONE : $tileTiers[$tileId],
-                    default => TileTier::NONE
+                    'red' => TileTier::RED,
+                    'blue' => $isMecRexOrMallice ? TileTier::NONE : $tileTiers[$tileId],
+                    default => TileTier::NONE,
                 };
 
-                $tiles[$tileId] = Tile::fromJsonData($tileId, $tier, $tileData);
+                $tiles[$tileId] = Tile::fromJsonData((string) $tileId, $tier, $tileData);
             }
 
             self::$allTileData = $tiles;

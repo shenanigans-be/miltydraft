@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\TwilightImperium;
 
 /**
@@ -13,9 +15,9 @@ namespace App\TwilightImperium;
  */
 enum TileTier: string
 {
-    case HIGH = "high";
-    case MEDIUM = "mid";
-    case LOW = "low";
-    case RED = "red";
-    case NONE = "none";
+    case HIGH = 'high';
+    case MEDIUM = 'mid';
+    case LOW = 'low';
+    case RED = 'red';
+    case NONE = 'none';
 }

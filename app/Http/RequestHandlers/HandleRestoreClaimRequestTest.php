@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\RequestHandlers;
 
 use App\Draft\Commands\ClaimPlayer;
@@ -15,13 +17,13 @@ class HandleRestoreClaimRequestTest extends RequestHandlerTestCase
     protected string $requestHandlerClass = HandleRestoreClaimRequest::class;
 
     #[Test]
-    public function itIsConfiguredAsRouteHandler()
+    public function itIsConfiguredAsRouteHandler(): void
     {
         $this->assertIsConfiguredAsHandlerForRoute('/api/restore');
     }
 
     #[Test]
-    public function itReturnsJson()
+    public function itReturnsJson(): void
     {
         $response = $this->handleRequest(['draft' => $this->testDraft->id, 'secret' => $this->testDraft->secrets->adminSecret]);
         $this->assertResponseOk($response);
@@ -29,19 +31,19 @@ class HandleRestoreClaimRequestTest extends RequestHandlerTestCase
     }
 
     #[Test]
-    public function itCanRestoreAnAdminClaim()
+    public function itCanRestoreAnAdminClaim(): void
     {
         $adminSecret = $this->testDraft->secrets->adminSecret;
         $response = $this->handleRequest(['draft' => $this->testDraft->id, 'secret' => $adminSecret]);
         $this->assertResponseOk($response);
         $this->assertJsonResponseSame([
             'admin' => $adminSecret,
-            'success' => true
+            'success' => true,
         ], $response);
     }
 
     #[Test]
-    public function itCanRestoreAPlayerClaim()
+    public function itCanRestoreAPlayerClaim(): void
     {
         $playerId = array_keys($this->testDraft->players)[0];
 
@@ -53,21 +55,21 @@ class HandleRestoreClaimRequestTest extends RequestHandlerTestCase
         $this->assertJsonResponseSame([
             'player' => $playerId,
             'secret' => $playerSecret,
-            'success' => true
+            'success' => true,
         ], $response);
     }
 
     #[Test]
-    public function itThrowsAnErrorIfDraftDoesntExist()
+    public function itThrowsAnErrorIfDraftDoesntExist(): void
     {
-        $response = $this->handleRequest(['draft' => '1234', 'secret' => "blabla"]);
+        $response = $this->handleRequest(['draft' => '1234', 'secret' => 'blabla']);
         $this->assertResponseNotFound($response);
     }
 
     #[Test]
-    public function itThrowsAnErrorIfNoPlayerWasFound()
+    public function itThrowsAnErrorIfNoPlayerWasFound(): void
     {
-        $response = $this->handleRequest(['draft' => $this->testDraft->id, 'secret' => "blabla"]);
+        $response = $this->handleRequest(['draft' => $this->testDraft->id, 'secret' => 'blabla']);
         $this->assertForbidden($response);
     }
 }

@@ -24,5 +24,7 @@ jobs:
           - data
     steps:
       - uses: actions/checkout@v5
+      - name: Disable Xdebug
+        run: sudo phpdismod xdebug
       - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress
       - run: composer paratest -- --processes=4 --testsuite ${{ matrix.testsuite }}

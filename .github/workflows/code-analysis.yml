@@ -1,4 +1,4 @@
-name: test
+name: code-analysis
 
 on:
   pull_request:
@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      - name: Disable Xdebug
+        run: sudo phpdismod xdebug
       - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress
       - run: composer cs:check
       - run: composer phpstan

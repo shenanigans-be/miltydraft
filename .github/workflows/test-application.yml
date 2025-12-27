@@ -27,6 +27,6 @@ jobs:
       - name: Disable Xdebug
         run: sudo phpdismod xdebug
       - name: Create test folder
-        run: mkdir tmp/test-drafts
+        run: mkdir tmp && mkdir tmp/test-drafts
       - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress
       - run: composer paratest -- --processes=4 --testsuite ${{ matrix.testsuite }}

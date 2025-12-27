@@ -6,6 +6,7 @@ namespace App\Draft\Commands;
 
 use App\Draft\Exceptions\InvalidDraftSettingsException;
 use App\Draft\Slice;
+use App\Shared\Command;
 use App\Testing\Factories\DraftSettingsFactory;
 use App\Testing\TestCase;
 use App\Testing\TestSets;
@@ -18,6 +19,13 @@ use PHPUnit\Framework\Attributes\Test;
 
 class GenerateSlicePoolTest extends TestCase
 {
+    #[Test]
+    public function itImplementsCommand(): void
+    {
+        $cmd = new GenerateSlicePool(DraftSettingsFactory::make());
+        $this->assertInstanceOf(Command::class, $cmd);
+    }
+
     #[Test]
     #[DataProviderExternal(TestSets::class, 'setCombinations')]
     public function itGathersTheCorrectTiles($sets): void

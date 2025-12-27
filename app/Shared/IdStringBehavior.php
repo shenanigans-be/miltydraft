@@ -24,4 +24,9 @@ trait IdStringBehavior
     {
         return $this->value;
     }
+
+    public function equals(\Stringable $other): bool
+    {
+        return $other->__toString() === $this->__toString();
+    }
 }

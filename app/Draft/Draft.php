@@ -48,7 +48,7 @@ class Draft
             self::slicesFromJson($data['slices']),
             self::factionsFromJson($data['factions']),
             array_map(fn ($logData) => Pick::fromJson($logData), $data['draft']['log']),
-            PlayerId::fromString($data['draft']['current']),
+            $data['draft']['current'] != null ? PlayerId::fromString($data['draft']['current']) : null,
         );
     }
 
@@ -95,7 +95,7 @@ class Draft
             'draft' => [
                 'players' => array_map(fn (Player $player) => $player->toArray(), $this->players),
                 'log' => array_map(fn (Pick $pick) => $pick->toArray(), $this->log),
-                'current' => $this->currentPlayerId->value,
+                'current' => $this->currentPlayerId?->value,
             ],
             'factions' => array_map(fn (Faction $f) => $f->name, $this->factionPool),
             'slices' => array_map(fn (Slice $s) => ['tiles' => $s->tileIds()], $this->slicePool),
@@ -108,12 +108,18 @@ class Draft
         return $data;
     }
 
-    public function determineCurrentPlayer(): PlayerId
+    public function updateCurrentPlayer(): void
     {
         $doneSteps = count($this->log);
         $snakeDraft = array_merge(array_keys($this->players), array_keys(array_reverse($this->players)));
 
-        return PlayerId::fromString($snakeDraft[$doneSteps % count($snakeDraft)]);
+        if (count($this->log) >= (count($this->players) * 3)) {
+            $this->isDone = true;
+            $this->currentPlayerId = null;
+        } else {
+            $this->isDone = false;
+            $this->currentPlayerId = PlayerId::fromString($snakeDraft[$doneSteps % count($snakeDraft)]);
+        }
     }
 
     public function canRegenerate(): bool
@@ -123,7 +129,22 @@ class Draft
 
     public function playerById(PlayerId $id): Player
     {
-        return $this->players[$id->value] ?? throw new \Exception('Player not found in draft');
+        foreach ($this->players as $p) {
+            if ($p->id->equals($id)) {
+                return $p;
+            }
+        }
+
+        throw new \Exception('No player found with id ' . $id->value);
+    }
+
+    public function updatePlayerData(Player $newPlayerData): void
+    {
+        if (! isset($this->players[$newPlayerData->id->value])) {
+            throw new \Exception('No player found with id ' . $newPlayerData->id->value);
+        }
+
+        $this->players[$newPlayerData->id->value] = $newPlayerData;
     }
 
 }

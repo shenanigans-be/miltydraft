@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Draft;
 
+use App\Draft\Commands\GenerateDraft;
 use App\Testing\Factories\DraftSettingsFactory;
 use App\Testing\TestCase;
 use App\Testing\TestDrafts;
@@ -86,5 +87,41 @@ class DraftTest extends TestCase
         foreach($draft->slicePool as $slice) {
             $this->assertContains(['tiles' => $slice->tileIds()], $data['slices']);
         }
+    }
+
+    #[Test]
+    public function itCanUpdatePlayerData(): void
+    {
+        $draft = (new GenerateDraft(DraftSettingsFactory::make()))->handle();
+
+        $playerId = PlayerId::fromString(array_keys($draft->players)[3]);
+
+        $player = $draft->playerById($playerId);
+
+        $newPlayerData = $player->pick(new Pick($playerId, PickCategory::FACTION, 'Xxcha'));
+
+        $draft->updatePlayerData($newPlayerData);
+
+        $this->assertSame($draft->playerById($playerId)->toArray(), $newPlayerData->toArray());
+        $this->assertSame($draft->playerById($playerId)->getPick(PickCategory::FACTION), 'Xxcha');
+    }
+
+    #[Test]
+    public function itCanUpdateCurrentPlayerInSnakeDraft(): void
+    {
+        $draft = (new GenerateDraft(DraftSettingsFactory::make()))->handle();
+
+        // the order for three rounds: Regular + Reverse + Regular
+        $order = array_merge(array_keys($draft->players), array_keys(array_reverse($draft->players)), array_keys($draft->players));
+
+        foreach($order as $expectedCurrentPlayer) {
+            $this->assertSame($draft->currentPlayerId->value, $expectedCurrentPlayer);
+            $draft->log[] = new Pick($draft->currentPlayerId, PickCategory::FACTION, 'foo');
+            $draft->updateCurrentPlayer();
+        }
+
+        // it sets the draft to done at the end
+        $this->assertNull($draft->currentPlayerId);
+        $this->assertTrue($draft->isDone);
     }
 }

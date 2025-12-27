@@ -43,9 +43,4 @@ class TilePool
     {
         return array_merge($this->highTier, $this->midTier, $this->lowTier, $this->redTier);
     }
-
-    public function slices(): array
-    {
-
-    }
 }

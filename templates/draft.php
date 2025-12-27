@@ -9,13 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= $draft->settings->name ?> | TI4 - Milty Draft</title>
-    <link rel="stylesheet" href="<?= url('css/style.css?v=' . env('VERSION')) ?>">
+    <link rel="stylesheet" href="<?= asset_url('css/style.css') ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300&family=Staatliches&display=swap" rel="stylesheet">
 
 
-    <meta property="og:image" content="<?= url('og.png') ?>" />
+    <meta property="og:image" content="<?= asset_url('og.png') ?>" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -430,16 +430,16 @@
         window.routes = {
             "claim": "<?= url('api/claim') ?>",
             "pick": "<?= url('api/pick') ?>",
-            "regenerate": "<?= url('api/generate') ?>",
+            "regenerate": "<?= url('api/regenerate') ?>",
             "tile_images": "<?= url('img/tiles') ?>",
             "data": "<?= url('api/draft/' . $draft->id) ?>",
             "undo": "<?= url('api/undo') ?>",
             "restore": "<?= url('api/restore') ?>"
         }
     </script>
-    <script src="<?= url('js/vendor.js?v=' . env('VERSION')) ?>"></script>
-    <script src="<?= url('js/draft.js?v=' . env('VERSION')) ?>"></script>
-    <script src="<?= url('js/generate-map.js?v=' . env('VERSION')) ?>"></script>
+    <script src="<?= asset_url('js/vendor.js') ?>"></script>
+    <script src="<?= asset_url('js/draft.js') ?>"></script>
+    <script src="<?= asset_url('js/generate-map.js') ?>"></script>
 </body>
 
 </html>

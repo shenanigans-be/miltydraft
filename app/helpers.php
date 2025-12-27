@@ -60,7 +60,7 @@ if (! function_exists('yesno')) {
 }
 
 if (! function_exists('env')) {
-    function env($key, $defaultValue = null): ?string
+    function env($key, $defaultValue = null)
     {
         return $_ENV[$key] ?? $defaultValue;
     }
@@ -88,6 +88,13 @@ if (! function_exists('url')) {
     function url($uri): string
     {
         return env('URL', 'https://milty.shenanigans.be/') . $uri;
+    }
+}
+
+if (! function_exists('asset_url')) {
+    function asset_url($uri): string
+    {
+        return url($uri . '?v=' . (env('DEBUG', false) ? (string) time() : env('VERSION')));
     }
 }
 

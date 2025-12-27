@@ -337,6 +337,7 @@
     "18": {
         "type": "blue",
         "wormhole": null,
+        "nonDraftable": true,
         "planets": [
             {
                 "name": "Mecatol Rex",
@@ -1379,27 +1380,29 @@
       "set": "PoK"
     },
     "79": {
-        "type": "red",
-        "wormhole": "alpha",
-        "anomaly": "asteroid-field",
-        "planets": [],
+      "type": "red",
+      "wormhole": "alpha",
+      "anomaly": "asteroid-field",
+      "planets": [],
       "set": "PoK"
     },
     "80": {
-        "type": "red",
-        "wormhole": null,
-        "anomaly": "supernova",
-        "planets": [],
+      "type": "red",
+      "wormhole": null,
+      "anomaly": "supernova",
+      "planets": [],
       "set": "PoK"
     },
     "81": {
-        "type": "red",
-        "wormhole": null,
-        "anomaly": "muaat-supernova",
-        "planets": [],
-      "set": "PoK"
+      "type": "red",
+      "wormhole": null,
+      "anomaly": "muaat-supernova",
+      "planets": [],
+      "set": "PoK",
+      "nonDraftable": true
     },
     "82": {
+        "nonDraftable": true,
         "type": "blue",
         "wormhole": "all",
         "planets": [
@@ -2163,6 +2166,7 @@
         "type": "blue",
         "wormhole": null,
         "anomaly": null,
+        "nonDraftable": true,
         "planets": [
             {
                 "name": "Mecatol Rex",

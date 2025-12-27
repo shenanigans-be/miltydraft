@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Draft\Commands;
 
+use App\Shared\Command;
 use App\Testing\Factories\DraftSettingsFactory;
 use App\Testing\TestCase;
 use App\Testing\TestSets;
@@ -14,6 +15,13 @@ use PHPUnit\Framework\Attributes\Test;
 
 class GenerateFactionPoolTest extends TestCase
 {
+    #[Test]
+    public function itImplementsCommand(): void
+    {
+        $cmd = new GenerateFactionPool(DraftSettingsFactory::make());
+        $this->assertInstanceOf(Command::class, $cmd);
+    }
+    
     #[Test]
     #[DataProviderExternal(TestSets::class, 'setCombinations')]
     public function itCanGenerateChoicesFromFactionSets($sets): void

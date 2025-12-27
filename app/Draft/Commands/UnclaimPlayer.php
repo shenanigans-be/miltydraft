@@ -22,7 +22,7 @@ class UnclaimPlayer implements Command
 
     public function handle(): void
     {
-        $this->draft->players[$this->playerId->value] = $this->player->unclaim();
+        $this->draft->updatePlayerData($this->player->unclaim());
         $this->draft->secrets->removeSecretForPlayer($this->playerId);
 
         app()->repository->save($this->draft);

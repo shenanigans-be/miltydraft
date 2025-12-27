@@ -13,7 +13,7 @@ class Tile
     public float $optimalTotal = 0;
 
     /**
-     * @var array<string, Faction>
+     * @var array<string, Tile>
      */
     private static array $allTileData;
 
@@ -63,7 +63,7 @@ class Tile
             array_map(fn(array $stationData) => SpaceStation::fromJsonData($stationData), $data['stations'] ?? []),
             Wormhole::fromJsonData($data['wormhole']),
             $data['anomaly'] ?? null,
-            isset($data['hyperlanes']) ? $data['hyperlanes'] : [],
+            $data['hyperlanes'] ?? [],
         );
     }
 
@@ -145,18 +145,23 @@ class Tile
             // merge tier and tile data
             // We're keeping it in separate files for maintainability
             foreach ($allTileData as $tileId => $tileData) {
-                $isMecRexOrMallice = count($tileData['planets']) > 0 &&
-                    ($tileData['planets'][0]['name'] == 'Mecatol Rex' || $tileData['planets'][0]['name'] == 'Mallice');
 
-                $tier = match($tileData['type']) {
-                    'red' => TileTier::RED,
-                    'blue' => $isMecRexOrMallice ? TileTier::NONE : $tileTiers[$tileId],
-                    default => TileTier::NONE,
-                };
+                $nonDraftable = isset($tileData['nonDraftable']) && $tileData['nonDraftable'] == true;
 
-                $tiles[$tileId] = Tile::fromJsonData((string) $tileId, $tier, $tileData);
+                if ($nonDraftable) {
+                    $tier = TileTier::NONE;
+                } else {
+                    $tier = match($tileData['type']) {
+                        'red' => TileTier::RED,
+                        'blue' => $tileTiers[$tileId],
+                        default => TileTier::NONE,
+                    };
+                }
+
+                $tile = Tile::fromJsonData((string) $tileId, $tier, $tileData);
+
+                $tiles[$tileId] = $tile;
             }
-
             self::$allTileData = $tiles;
         }
 

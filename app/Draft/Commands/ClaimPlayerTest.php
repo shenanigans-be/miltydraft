@@ -6,6 +6,7 @@ namespace App\Draft\Commands;
 
 use App\Draft\Exceptions\InvalidClaimException;
 use App\Draft\PlayerId;
+use App\Shared\Command;
 use App\Testing\TestCase;
 use App\Testing\UsesTestDraft;
 use PHPUnit\Framework\Attributes\Test;
@@ -13,6 +14,15 @@ use PHPUnit\Framework\Attributes\Test;
 class ClaimPlayerTest extends TestCase
 {
     use UsesTestDraft;
+
+    #[Test]
+    public function itImplementsCommand(): void
+    {
+        $playerId = PlayerId::fromString(array_key_first($this->testDraft->players));
+        $claimPlayer = new ClaimPlayer($this->testDraft, $playerId);
+
+        $this->assertInstanceOf(Command::class, $claimPlayer);
+    }
 
     #[Test]
     public function itCanClaimAPlayer(): void

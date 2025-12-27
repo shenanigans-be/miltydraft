@@ -121,6 +121,15 @@ class Player
         return $this->pickedPosition != null;
     }
 
+    public function getPick(PickCategory $category): ?string
+    {
+        return match($category) {
+            PickCategory::POSITION => $this->pickedPosition,
+            PickCategory::SLICE => $this->pickedSlice,
+            PickCategory::FACTION => $this->pickedFaction,
+        };
+    }
+
     public function hasPicked(PickCategory $category): bool
     {
         return match($category) {
@@ -130,19 +139,36 @@ class Player
         };
     }
 
-    public function pick(PickCategory $category, string $pick): Player
+    public function pick(Pick $pick): Player
     {
-        if ($this->hasPicked($category)) {
-            throw InvalidPickException::playerHasAlreadyPicked($category);
+        if ($this->hasPicked($pick->category)) {
+            throw InvalidPickException::playerHasAlreadyPicked($pick->category);
         }
 
         return new self(
             $this->id,
             $this->name,
             $this->claimed,
-            $category == PickCategory::POSITION ? $pick : $this->pickedPosition,
-            $category == PickCategory::FACTION ? $pick : $this->pickedFaction,
-            $category == PickCategory::SLICE ? $pick : $this->pickedSlice,
+            $pick->category == PickCategory::POSITION ? $pick->pickedOption : $this->pickedPosition,
+            $pick->category == PickCategory::FACTION ? $pick->pickedOption : $this->pickedFaction,
+            $pick->category == PickCategory::SLICE ? $pick->pickedOption : $this->pickedSlice,
+            $this->team,
+        );
+    }
+
+    public function unpick(PickCategory $category): Player
+    {
+        if (! $this->hasPicked($category)) {
+            throw InvalidPickException::cannotUnpick($category);
+        }
+
+        return new self(
+            $this->id,
+            $this->name,
+            $this->claimed,
+            $category == PickCategory::POSITION ? null : $this->pickedPosition,
+            $category == PickCategory::FACTION ? null : $this->pickedFaction,
+            $category == PickCategory::SLICE ? null : $this->pickedSlice,
             $this->team,
         );
     }

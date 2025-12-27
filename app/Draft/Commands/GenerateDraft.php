@@ -92,20 +92,4 @@ class GenerateDraft implements Command
 
         return $players;
     }
-
-    /**
-     * @return array<string, Player>
-     */
-    protected function generateTeamPlayerData(): array
-    {
-        $teams = $this->generateTeamNames();
-
-        $players = [];
-        foreach ($this->settings->playerNames as $name) {
-            $p = Player::create($name);
-            $players[$p->id->value] = $p;
-        }
-
-        return $players;
-    }
 }

@@ -119,9 +119,9 @@ class PlayerTest extends TestCase
             'A',
         );
 
-        $newPlayerVo = $player->pick($category, 'some-value');
+        $newPlayerVo = $player->pick(new Pick(PlayerId::fromString('1'), $category, 'some-value'));
 
-        $this->assertEquals($player->id, $newPlayerVo->id);
+        $this->assertSame($player->id->value, $newPlayerVo->id->value);
         $this->assertSame($player->name, $newPlayerVo->name);
         $this->assertSame($player->claimed, $newPlayerVo->claimed);
         $this->assertSame($player->team, $newPlayerVo->team);

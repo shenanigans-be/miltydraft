@@ -30,7 +30,7 @@ class Secrets
 
     public static function generateSecret(): string
     {
-        return base64_encode(random_bytes(16));
+        return bin2hex(random_bytes(16));
     }
 
     public function generateSecretForPlayer(PlayerId $playerId): string
@@ -51,7 +51,11 @@ class Secrets
         return $this->playerSecrets[$playerId->value] ?? null;
     }
 
-    public function checkAdminSecret($secret): bool {
+    public function checkAdminSecret(?string $secret): bool {
+        if ($secret == null) {
+            return false;
+        }
+
         return $secret == $this->adminSecret;
     }
 
@@ -65,7 +69,11 @@ class Secrets
         return null;
     }
 
-    public function checkPlayerSecret(PlayerId $id, string $secret): bool {
+    public function checkPlayerSecret(PlayerId $id, ?string $secret): bool {
+        if ($secret == null) {
+            return false;
+        }
+
         return isset($this->playerSecrets[$id->value]) && $secret == $this->playerSecrets[$id->value];
     }
 

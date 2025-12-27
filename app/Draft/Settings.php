@@ -286,4 +286,33 @@ class Settings
     {
         return array_map(fn (Edition $e) => $e->fullName(), $this->tileSets);
     }
+
+    public function withNewSeed(Seed $seed): Settings
+    {
+        return new self(
+            $this->playerNames,
+            $this->presetDraftOrder,
+            $this->name,
+            $seed,
+            $this->numberOfSlices,
+            $this->numberOfFactions,
+            $this->tileSets,
+            $this->factionSets,
+            $this->includeCouncilKeleresFaction,
+            $this->minimumTwoAlphaAndBetaWormholes,
+            $this->maxOneWormholesPerSlice,
+            $this->minimumLegendaryPlanets,
+            $this->minimumOptimalInfluence,
+            $this->minimumOptimalResources,
+            $this->minimumOptimalTotal,
+            $this->maximumOptimalTotal,
+            $this->customFactions,
+            $this->customSlices,
+            $this->allianceMode,
+            $this->allianceTeamMode,
+            $this->allianceTeamPosition,
+            $this->allianceForceDoublePicks,
+        );
+
+    }
 }

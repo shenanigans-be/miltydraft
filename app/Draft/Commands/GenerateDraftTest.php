@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Draft\Commands;
 
 use App\Draft\Player;
+use App\Shared\Command;
 use App\Testing\Factories\DraftSettingsFactory;
 use App\Testing\TestCase;
 use App\TwilightImperium\AllianceTeamMode;
@@ -12,6 +13,13 @@ use PHPUnit\Framework\Attributes\Test;
 
 class GenerateDraftTest extends TestCase
 {
+    #[Test]
+    public function itImplementsCommand(): void
+    {
+        $cmd = new GenerateDraft(DraftSettingsFactory::make());
+        $this->assertInstanceOf(Command::class, $cmd);
+    }
+
     #[Test]
     public function itCanGenerateADraftBasedOnSettings(): void
     {

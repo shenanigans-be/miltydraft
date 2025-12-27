@@ -9,7 +9,6 @@ use App\Draft\Exceptions\InvalidDraftSettingsException;
 use App\Draft\Name;
 use App\Draft\Seed;
 use App\Draft\Settings;
-use App\Http\ErrorResponse;
 use App\Http\HttpRequest;
 use App\Http\HttpResponse;
 use App\Http\RequestHandler;
@@ -32,7 +31,7 @@ class HandleGenerateDraftRequest extends RequestHandler
         try {
             $this->settings->validate();
         } catch (InvalidDraftSettingsException $e) {
-            return new ErrorResponse($e->getMessage(), 400);
+            return $this->error($e->getMessage(), 400);
         }
 
         $draft = dispatch(new GenerateDraft($this->settingsFromRequest()));

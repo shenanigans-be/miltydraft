@@ -81,18 +81,30 @@ class TileDataTest extends TestCase
 
     #[Test]
     #[DataProvider('allJsonTiles')]
-    public function allBlueTilesAreInTiers($id, $data)
+    public function allDraftableBlueTilesAreInTiers($id, $data)
     {
         $tileTiers = Tile::tierData();
 
-        $isMecRexOrMallice = count($data['planets']) > 0 &&
-            ($data['planets'][0]['name'] == "Mecatol Rex" || $data['planets'][0]['name'] == "Mallice");
+        $nonDraftAble = (isset($data['nonDraftable']) && $data['nonDraftable'] == true);
 
-
-        if ($data['type'] == "blue" && !$isMecRexOrMallice) {
+        if ($data['type'] == "blue" && !$nonDraftAble) {
             $this->assertArrayHasKey($id, $tileTiers);
         } else {
             $this->expectNotToPerformAssertions();
+        }
+    }
+
+
+    #[Test]
+    #[DataProvider('allJsonTiles')]
+    public function allNonDraftableTilesAreMarked($id, $data)
+    {
+        $nonDraftAble = (isset($data['nonDraftable']) && $data['nonDraftable'] == true);
+
+        if (in_array($id, ['18', '81', '112', '82'])) {
+            $this->assertTrue($nonDraftAble);
+        } else {
+            $this->assertFalse($nonDraftAble);
         }
     }
 

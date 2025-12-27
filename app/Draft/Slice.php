@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Draft;
 
-use App\Draft\Exceptions\InvalidSliceException;
 use App\TwilightImperium\TechSpecialties;
 use App\TwilightImperium\Tile;
 use App\TwilightImperium\Wormhole;

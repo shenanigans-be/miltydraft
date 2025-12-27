@@ -40,9 +40,12 @@ class Faction
      */
     public static function all(): array
     {
-        $rawData = json_decode(file_get_contents('data/factions.json'), true);
+        if (! isset(self::$allFactionData)) {
+            $rawData = json_decode(file_get_contents('data/factions.json'), true);
+            self::$allFactionData = array_map(fn ($factionData) => self::fromJson($factionData), $rawData);
+        }
 
-        return array_map(fn ($factionData) => self::fromJson($factionData), $rawData);
+        return self::$allFactionData;
     }
 
     //

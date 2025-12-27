@@ -39,7 +39,7 @@ class Slice
     ) {
         // if the slice doesn't have 5 tiles in it, something went awry
         if (count($this->tiles) != 5) {
-            throw InvalidSliceException::notEnoughTiles();
+            throw new \Exception('Slice does not have enough tiles');
         }
 
         foreach ($tiles as $tile) {

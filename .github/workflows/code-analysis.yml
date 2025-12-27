@@ -1,0 +1,24 @@
+name: test
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+  workflow_call:
+
+concurrency:
+  group: 'test-${{ github.ref_name }}'
+  cancel-in-progress: true
+
+env:
+  APP_VERSION: ${{ format('0.0.0-build{0}', github.run_number) }}
+
+jobs:
+  app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress
+      - run: composer cs:check
+      - run: composer phpstan

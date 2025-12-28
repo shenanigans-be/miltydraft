@@ -71,7 +71,7 @@ class HandleGenerateDraftRequest extends RequestHandler
         return new Settings(
             $playerNames,
             $this->request->get('preset_draft_order') == 'on',
-            new Name($this->request->get('name')),
+            new Name($this->request->get('game_name')),
             new Seed($this->request->get('seed') != null ? (int) $this->request->get('seed') : null),
             (int) $this->request->get('num_slices'),
             (int) $this->request->get('num_factions'),

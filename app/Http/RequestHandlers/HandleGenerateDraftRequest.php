@@ -99,7 +99,7 @@ class HandleGenerateDraftRequest extends RequestHandler
         $sets = [Edition::BASE_GAME];
         foreach($this->request->get('tileSets', []) as $key => $value) {
             $edition = Edition::from($key);
-            if ($value == 'on' && !in_array($edition, $sets)) {
+            if ($value == 'on' && ! in_array($edition, $sets)) {
                 $sets[] = $edition;
             }
         }
@@ -115,6 +115,7 @@ class HandleGenerateDraftRequest extends RequestHandler
                 $sets[] = Edition::from($key);
             }
         }
+
         return $sets;
     }
 

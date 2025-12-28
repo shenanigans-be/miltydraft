@@ -264,7 +264,7 @@ class HandleGenerateDraftRequestTest extends RequestHandlerTestCase
         $response = $this->handleRequest([
             'num_players' => 4,
             'player' => ['John', 'Paul', 'George', 'Ringo'],
-            'tileSets' => ['BaseGame'  => 'on', 'PoK' => 'on', 'TE' => 'on'],
+            'tileSets' => ['BaseGame' => 'on', 'PoK' => 'on', 'TE' => 'on'],
             'factionSets' => ['BaseGame' => 'on', 'PoK' => 'on', 'TE' => 'on'],
             'num_slices' => 4,
             'num_factions' => 4,

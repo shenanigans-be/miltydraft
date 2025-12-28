@@ -30,7 +30,7 @@ class Secrets
 
     public static function generateSecret(): string
     {
-        return bin2hex(random_bytes(16));
+        return bin2hex(random_bytes(8));
     }
 
     public function generateSecretForPlayer(PlayerId $playerId): string

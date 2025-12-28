@@ -30,12 +30,11 @@ If you want to, you can add the certificate to your device's truster certificate
 Frontend runs on vanilla JS/jQuery (I'm aware jQuery is a bit of a blast from the past at this point; sue me and/or change it and PR me if you want) and the Back-end is vanilla PHP.
 As such there's no build-system, or compiling required except for the steps described above.
 
-To make this app as lean and mean (and easy to understand for anyone) as possible, external dependencies, both in the front- and backend should be kept to an absolute minimum. 
+To make this app as lean and mean (and easy to understand for anyone) as possible, external dependencies, both in the front- and backend should be kept to an absolute minimum.
 
 ### Understanding the App flow
 
 1. Players come in on index.php and choose their options. 
 2. A JSON config file is created (either locally or remotely, depending on .env settings) with a unique ID
-3. That Draft ID is also the Draft URL: APP_URL/d/{draft-id} (URL rewriting is done via Caddy)
+3. That Draft ID is also the Draft URL: APP_URL/d/{draft-id} (URL rewriting is done via Caddy locally)
 4. Players (or the Admin) make draft choices, which updates the draft json file (with very loose security, since we're assuming a very low amount of bad actors)
-

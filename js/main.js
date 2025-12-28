@@ -1,10 +1,49 @@
 let advanced_open = false;
 let alliance_mode = false;
 
-$(document).ready(function () {
+const EDITIONS = {
+    BASEGAME: {
+        id: 'BaseGame',
+        maxFactions: 17,
+        maxSlices: 5,
+        maxLegendaries: 0,
+    },
+    POK: {
+        id: 'PoK',
+        maxFactions: 7,
+        maxSlices: 4,
+        maxLegendaries: 2,
+    },
+    TE: {
+        id: 'TE',
+        maxFactions: 7,
+        maxSlices: 3,
+        maxLegendaries: 5
+    },
+    DS: {
+        id: 'DS',
+        maxFactions: 24,
+        maxSlices: 0,
+        maxLegendaries: 0
+    },
+    DSPLUS: {
+        id: 'DSPlus',
+        maxFactions: 10,
+        maxSlices: 1,
+        maxLegendaries: 5
+    },
+};
 
-    pok_check();
-    $('#pok').on('change', pok_check);
+$(document).ready(function () {
+    $('input[data-toggle-expansion]').each((_, el) => {
+        toggleExpansion($(el));
+    }).on('change', (e) => {
+        toggleExpansion($(e.currentTarget))
+    });
+
+    // @todo initial check
+    // @todo disable DS/DSPlus when Pok is disabled
+
     $('.draft-faction').on('change', faction_check);
 
     $('#tabs nav a').on('click', function (e) {
@@ -62,16 +101,17 @@ $(document).ready(function () {
         const request = new XMLHttpRequest();
         request.open("POST", routes.generate);
         request.onreadystatechange = function () {
-            if (request.readyState != 4 || request.status != 200) return;
+            if (request.readyState != 4) return;
+
+
 
             let data = JSON.parse(request.responseText);
 
             if (data.error) {
                 $('#error').show().html(data.error);
                 loading(false);
-            } else {
+            } else if (request.status == 200) {
                 localStorage.setItem('admin_' + data.id, data.admin);
-
                 window.location.href = "d/" + data.id + '?fresh=1';
             }
             // alert("Success: " + r.responseText);
@@ -96,6 +136,54 @@ $(document).ready(function () {
     update_alliance_mode();
     init_player_count();
 });
+
+function toggleExpansion($checkbox) {
+    const expansion = $checkbox.data('toggle-expansion');
+    $checkbox.is(':checked') ? enableExpansion(expansion) : disableExpansion(expansion);
+}
+
+function enableExpansion(expansion) {
+    $('[data-expansion="' + expansion + '"]')
+        .prop('disabled', false)
+        .removeClass('disabled');
+    $('.check[data-expansion="' + expansion + '"] input').each((_, el) => {
+        $checkbox = $(el);
+        $checkbox.prop('disabled', false)
+        $checkbox.prop('checked', $checkbox.hasClass('auto-enable'))
+    });
+
+    if (expansion == 'PoK') {
+        toggleDiscordantAvailability(true);
+    }
+}
+
+function toggleDiscordantAvailability(pokIsEnabled) {
+
+    if (pokIsEnabled) {
+        $('[data-toggle-expansion="DS"]').prop('disabled', false).parent().removeClass('disabled');
+        $('[data-toggle-expansion="DSPlus"]').prop('disabled', false).parent().removeClass('disabled');
+    } else {
+        $('[data-toggle-expansion="DS"]').prop('disabled', true).parent().addClass('disabled');
+        $('[data-toggle-expansion="DSPlus"]').prop('disabled', true).parent().addClass('disabled');
+        disableExpansion('DS');
+        disableExpansion('DSPlus');
+    }
+}
+
+function disableExpansion(expansion) {
+    $('[data-expansion="' + expansion + '"]')
+        .prop('disabled', true)
+        .addClass('disabled');
+    $('.check[data-expansion="' + expansion + '"] input').each((_, el) => {
+        $checkbox = $(el);
+        $checkbox.prop('disabled', true)
+        $checkbox.prop('checked', false)
+    });
+
+    if (expansion == 'PoK') {
+        toggleDiscordantAvailability(false);
+    }
+}
 
 function update_alliance_mode() {
     alliance_mode = $('#alliance_toggle').is(':checked');
@@ -134,62 +222,6 @@ function loading(loading = true) {
     } else {
         $('body').removeClass('loading');
     }
-}
-
-function pok_check() {
-    let $pokf = $('#pokf');
-    let $keleres = $('#keleres');
-    let $legendaries = $('#min_legendaries');
-    let $DSTiles = $('#DSTiles');
-    let $discordant = $('#discordant');
-    let $discordantexp = $('#discordantexp');
-
-    if ($('#pok').is(':checked')) {
-
-        // When POK is checked, allow POK dependant items to be selectable
-        $pokf.prop('disabled', false);
-        $pokf.parent().removeClass('disabled'); // I think these all share the same parent now, so additional lines might be moot.
-
-        $keleres.prop('disabled', false);
-        $keleres.parent().removeClass('disabled');
-
-
-        $legendaries.prop('disabled', false);
-        $legendaries.parent().removeClass('disabled');
-
-        $DSTiles.prop('disabled', false);
-        $DSTiles.parent().removeClass('disabled');
-
-        $discordant.prop('disabled', false);
-        $discordant.parent().removeClass('disabled');
-
-        $discordantexp.prop('disabled', false);
-        $discordantexp.parent().removeClass('disabled');
-    } else {
-
-        // When POK is not checked, disable options that depend on POK
-        $pokf.prop('checked', false)
-            .prop('disabled', true);
-        $pokf.parent().addClass('disabled');
-
-        $keleres.prop('checked', false)
-            .prop('disabled', true);
-        $keleres.parent().addClass('disabled');
-
-        $legendaries.val(0)
-            .prop('disabled', true);
-        $legendaries.parent().addClass('disabled');
-
-        $discordant.prop('checked', false)
-            .prop('disabled', true);
-        $discordant.parent().addClass('disabled');
-
-        $discordantexp.prop('checked', false)
-            .prop('disabled', true);
-        $discordantexp.parent().addClass('disabled');
-    }
-
-    faction_check();
 }
 
 

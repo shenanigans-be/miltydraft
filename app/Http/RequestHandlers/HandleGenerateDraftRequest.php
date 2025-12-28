@@ -14,6 +14,7 @@ use App\Http\HttpResponse;
 use App\Http\RequestHandler;
 use App\TwilightImperium\AllianceTeamMode;
 use App\TwilightImperium\AllianceTeamPosition;
+use App\TwilightImperium\Edition;
 
 class HandleGenerateDraftRequest extends RequestHandler
 {
@@ -74,18 +75,8 @@ class HandleGenerateDraftRequest extends RequestHandler
             new Seed($this->request->get('seed') != null ? (int) $this->request->get('seed') : null),
             (int) $this->request->get('num_slices'),
             (int) $this->request->get('num_factions'),
-            Settings::tileSetsFromPayload([
-                'include_pok' => $this->request->get('include_pok') == 'on',
-                'include_ds_tiles' => $this->request->get('include_ds_tiles') == 'on',
-                'include_te_tiles' => $this->request->get('include_te_tiles') == 'on',
-            ]),
-            Settings::factionSetsFromPayload([
-                'include_base_factions' => $this->request->get('include_base_factions') == 'on',
-                'include_pok_factions' => $this->request->get('include_pok_factions') == 'on',
-                'include_te_factions' => $this->request->get('include_te_factions') == 'on',
-                'include_discordant' => $this->request->get('include_discordant') == 'on',
-                'include_discordantexp' => $this->request->get('include_discordantexp') == 'on',
-            ]),
+            $this->tileSetsFromRequest(),
+            $this->factionSetsFromRequest(),
             $this->request->get('include_keleres') == 'on',
             $this->request->get('wormholes', 0) == 1,
             $this->request->get('max_wormhole') == 'on',
@@ -101,6 +92,30 @@ class HandleGenerateDraftRequest extends RequestHandler
             $allianceMode ? AllianceTeamPosition::from($this->request->get('alliance_teams_position')) : null,
             $allianceMode ? $this->request->get('force_double_picks') == 'on' : null,
         );
+    }
+
+    protected function tileSetsFromRequest()
+    {
+        $sets = [Edition::BASE_GAME];
+        foreach($this->request->get('tileSets', []) as $key => $value) {
+            $edition = Edition::from($key);
+            if ($value == 'on' && !in_array($edition, $sets)) {
+                $sets[] = $edition;
+            }
+        }
+
+        return $sets;
+    }
+
+    protected function factionSetsFromRequest()
+    {
+        $sets = [];
+        foreach($this->request->get('factionSets', []) as $key => $value) {
+            if ($value == 'on') {
+                $sets[] = Edition::from($key);
+            }
+        }
+        return $sets;
     }
 
     /** used for tests */

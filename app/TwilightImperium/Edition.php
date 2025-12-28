@@ -6,7 +6,6 @@ namespace App\TwilightImperium;
 
 enum Edition: string
 {
-
     case BASE_GAME = 'BaseGame';
     case PROPHECY_OF_KINGS = 'PoK';
     case THUNDERS_EDGE = 'TE';

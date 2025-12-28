@@ -41,7 +41,7 @@ class InvalidDraftSettingsException extends \Exception
 
     public static function notEnoughSlicesForLegendaryPlanets(): self
     {
-        return new self('Cannot have more slices than legendary planets');
+        return new self('Cannot have more legendary planets than slices');
     }
 
     public static function notEnoughLegendaryPlanets(int $max): self

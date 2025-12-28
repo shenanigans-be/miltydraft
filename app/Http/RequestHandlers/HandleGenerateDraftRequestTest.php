@@ -110,68 +110,44 @@ class HandleGenerateDraftRequestTest extends RequestHandlerTestCase
             'expected' => 7,
             'expectedWhenNotSet' => 0,
         ];
-        yield 'Tile set POK' => [
+        yield 'Tile sets (official)' => [
             'postData' => [
-                'include_pok' => 'on',
+                'tileSets' => ['BaseGame' => 'on', 'PoK' => 'on', 'TE' => 'on'],
             ],
             'field' => 'tileSets',
-            'expected' => [Edition::BASE_GAME, Edition::PROPHECY_OF_KINGS],
+            'expected' => [Edition::BASE_GAME, Edition::PROPHECY_OF_KINGS, Edition::THUNDERS_EDGE],
             'expectedWhenNotSet' => [Edition::BASE_GAME],
         ];
-        yield 'Tile set DS' => [
+        yield 'Tile sets (everything)' => [
             'postData' => [
-                'include_ds_tiles' => 'on',
+                'tileSets' => ['BaseGame' => 'on', 'PoK' => 'on', 'TE' => 'on', 'DSPlus' => 'on'],
             ],
             'field' => 'tileSets',
-            'expected' => [Edition::BASE_GAME, Edition::DISCORDANT_STARS_PLUS],
+            'expected' => [Edition::BASE_GAME, Edition::PROPHECY_OF_KINGS, Edition::THUNDERS_EDGE, Edition::DISCORDANT_STARS_PLUS],
             'expectedWhenNotSet' => [Edition::BASE_GAME],
         ];
-        yield 'Tile set TE' => [
+        yield 'Faction sets (base only)' => [
             'postData' => [
-                'include_te_tiles' => 'on',
-            ],
-            'field' => 'tileSets',
-            'expected' => [Edition::BASE_GAME, Edition::THUNDERS_EDGE],
-            'expectedWhenNotSet' => [Edition::BASE_GAME],
-        ];
-        yield 'Faction set basegame' => [
-            'postData' => [
-                'include_base_factions' => 'on',
+                'factionSets' => ['BaseGame' => 'on'],
             ],
             'field' => 'factionSets',
             'expected' => [Edition::BASE_GAME],
             'expectedWhenNotSet' => [],
         ];
-        yield 'Faction set pok' => [
+        yield 'Faction sets (official)' => [
             'postData' => [
-                'include_pok_factions' => 'on',
+                'factionSets' => ['BaseGame' => 'on', 'PoK' => 'on', 'TE' => 'on'],
             ],
             'field' => 'factionSets',
-            'expected' => [Edition::PROPHECY_OF_KINGS],
+            'expected' => [Edition::BASE_GAME, Edition::PROPHECY_OF_KINGS, Edition::THUNDERS_EDGE],
             'expectedWhenNotSet' => [],
         ];
-        yield 'Faction set te' => [
+        yield 'Faction sets (all)' => [
             'postData' => [
-                'include_te_factions' => 'on',
+                'factionSets' => ['BaseGame' => 'on', 'PoK' => 'on', 'TE' => 'on', 'DS' => 'on', 'DSPlus' => 'on'],
             ],
             'field' => 'factionSets',
-            'expected' => [Edition::THUNDERS_EDGE],
-            'expectedWhenNotSet' => [],
-        ];
-        yield 'Faction set ds' => [
-            'postData' => [
-                'include_discordant' => 'on',
-            ],
-            'field' => 'factionSets',
-            'expected' => [Edition::DISCORDANT_STARS],
-            'expectedWhenNotSet' => [],
-        ];
-        yield 'Faction set ds+' => [
-            'postData' => [
-                'include_discordantexp' => 'on',
-            ],
-            'field' => 'factionSets',
-            'expected' => [Edition::DISCORDANT_STARS_PLUS],
+            'expected' => [Edition::BASE_GAME, Edition::PROPHECY_OF_KINGS, Edition::THUNDERS_EDGE, Edition::DISCORDANT_STARS, Edition::DISCORDANT_STARS_PLUS],
             'expectedWhenNotSet' => [],
         ];
         yield 'Council Keleres' => [
@@ -288,11 +264,10 @@ class HandleGenerateDraftRequestTest extends RequestHandlerTestCase
         $response = $this->handleRequest([
             'num_players' => 4,
             'player' => ['John', 'Paul', 'George', 'Ringo'],
-            'include_pok' => true,
+            'tileSets' => ['BaseGame'  => 'on', 'PoK' => 'on', 'TE' => 'on'],
+            'factionSets' => ['BaseGame' => 'on', 'PoK' => 'on', 'TE' => 'on'],
             'num_slices' => 4,
             'num_factions' => 4,
-            'include_pok_factions' => true,
-            'include_base_factions' => true,
         ]);;
 
         $this->assertCommandWasDispatched(GenerateDraft::class);

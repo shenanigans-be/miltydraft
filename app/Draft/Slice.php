@@ -122,10 +122,14 @@ class Slice
 
     public function arrange(Seed $seed): bool {
         $tries = 0;
+        // always shuffle at least once
+        $seed->setForSlices($tries);
+        shuffle($this->tiles);
+
         while (! $this->tileArrangementIsValid()) {
+            $tries++;
             $seed->setForSlices($tries);
             shuffle($this->tiles);
-            $tries++;
 
             if ($tries > self::MAX_ARRANGEMENT_TRIES) {
                 return false;

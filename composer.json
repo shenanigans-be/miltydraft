@@ -2,11 +2,31 @@
     "require": {
         "vlucas/phpdotenv": "^5.4",
         "aws/aws-sdk-php": "^3.339",
-        "ext-json": "*"
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.9"
     },
     "autoload": {
+        "files": [
+          "app/helpers.php"
+        ],
         "psr-4": {
             "App\\": "app/"
         }
+    },
+    "scripts": {
+      "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G --ansi",
+      "paratest": [
+        "Composer\\Config::disableProcessTimeout",
+        "vendor/bin/paratest -p12 --passthru-php=\"'-d' 'memory_limit=2G'\""
+      ],
+      "cs:check": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --verbose --dry-run",
+      "cs:fix": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --verbose",
+      "phpunit": "vendor/bin/phpunit $1"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "brianium/paratest": "^7.8",
+        "fakerphp/faker": "^1.24",
+        "friendsofphp/php-cs-fixer": "^3.92"
     }
 }

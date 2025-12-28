@@ -149,11 +149,11 @@ $(document).ready(function () {
                     url: window.routes.regenerate,
                     dataType: 'json',
                     data: {
-                        'regen': draft.id,
+                        'id': draft.id,
                         'admin': localStorage.getItem('admin_' + draft.id),
-                        'shuffle_slices': $('#shuffle_slices').is(':checked'),
-                        'shuffle_factions': $('#shuffle_factions').is(':checked'),
-                        'shuffle_order': $('#shuffle_order').is(':checked'),
+                        'slices': $('#shuffle_slices').is(':checked'),
+                        'factions': $('#shuffle_factions').is(':checked'),
+                        'order': $('#shuffle_order').is(':checked'),
                     },
                     success: function (resp) {
                         if (resp.error) {
@@ -176,7 +176,7 @@ $(document).ready(function () {
                     url: window.routes.undo,
                     dataType: 'json',
                     data: {
-                        'draft': draft.id,
+                        'id': draft.id,
                         'admin': localStorage.getItem('admin_' + draft.id),
                     },
                     success: function (resp) {
@@ -331,16 +331,13 @@ function refreshData() {
         type: "GET",
         url: window.routes.data,
         dataType: 'json',
-        data: {
-            'draft': draft.id,
-        },
         success: function (resp) {
             if (resp.error) {
                 $('#error-message').html(resp.error);
                 $('#error-popup').show();
                 loading(false);
             } else {
-                window.draft = resp.draft;
+                window.draft = resp;
                 refresh();
 
                 // if we're looking at the map, regen it
@@ -419,15 +416,16 @@ function draft_status() {
     }
 
     $('#log-content').html(log);
+    $('.player').removeClass('active');
 
     if (draft.done) {
         $('#turn').removeClass('show');
         $('#done').addClass('show');
+        return;
     } else {
         $('#turn').addClass('show');
     }
 
-    $('.player').removeClass('active');
     $('#player-' + current_player.id).addClass('active');
 
     if (IS_ADMIN) {
@@ -541,7 +539,6 @@ function session_status() {
 }
 
 function hide_regen() {
-
     $('#tabs nav a[href="#regen"]').hide();
     $('.regen-help').hide();
 }

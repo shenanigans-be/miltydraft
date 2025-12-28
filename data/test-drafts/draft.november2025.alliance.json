@@ -1,0 +1,242 @@
+{
+  "done": false,
+  "id": "693e9b8424c14",
+  "secrets": {
+    "admin_pass": "84fea5bc6fef48ac892782bcc1d2d865"
+  },
+  "draft": {
+    "players": {
+      "p_9d9b8e01cad9f44e964b31d7a6795882": {
+        "id": "p_9d9b8e01cad9f44e964b31d7a6795882",
+        "name": "Ben",
+        "claimed": false,
+        "position": null,
+        "slice": null,
+        "faction": null,
+        "team": "B"
+      },
+      "p_bd2260ba98e0234d4df6b87595e4843c": {
+        "id": "p_bd2260ba98e0234d4df6b87595e4843c",
+        "name": "Charlie",
+        "claimed": false,
+        "position": null,
+        "slice": null,
+        "faction": null,
+        "team": "B"
+      },
+      "p_5171f5f7525f25642e9293a4dd4832ee": {
+        "id": "p_5171f5f7525f25642e9293a4dd4832ee",
+        "name": "Amy",
+        "claimed": false,
+        "position": null,
+        "slice": null,
+        "faction": null,
+        "team": "A"
+      },
+      "p_47144de1e821f459df3f088a950e8fc2": {
+        "id": "p_47144de1e821f459df3f088a950e8fc2",
+        "name": "Desmond",
+        "claimed": false,
+        "position": null,
+        "slice": null,
+        "faction": null,
+        "team": "A"
+      }
+    },
+    "log": [],
+    "current": "p_9d9b8e01cad9f44e964b31d7a6795882"
+  },
+  "slices": [
+    {
+      "tiles": [
+        29,
+        40,
+        60,
+        46,
+        76
+      ],
+      "specialties": [
+        "biotic"
+      ],
+      "wormholes": [
+        "beta"
+      ],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 10,
+      "total_resources": 5,
+      "optimal_influence": 8.5,
+      "optimal_resources": 2.5
+    },
+    {
+      "tiles": [
+        64,
+        59,
+        67,
+        42,
+        36
+      ],
+      "specialties": [
+        "propulsion"
+      ],
+      "wormholes": [
+        "beta"
+      ],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 7,
+      "total_resources": 9,
+      "optimal_influence": 5,
+      "optimal_resources": 7
+    },
+    {
+      "tiles": [
+        38,
+        37,
+        49,
+        50,
+        61
+      ],
+      "specialties": [
+        "warfare",
+        "warfare"
+      ],
+      "wormholes": [],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 6,
+      "total_resources": 8,
+      "optimal_influence": 6,
+      "optimal_resources": 7
+    },
+    {
+      "tiles": [
+        63,
+        78,
+        32,
+        77,
+        72
+      ],
+      "specialties": [
+        "warfare",
+        "biotic"
+      ],
+      "wormholes": [],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 8,
+      "total_resources": 5,
+      "optimal_influence": 5.5,
+      "optimal_resources": 3.5
+    },
+    {
+      "tiles": [
+        20,
+        71,
+        80,
+        73,
+        44
+      ],
+      "specialties": [
+        "cybernetic"
+      ],
+      "wormholes": [],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 8,
+      "total_resources": 6,
+      "optimal_influence": 4.5,
+      "optimal_resources": 4.5
+    },
+    {
+      "tiles": [
+        26,
+        45,
+        19,
+        75,
+        47
+      ],
+      "specialties": [
+        "cybernetic"
+      ],
+      "wormholes": [
+        "alpha"
+      ],
+      "has_legendaries": false,
+      "legendaries": [],
+      "total_influence": 5,
+      "total_resources": 8,
+      "optimal_influence": 4,
+      "optimal_resources": 6
+    },
+    {
+      "tiles": [
+        43,
+        66,
+        41,
+        24,
+        30
+      ],
+      "specialties": [
+        "warfare"
+      ],
+      "wormholes": [],
+      "has_legendaries": true,
+      "legendaries": [
+        "You may exhaust this card at the end of your turn to place 1 mech from your reinforcements on any planet you control, or draw 1 action card"
+      ],
+      "total_influence": 6,
+      "total_resources": 7,
+      "optimal_influence": 5,
+      "optimal_resources": 6
+    }
+  ],
+  "factions": [
+    "The Naalu Collective",
+    "The Titans of Ul",
+    "The L1z1x Mindnet",
+    "The Federation of Sol",
+    "The Barony of Letnev",
+    "The Xxcha Kingdom",
+    "The Universities of Jol-Nar",
+    "The Mentak Coalition",
+    "The Empyrean"
+  ],
+  "config": {
+    "players": [
+      "Ben",
+      "Charlie",
+      "Amy",
+      "Desmond"
+    ],
+    "name": "Operation Super War",
+    "num_slices": 7,
+    "num_factions": 9,
+    "include_pok": true,
+    "include_ds_tiles": false,
+    "include_te_tiles": false,
+    "include_base_factions": true,
+    "include_pok_factions": true,
+    "include_keleres": false,
+    "include_discordant": false,
+    "include_discordantexp": false,
+    "include_te_factions": false,
+    "preset_draft_order": false,
+    "min_wormholes": 0,
+    "min_legendaries": 0,
+    "max_1_wormhole": false,
+    "minimum_optimal_influence": 4,
+    "minimum_optimal_resources": 2.5,
+    "minimum_optimal_total": 9,
+    "maximum_optimal_total": 13,
+    "custom_factions": null,
+    "custom_slices": null,
+    "alliance": {
+      "alliance_teams": "random",
+      "alliance_teams_position": "neighbors",
+      "force_double_picks": true
+    },
+    "seed": 330899005632699
+  },
+  "name": "Operation Super War"
+}

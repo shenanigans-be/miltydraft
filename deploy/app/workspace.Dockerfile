@@ -1,4 +1,4 @@
-FROM caddy:2.7-builder AS caddy-builder
+FROM caddy:2.11-builder AS caddy-builder
 
 RUN xcaddy build \
     --with github.com/baldinof/caddy-supervisor \

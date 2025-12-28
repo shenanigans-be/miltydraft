@@ -1,0 +1,32 @@
+name: test
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+  workflow_call:
+
+concurrency:
+  group: 'test-${{ github.ref_name }}'
+  cancel-in-progress: true
+
+env:
+  APP_VERSION: ${{ format('0.0.0-build{0}', github.run_number) }}
+
+jobs:
+  app:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        testsuite:
+          - core
+          - data
+    steps:
+      - uses: actions/checkout@v5
+      - name: Disable Xdebug
+        run: sudo phpdismod xdebug
+      - name: Create test folder
+        run: mkdir tmp && mkdir tmp/test-drafts
+      - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress
+      - run: composer paratest -- --processes=4 --testsuite ${{ matrix.testsuite }}

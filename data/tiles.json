@@ -12,7 +12,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+        "set": "BaseGame"
     },
     "2": {
         "type": "green",
@@ -27,7 +28,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "3": {
         "type": "green",
@@ -42,7 +44,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "4": {
         "type": "green",
@@ -57,7 +60,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "5": {
         "type": "green",
@@ -72,7 +76,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "6": {
         "type": "green",
@@ -87,7 +92,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "7": {
         "type": "green",
@@ -102,7 +108,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "8": {
         "type": "green",
@@ -117,7 +124,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "9": {
         "type": "green",
@@ -140,7 +148,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "10": {
         "type": "green",
@@ -163,7 +172,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "11": {
         "type": "green",
@@ -186,7 +196,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "12": {
         "type": "green",
@@ -209,7 +220,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "13": {
         "type": "green",
@@ -232,7 +244,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "14": {
         "type": "green",
@@ -255,7 +268,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "15": {
         "type": "green",
@@ -278,7 +292,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "16": {
         "type": "green",
@@ -309,17 +324,20 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "17": {
         "type": "green",
         "faction": "The Ghosts of Creuss",
         "wormhole": "delta",
-        "planets": []
+        "planets": [],
+      "set": "BaseGame"
     },
     "18": {
         "type": "blue",
         "wormhole": null,
+        "nonDraftable": true,
         "planets": [
             {
                 "name": "Mecatol Rex",
@@ -329,7 +347,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "19": {
         "type": "blue",
@@ -345,7 +364,8 @@
                     "cybernetic"
                 ]
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "20": {
         "type": "blue",
@@ -359,7 +379,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "21": {
         "type": "blue",
@@ -375,7 +396,8 @@
                     "propulsion"
                 ]
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "22": {
         "type": "blue",
@@ -391,7 +413,8 @@
                     "biotic"
                 ]
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "23": {
         "type": "blue",
@@ -405,7 +428,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "24": {
         "type": "blue",
@@ -421,7 +445,8 @@
                     "warfare"
                 ]
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "25": {
         "type": "blue",
@@ -435,7 +460,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "26": {
         "type": "blue",
@@ -449,7 +475,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "27": {
         "type": "blue",
@@ -473,7 +500,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "28": {
         "type": "blue",
@@ -495,7 +523,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "29": {
         "type": "blue",
@@ -517,7 +546,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "30": {
         "type": "blue",
@@ -539,7 +569,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "31": {
         "type": "blue",
@@ -563,7 +594,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "32": {
         "type": "blue",
@@ -585,7 +617,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "33": {
         "type": "blue",
@@ -607,7 +640,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "34": {
         "type": "blue",
@@ -631,7 +665,8 @@
                     "propulsion"
                 ]
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "35": {
         "type": "blue",
@@ -653,7 +688,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "36": {
         "type": "blue",
@@ -675,7 +711,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "37": {
         "type": "blue",
@@ -699,7 +736,8 @@
                     "warfare"
                 ]
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "38": {
         "type": "blue",
@@ -721,79 +759,92 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "39": {
         "type": "red",
         "wormhole": "alpha",
         "anomaly": null,
-        "planets": []
+        "planets": [],
+      "set": "BaseGame"
     },
     "40": {
         "type": "red",
         "wormhole": "beta",
         "anomaly": null,
-        "planets": []
+        "planets": [],
+      "set": "BaseGame"
     },
     "41": {
         "type": "red",
         "wormhole": null,
         "anomaly": "gravity-rift",
-        "planets": []
+        "planets": [],
+      "set": "BaseGame"
     },
     "42": {
         "type": "red",
         "wormhole": null,
         "anomaly": "nebula",
-        "planets": []
+        "planets": [],
+      "set": "BaseGame"
     },
     "43": {
         "type": "red",
         "wormhole": null,
         "anomaly": "supernova",
-        "planets": []
+        "planets": [],
+      "set": "BaseGame"
     },
     "44": {
         "type": "red",
         "wormhole": null,
         "anomaly": "asteroid-field",
-        "planets": []
+        "planets": [],
+      "set": "BaseGame"
     },
     "45": {
         "type": "red",
         "wormhole": null,
         "anomaly": "asteroid-field",
-        "planets": []
+        "planets": [],
+      "set": "BaseGame"
     },
     "46": {
         "type": "red",
         "wormhole": null,
         "anomaly": null,
-        "planets": []
+        "planets": [],
+      "set": "BaseGame"
     },
     "47": {
         "type": "red",
         "wormhole": null,
         "anomaly": null,
-        "planets": []
+        "planets": [],
+      "set": "BaseGame"
     },
     "48": {
         "type": "red",
         "wormhole": null,
         "anomaly": null,
-        "planets": []
+        "planets": [],
+      "set": "BaseGame"
     },
     "49": {
         "type": "red",
         "wormhole": null,
         "anomaly": null,
-        "planets": []
+        "planets": [],
+      "set": "BaseGame"
     },
     "50": {
         "type": "red",
         "wormhole": null,
         "anomaly": null,
-        "planets": []
+        "planets": [],
+      "set": "BaseGame"
     },
     "51": {
         "type": "green",
@@ -803,10 +854,12 @@
                 "name": "Creuss",
                 "resources": 4,
                 "influence": 2,
+                "trait": [],
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "BaseGame"
     },
     "52": {
         "type": "green",
@@ -821,7 +874,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "53": {
         "type": "green",
@@ -836,7 +890,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "54": {
         "type": "green",
@@ -851,7 +906,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "55": {
         "type": "green",
@@ -866,7 +922,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "56": {
         "type": "green",
@@ -881,7 +938,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "57": {
         "type": "green",
@@ -904,7 +962,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "58": {
         "type": "green",
@@ -935,7 +994,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "59": {
         "type": "blue",
@@ -951,7 +1011,8 @@
                     "propulsion"
                 ]
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "60": {
         "type": "blue",
@@ -965,7 +1026,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "61": {
         "type": "blue",
@@ -981,7 +1043,8 @@
                     "warfare"
                 ]
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "62": {
         "type": "blue",
@@ -997,7 +1060,8 @@
                     "cybernetic"
                 ]
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "63": {
         "type": "blue",
@@ -1013,7 +1077,8 @@
                     "biotic"
                 ]
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "64": {
         "type": "blue",
@@ -1027,7 +1092,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "65": {
         "type": "blue",
@@ -1041,7 +1107,8 @@
                 "legendary": "You may exhaust this card at the end of your turn to place up to 2 infantry from your reinforcements on any planet you control",
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "66": {
         "type": "blue",
@@ -1055,7 +1122,8 @@
                 "legendary": "You may exhaust this card at the end of your turn to place 1 mech from your reinforcements on any planet you control, or draw 1 action card",
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "67": {
         "type": "red",
@@ -1070,7 +1138,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "68": {
         "type": "red",
@@ -1085,7 +1154,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "69": {
         "type": "blue",
@@ -1107,7 +1177,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "70": {
         "type": "blue",
@@ -1129,7 +1200,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "71": {
         "type": "blue",
@@ -1151,7 +1223,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "72": {
         "type": "blue",
@@ -1175,7 +1248,8 @@
                     "warfare"
                 ]
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "73": {
         "type": "blue",
@@ -1199,7 +1273,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "74": {
         "type": "blue",
@@ -1223,7 +1298,8 @@
                     "propulsion"
                 ]
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "75": {
         "type": "blue",
@@ -1253,7 +1329,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "76": {
         "type": "blue",
@@ -1285,39 +1362,47 @@
                     "biotic"
                 ]
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "77": {
         "type": "red",
         "wormhole": null,
         "anomaly": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "78": {
         "type": "red",
         "wormhole": null,
         "anomaly": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "79": {
-        "type": "red",
-        "wormhole": "alpha",
-        "anomaly": "asteroid-field",
-        "planets": []
+      "type": "red",
+      "wormhole": "alpha",
+      "anomaly": "asteroid-field",
+      "planets": [],
+      "set": "PoK"
     },
     "80": {
-        "type": "red",
-        "wormhole": null,
-        "anomaly": "supernova",
-        "planets": []
+      "type": "red",
+      "wormhole": null,
+      "anomaly": "supernova",
+      "planets": [],
+      "set": "PoK"
     },
     "81": {
-        "type": "red",
-        "wormhole": null,
-        "anomaly": "muaat-supernova",
-        "planets": []
+      "type": "red",
+      "wormhole": null,
+      "anomaly": "muaat-supernova",
+      "planets": [],
+      "set": "PoK",
+      "nonDraftable": true
     },
     "82": {
+        "nonDraftable": true,
         "type": "blue",
         "wormhole": "all",
         "planets": [
@@ -1329,7 +1414,8 @@
                 "legendary": "You may exhaust this card at the end of your turn to gain 2 trade goods or convert all of your commodities into trade goods",
                 "specialties": []
             }
-        ]
+        ],
+      "set": "PoK"
     },
     "83A": {
         "type": "hyperlane",
@@ -1340,7 +1426,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "83B": {
         "type": "hyperlane",
@@ -1359,7 +1446,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "84A": {
         "type": "hyperlane",
@@ -1370,7 +1458,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "84B": {
         "type": "hyperlane",
@@ -1389,7 +1478,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "85A": {
         "type": "hyperlane",
@@ -1400,7 +1490,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "85B": {
         "type": "hyperlane",
@@ -1419,7 +1510,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "86A": {
         "type": "hyperlane",
@@ -1430,7 +1522,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "86B": {
         "type": "hyperlane",
@@ -1449,7 +1542,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "87A": {
         "type": "hyperlane",
@@ -1468,7 +1562,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "87B": {
         "type": "hyperlane",
@@ -1483,7 +1578,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "88A": {
         "type": "hyperlane",
@@ -1502,7 +1598,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "88B": {
         "type": "hyperlane",
@@ -1521,7 +1618,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "89A": {
         "type": "hyperlane",
@@ -1540,7 +1638,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "89B": {
         "type": "hyperlane",
@@ -1555,7 +1654,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "90A": {
         "type": "hyperlane",
@@ -1570,7 +1670,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "90B": {
         "type": "hyperlane",
@@ -1585,7 +1686,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "91A": {
         "type": "hyperlane",
@@ -1604,7 +1706,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "91B": {
         "type": "hyperlane",
@@ -1619,7 +1722,8 @@
             ]
         ],
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "PoK"
     },
     "92": {
       "type": "green",
@@ -1642,7 +1746,8 @@
           "resources": 1,
           "influence": 2
         }
-      ]
+      ],
+      "set": "TE"
     },
     "93": {
       "type": "green",
@@ -1665,13 +1770,15 @@
           "legendary": false,
           "specialties": []
         }
-      ]
+      ],
+      "set": "TE"
     },
     "94": {
       "type": "green",
       "faction": "The Crimson Rebellion",
       "wormhole": "epsilon",
-      "planets": []
+      "planets": [],
+      "set": "TE"
     },
     "95": {
       "type": "green",
@@ -1686,7 +1793,8 @@
           "legendary": false,
           "specialties": []
         }
-      ]
+      ],
+      "set": "TE"
     },
     "96a": {
       "type": "green",
@@ -1709,7 +1817,8 @@
           "legendary": false,
           "specialties": []
         }
-      ]
+      ],
+      "set": "TE"
     },
     "96b": {
       "type": "green",
@@ -1732,7 +1841,8 @@
           "legendary": false,
           "specialties": []
         }
-      ]
+      ],
+      "set": "TE"
     },
     "97": {
         "type": "blue",
@@ -1748,7 +1858,8 @@
                     "biotic"
                 ]
             }
-        ]
+        ],
+      "set": "TE"
     },
     "98": {
         "type": "blue",
@@ -1762,7 +1873,8 @@
                 "legendary": "You may exhaust this card when you pass to place 1 action card from the discard pile faceup on this card; you can purge cards on this card to play them as if they were in your hand.",
                 "specialties": []
             }
-        ]
+        ],
+      "set": "TE"
     },
     "99": {
         "type": "blue",
@@ -1776,7 +1888,8 @@
                 "legendary": "You may exhaust this card at the end of your turn to ready another component that isn't a strategy card.",
                 "specialties": []
             }
-        ]
+        ],
+      "set": "TE"
     },
     "100": {
         "type": "blue",
@@ -1792,7 +1905,8 @@
                     "propulsion"
                 ]
             }
-        ]
+        ],
+      "set": "TE"
     },
     "101": {
         "type": "blue",
@@ -1812,7 +1926,8 @@
                     "warfare"
                 ]
             }
-        ]
+        ],
+      "set": "TE"
     },
     "102": {
         "type": "blue",
@@ -1828,7 +1943,8 @@
                     "propulsion"
                 ]
             }
-        ]
+        ],
+      "set": "TE"
     },
     "103": {
         "type": "blue",
@@ -1845,7 +1961,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "TE"
     },
     "104": {
         "type": "blue",
@@ -1862,7 +1979,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "TE"
     },
     "105": {
         "type": "blue",
@@ -1891,7 +2009,8 @@
                     "biotic"
                 ]
             }
-        ]
+        ],
+      "set": "TE"
     },
     "106": {
         "type": "blue",
@@ -1913,7 +2032,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "TE"
     },
     "107": {
         "type": "blue",
@@ -1938,7 +2058,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "TE"
     },
     "108": {
         "type": "blue",
@@ -1960,7 +2081,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "TE"
     },
     "109": {
         "type": "blue",
@@ -1981,7 +2103,8 @@
                 "resources": 1,
                 "influence": 1
             }
-        ]
+        ],
+      "set": "TE"
     },
     "110": {
         "type": "blue",
@@ -2011,7 +2134,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "TE"
     },
     "111": {
         "type": "blue",
@@ -2035,12 +2159,14 @@
                 "resources": 1,
                 "influence": 1
             }
-        ]
+        ],
+      "set": "TE"
     },
     "112": {
         "type": "blue",
         "wormhole": null,
         "anomaly": null,
+        "nonDraftable": true,
         "planets": [
             {
                 "name": "Mecatol Rex",
@@ -2050,19 +2176,22 @@
                 "legendary": "You may exhaust this card and discard 1 secret objective at the end of your turn to draw 1 secret objective.",
                 "specialties": []
             }
-        ]
+        ],
+      "set": "TE"
     },
     "113": {
         "type": "red",
         "wormhole": "beta",
         "anomaly": "gravity rift",
-        "planets": []
+        "planets": [],
+      "set": "TE"
     },
     "114": {
         "type": "red",
         "wormhole": null,
         "anomaly": "entropic scar",
-        "planets": []
+        "planets": [],
+      "set": "TE"
     },
     "115": {
         "type": "red",
@@ -2079,7 +2208,8 @@
                     "warfare"
                 ]
             }
-        ]
+        ],
+      "set": "TE"
     },
     "116": {
         "type": "red",
@@ -2094,7 +2224,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "TE"
     },
     "117": {
         "type": "red",
@@ -2106,7 +2237,8 @@
                 "resources": 1,
                 "influence": 1
             }
-        ]
+        ],
+      "set": "TE"
     },
     "118": {
       "type": "green",
@@ -2120,11 +2252,12 @@
           "legendary": false,
           "specialties": []
         }
-      ]
+      ],
+      "set": "TE"
     },
     "4200": {
         "type": "green",
-        "faction": "The Veldyr Conglomerate",
+        "faction": "Veldyr Sovereignty",
         "wormhole": null,
         "planets": [
             {
@@ -2135,11 +2268,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4222": {
         "type": "green",
-        "faction": "The Free Systems Compact",
+        "faction": "Free Systems Compact",
         "wormhole": null,
         "planets": [
             {
@@ -2166,11 +2300,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4223": {
         "type": "green",
-        "faction": "The Li-Zho Dynasty",
+        "faction": "Li-Zho Dynasty",
         "wormhole": null,
         "planets": [
             {
@@ -2197,11 +2332,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4201": {
         "type": "green",
-        "faction": "The L'Tokk Khrask",
+        "faction": "L'Tokk Khrask",
         "wormhole": null,
         "planets": [
             {
@@ -2212,11 +2348,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4212": {
         "type": "green",
-        "faction": "The Ghemina Raiders",
+        "faction": "Ghemina Raiders",
         "wormhole": null,
         "planets": [
             {
@@ -2235,11 +2372,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4213": {
         "type": "green",
-        "faction": "The Vaden Banking Clans",
+        "faction": "Vaden Banking Clans",
         "wormhole": null,
         "planets": [
             {
@@ -2258,11 +2396,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4214": {
         "type": "green",
-        "faction": "The Glimmer of Mortheus",
+        "faction": "Glimmer of Mortheus",
         "wormhole": null,
         "planets": [
             {
@@ -2282,11 +2421,12 @@
                 "anomaly": "nebula",
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4215": {
         "type": "green",
-        "faction": "The Augurs of Ilyxum",
+        "faction": "Augurs of Ilyxum",
         "wormhole": null,
         "planets": [
             {
@@ -2305,11 +2445,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4204": {
         "type": "green",
-        "faction": "The Shipwrights of Axis",
+        "faction": "Shipwrights of Axis",
         "wormhole": null,
         "planets": [
             {
@@ -2320,11 +2461,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4205": {
         "type": "green",
-        "faction": "The Olradin League",
+        "faction": "Olradin League",
         "wormhole": null,
         "planets": [
             {
@@ -2335,11 +2477,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4206": {
         "type": "green",
-        "faction": "The Myko-Mentori",
+        "faction": "Myko-Mentori",
         "wormhole": null,
         "planets": [
             {
@@ -2350,11 +2493,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4207": {
         "type": "green",
-        "faction": "The Tnelis Syndicate",
+        "faction": "Tnelis Syndicate",
         "wormhole": null,
         "planets": [
             {
@@ -2365,11 +2509,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4203": {
         "type": "green",
-        "faction": "The Savages of Cymiae",
+        "faction": "Savages of Cymiae",
         "wormhole": null,
         "planets": [
             {
@@ -2380,7 +2525,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4208": {
         "type": "green",
@@ -2395,11 +2541,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4216": {
         "type": "green",
-        "faction": "The Zelian Purifier",
+        "faction": "Zelian Purifier",
         "wormhole": null,
         "planets": [
             {
@@ -2419,11 +2566,12 @@
                 "anomaly": "asteroid-field",
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4209": {
         "type": "green",
-        "faction": "The Vaylerian Scourge",
+        "faction": "Vaylerian Scourge",
         "wormhole": null,
         "planets": [
             {
@@ -2434,11 +2582,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4217": {
         "type": "green",
-        "faction": "The Florzen Profiteers",
+        "faction": "Florzen Profiteers",
         "wormhole": null,
         "planets": [
             {
@@ -2457,11 +2606,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4210": {
         "type": "green",
-        "faction": "The Dih-Mohn Flotilla",
+        "faction": "Dih-Mohn Flotilla",
         "wormhole": null,
         "planets": [
             {
@@ -2472,11 +2622,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4218": {
         "type": "green",
-        "faction": "The Celdauri Trade Confederation",
+        "faction": "Celdauri Trade Confederation",
         "wormhole": null,
         "planets": [
             {
@@ -2495,11 +2646,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4211": {
         "type": "green",
-        "faction": "The Nivyn Star Kings",
+        "faction": "Nivyn Star Kings",
         "wormhole": null,
         "planets": [
             {
@@ -2511,11 +2663,12 @@
                 "anomaly": "gravity-rift",
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4219": {
         "type": "green",
-        "faction": "The Mirveda Protectorate",
+        "faction": "Mirveda Protectorate",
         "wormhole": null,
         "planets": [
             {
@@ -2534,11 +2687,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4220": {
         "type": "green",
-        "faction": "The Kortali Tribunal",
+        "faction": "Kortali Tribunal",
         "wormhole": null,
         "planets": [
             {
@@ -2557,11 +2711,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4202": {
         "type": "green",
-        "faction": "The Kollecc Society",
+        "faction": "Kollecc Society",
         "wormhole": null,
         "planets": [
             {
@@ -2572,11 +2727,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4221": {
         "type": "green",
-        "faction": "The Zealots of Rhodun",
+        "faction": "Zealots of Rhodun",
         "wormhole": null,
         "planets": [
             {
@@ -2595,23 +2751,26 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DS"
     },
     "4224": {
         "type": "red",
         "wormhole": null,
         "anomaly": "zelian-asteroid-field",
-        "planets": []
+        "planets": [],
+      "set": "DS"
     },
     "4225": {
         "type": "red",
         "wormhole": null,
         "anomaly": "myko-cataclysm",
-        "planets": []
+        "planets": [],
+      "set": "DS"
     },
     "4230": {
         "type": "green",
-        "faction": "The Bentor Conglomerate",
+        "faction": "Bentor Conglomerate",
         "wormhole": null,
         "planets": [
             {
@@ -2630,11 +2789,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4231": {
         "type": "green",
-        "faction": "The Nokar Sellships",
+        "faction": "Nokar Sellships",
         "wormhole": null,
         "planets": [
             {
@@ -2653,11 +2813,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4228": {
         "type": "green",
-        "faction": "The Gledge Union",
+        "faction": "Gledge Union",
         "wormhole": null,
         "planets": [
             {
@@ -2668,11 +2829,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4232": {
         "type": "green",
-        "faction": "The Lanefir Remnants",
+        "faction": "Lanefir Remnants",
         "wormhole": null,
         "planets": [
             {
@@ -2691,11 +2853,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4229": {
         "type": "green",
-        "faction": "The Kyro Sodality",
+        "faction": "Kyro Sodality",
         "wormhole": null,
         "planets": [
             {
@@ -2706,13 +2869,15 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4227": {
         "type": "green",
-        "faction": "The Ghoti Wayfarers",
+        "faction": "Ghoti Wayfarers",
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "DSPlus"
     },
     "4233": {
         "type": "green",
@@ -2735,11 +2900,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4234": {
         "type": "green",
-        "faction": "The Cheiran Hordes",
+        "faction": "Cheiran Hordes",
         "wormhole": null,
         "planets": [
             {
@@ -2758,11 +2924,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4236": {
         "type": "green",
-        "faction": "The Edyn Mandate",
+        "faction": "Edyn Mandate",
         "wormhole": null,
         "planets": [
             {
@@ -2789,11 +2956,12 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4235": {
         "type": "green",
-        "faction": "The Berserkers of Kjalengard",
+        "faction": "Berserkers of Kjalengard",
         "wormhole": null,
         "planets": [
             {
@@ -2812,7 +2980,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4253": {
         "type": "blue",
@@ -2826,7 +2995,8 @@
                 "legendary": "You may exhaust this card at the end of your turn to place 1 cruiser from your reinforcements in any system that contains 1 or more of your ships.",
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4254": {
         "type": "blue",
@@ -2840,7 +3010,8 @@
                 "legendary": "You may exhaust this card at the end of your turn to place 1 frontier token in a system that does not contain a planet.",
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4255": {
         "type": "blue",
@@ -2854,7 +3025,8 @@
                 "legendary": "After an agenda is revealed, you may exhaust this card to predict aloud an outcome of that agenda. If your prediction is correct, draw 1 secret objective.",
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4256": {
         "type": "blue",
@@ -2868,7 +3040,8 @@
                 "legendary": "You may exhaust this card at the end of your turn and purge a non-faction, non-unit upgrade technology you own to gain 1 technology with the same number of prerequisites.",
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4257": {
         "type": "blue",
@@ -2882,7 +3055,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4258": {
         "type": "blue",
@@ -2896,7 +3070,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4259": {
         "type": "blue",
@@ -2910,7 +3085,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4260": {
         "type": "blue",
@@ -2924,7 +3100,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4261": {
         "type": "blue",
@@ -2948,7 +3125,8 @@
                     "cybernetic"
                 ]
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4262": {
         "type": "blue",
@@ -2958,7 +3136,7 @@
                 "name": "Dorvok",
                 "resources": 1,
                 "influence": 2,
-                "trait": "industrial'",
+                "trait": "industrial",
                 "legendary": false,
                 "specialties": [
                     "warfare"
@@ -2972,7 +3150,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4263": {
         "type": "blue",
@@ -2982,7 +3161,7 @@
                 "name": "Rysaa",
                 "resources": 1,
                 "influence": 2,
-                "trait": "industrial'",
+                "trait": "industrial",
                 "legendary": false,
                 "specialties": [
                     "propulsion"
@@ -2992,13 +3171,14 @@
                 "name": "Moln",
                 "resources": 2,
                 "influence": 0,
-                "trait": "hazardous'",
+                "trait": "hazardous",
                 "legendary": false,
                 "specialties": [
                     "biotic"
                 ]
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4264": {
         "type": "blue",
@@ -3020,7 +3200,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4265": {
         "type": "blue",
@@ -3042,7 +3223,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4266": {
         "type": "blue",
@@ -3064,7 +3246,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4267": {
         "type": "blue",
@@ -3094,7 +3277,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4268": {
         "type": "blue",
@@ -3124,7 +3308,8 @@
                 "legendary": false,
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4269": {
         "type": "red",
@@ -3139,46 +3324,54 @@
                 "legendary": "You may exhaust this card at the end of your turn to remove 1 of your ships from the game board and place that unit in an adjacent system that does not contain another player\u2019s ships.",
                 "specialties": []
             }
-        ]
+        ],
+      "set": "DSPlus"
     },
     "4270": {
         "type": "red",
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "DSPlus"
     },
     "4271": {
         "type": "red",
         "wormhole": null,
-        "planets": []
+        "planets": [],
+      "set": "DSPlus"
     },
     "4272": {
         "type": "red",
         "wormhole": "beta",
         "anomaly": "nebula",
-        "planets": []
+        "planets": [],
+      "set": "DSPlus"
     },
     "4273": {
         "type": "red",
         "wormhole": null,
         "anomaly": "asteroid-nebula",
-        "planets": []
+        "planets": [],
+      "set": "DSPlus"
     },
     "4274": {
         "type": "red",
         "wormhole": null,
         "anomaly": "asteroid-rift",
-        "planets": []
+        "planets": [],
+      "set": "DSPlus"
     },
     "4275": {
         "type": "red",
         "wormhole": "gamma",
         "anomaly": "gravity rift",
-        "planets": []
+        "planets": [],
+      "set": "DSPlus"
     },
     "4276": {
         "type": "red",
         "wormhole": "alpha-beta",
         "anomaly": "supernova",
-        "planets": []
+        "planets": [],
+      "set": "DSPlus"
     }
 }

@@ -1,0 +1,46 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Draft\Repository;
+
+use App\Draft\Draft;
+use App\Draft\Exceptions\DraftRepositoryException;
+
+class LocalDraftRepository implements DraftRepository
+{
+    private readonly string $storagePath;
+
+    public function __construct()
+    {
+        $this->storagePath = env('STORAGE_PATH');
+    }
+
+    private function pathToDraft(string $draftId)
+    {
+        return $this->storagePath . '/' . 'draft_' . $draftId . '.json';
+    }
+
+    public function load(string $id): Draft
+    {
+        $path = $this->pathToDraft($id);
+
+        if(! file_exists($path)) {
+            throw DraftRepositoryException::notFound($id);
+        }
+
+        $rawDraft = json_decode(file_get_contents($path), true);
+
+        return Draft::fromJson($rawDraft);
+    }
+
+    public function save(Draft $draft): void
+    {
+        file_put_contents($this->pathToDraft($draft->id), $draft->toFileContent());
+    }
+
+    public function delete(string $id): void
+    {
+        unlink($this->pathToDraft($id));
+    }
+}

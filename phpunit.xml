@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
+        backupGlobals="false"
+        bootstrap="vendor/autoload.php"
+        colors="true"
+        processIsolation="false"
+        stopOnFailure="false"
+        displayDetailsOnTestsThatTriggerWarnings="true"
+        cacheDirectory=".phpunit.cache"
+        displayDetailsOnPhpunitDeprecations="true"
+        displayDetailsOnTestsThatTriggerDeprecations="true"
+        backupStaticProperties="false"
+>
+    <testsuites>
+        <testsuite name="core">
+            <directory>./app</directory>
+        </testsuite>
+        <testsuite name="data">
+            <directory>./data</directory>
+        </testsuite>
+    </testsuites>
+    <coverage/>
+    <source>
+        <include>
+            <directory suffix=".php">./app</directory>
+        </include>
+    </source>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="URL" value="http://localhost"/>
+        <env name="STORAGE" value="local"/>
+        <env name="STORAGE_PATH" value="tmp/test-drafts"/>
+    </php>
+</phpunit>

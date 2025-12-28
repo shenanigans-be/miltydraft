@@ -7,13 +7,10 @@ services:
         restart: unless-stopped
         tty: true
         working_dir: /code
-        networks:
-            - backend
         ports:
-            - "${DOCKER_HTTP_PORT:-80}:80"
+            - "80:80"
+            - "443:443"
         volumes:
             - ./:/code:delegated
             - ./deploy/app/php/php.ini:/usr/local/etc/php/conf.d/php.ini
-networks:
-    backend:
-        driver: bridge
+            - ./deploy/app/Caddy/Caddyfile:/etc/caddy/Caddyfile

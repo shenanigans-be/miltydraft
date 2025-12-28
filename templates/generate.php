@@ -1,3 +1,7 @@
+<?php
+    $prefillNames =  get('debug', false) == true;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,12 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TI4 - Milty Draft</title>
-    <link rel="stylesheet" href="<?= url('css/style.css?v=' . ($_ENV['DEBUG'] ? time() : $_ENV['VERSION'])) ?>">
+    <link rel="stylesheet" href="<?= asset_url('css/style.css') ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300&family=Staatliches&display=swap" rel="stylesheet">
 
-    <meta property="og:image" content="<?= url('og.png') ?>" />
+    <meta property="og:image" content="<?= asset_url('og.png') ?>" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -79,28 +83,28 @@
                                 <div class="alliance_team team_a">
                                     <p class="team_label">Team 1</p>
                                     <div class="input player">
-                                        <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Amy") ?>" />
+                                        <input type="text" placeholder="Player Name" name="player[]" value="<?php e($prefillNames, "Amy") ?>" />
                                     </div>
                                     <div class="input player">
-                                        <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Ben") ?>" />
+                                        <input type="text" placeholder="Player Name" name="player[]" value="<?php e($prefillNames, "Ben") ?>" />
                                     </div>
                                 </div>
                                 <div class="alliance_team team_b">
                                     <p class="team_label">Team 2</p>
                                     <div class="input player">
-                                        <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Charlie") ?>" />
+                                        <input type="text" placeholder="Player Name" name="player[]" value="<?php e($prefillNames, "Charlie") ?>" />
                                     </div>
                                     <div class="input player">
-                                        <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Desmond") ?>" />
+                                        <input type="text" placeholder="Player Name" name="player[]" value="<?php e($prefillNames, "Desmond") ?>" />
                                     </div>
                                 </div>
                                 <div class="alliance_team team_c">
                                     <p class="team_label">Team 3</p>
                                     <div class="input player">
-                                        <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Esther") ?>" />
+                                        <input type="text" placeholder="Player Name" name="player[]" value="<?php e($prefillNames, "Esther") ?>" />
                                     </div>
                                     <div class="input player">
-                                        <input type="text" placeholder="Player Name" name="player[]" value="<?= e(get('debug', false), "Frank") ?>" />
+                                        <input type="text" placeholder="Player Name" name="player[]" value="<?php e($prefillNames, "Frank") ?>" />
                                     </div>
                                 </div>
                                 <div class="alliance_team team_d">
@@ -204,66 +208,75 @@
                                     </span>
                             </div>
 
+
+                            <h4>Expansions to use:</h4>
+                            <span class="help">
+                                You can seperately choose which expansions to use for tiles and factions later.
+                            </span>
                             <div class="input">
-                                <label for="pok" class="check">
-                                    <input type="checkbox" name="include_pok" id="pok" checked /> Use Prophecy Of Kings Expansion
+                                <label for="expansion_pok" class="check">
+                                    <input type="checkbox" data-toggle-expansion="PoK" id="expansion_pok" checked class="auto-enable" />Prophecy Of Kings
+                                </label>
+                                <label for="expansion_te" class="check">
+                                    <input type="checkbox" data-toggle-expansion="TE" id="expansion_te" class="auto-enable" />Thunder's Edge
+                                </label>
+                                <label for="expansion_ds" class="check">
+                                    <input type="checkbox" data-toggle-expansion="DS" id="expansion_ds" class="auto-enable" />Discordant Stars
+                                </label>
+                                <label for="expansion_dsplus" class="check">
+                                    <input type="checkbox" data-toggle-expansion="DSPlus" id="expansion_dsplus" class="auto-enable" />Discordant Stars Plus
                                 </label>
                                 <span class="help">
-                                        Include the factions and tiles from the Prophecy of Kings expansion.<br /><br />
-                                        <strong>IMPORTANT NOTE: If you don't include PoK you can only organise drafts up to 5 players (because you can only generate 5 valid slices with the base-game tiles)!</strong>
-                                    </span>
-                            </div>
-                            <div class="input">
-                                <label for="include_ds_tiles" class="check">
-                                    <input type="checkbox" name="include_ds_tiles" id="include_ds_tiles" /> Use Discordant Stars Plus tiles
-                                </label>
-                                <span class="help">
-                                        Include the new tiles from the Unofficial Discordant Stars Plus expansion.
-                                    </span>
-                            </div>
-                            <div class="input">
-                                <label for="include_te_tiles" class="check">
-                                    <input type="checkbox" name="include_te_tiles" id="include_te_tiles" /> Use Thunders Edge tiles
-                                </label>
-                                <span class="help">
-                                        Include the new tiles from the Thunders Edge expansion.
-                                    </span>
+                                    <a target="_blank" href="https://www.reddit.com/r/twilightimperium/comments/pvbbie/discordant_stars_24_homebrew_factions/">Discordant Stars</a> and Discordant Stars Plus are fan made expansion introduced by members of the Discord community.
+                                </span>
                             </div>
 
-                            <h4>Draftable Factions:</h4>
+                            <h4>Factions:</h4>
+                            <span class="help">
+                                Which faction sets should be included as possible draft options?
+                            </span>
                             <div class="input">
-                                <label for="basef" class="check">
-                                    <input type="checkbox" class="draft-faction" data-num="17" data-set="base" name="include_base_factions" id="basef" checked /> Include Base Game
+                                <label for="factions_base" class="check">
+                                    <input type="checkbox" class="draft-faction auto-enable" name="factionSets[BaseGame]" id="factions_base" checked /> Base Game Factions
                                 </label>
-                                <label for="pokf" class="check">
-                                    <input type="checkbox" class="draft-faction" data-num="7" data-set="pok" name="include_pok_factions" id="pokf" checked /> Include Prophecy Of Kings
+                                <label for="factions_pok" class="check" data-expansion="PoK">
+                                    <input type="checkbox" class="draft-faction auto-enable" name="factionSets[PoK]" id="factions_pok" checked /> Prophecy Of Kings
                                 </label>
-                                <label for="keleres" class="check">
-                                    <input type="checkbox" name="include_keleres" class="draft-faction" data-num="1" data-set="keleres" id="keleres" /> Include The Council Keleres
+                                <label for="factions_keleres" class="check" data-expansion="PoK">
+                                    <input type="checkbox" name="include_keleres" class="draft-faction" data-num="1" data-set="keleres" id="factions_keleres" /> Include The Council Keleres
                                 </label>
                                 <span class="help">
-                                        The Council Keleres was introduced in <a target="_blank" href="https://images-cdn.fantasyflightgames.com/filer_public/35/e1/35e10f37-4b6d-4479-a117-4e2c571ddfa7/ti_codex_volume_3_vigil_v2_1-compressed.pdf">Codex III</a>.
-                                        (PoK required). For simplicity's sake I'll leave it up to each group to decide how they want to handle things (including the very limited possibility of all 3 flavours also being picked). Just something to keep in mind.
-                                    </span>
+                                    The Council Keleres was introduced in <a target="_blank" href="https://images-cdn.fantasyflightgames.com/filer_public/35/e1/35e10f37-4b6d-4479-a117-4e2c571ddfa7/ti_codex_volume_3_vigil_v2_1-compressed.pdf">Codex III</a> and is included in Thunder's Edge.
+                                    (PoK or TE required). For simplicity's sake I'll leave it up to each group to decide how they want to handle things (including the very limited possibility of all 3 flavours also being picked). Just something to keep in mind.
+                                </span>
+                                <label for="factions_te" class="check" data-expansion="TE">
+                                    <input type="checkbox" class="draft-faction auto-enable" name="factionSets[TE]" id="factions_te" /> Thunder's Edge
+                                </label>
+                                <label for="factions_ds" class="check" data-expansion="DS">
+                                    <input type="checkbox" class="draft-faction auto-enable" name="factionSets[DS]" id="factions_ds" /> Discordant Stars
+                                </label>
+                                <label for="factions_dsplus" class="check" data-expansion="DSPlus">
+                                    <input type="checkbox" class="draft-faction auto-enable" name="factionSets[DSPlus]" id="factions_dsplus" /> Discordant Stars Plus
+                                </label>
+                            </div>
 
-                                <label for="te_factions" class="check">
-                                    <input type="checkbox" name="include_te_factions" class="draft-faction" data-num="5" data-set="te" id="te_factions" /> Include Thunders Edge
+                            <h4>Tiles:</h4>
+                            <span class="help">
+                                Which tile sets should be included to generate slices?
+                            </span>
+                            <div class="input">
+                                <label for="tiles_base" class="check">
+                                    <input type="checkbox" class="draft-tiles auto-enable" name="tileSets[BaseGame]" id="tiles_base" checked disabled /> Base Game Tiles
                                 </label>
-                                <span class="help">
-                                        Include the 5 new factions from the Thunders Edge expansion.
-                                </span>
-                                <label for="discordant" class="check">
-                                    <input type="checkbox" name="include_discordant" class="draft-faction" data-num="24" data-set="discordant" id="discordant" /> Include Discordant Stars
+                                <label for="tiles_pok" class="check" data-expansion="PoK">
+                                    <input type="checkbox" class="draft-tiles auto-enable" name="tileSets[PoK]" id="tiles_pok" checked /> Prophecy Of Kings
                                 </label>
-                                <span class="help">
-                                        <a target="_blank" href="https://www.reddit.com/r/twilightimperium/comments/pvbbie/discordant_stars_24_homebrew_factions/">Discordant Stars</a> is a fan made faction pack introduced by members of the Discord community.
-                                </span>
-                                <label for="discordantexp" class="check">
-                                    <input type="checkbox" name="include_discordantexp" class="draft-faction" data-num="10" data-set="discordantexp" id="discordantexp" /> Include Discordant Stars Plus
+                                <label for="tiles_te" class="check" data-expansion="TE">
+                                    <input type="checkbox" class="draft-tiles auto-enable" name="tileSets[TE]" id="tiles_te" /> Thunder's Edge
                                 </label>
-                                <span class="help">
-                                        Ten additional factions were added to Discordant Stars as an expansion: Bentor, Nokar, Gledge, Lanefir, Kyro, Ghoti, Kolume, Cheiran, Kjalengard, and Edyn.
-                                </span>
+                                <label for="tiles_dsplus" class="check" data-expansion="DSPlus">
+                                    <input type="checkbox" class="draft-tiles auto-enable" name="tileSets[DSPlus]" id="tiles_dsplus" /> Discordant Stars Plus
+                                </label>
                             </div>
 
                             <div class="input">
@@ -303,8 +316,7 @@
                                     Minimum amount of legendary planets
                                 </label>
                                 <input type="text" value="0" placeholder="Minimum amount of legendary planets" max="7" name="min_legendaries" id="min_legendaries" />
-
-                                <span class="help">PoK includes <a target="_blank" href="https://twilight-imperium.fandom.com/wiki/Planets_and_Systems#Legendary_Planets">2 draftable legendary planets</a> (and 2 more that are spawned by player action). <br /> Discordant Stars has <a href="https://twilight-imperium.fandom.com/wiki/Uncharted_Space_Expansion_(UNOFFICIAL)#Legendary_Planets" target="_blank">5 more</a></span>
+                                <span class="help">PoK and TE include <a target="_blank" href="https://twilight-imperium.fandom.com/wiki/Planets_and_Systems#Legendary_Planets">2 and 5 draftable legendary planets, respectively</a>. <br /> Discordant Stars has <a href="https://twilight-imperium.fandom.com/wiki/Uncharted_Space_Expansion_(UNOFFICIAL)#Legendary_Planets" target="_blank">5 more</a></span>
                             </div>
                         </div>
                     </div>
@@ -456,8 +468,8 @@
     }
 </script>
 
-<script src="<?= url('js/vendor.js?v=' . $_ENV['VERSION']) ?>"></script>
-<script src="<?= url('js/main.js?v=' . $_ENV['VERSION']) ?>"></script>
+<script src="<?= asset_url('js/vendor.js') ?>"></script>
+<script src="<?= asset_url('js/main.js') ?>"></script>
 </body>
 
 </html>

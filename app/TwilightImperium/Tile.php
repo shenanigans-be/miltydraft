@@ -1,0 +1,170 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\TwilightImperium;
+
+class Tile
+{
+    public int $totalInfluence = 0;
+    public int $totalResources = 0;
+    public float $optimalInfluence = 0;
+    public float $optimalResources = 0;
+    public float $optimalTotal = 0;
+
+    /**
+     * @var array<string, Tile>
+     */
+    private static array $allTileData;
+
+    public function __construct(
+        public string $id,
+        public TileType $tileType,
+        public TileTier $tier,
+        public Edition $edition,
+        /**
+         * @var array<Planet>
+         */
+        public array $planets = [],
+        /**
+         * @var array<SpaceStation>
+         */
+        public array $spaceStations = [],
+        /**
+         * @var array<Wormhole>
+         */
+        public array $wormholes = [],
+        // @todo anomaly enum, but not priority because it doesn't influence generator
+        public ?string $anomaly = null,
+        // @todo make a Hyperlane class, but not priority because  it doesn't influence generator
+        public array $hyperlanes = [],
+    ) {
+        // calculate total and optimal values
+        foreach (array_merge($this->planets, $this->spaceStations) as $entity) {
+            $this->totalInfluence += $entity->influence;
+            $this->totalResources += $entity->resources;
+            $this->optimalResources += $entity->optimalResources;
+            $this->optimalInfluence += $entity->optimalInfluence;
+            $this->optimalTotal += $entity->optimalTotal;
+        }
+    }
+
+    public static function fromJsonData(
+        string $id,
+        TileTier $tier,
+        array $data,
+    ): self {
+        return new self(
+            $id,
+            TileType::from($data['type']),
+            $tier,
+            Edition::from($data['set']),
+            array_map(fn(array $planetData) => Planet::fromJsonData($planetData), $data['planets'] ?? []),
+            array_map(fn(array $stationData) => SpaceStation::fromJsonData($stationData), $data['stations'] ?? []),
+            Wormhole::fromJsonData($data['wormhole']),
+            $data['anomaly'] ?? null,
+            $data['hyperlanes'] ?? [],
+        );
+    }
+
+    function hasAnomaly()
+    {
+        return $this->anomaly != null;
+    }
+
+    function hasWormhole($wormhole)
+    {
+        return in_array($wormhole, $this->wormholes);
+    }
+
+    function hasLegendaryPlanet()
+    {
+        foreach ($this->planets as $p) {
+            if ($p->isLegendary()) return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @todo deprecate
+     *
+     * @param Tile[] $tiles
+     * @return int[]
+     */
+    public static function countSpecials(array $tiles)
+    {
+        $count = [
+            'legendary' => 0,
+        ];
+        foreach(Wormhole::cases() as $wormhole) {
+            $count[$wormhole->value] = 0;
+        }
+
+        foreach ($tiles as $tile) {
+            foreach ($tile->wormholes as $w) [
+                $count[$w->value]++
+            ];
+
+            if ($tile->hasLegendaryPlanet()) $count['legendary']++;
+        }
+
+        return $count;
+    }
+
+    /**
+     * @return array<string, TileTier>
+     */
+    public static function tierData(): array
+    {
+        $tierData = json_decode(file_get_contents('data/tile-selection.json'));
+        $tileTiers = [];
+
+        foreach($tierData as $tierLists) {
+            foreach($tierLists as $level => $list) {
+                foreach($list as $id) {
+                    $tileTiers[$id] = TileTier::from($level);
+                }
+            }
+        }
+
+        return $tileTiers;
+    }
+
+    /**
+     * @return array<string, Tile>
+     */
+    public static function all(): array
+    {
+        if (! isset(self::$allTileData)) {
+            $allTileData = json_decode(file_get_contents('data/tiles.json'), true);
+            $tileTiers = self::tierData();
+            /** @var array<string, Tile> $tiles */
+            $tiles = [];
+
+            // merge tier and tile data
+            // We're keeping it in separate files for maintainability
+            foreach ($allTileData as $tileId => $tileData) {
+
+                $nonDraftable = isset($tileData['nonDraftable']) && $tileData['nonDraftable'] == true;
+
+                if ($nonDraftable) {
+                    $tier = TileTier::NONE;
+                } else {
+                    $tier = match($tileData['type']) {
+                        'red' => TileTier::RED,
+                        'blue' => $tileTiers[$tileId],
+                        default => TileTier::NONE,
+                    };
+                }
+
+                $tile = Tile::fromJsonData((string) $tileId, $tier, $tileData);
+
+                $tiles[$tileId] = $tile;
+            }
+            self::$allTileData = $tiles;
+        }
+
+        return self::$allTileData;
+    }
+}

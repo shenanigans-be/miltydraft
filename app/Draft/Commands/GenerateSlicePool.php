@@ -208,10 +208,9 @@ class GenerateSlicePool implements Command
     private function slicesFromCustomSlices(): array
     {
         return array_map(function (array $sliceData) {
-
             $tileData = [];
             foreach ($sliceData as $tileId) {
-                if (!isset($this->tileData[$tileId])) {
+                if (! isset($this->tileData[$tileId])) {
                     throw InvalidDraftSettingsException::unknownTileInCustomSlice($tileId);
                 }
                 $tileData[] = $this->tileData[$tileId];

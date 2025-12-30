@@ -260,7 +260,7 @@ class GenerateSlicePoolTest extends TestCase
     public function itThrowsErrorWhenCustomSliceContainsIncorrectTileNumber(): void
     {
         $customSlices = [
-            ['64', '33AEZD', '42', '67', '59']
+            ['64', '33AEZD', '42', '67', '59'],
         ];
 
         $generator = new GenerateSlicePool(DraftSettingsFactory::make([

@@ -76,13 +76,13 @@ class HandleGenerateDraftRequestTest extends RequestHandlerTestCase
         ];
         yield 'Custom Slices' => [
             'postData' => [
-                'custom_slices' => "1,2,3,4,5\n6,7,8,9,10\n11,12,13,14,15",
+                'custom_slices' => "01,2,03,4,5\n6,7,8,9,10\n11,012,13,014,15A",
             ],
             'field' => 'customSlices',
             'expected' => [
                ['1', '2', '3', '4', '5'],
                ['6', '7', '8', '9', '10'],
-               ['11', '12', '13', '14', '15'],
+               ['11', '12', '13', '14', '15A'],
             ],
             'expectedWhenNotSet' => [],
         ];

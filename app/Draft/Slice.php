@@ -55,7 +55,7 @@ class Slice
                     $this->specialties[] = $spec;
                 }
                 if ($planet->legendary) {
-                    $this->legendaryPlanets[] = $planet->legendary;
+                    $this->legendaryPlanets[] = $planet->name . ': ' . $planet->legendary;
                 }
             }
         }

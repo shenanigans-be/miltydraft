@@ -3,34 +3,19 @@ let alliance_mode = false;
 
 const EDITIONS = {
     BASEGAME: {
-        id: 'BaseGame',
-        maxFactions: 17,
-        maxSlices: 5,
-        maxLegendaries: 0,
+        id: 'BaseGame'
     },
     POK: {
-        id: 'PoK',
-        maxFactions: 7,
-        maxSlices: 4,
-        maxLegendaries: 2,
+        id: 'PoK'
     },
     TE: {
-        id: 'TE',
-        maxFactions: 7,
-        maxSlices: 3,
-        maxLegendaries: 5
+        id: 'TE'
     },
     DS: {
-        id: 'DS',
-        maxFactions: 24,
-        maxSlices: 0,
-        maxLegendaries: 0
+        id: 'DS'
     },
     DSPLUS: {
-        id: 'DSPlus',
-        maxFactions: 10,
-        maxSlices: 1,
-        maxLegendaries: 5
+        id: 'DSPlus'
     },
 };
 

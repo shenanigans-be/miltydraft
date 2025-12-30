@@ -257,6 +257,23 @@ class GenerateSlicePoolTest extends TestCase
     }
 
     #[Test]
+    public function itThrowsErrorWhenCustomSliceContainsIncorrectTileNumber(): void
+    {
+        $customSlices = [
+            ['64', '33AEZD', '42', '67', '59']
+        ];
+
+        $generator = new GenerateSlicePool(DraftSettingsFactory::make([
+            'numberOfSlices' => 4,
+            'customSlices' => $customSlices,
+        ]));
+
+        $this->expectException(InvalidDraftSettingsException::class);
+
+        $slices = $generator->handle();
+    }
+
+    #[Test]
     public function itGivesUpIfSettingsAreImpossible(): void
     {
         $generator = new GenerateSlicePool(DraftSettingsFactory::make([

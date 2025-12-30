@@ -61,7 +61,7 @@ class HandleGenerateDraftRequest extends RequestHandler
                 $slice = [];
                 $t = explode(',', $s);
                 foreach ($t as $tile) {
-                    $tile = trim($tile);
+                    $tile = ltrim(trim($tile), '0');
                     $slice[] = $tile;
                 }
                 $customSlices[] = $slice;

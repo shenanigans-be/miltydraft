@@ -34,6 +34,11 @@ class InvalidDraftSettingsException extends \Exception
         return new self('Cannot have less factions than players');
     }
 
+    public static function unknownTileInCustomSlice($id): self
+    {
+        return new self('Custom slices contain unknown tile number:' . $id);
+    }
+
     public static function notEnoughTilesForSlices(float $maxSlices): self
     {
         return new self(sprintf('This selection of tilesets only supports %d slices', $maxSlices));

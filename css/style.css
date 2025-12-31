@@ -1256,23 +1256,124 @@ h4:first-child {
   left: 7.5em;
   top: 12.98em;
 }
-.map img[data-rotate="1"] {
+.map[data-rotate="1"] {
+  transform: rotate(60deg);
+}
+.map[data-rotate="1"] img {
+  transform: translate(-50%, -50%) rotate(-60deg);
+}
+.map[data-rotate="1"] span {
+  transform: translate(-50%, -50%) rotate(-60deg) scale(0.3, 0.3);
+}
+.map[data-rotate="-1"] {
+  transform: rotate(-60deg);
+}
+.map[data-rotate="-1"] img {
   transform: translate(-50%, -50%) rotate(60deg);
 }
-.map img[data-rotate="2"] {
+.map[data-rotate="-1"] span {
+  transform: translate(-50%, -50%) rotate(60deg) scale(0.3, 0.3);
+}
+.map[data-rotate="2"] {
+  transform: rotate(120deg);
+}
+.map[data-rotate="2"] img {
+  transform: translate(-50%, -50%) rotate(-120deg);
+}
+.map[data-rotate="2"] span {
+  transform: translate(-50%, -50%) rotate(-120deg) scale(0.3, 0.3);
+}
+.map[data-rotate="-2"] {
+  transform: rotate(-120deg);
+}
+.map[data-rotate="-2"] img {
   transform: translate(-50%, -50%) rotate(120deg);
 }
-.map img[data-rotate="3"] {
+.map[data-rotate="-2"] span {
+  transform: translate(-50%, -50%) rotate(120deg) scale(0.3, 0.3);
+}
+.map[data-rotate="3"] {
+  transform: rotate(180deg);
+}
+.map[data-rotate="3"] img {
+  transform: translate(-50%, -50%) rotate(-180deg);
+}
+.map[data-rotate="3"] span {
+  transform: translate(-50%, -50%) rotate(-180deg) scale(0.3, 0.3);
+}
+.map[data-rotate="-3"] {
+  transform: rotate(-180deg);
+}
+.map[data-rotate="-3"] img {
   transform: translate(-50%, -50%) rotate(180deg);
 }
-.map img[data-rotate="4"] {
+.map[data-rotate="-3"] span {
+  transform: translate(-50%, -50%) rotate(180deg) scale(0.3, 0.3);
+}
+.map[data-rotate="4"] {
+  transform: rotate(240deg);
+}
+.map[data-rotate="4"] img {
+  transform: translate(-50%, -50%) rotate(-240deg);
+}
+.map[data-rotate="4"] span {
+  transform: translate(-50%, -50%) rotate(-240deg) scale(0.3, 0.3);
+}
+.map[data-rotate="-4"] {
+  transform: rotate(-240deg);
+}
+.map[data-rotate="-4"] img {
   transform: translate(-50%, -50%) rotate(240deg);
 }
-.map img[data-rotate="5"] {
+.map[data-rotate="-4"] span {
+  transform: translate(-50%, -50%) rotate(240deg) scale(0.3, 0.3);
+}
+.map[data-rotate="5"] {
+  transform: rotate(300deg);
+}
+.map[data-rotate="5"] img {
+  transform: translate(-50%, -50%) rotate(-300deg);
+}
+.map[data-rotate="5"] span {
+  transform: translate(-50%, -50%) rotate(-300deg) scale(0.3, 0.3);
+}
+.map[data-rotate="-5"] {
+  transform: rotate(-300deg);
+}
+.map[data-rotate="-5"] img {
   transform: translate(-50%, -50%) rotate(300deg);
 }
-.map img[data-rotate="6"] {
+.map[data-rotate="-5"] span {
+  transform: translate(-50%, -50%) rotate(300deg) scale(0.3, 0.3);
+}
+.map[data-rotate="6"] {
+  transform: rotate(360deg);
+}
+.map[data-rotate="6"] img {
+  transform: translate(-50%, -50%) rotate(-360deg);
+}
+.map[data-rotate="6"] span {
+  transform: translate(-50%, -50%) rotate(-360deg) scale(0.3, 0.3);
+}
+.map[data-rotate="-6"] {
+  transform: rotate(-360deg);
+}
+.map[data-rotate="-6"] img {
   transform: translate(-50%, -50%) rotate(360deg);
+}
+.map[data-rotate="-6"] span {
+  transform: translate(-50%, -50%) rotate(360deg) scale(0.3, 0.3);
+}
+
+.rotate-map {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.rotate-map button {
+  font-size: 30px;
+  padding: 0.1em 0.3em 0.3em;
 }
 
 #log p {

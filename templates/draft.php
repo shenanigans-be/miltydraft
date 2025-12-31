@@ -305,6 +305,10 @@
 
                     <div class="mapview current" id="mapview-hyperlane">
                         <h3 class="map-layout-title">Hyperlane Map</h3>
+                        <div class="rotate-map">
+                            <button title="Rotate counter-clockwise" class="rotate-map-left">⟲</button>
+                            <button title="Rotate clockwise" class="rotate-map-right">⟳</button>
+                        </div>
                         <div class="map-container">
                             <div class="map-offset">
                                 <div id="map-wrap" class="map">

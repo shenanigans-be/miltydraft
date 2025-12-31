@@ -18,6 +18,12 @@ $(document).ready(function () {
         }
     });
 
+    $('.rotate-map-left').on('click', function (e) {
+        rotateMap(-1);
+    })
+    $('.rotate-map-right').on('click', function (e) {
+        rotateMap(1);
+    })
 
     $('.close-popup').on('click', function(e) {
         $(this).parents('.popup').removeClass('open');
@@ -580,4 +586,11 @@ function getPlayerInPosition(position) {
         }
     }
     return null;
+}
+
+
+let mapRotation = 0;
+function rotateMap(direction) {
+    mapRotation = (mapRotation + direction) % 6;
+    $('#mapview-hyperlane .map').attr('data-rotate', mapRotation);
 }

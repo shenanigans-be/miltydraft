@@ -774,7 +774,7 @@ h4:first-child {
 }
 @media (max-width: 768px) {
   .map span {
-    font-size: 16px;
+    font-size: 12px;
   }
 }
 .map img {

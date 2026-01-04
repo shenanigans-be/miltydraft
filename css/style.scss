@@ -788,6 +788,22 @@ h4 {
 
     position: relative;
 
+    .tile {
+      position: absolute;
+      transform: translate(-50%, -50%);
+
+      &:hover {
+        z-index: 999;
+
+        .zoom {
+          opacity: 1;
+        }
+        span {
+          display: none;
+        }
+      }
+    }
+
 
     span {
         color: $color-background;
@@ -796,7 +812,8 @@ h4 {
         word-break: break-word;
         z-index: 99;
         width: 5em;
-        transform: translate(-50%, -50%) scale(0.3, 0.3);
+        font-size: 23px;
+        transform: translate(-50%, -50%);
         text-align: center;
         text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
     }
@@ -805,24 +822,23 @@ h4 {
         position: absolute;
         transform: translate(-50%, -50%);
 
+
+        @for $i from 1 through 6 {
+          &[data-rotate="#{$i}"] {
+            transform: translate(-50%, -50%) rotate(#{$i * 60}deg);
+          }
+        }
+
+
         &.zoom {
             width: 300px;
             opacity: 0;
             pointer-events: none;
         }
-
-        &:hover + .zoom {
-            opacity: 1;
-            z-index: 999;
-        }
-        &:hover + .zoom + span {
-            //z-index: 9999;
-            //transform: translate(-50%, -50%) scale(0.6, 0.6);
-            //font-weight: 600;
-        }
     }
 
-    @for $q from -5 through 5 {
+
+  @for $q from -5 through 5 {
         @for $r from -5 through 5 {
             *[data-q="#{$q}"][data-r="#{$r}"] {
                 left: #{$q * 1.5}em;
@@ -835,22 +851,15 @@ h4 {
     @for $i from 1 through 6 {
       &[data-rotate="#{$i}"] {
         transform: rotate(#{$i * 60}deg);
-
-        img {
+        .tile.regular, .tile.hyperlane span {
           transform: translate(-50%, -50%) rotate(#{$i * -60}deg)
-        }
-        span {
-          transform: translate(-50%, -50%) rotate(#{$i * -60}deg) scale(0.3, 0.3);
         }
       }
       &[data-rotate="-#{$i}"] {
         transform: rotate(#{$i * -60}deg);
 
-        img {
+        .tile.regular, .tile.hyperlane span {
           transform: translate(-50%, -50%) rotate(#{$i * 60}deg)
-        }
-        span {
-          transform: translate(-50%, -50%) rotate(#{$i * 60}deg) scale(0.3, 0.3);
         }
       }
     }

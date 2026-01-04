@@ -506,7 +506,10 @@ function draw_tile(tile) {
     if(tile_image.substring(0, 2) != 'DS') tile_image = 'ST_' + tile_image;
     tile_image = window.routes.tile_images + '/' + tile_image;
 
-    let html = '<img src="' + tile_image + '" data-rotate="' + rotation + '" data-q="' + tile[0] +'" data-r="' + tile[1] + '" /><img class="zoom" src="' + tile_image + '" data-rotate="' + rotation + '" data-q="' + tile[0] +'" data-r="' + tile[1] + '" /><span data-q="' + tile[0] +'" data-r="' + tile[1] + '">' + label + '</span>';
+    let html = '<div data-q="' + tile[0] +'" data-r="' + tile[1] + '" class="tile ' + (is_hyperlane ? 'hyperlane' : 'regular') + '">' +
+        '<img src="' + tile_image + '" data-rotate="' + rotation + '"  />' +
+        '<img class="zoom" src="' + tile_image + '" data-rotate="' + rotation + '" />' +
+        '<span>' + label + '</span></div>';
 
     return {
         html: html,

@@ -747,6 +747,19 @@ h4:first-child {
     font-size: 100px;
   }
 }
+.map .tile {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+.map .tile:hover {
+  z-index: 999;
+}
+.map .tile:hover .zoom {
+  opacity: 1;
+}
+.map .tile:hover span {
+  display: none;
+}
 .map span {
   color: #FEFCF8;
   position: absolute;
@@ -754,7 +767,8 @@ h4:first-child {
   word-break: break-word;
   z-index: 99;
   width: 5em;
-  transform: translate(-50%, -50%) scale(0.3, 0.3);
+  font-size: 23px;
+  transform: translate(-50%, -50%);
   text-align: center;
   text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
 }
@@ -763,14 +777,28 @@ h4:first-child {
   position: absolute;
   transform: translate(-50%, -50%);
 }
+.map img[data-rotate="1"] {
+  transform: translate(-50%, -50%) rotate(60deg);
+}
+.map img[data-rotate="2"] {
+  transform: translate(-50%, -50%) rotate(120deg);
+}
+.map img[data-rotate="3"] {
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+.map img[data-rotate="4"] {
+  transform: translate(-50%, -50%) rotate(240deg);
+}
+.map img[data-rotate="5"] {
+  transform: translate(-50%, -50%) rotate(300deg);
+}
+.map img[data-rotate="6"] {
+  transform: translate(-50%, -50%) rotate(360deg);
+}
 .map img.zoom {
   width: 300px;
   opacity: 0;
   pointer-events: none;
-}
-.map img:hover + .zoom {
-  opacity: 1;
-  z-index: 999;
 }
 .map *[data-q="-5"][data-r="-5"] {
   left: -7.5em;
@@ -1259,110 +1287,74 @@ h4:first-child {
 .map[data-rotate="1"] {
   transform: rotate(60deg);
 }
-.map[data-rotate="1"] img {
+.map[data-rotate="1"] .tile.regular, .map[data-rotate="1"] .tile.hyperlane span {
   transform: translate(-50%, -50%) rotate(-60deg);
-}
-.map[data-rotate="1"] span {
-  transform: translate(-50%, -50%) rotate(-60deg) scale(0.3, 0.3);
 }
 .map[data-rotate="-1"] {
   transform: rotate(-60deg);
 }
-.map[data-rotate="-1"] img {
+.map[data-rotate="-1"] .tile.regular, .map[data-rotate="-1"] .tile.hyperlane span {
   transform: translate(-50%, -50%) rotate(60deg);
-}
-.map[data-rotate="-1"] span {
-  transform: translate(-50%, -50%) rotate(60deg) scale(0.3, 0.3);
 }
 .map[data-rotate="2"] {
   transform: rotate(120deg);
 }
-.map[data-rotate="2"] img {
+.map[data-rotate="2"] .tile.regular, .map[data-rotate="2"] .tile.hyperlane span {
   transform: translate(-50%, -50%) rotate(-120deg);
-}
-.map[data-rotate="2"] span {
-  transform: translate(-50%, -50%) rotate(-120deg) scale(0.3, 0.3);
 }
 .map[data-rotate="-2"] {
   transform: rotate(-120deg);
 }
-.map[data-rotate="-2"] img {
+.map[data-rotate="-2"] .tile.regular, .map[data-rotate="-2"] .tile.hyperlane span {
   transform: translate(-50%, -50%) rotate(120deg);
-}
-.map[data-rotate="-2"] span {
-  transform: translate(-50%, -50%) rotate(120deg) scale(0.3, 0.3);
 }
 .map[data-rotate="3"] {
   transform: rotate(180deg);
 }
-.map[data-rotate="3"] img {
+.map[data-rotate="3"] .tile.regular, .map[data-rotate="3"] .tile.hyperlane span {
   transform: translate(-50%, -50%) rotate(-180deg);
-}
-.map[data-rotate="3"] span {
-  transform: translate(-50%, -50%) rotate(-180deg) scale(0.3, 0.3);
 }
 .map[data-rotate="-3"] {
   transform: rotate(-180deg);
 }
-.map[data-rotate="-3"] img {
+.map[data-rotate="-3"] .tile.regular, .map[data-rotate="-3"] .tile.hyperlane span {
   transform: translate(-50%, -50%) rotate(180deg);
-}
-.map[data-rotate="-3"] span {
-  transform: translate(-50%, -50%) rotate(180deg) scale(0.3, 0.3);
 }
 .map[data-rotate="4"] {
   transform: rotate(240deg);
 }
-.map[data-rotate="4"] img {
+.map[data-rotate="4"] .tile.regular, .map[data-rotate="4"] .tile.hyperlane span {
   transform: translate(-50%, -50%) rotate(-240deg);
-}
-.map[data-rotate="4"] span {
-  transform: translate(-50%, -50%) rotate(-240deg) scale(0.3, 0.3);
 }
 .map[data-rotate="-4"] {
   transform: rotate(-240deg);
 }
-.map[data-rotate="-4"] img {
+.map[data-rotate="-4"] .tile.regular, .map[data-rotate="-4"] .tile.hyperlane span {
   transform: translate(-50%, -50%) rotate(240deg);
-}
-.map[data-rotate="-4"] span {
-  transform: translate(-50%, -50%) rotate(240deg) scale(0.3, 0.3);
 }
 .map[data-rotate="5"] {
   transform: rotate(300deg);
 }
-.map[data-rotate="5"] img {
+.map[data-rotate="5"] .tile.regular, .map[data-rotate="5"] .tile.hyperlane span {
   transform: translate(-50%, -50%) rotate(-300deg);
-}
-.map[data-rotate="5"] span {
-  transform: translate(-50%, -50%) rotate(-300deg) scale(0.3, 0.3);
 }
 .map[data-rotate="-5"] {
   transform: rotate(-300deg);
 }
-.map[data-rotate="-5"] img {
+.map[data-rotate="-5"] .tile.regular, .map[data-rotate="-5"] .tile.hyperlane span {
   transform: translate(-50%, -50%) rotate(300deg);
-}
-.map[data-rotate="-5"] span {
-  transform: translate(-50%, -50%) rotate(300deg) scale(0.3, 0.3);
 }
 .map[data-rotate="6"] {
   transform: rotate(360deg);
 }
-.map[data-rotate="6"] img {
+.map[data-rotate="6"] .tile.regular, .map[data-rotate="6"] .tile.hyperlane span {
   transform: translate(-50%, -50%) rotate(-360deg);
-}
-.map[data-rotate="6"] span {
-  transform: translate(-50%, -50%) rotate(-360deg) scale(0.3, 0.3);
 }
 .map[data-rotate="-6"] {
   transform: rotate(-360deg);
 }
-.map[data-rotate="-6"] img {
+.map[data-rotate="-6"] .tile.regular, .map[data-rotate="-6"] .tile.hyperlane span {
   transform: translate(-50%, -50%) rotate(360deg);
-}
-.map[data-rotate="-6"] span {
-  transform: translate(-50%, -50%) rotate(360deg) scale(0.3, 0.3);
 }
 
 .rotate-map {

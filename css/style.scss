@@ -816,6 +816,9 @@ h4 {
         transform: translate(-50%, -50%);
         text-align: center;
         text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
+        @media #{$max-sm} {
+          font-size: 16px;
+        }
     }
     img {
         width: 2em;

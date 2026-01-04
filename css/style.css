@@ -772,6 +772,11 @@ h4:first-child {
   text-align: center;
   text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
 }
+@media (max-width: 768px) {
+  .map span {
+    font-size: 16px;
+  }
+}
 .map img {
   width: 2em;
   position: absolute;

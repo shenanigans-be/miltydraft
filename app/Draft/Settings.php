@@ -180,7 +180,7 @@ class Settings
         if (
             in_array(Edition::PROPHECY_OF_KINGS, $this->factionSets) &&
             $this->includeCouncilKeleresFaction &&
-            !in_array(Edition::THUNDERS_EDGE, $this->factionSets)
+            ! in_array(Edition::THUNDERS_EDGE, $this->factionSets)
         ) {
             $factions++;
         }

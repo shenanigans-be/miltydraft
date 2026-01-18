@@ -201,7 +201,7 @@
                                     Number of Factions
                                 </label>
 
-                                <input type="number" id="num_factions" name="num_factions" value="9" max="17" />
+                                <input type="number" id="num_factions" name="num_factions" value="9" />
                                 <span class="help">
                                         Note: Less options means more competitive drafting.<br />
                                         Number of players + 3 is kind of recommended, but this is all personal preference.
@@ -247,7 +247,6 @@
                                 </label>
                                 <span class="help">
                                     The Council Keleres was introduced in <a target="_blank" href="https://images-cdn.fantasyflightgames.com/filer_public/35/e1/35e10f37-4b6d-4479-a117-4e2c571ddfa7/ti_codex_volume_3_vigil_v2_1-compressed.pdf">Codex III</a> and is included in Thunder's Edge.
-                                    (PoK or TE required). For simplicity's sake I'll leave it up to each group to decide how they want to handle things (including the very limited possibility of all 3 flavours also being picked). Just something to keep in mind.
                                 </span>
                                 <label for="factions_te" class="check" data-expansion="TE">
                                     <input type="checkbox" class="draft-faction auto-enable" name="factionSets[TE]" id="factions_te" /> Thunder's Edge

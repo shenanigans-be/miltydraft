@@ -26,11 +26,6 @@ $(document).ready(function () {
         toggleExpansion($(e.currentTarget))
     });
 
-    // @todo initial check
-    // @todo disable DS/DSPlus when Pok is disabled
-
-    $('.draft-faction').on('change', faction_check);
-
     $('#tabs nav a').on('click', function (e) {
         e.preventDefault();
         $('#tabs nav a, .tab').removeClass('active');
@@ -140,6 +135,44 @@ function enableExpansion(expansion) {
     if (expansion == 'PoK') {
         toggleDiscordantAvailability(true);
     }
+
+    toggleKeleres();
+}
+
+function toggleKeleres() {
+    const POKIsEnabled = $('[data-toggle-expansion="PoK"]').is(':checked');
+    const TEIsEnabled = $('[data-toggle-expansion="TE"]').is(':checked');
+
+    let keleresIsAllowed = false;
+    let keleresIsRequired = false;
+
+    if (TEIsEnabled) {
+        // keleres is checked and disabled
+        $('[data-set="keleres"]')
+            .prop('disabled', true)
+            .prop('checked', true)
+            .parent().addClass('disabled')
+    } else {
+        if (POKIsEnabled) {
+            // keleres is optional and enabled
+            $('[data-set="keleres"]')
+                .prop('disabled', false)
+                .parent().removeClass('disabled')
+        } else {
+            // keleres is unavailable and disabled
+            $('[data-set="keleres"]')
+                .prop('disabled', true)
+                .prop('checked', false)
+                .parent().addClass('disabled')
+        }
+    }
+
+    if (keleresIsRequired) {
+        $('[data-set="keleres"]')
+            .prop('disabled', true)
+            .prop('checked', true)
+            .parent().addClass('disabled')
+    }
 }
 
 function toggleDiscordantAvailability(pokIsEnabled) {
@@ -168,6 +201,8 @@ function disableExpansion(expansion) {
     if (expansion == 'PoK') {
         toggleDiscordantAvailability(false);
     }
+
+    toggleKeleres();
 }
 
 function update_alliance_mode() {
@@ -207,27 +242,6 @@ function loading(loading = true) {
     } else {
         $('body').removeClass('loading');
     }
-}
-
-
-function faction_check() {
-    let sets = [];
-    let max = 0;
-
-
-    $('.draft-faction').each(function (i, el) {
-        if ($(el).is(':checked')) {
-            max += parseInt($(el).data('num'));
-            $('.factions label[data-set="' + $(el).data('set') + '"]').removeClass('disabled');
-            $('.factions label[data-set="' + $(el).data('set') + '"] input').prop('disabled', false);
-        } else {
-            $('.factions label[data-set="' + $(el).data('set') + '"]').addClass('disabled');
-            $('.factions label[data-set="' + $(el).data('set') + '"] input').prop('disabled', true).prop('checked', false);
-        }
-    });
-
-
-    $('#num_factions').attr('max', max);
 }
 
 function init_player_count() {

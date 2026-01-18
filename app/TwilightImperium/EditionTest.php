@@ -45,7 +45,7 @@ class EditionTest extends TestCase
         $this->assertSame(15, Edition::THUNDERS_EDGE->blueTileCount());
         $this->assertSame(5, Edition::THUNDERS_EDGE->redTileCount());
         $this->assertSame(5, Edition::THUNDERS_EDGE->legendaryPlanetCount());
-        $this->assertSame(5, Edition::THUNDERS_EDGE->factionCount());
+        $this->assertSame(6, Edition::THUNDERS_EDGE->factionCount());
     }
 
     #[Test]

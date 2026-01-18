@@ -78,7 +78,7 @@ class HandleGenerateDraftRequest extends RequestHandler
             $this->tileSetsFromRequest(),
             $this->factionSetsFromRequest(),
             $this->request->get('include_keleres') == 'on',
-            $this->request->get('wormholes', 0) == 1,
+            $this->request->get('wormholes') == 'on',
             $this->request->get('max_wormhole') == 'on',
             (int) $this->request->get('min_legendaries'),
             (float) $this->request->get('min_inf'),

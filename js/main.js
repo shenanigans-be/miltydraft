@@ -83,8 +83,6 @@ $(document).ready(function () {
         request.onreadystatechange = function () {
             if (request.readyState != 4) return;
 
-
-
             let data = JSON.parse(request.responseText);
 
             if (data.error) {

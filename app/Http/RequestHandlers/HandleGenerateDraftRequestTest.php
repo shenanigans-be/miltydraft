@@ -166,6 +166,14 @@ class HandleGenerateDraftRequestTest extends RequestHandlerTestCase
             'expected' => 1,
             'expectedWhenNotSet' => 0,
         ];
+        yield 'Minimum 2 wormholes' => [
+            'postData' => [
+                'wormholes' => 'on',
+            ],
+            'field' => 'minimumTwoAlphaAndBetaWormholes',
+            'expected' => true,
+            'expectedWhenNotSet' => false,
+        ];
         yield 'Minimum optimal Influence' => [
             'postData' => [
                 'min_inf' => '4.5',

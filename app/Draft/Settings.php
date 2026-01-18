@@ -176,6 +176,15 @@ class Settings
     protected function validateFactions(): void
     {
         $factions = array_reduce($this->factionSets, fn ($sum, Edition $e) => $sum += $e->factionCount(), 0);
+        // if POK is included and TE isn't, then keleres could add 1 extra
+        if (
+            in_array(Edition::PROPHECY_OF_KINGS, $this->factionSets) &&
+            $this->includeCouncilKeleresFaction &&
+            ! in_array(Edition::THUNDERS_EDGE, $this->factionSets)
+        ) {
+            $factions++;
+        }
+
         if ($factions < $this->numberOfFactions) {
             throw InvalidDraftSettingsException::notEnoughFactionsInSet($factions);
         }

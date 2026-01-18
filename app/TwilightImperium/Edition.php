@@ -80,7 +80,7 @@ enum Edition: string
         return match($this) {
             Edition::BASE_GAME => 17,
             Edition::PROPHECY_OF_KINGS => 7,
-            Edition::THUNDERS_EDGE => 5,
+            Edition::THUNDERS_EDGE => 6,
             Edition::DISCORDANT_STARS => 24,
             Edition::DISCORDANT_STARS_PLUS => 10,
         };

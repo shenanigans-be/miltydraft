@@ -12,5 +12,3 @@ services:
             - "443:443"
         volumes:
             - ./:/code:delegated
-            - ./deploy/app/php/php.ini:/usr/local/etc/php/conf.d/php.ini
-            - ./deploy/app/Caddy/Caddyfile:/etc/caddy/Caddyfile

@@ -155,22 +155,22 @@ class SettingsTest extends TestCase
 
     public static function maxSlices()
     {
-        yield "For Basegame + PoK" => [
+        yield 'For Basegame + PoK' => [
             'slicesToGenerate' => 12,
             'maxSlices' => 9,
-            'tileSets' =>  [
+            'tileSets' => [
                 Edition::BASE_GAME,
                 Edition::PROPHECY_OF_KINGS,
-            ]
+            ],
         ];
 
         // this is hardcoded in (for now)
-        yield "For Basegame" => [
+        yield 'For Basegame' => [
             'slicesToGenerate' => 6,
             'maxSlices' => 5,
-            'tileSets' =>  [
+            'tileSets' => [
                 Edition::BASE_GAME,
-            ]
+            ],
         ];
     }
 

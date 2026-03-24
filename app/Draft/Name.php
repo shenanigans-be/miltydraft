@@ -12,7 +12,7 @@ class Name implements \Stringable
         if($submittedName == null || trim($submittedName) == '') {
             $this->name = $this->generate();
         } else {
-            $this->name = htmlentities(trim($submittedName));
+            $this->name = htmlentities(html_entity_decode(trim($submittedName)));
         }
     }
 

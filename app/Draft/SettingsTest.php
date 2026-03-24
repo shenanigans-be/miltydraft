@@ -153,17 +153,37 @@ class SettingsTest extends TestCase
         $draft->validate();
     }
 
-    #[Test]
-    public function itValidatesNumberOfSlices(): void {
-        $draft = DraftSettingsFactory::make([
-            'numberOfSlices' => 7,
+    public static function maxSlices()
+    {
+        yield 'For Basegame + PoK' => [
+            'slicesToGenerate' => 12,
+            'maxSlices' => 9,
+            'tileSets' => [
+                Edition::BASE_GAME,
+                Edition::PROPHECY_OF_KINGS,
+            ],
+        ];
+
+        // this is hardcoded in (for now)
+        yield 'For Basegame' => [
+            'slicesToGenerate' => 6,
+            'maxSlices' => 5,
             'tileSets' => [
                 Edition::BASE_GAME,
             ],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('maxSlices')]
+    public function itValidatesNumberOfSlices(int $slicesToGenerate, int $maxSlices, array $tileSets): void {
+        $draft = DraftSettingsFactory::make([
+            'numberOfSlices' => $slicesToGenerate,
+            'tileSets' => $tileSets,
         ]);
 
         $this->expectException(InvalidDraftSettingsException::class);
-        $this->expectExceptionMessage(InvalidDraftSettingsException::notEnoughTilesForSlices(6)->getMessage());
+        $this->expectExceptionMessage(InvalidDraftSettingsException::notEnoughTilesForSlices($maxSlices)->getMessage());
         $draft->validate();
     }
 

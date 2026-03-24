@@ -150,11 +150,16 @@ class Settings
         // @todo base this on tile-selection.json instead of constants
         // better yet: make a tileset php class that contain the data instead of loading json
 
-        $blueTiles = array_reduce($this->tileSets, fn ($sum, Edition $e) => $sum += $e->blueTileCount(), 0);
-        $redTiles = array_reduce($this->tileSets, fn ($sum, Edition $e) => $sum += $e->redTileCount(), 0);
-        $legendaryPlanets = array_reduce($this->tileSets, fn ($sum, Edition $e) => $sum += $e->legendaryPlanetCount(), 0);
+        $blueTiles = array_reduce($this->tileSets, fn ($sum, Edition $e) => $sum + $e->blueTileCount(), 0);
+        $redTiles = array_reduce($this->tileSets, fn ($sum, Edition $e) => $sum + $e->redTileCount(), 0);
+        $legendaryPlanets = array_reduce($this->tileSets, fn ($sum, Edition $e) => $sum + $e->legendaryPlanetCount(), 0);
 
         $maxSlices = min(floor($blueTiles / 3), floor($redTiles / 2));
+
+        // @todo don't hardcode this in, but use the tile-selection
+        if ($this->numberOfSlices > 5 && $this->tileSets == [Edition::BASE_GAME]) {
+            throw InvalidDraftSettingsException::notEnoughTilesForSlices(5);
+        }
 
         if ($this->numberOfSlices > $maxSlices) {
             throw InvalidDraftSettingsException::notEnoughTilesForSlices($maxSlices);

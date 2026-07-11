@@ -112,4 +112,36 @@ class GenerateDraftTest extends TestCase
         $this->assertSame('Frank', $players[5]->name);
         $this->assertSame('C', $players[5]->team);
     }
+
+    #[Test]
+    public function itKeepsPresetTeamsWhenDraftOrderIsRandomised(): void
+    {
+        // Preset teams must stay fixed to the pairs entered in the form, even
+        // when the draft order is randomised (presetDraftOrder = false).
+        $originalPlayerNames = ['Alice', 'Bob', 'Christine', 'David', 'Elliot', 'Frank'];
+        $settings = DraftSettingsFactory::make([
+            'playerNames' => $originalPlayerNames,
+            'allianceMode' => true,
+            'allianceTeamMode' => AllianceTeamMode::PRESET,
+            'presetDraftOrder' => false,
+        ]);
+
+        // Run a few times because the draft order is shuffled; the team a player
+        // belongs to must never change.
+        for ($run = 0; $run < 20; $run++) {
+            $draft = (new GenerateDraft($settings))->handle();
+
+            $teamByName = [];
+            foreach ($draft->players as $player) {
+                $teamByName[$player->name] = $player->team;
+            }
+
+            $this->assertSame('A', $teamByName['Alice']);
+            $this->assertSame('A', $teamByName['Bob']);
+            $this->assertSame('B', $teamByName['Christine']);
+            $this->assertSame('B', $teamByName['David']);
+            $this->assertSame('C', $teamByName['Elliot']);
+            $this->assertSame('C', $teamByName['Frank']);
+        }
+    }
 }

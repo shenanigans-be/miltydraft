@@ -65,6 +65,17 @@ class GenerateDraft implements Command
 
         $playerNames = [...$this->settings->playerNames];
 
+        // Preset teams are defined by the order players are entered in the form
+        // (adjacent pairs form a team). Capture that mapping from the original
+        // order *before* the draft-order shuffle below can scramble it.
+        $presetTeams = [];
+        if ($this->settings->allianceMode && $this->settings->allianceTeamMode == AllianceTeamMode::PRESET) {
+            $teamNames = $this->generateTeamNames();
+            foreach (array_values($playerNames) as $i => $name) {
+                $presetTeams[$name] = $teamNames[(int) floor($i / 2)];
+            }
+        }
+
         if (! $this->settings->presetDraftOrder) {
             shuffle($playerNames);
         }
@@ -75,16 +86,24 @@ class GenerateDraft implements Command
         }
 
         if ($this->settings->allianceMode) {
-            $teamNames = $this->generateTeamNames();
             $teamPlayers = [];
 
-            if ($this->settings->allianceTeamMode == AllianceTeamMode::RANDOM) {
-                shuffle($players);
-            }
+            if ($this->settings->allianceTeamMode == AllianceTeamMode::PRESET) {
+                // Teams are fixed: keep each player's preset team regardless of
+                // the (possibly randomised) draft order.
+                foreach ($players as $id => $player) {
+                    $teamPlayers[$id] = $player->putInTeam($presetTeams[$player->name]);
+                }
+            } else {
+                // Random teams: pair players up by a fresh shuffle.
+                $teamNames = $this->generateTeamNames();
+                $shuffled = array_values($players);
+                shuffle($shuffled);
 
-            foreach(array_values($players) as $i => $player) {
-                $teamName = $teamNames[(int) floor($i / 2)];
-                $teamPlayers[$player->id->value] = $player->putInTeam($teamName);
+                foreach ($shuffled as $i => $player) {
+                    $teamName = $teamNames[(int) floor($i / 2)];
+                    $teamPlayers[$player->id->value] = $player->putInTeam($teamName);
+                }
             }
 
             $players = $teamPlayers;

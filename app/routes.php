@@ -7,6 +7,7 @@ return [
     '/d/{id}' => App\Http\RequestHandlers\HandleViewDraftRequest::class,
     '/api/generate' => App\Http\RequestHandlers\HandleGenerateDraftRequest::class,
     '/api/regenerate' => App\Http\RequestHandlers\HandleRegenerateDraftRequest::class,
+    '/api/settings' => App\Http\RequestHandlers\HandleUpdateSettingsRequest::class,
     '/api/pick' => App\Http\RequestHandlers\HandlePickRequest::class,
     '/api/claim' => App\Http\RequestHandlers\HandleClaimOrUnclaimPlayerRequest::class,
     '/api/restore' => App\Http\RequestHandlers\HandleRestoreClaimRequest::class,

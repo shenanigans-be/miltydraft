@@ -59,6 +59,19 @@ class Player
         );
     }
 
+    public function rename(string $name): Player
+    {
+        return new self(
+            $this->id,
+            $name,
+            $this->claimed,
+            $this->pickedPosition,
+            $this->pickedFaction,
+            $this->pickedSlice,
+            $this->team,
+        );
+    }
+
     public function unclaim(): Player
     {
         if (! $this->claimed) {

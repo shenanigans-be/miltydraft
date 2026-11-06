@@ -90,6 +90,16 @@ class PlayerTest extends TestCase
         ], $player2->toArray());
     }
 
+    #[Test]
+    public function itCanBeRenamed(): void
+    {
+        $player = new Player(PlayerId::fromString('1'), 'Alice', true, '2', 'Mahact', '3', 'A');
+
+        $renamed = $player->rename('Bob');
+
+        $this->assertSame(array_merge($player->toArray(), ['name' => 'Bob']), $renamed->toArray());
+    }
+
     public static function picks(): iterable
     {
         yield 'When picking slice' => [

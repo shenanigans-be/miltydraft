@@ -66,6 +66,10 @@ class InvalidDraftSettingsException extends \Exception
         return new self(sprintf('These faction sets only support up to %d factions', $max));
     }
 
+    public static function customFactionNotInSets(string $name): self {
+        return new self(sprintf('Custom faction "%s" is not in the selected faction sets', $name));
+    }
+
     public static function notEnoughCustomSlices(): self {
         return new self('Not enough custom slices for player count');
     }

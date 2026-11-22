@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp:1-php8.2-alpine AS base
+FROM dunglas/frankenphp:1-php8.5-alpine AS base
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 

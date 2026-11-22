@@ -3,7 +3,7 @@
         "vlucas/phpdotenv": "^5.4",
         "aws/aws-sdk-php": "^3.339",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "^7.9"
+        "php": "^8.5"
     },
     "autoload": {
         "files": [

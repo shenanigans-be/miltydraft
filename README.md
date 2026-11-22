@@ -20,10 +20,26 @@ Then follow these steps:
 2. Run `docker compose up -d --build`. This will first build the image, then start all services.
 3. Run `docker compose exec app composer install`. This will install all php dependencies.
 4. Create a `.env` file. See `.env.example` for details.
-5. Go to [https://milty.localhost](https://milty.localhost) in your browser (or http://localhost if you don't want to go through the hassle of the following steps) 
-6. Your browser might give you some scary warnings about untrusted certificates. That's because we're using a self-signed certificate.
-If you want to, you can add the certificate to your device's truster certificate.
-7. Run `docker compose exec app cat /home/app/.local/share/caddy/pki/authorities/local/root.crt > caddy-cert.crt` to make a copy of the certificate in `caddy-cert.crt` (which you can then import wherever you need it)
+5. Go to [https://milty.localhost](https://milty.localhost) in your browser (or http://localhost if you don't want to go through the hassle of trusting the certificate, see below)
+
+Note: ports 80 and 443 need to be free. If you run another web server locally (e.g. a Homebrew Caddy), stop it first.
+
+### Trusting the local certificate
+
+Your browser will warn about an untrusted certificate on https://milty.localhost, because Caddy signs it with its own local certificate authority.
+You only need to trust that authority once: it's stored in the `caddy-data` Docker volume, so it survives rebuilds.
+
+1. Copy the root certificate out of the container:
+
+   `docker compose exec app cat /data/caddy/pki/authorities/local/root.crt > caddy-cert.crt`
+
+2. Trust it:
+   * **macOS**: `sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain caddy-cert.crt`
+     (or double-click `caddy-cert.crt`, add it to the System keychain and set it to "Always Trust")
+   * **Other systems**: import `caddy-cert.crt` into your OS or browser's trusted root certificates.
+3. Restart your browser. Firefox uses its own certificate store: either set `security.enterprise_roots.enabled` to `true` in `about:config`, or import the certificate under Settings → Privacy & Security → Certificates.
+
+If you ever remove the volume (e.g. `docker compose down -v`), a new certificate authority is generated and you'll need to repeat these steps.
 
 ### Libraries and Dependencies
 

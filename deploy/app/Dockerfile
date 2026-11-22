@@ -1,37 +1,21 @@
-FROM caddy:2.11-builder AS caddy-builder
+FROM dunglas/frankenphp:1-php8.2-alpine AS base
 
-RUN xcaddy build \
-    --with github.com/baldinof/caddy-supervisor
-
-FROM php:8.2-fpm-alpine AS base
-
-COPY --from=caddy-builder /usr/bin/caddy /usr/bin/caddy
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-COPY deploy/app/php/php.ini /usr/local/etc/php/conf.d/php.ini
-COPY deploy/app/caddy/Caddyfile /etc/caddy/Caddyfile
-COPY deploy/app/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY deploy/app/php/php.ini $PHP_INI_DIR/conf.d/php.ini
+COPY deploy/app/Caddyfile /etc/frankenphp/Caddyfile
 
-RUN caddy validate --config=/etc/caddy/Caddyfile
+RUN frankenphp validate --config /etc/frankenphp/Caddyfile
 
 WORKDIR /code
 
+# Run as a non-root user that can still bind to ports 80/443
 RUN addgroup -g 1000 -S app \
   && adduser -u 1000 -S app -G app \
-  && chown app:app /code
-
-RUN apk --update --no-cache add \
-    supervisor \
-    curl \
-    curl-dev \
-    libpng-dev \
-    zlib
+  && setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/frankenphp \
+  && chown -R app:app /code /config/caddy /data/caddy
 
 USER app
-
-EXPOSE 80
-
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
 FROM base AS development
 

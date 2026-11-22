@@ -6,10 +6,12 @@ services:
             target: development
         container_name: milty-app
         restart: unless-stopped
-        tty: true
-        working_dir: /code
         ports:
             - "80:80"
             - "443:443"
         volumes:
-            - ./:/code:delegated
+            - ./:/code
+            - caddy-data:/data
+
+volumes:
+    caddy-data:

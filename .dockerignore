@@ -1,0 +1,12 @@
+.git
+.github
+.idea
+.env
+vendor
+tmp
+data/drafts
+*.log
+*.cache
+.phpunit.cache
+.DS_Store
+caddy-cert.crt

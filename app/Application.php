@@ -19,7 +19,7 @@ use App\Testing\DispatcherSpy;
 /**
  * Unsure why I did this from scratch. I was on a bit of a refactoring roll and I couldn't resist.
  */
-class Application
+final class Application
 {
     public readonly DraftRepository $repository;
     private static self $instance;

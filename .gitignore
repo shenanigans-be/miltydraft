@@ -1,13 +1,11 @@
 .env
 vendor
-composer.lock
 draft_*.json
 .beam
 clean.php
 .idea
 .DS_Store
-supervisord.log
-supervisord.pid
 tmp
 .phpunit.cache
 .php-cs-fixer.cache
+caddy-cert.crt

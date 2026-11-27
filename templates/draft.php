@@ -58,7 +58,8 @@
 
                     <?php if ($draft->canRegenerate()) : ?>
                         <p class="regen-help">
-                            Something not quite right? Untill the first draft-pick is done you can <a class="tabnav" href="#regen">regenerate the draft options</a>.
+                            Something not quite right? Until the first draft-pick is done you can <a class="tabnav" href="#regen">regenerate the draft options</a> or <a class="tabnav" href="#config">edit the config</a>.
+                            Editing the config doesn't regenerate anything, so you'll usually want to regenerate afterwards.
                         </p>
                     <?php endif; ?>
 
@@ -197,6 +198,146 @@
             </div>
             <div class="tab" id="config">
                 <div class="content-wrap">
+                    <?php if ($draft->canRegenerate()) : ?>
+                        <?php
+                            // Keleres is part of Thunder's Edge, so it can only be toggled when it's a PoK-only faction pool
+                            $keleresIsEditable = in_array(\App\TwilightImperium\Edition::PROPHECY_OF_KINGS, $draft->settings->factionSets)
+                                && ! in_array(\App\TwilightImperium\Edition::THUNDERS_EDGE, $draft->settings->factionSets);
+                        ?>
+                        <form id="config-editor" style="display: none;">
+                            <p class="regen-help">
+                                Just a reminder: you can only edit these options until the first draft-pick is done.
+                            </p>
+
+                            <h3>Players</h3>
+                            <?php foreach (array_values($draft->players) as $i => $player) : ?>
+                                <p>
+                                    <label for="player-name-<?= $player->id ?>">Player <?= $i + 1 ?>:</label>
+                                    <input type="text" id="player-name-<?= $player->id ?>" name="player_names[<?= $player->id ?>]" value="<?= htmlspecialchars($player->name) ?>" />
+                                </p>
+                            <?php endforeach; ?>
+
+                            <h3>Settings</h3>
+                            <p>
+                                <label>Number of Players:</label> <strong><?= count($draft->players) ?></strong>
+                            </p>
+                            <p>
+                                <label for="preset_draft_order">Use preset Draft Order:</label>
+                                <input type="checkbox" id="preset_draft_order" name="preset_draft_order" <?php e($draft->settings->presetDraftOrder, 'checked') ?> />
+                            </p>
+                            <p>
+                                <label for="num_slices">Number of Slices:</label>
+                                <input type="number" id="num_slices" name="num_slices" min="1" value="<?= $draft->settings->numberOfSlices ?>" />
+                            </p>
+                            <p>
+                                <label for="num_factions">Number of Factions:</label>
+                                <input type="number" id="num_factions" name="num_factions" min="1" value="<?= $draft->settings->numberOfFactions ?>" />
+                            </p>
+                            <p>
+                                <label>Faction sets included:</label> <strong><?= implode("<br />", $draft->settings->factionSetNames()) ?></strong>
+                            </p>
+                            <p>
+                                <label>Tile sets included:</label> <strong><?= implode("<br />", $draft->settings->tileSetNames()) ?></strong>
+                            </p>
+                            <?php if ($keleresIsEditable) : ?>
+                                <p>
+                                    <label for="include_keleres">Include Council Keleres:</label>
+                                    <input type="checkbox" id="include_keleres" name="include_keleres" <?php e($draft->settings->includeCouncilKeleresFaction, 'checked') ?> />
+                                </p>
+                            <?php else : ?>
+                                <input type="hidden" name="include_keleres" value="<?= $draft->settings->includeCouncilKeleresFaction ? 'on' : 'off' ?>" />
+                                <p>
+                                    <label>Include Council Keleres:</label> <strong><?= yesno($draft->settings->includeCouncilKeleresFaction) ?></strong>
+                                </p>
+                            <?php endif; ?>
+                            <p>
+                                <label for="wormholes">Minimum 2 alpha & beta wormholes:</label>
+                                <input type="checkbox" id="wormholes" name="wormholes" <?php e($draft->settings->minimumTwoAlphaAndBetaWormholes, 'checked') ?> />
+                            </p>
+                            <p>
+                                <label for="min_legendaries">Minimum amount of legendary planets:</label>
+                                <input type="number" id="min_legendaries" name="min_legendaries" min="0" value="<?= $draft->settings->minimumLegendaryPlanets ?>" />
+                            </p>
+                            <p>
+                                <label for="max_wormhole">Max. 1 wormhole per slice:</label>
+                                <input type="checkbox" id="max_wormhole" name="max_wormhole" <?php e($draft->settings->maxOneWormholesPerSlice, 'checked') ?> />
+                            </p>
+                            <hr />
+                            <p>
+                                <label for="min_inf">Minimum Optimal Influence:</label>
+                                <input type="number" id="min_inf" name="min_inf" step="0.5" min="0" value="<?= $draft->settings->minimumOptimalInfluence ?>" />
+                            </p>
+                            <p>
+                                <label for="min_res">Minimum Optimal Resources:</label>
+                                <input type="number" id="min_res" name="min_res" step="0.5" min="0" value="<?= $draft->settings->minimumOptimalResources ?>" />
+                            </p>
+                            <p>
+                                <label for="min_total">Minimum Optimal Total:</label>
+                                <input type="number" id="min_total" name="min_total" step="0.5" min="0" value="<?= $draft->settings->minimumOptimalTotal ?>" />
+                            </p>
+                            <p>
+                                <label for="max_total">Maximum Optimal Total:</label>
+                                <input type="number" id="max_total" name="max_total" step="0.5" min="0" value="<?= $draft->settings->maximumOptimalTotal ?>" />
+                            </p>
+                            <div class="custom-factions-field">
+                                <div class="custom-factions-label">
+                                    <label>Custom Factions:</label>
+                                    <div>
+                                        <a href="#" id="select-all">Select All</a> / <a href="#" id="deselect-all">Deselect All</a>
+                                    </div>
+                                </div>
+                                <div class="input-group custom-factions">
+                                    <?php foreach ($draft->settings->draftableFactions() as $faction) : ?>
+                                        <label class="check">
+                                            <input type="checkbox" name="custom_factions[]" value="<?= htmlspecialchars($faction->name) ?>" <?php e(in_array($faction->name, $draft->settings->customFactions), 'checked') ?> />
+                                            <img src="<?= url('img/factions/ti_' . $faction->id . '.png') ?>" /> <?= htmlspecialchars($faction->name) ?>
+                                        </label>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                            <p>
+                                <label for="custom_slices">Custom Slices:</label>
+                                <textarea id="custom_slices" name="custom_slices" rows="5"><?php foreach ($draft->settings->customSlices as $slice) : ?><?= htmlspecialchars(implode(', ', $slice)) ?><?= "\n" ?><?php endforeach; ?></textarea>
+                            </p>
+                            <p>
+                                <label>Seed:</label> <strong><?= $draft->settings->seed->getValue() ?></strong>
+                            </p>
+
+                            <?php if ($draft->settings->allianceMode) : ?>
+                                <hr />
+                                <h3>Alliance Configuration</h3>
+                                <p>
+                                    <label>Team Creation:</label>
+                                    <span class="inline-options">
+                                        <label><input type="radio" name="alliance_teams" value="preset" <?php e($draft->settings->allianceTeamMode == \App\TwilightImperium\AllianceTeamMode::PRESET, 'checked') ?> /> Preset</label>
+                                        <label><input type="radio" name="alliance_teams" value="random" <?php e($draft->settings->allianceTeamMode == \App\TwilightImperium\AllianceTeamMode::RANDOM, 'checked') ?> /> Random</label>
+                                    </span>
+                                </p>
+                                <p>
+                                    <label>Force Teammates Position:</label>
+                                    <span class="inline-options">
+                                        <label><input type="radio" name="alliance_teams_position" value="none" <?php e($draft->settings->allianceTeamPosition == \App\TwilightImperium\AllianceTeamPosition::NONE, 'checked') ?> /> None</label>
+                                        <label><input type="radio" name="alliance_teams_position" value="neighbors" <?php e($draft->settings->allianceTeamPosition == \App\TwilightImperium\AllianceTeamPosition::NEIGHBORS, 'checked') ?> /> Neighbors</label>
+                                        <label><input type="radio" name="alliance_teams_position" value="opposites" <?php e($draft->settings->allianceTeamPosition == \App\TwilightImperium\AllianceTeamPosition::OPPOSITES, 'checked') ?> /> Opposites</label>
+                                    </span>
+                                </p>
+                                <p>
+                                    <label>Force Team Double Picks:</label>
+                                    <span class="inline-options">
+                                        <label><input type="radio" name="force_double_picks" value="false" <?php e(! $draft->settings->allianceForceDoublePicks, 'checked') ?> /> No</label>
+                                        <label><input type="radio" name="force_double_picks" value="true" <?php e($draft->settings->allianceForceDoublePicks, 'checked') ?> /> Yes</label>
+                                    </span>
+                                </p>
+                            <?php endif; ?>
+
+                            <div class="center">
+                                <div class="help">It's recommended to regenerate after editing the options. <a class="tabnav" href="#regen">Go to Regenerate</a></div>
+                                <button type="submit" id="save-config">Save</button>
+                            </div>
+                        </form>
+                    <?php endif; ?>
+
+                    <div id="config-readonly">
                     <h3>Configuration used</h3>
 
                     <p>
@@ -268,14 +409,6 @@
                     <p>
                         <label>Seed:</label> <strong><?= $draft->settings->seed->getValue() ?></strong>
                     </p>
-                    <p>
-                        <label>Slices Generated:</label>
-                        <strong>
-                            <?php foreach ($draft->slicePool as $slice_id => $slice) : ?>
-                                <?= implode(',', $slice->tileIds()); ?><br />
-                            <?php endforeach; ?>
-                        </strong>
-                    </p>
                     <?php if ($draft->settings->allianceMode) : ?>
                         <hr />
                         <h3>Alliance Configuration</h3>
@@ -289,6 +422,16 @@
                             <label>Force Team Double Picks:</label> <strong><?= yesno($draft->settings->allianceForceDoublePicks) ?></strong>
                         </p>
                     <?php endif; ?>
+                    </div>
+
+                    <p>
+                        <label>Slices Generated:</label>
+                        <strong>
+                            <?php foreach ($draft->slicePool as $slice_id => $slice) : ?>
+                                <?= implode(',', $slice->tileIds()); ?><br />
+                            <?php endforeach; ?>
+                        </strong>
+                    </p>
                 </div>
             </div>
             <div class="tab" id="map">
@@ -438,7 +581,8 @@
             "tile_images": "<?= url('img/tiles') ?>",
             "data": "<?= url('api/draft/' . $draft->id) ?>",
             "undo": "<?= url('api/undo') ?>",
-            "restore": "<?= url('api/restore') ?>"
+            "restore": "<?= url('api/restore') ?>",
+            "settings": "<?= url('api/settings') ?>"
         }
     </script>
     <script src="<?= asset_url('js/vendor.js') ?>"></script>

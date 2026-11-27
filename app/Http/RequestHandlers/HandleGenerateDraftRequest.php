@@ -12,12 +12,12 @@ use App\Draft\Settings;
 use App\Http\HttpRequest;
 use App\Http\HttpResponse;
 use App\Http\RequestHandler;
-use App\TwilightImperium\AllianceTeamMode;
-use App\TwilightImperium\AllianceTeamPosition;
 use App\TwilightImperium\Edition;
 
 class HandleGenerateDraftRequest extends RequestHandler
 {
+    use ReadsDraftSettings;
+
     private Settings $settings;
 
     public function __construct(HttpRequest $request)
@@ -54,44 +54,16 @@ class HandleGenerateDraftRequest extends RequestHandler
 
         $allianceMode = (bool) $this->request->get('alliance_on', false);
 
-        $customSlices = [];
-        if ($this->request->get('custom_slices', '') != '') {
-            $sliceData = explode("\n", $this->request->get('custom_slices'));
-            foreach ($sliceData as $s) {
-                $slice = [];
-                $t = explode(',', $s);
-                foreach ($t as $tile) {
-                    $tile = ltrim(trim($tile), '0');
-                    $slice[] = $tile;
-                }
-                $customSlices[] = $slice;
-            }
-        }
-
-        return new Settings(
-            $playerNames,
-            $this->request->get('preset_draft_order') == 'on',
-            new Name($this->request->get('game_name')),
-            new Seed($this->request->get('seed') != null ? (int) $this->request->get('seed') : null),
-            (int) $this->request->get('num_slices'),
-            (int) $this->request->get('num_factions'),
-            $this->tileSetsFromRequest(),
-            $this->factionSetsFromRequest(),
-            $this->request->get('include_keleres') == 'on',
-            $this->request->get('wormholes') == 'on',
-            $this->request->get('max_wormhole') == 'on',
-            (int) $this->request->get('min_legendaries'),
-            (float) $this->request->get('min_inf'),
-            (float) $this->request->get('min_res'),
-            (float) $this->request->get('min_total'),
-            (float) $this->request->get('max_total'),
-            $this->request->get('custom_factions') ?? [],
-            $customSlices,
-            $allianceMode,
-            $allianceMode ? AllianceTeamMode::from($this->request->get('alliance_teams')) : null,
-            $allianceMode ? AllianceTeamPosition::from($this->request->get('alliance_teams_position')) : null,
-            $allianceMode ? $this->request->get('force_double_picks') == 'on' : null,
-        );
+        return new Settings(...[
+            'playerNames' => $playerNames,
+            'name' => new Name($this->request->get('game_name')),
+            'seed' => new Seed($this->request->get('seed') != null ? (int) $this->request->get('seed') : null),
+            'tileSets' => $this->tileSetsFromRequest(),
+            'factionSets' => $this->factionSetsFromRequest(),
+            'allianceMode' => $allianceMode,
+            ...$this->draftOptionsFromRequest(),
+            ...$this->allianceOptionsFromRequest($allianceMode),
+        ]);
     }
 
     protected function tileSetsFromRequest()

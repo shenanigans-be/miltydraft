@@ -8,6 +8,8 @@ use App\Draft\Exceptions\InvalidDraftSettingsException;
 use App\TwilightImperium\AllianceTeamMode;
 use App\TwilightImperium\AllianceTeamPosition;
 use App\TwilightImperium\Edition;
+use App\TwilightImperium\Faction;
+use App\TwilightImperium\Tile;
 
 /**
  * @todo This class is friggin huge. We could sepatate all the validators into their own class
@@ -58,6 +60,19 @@ class Settings
 
     public function includesTileSet(Edition $e): bool {
         return in_array($e, $this->tileSets);
+    }
+
+    /**
+     * @return array<string, Faction>
+     */
+    public function draftableFactions(): array
+    {
+        return array_filter(
+            Faction::all(),
+            fn (Faction $faction) =>
+                in_array($faction->edition, $this->factionSets) ||
+                $faction->name == 'The Council Keleres' && $this->includeCouncilKeleresFaction,
+        );
     }
 
     public function toArray()
@@ -116,6 +131,7 @@ class Settings
         $this->validatePlayers();
         $this->validateTiles();
         $this->validateFactions();
+        $this->validateCustomFactions();
         $this->validateCustomSlices();
 
         return true;
@@ -195,15 +211,32 @@ class Settings
         }
     }
 
+    protected function validateCustomFactions(): void
+    {
+        $draftable = array_keys($this->draftableFactions());
+
+        foreach ($this->customFactions as $name) {
+            if (! in_array($name, $draftable, true)) {
+                throw InvalidDraftSettingsException::customFactionNotInSets($name);
+            }
+        }
+    }
+
     protected function validateCustomSlices(): bool
     {
         if (! empty($this->customSlices)) {
             if (count($this->customSlices) < count($this->playerNames)) {
                 throw InvalidDraftSettingsException::notEnoughCustomSlices();
             }
+            $tiles = Tile::all();
             foreach ($this->customSlices as $s) {
                 if (count($s) != 5) {
                     throw InvalidDraftSettingsException::invalidCustomSlices();
+                }
+                foreach ($s as $tileId) {
+                    if (! isset($tiles[$tileId])) {
+                        throw InvalidDraftSettingsException::unknownTileInCustomSlice($tileId);
+                    }
                 }
             }
         }

@@ -13,12 +13,9 @@ use App\TwilightImperium\Faction;
  */
 class GenerateFactionPool implements Command
 {
-    private readonly array $factionData;
-
     public function __construct(
         private readonly Settings $settings,
     ) {
-        $this->factionData = Faction::all();
     }
 
     /**
@@ -54,11 +51,6 @@ class GenerateFactionPool implements Command
 
     private function gatherFactionsFromSelectedSets(): array
     {
-        return array_filter(
-            $this->factionData,
-            fn (Faction $faction) =>
-                in_array($faction->edition, $this->settings->factionSets) ||
-                $faction->name == 'The Council Keleres' && $this->settings->includeCouncilKeleresFaction,
-        );
+        return $this->settings->draftableFactions();
     }
 }

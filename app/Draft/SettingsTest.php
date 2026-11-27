@@ -301,6 +301,60 @@ class SettingsTest extends TestCase
         $draft->validate();
     }
 
+    #[Test]
+    public function itValidatesCustomSlicesContainKnownTiles(): void {
+        $draft = DraftSettingsFactory::make([
+            'numberOfPlayers' => 3,
+            'customSlices' => [
+                ['1', '2', '3', '4', '999'],
+                ['1', '2', '3', '4', '5'],
+                ['1', '2', '3', '4', '5'],
+            ],
+        ]);
+
+        $this->expectException(InvalidDraftSettingsException::class);
+        $this->expectExceptionMessage(InvalidDraftSettingsException::unknownTileInCustomSlice('999')->getMessage());
+
+        $draft->validate();
+    }
+
+    #[Test]
+    public function itValidatesCustomFactionsAreInTheFactionSets(): void {
+        $draft = DraftSettingsFactory::make([
+            'factionSets' => [Edition::BASE_GAME],
+            'customFactions' => ['The Mahact Gene-sorcerers'],
+        ]);
+
+        $this->expectException(InvalidDraftSettingsException::class);
+        $this->expectExceptionMessage(InvalidDraftSettingsException::customFactionNotInSets('The Mahact Gene-sorcerers')->getMessage());
+
+        $draft->validate();
+    }
+
+    #[Test]
+    public function itListsDraftableFactionsFromTheSelectedSets(): void {
+        $draft = DraftSettingsFactory::make([
+            'factionSets' => [Edition::PROPHECY_OF_KINGS],
+            'includeCouncilKeleresFaction' => false,
+        ]);
+
+        $names = array_keys($draft->draftableFactions());
+
+        $this->assertContains('The Mahact Gene-sorcerers', $names);
+        $this->assertNotContains('The Mentak Coalition', $names);
+        $this->assertNotContains('The Council Keleres', $names);
+    }
+
+    #[Test]
+    public function itIncludesKeleresInDraftableFactionsWhenSelected(): void {
+        $draft = DraftSettingsFactory::make([
+            'factionSets' => [Edition::PROPHECY_OF_KINGS],
+            'includeCouncilKeleresFaction' => true,
+        ]);
+
+        $this->assertContains('The Council Keleres', array_keys($draft->draftableFactions()));
+    }
+
     #[DataProviderExternal(TestDrafts::class, 'provideTestDrafts')]
     #[Test]
     public function itCanBeInstantiatedFromJson($data): void {

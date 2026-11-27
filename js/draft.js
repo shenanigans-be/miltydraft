@@ -29,6 +29,16 @@ $(document).ready(function () {
         $(this).parents('.popup').removeClass('open');
     })
 
+    $('#select-all').on('click', function (e) {
+        e.preventDefault();
+        $('#config-editor .custom-factions input[type="checkbox"]').prop('checked', true);
+    });
+
+    $('#deselect-all').on('click', function (e) {
+        e.preventDefault();
+        $('#config-editor .custom-factions input[type="checkbox"]').prop('checked', false);
+    });
+
     $('.open-reference').on('click', function (e) {
         e.preventDefault();
 
@@ -198,6 +208,35 @@ $(document).ready(function () {
                     }
                 });
             });
+
+            $('#config-editor').on('submit', function (e) {
+                e.preventDefault();
+                loading();
+
+                let data = $(this).serializeArray();
+                data.push({ name: 'id', value: draft.id }, { name: 'admin', value: localStorage.getItem('admin_' + draft.id) });
+
+                $.ajax({
+                    type: 'POST',
+                    url: window.routes.settings,
+                    dataType: 'json',
+                    data: data,
+                    success: function () {
+                        window.location.hash = 'config';
+                        window.location.reload();
+                    },
+                    error: function (xhr) {
+                        let message = (xhr.responseJSON && xhr.responseJSON.error) || 'Could not save the settings.';
+                        $('#error-message').text(message);
+                        $('#error-popup').show();
+                        loading(false);
+                    }
+                });
+            });
+
+            if (draft.draft.log.length == 0) {
+                show_config_editor();
+            }
         }
 
 
@@ -547,6 +586,19 @@ function session_status() {
 function hide_regen() {
     $('#tabs nav a[href="#regen"]').hide();
     $('.regen-help').hide();
+    hide_config_editor();
+}
+
+function show_config_editor() {
+    if ($('#config-editor').length == 0) return;
+
+    $('#config-readonly').hide();
+    $('#config-editor').show();
+}
+
+function hide_config_editor() {
+    $('#config-editor').hide();
+    $('#config-readonly').show();
 }
 
 function ordinal(number) {

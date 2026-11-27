@@ -245,6 +245,39 @@ class HandleGenerateDraftRequestTest extends RequestHandlerTestCase
             'expected' => true,
             'expectedWhenNotSet' => null,
         ];
+        yield 'Alliance Force double picks (radio button yes)' => [
+            'postData' => [
+                'alliance_on' => true,
+                'force_double_picks' => 'true',
+                'alliance_teams' => 'random',
+                'alliance_teams_position' => 'neighbors',
+            ],
+            'field' => 'allianceForceDoublePicks',
+            'expected' => true,
+            'expectedWhenNotSet' => null,
+        ];
+        yield 'Alliance Force double picks (radio button no)' => [
+            'postData' => [
+                'alliance_on' => true,
+                'force_double_picks' => 'false',
+                'alliance_teams' => 'random',
+                'alliance_teams_position' => 'neighbors',
+            ],
+            'field' => 'allianceForceDoublePicks',
+            'expected' => false,
+            'expectedWhenNotSet' => null,
+        ];
+        yield 'Custom Slices ignoring blank lines' => [
+            'postData' => [
+                'custom_slices' => "1,2,3,4,5\n\n6,7,8,9,10\r\n",
+            ],
+            'field' => 'customSlices',
+            'expected' => [
+                ['1', '2', '3', '4', '5'],
+                ['6', '7', '8', '9', '10'],
+            ],
+            'expectedWhenNotSet' => [],
+        ];
     }
 
     #[Test]
